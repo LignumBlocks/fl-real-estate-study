@@ -153,8 +153,9 @@
 <div class="login-overlay" id="loginOverlay">
     <div class="login-box">
         <h2>📐 FL Real Estate</h2>
-        <p>Ingresa tu nombre para guardar tu progreso</p>
-        <input id="loginInput" placeholder="Tu nombre..." onkeydown="if(event.key==='Enter')doLogin()">
+        <p>Ingresa tu nombre y crea una contraseña para guardar tu progreso de forma segura en este dispositivo.</p>
+        <input id="loginInput" placeholder="Tu nombre..." autocomplete="username">
+        <input id="loginPass" type="password" placeholder="Tu contraseña..." autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
         <button onclick="doLogin()">Comenzar →</button>
     </div>
 </div>
@@ -722,7 +723,20 @@ function goPrev(){if(probIdx>0){window.speechSynthesis.cancel();probIdx--;render
 let currentUser = null;
 function doLogin(){
     const name = document.getElementById('loginInput').value.trim();
-    if(!name) return;
+    const pass = document.getElementById('loginPass').value.trim();
+    if (!name || !pass) {
+        alert("Por favor, ingresa tu nombre y una contraseña.");
+        return;
+    }
+    
+    // Basic verification if user exists
+    const savedPass = localStorage.getItem('fl_pass_' + name);
+    if (savedPass && savedPass !== pass) {
+        alert("Contraseña incorrecta para el usuario " + name);
+        return;
+    }
+    if (!savedPass) localStorage.setItem('fl_pass_' + name, pass);
+
     currentUser = name;
     localStorage.setItem('fl_user', name);
     document.getElementById('loginOverlay').style.display = 'none';
@@ -738,6 +752,7 @@ function logoutUser(){
     document.getElementById('loginOverlay').style.display = 'flex';
     document.getElementById('userBadge').style.display = 'none';
     document.getElementById('loginInput').value = '';
+    document.getElementById('loginPass').value = '';
 }
 function saveMathProgress(){
     if(!currentUser) return;
