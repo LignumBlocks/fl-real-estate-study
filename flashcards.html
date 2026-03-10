@@ -363,7 +363,7 @@ const ALL_CARDS = [
     // ── LICENCIA ──
     { cat:"Licencia", q:"¿Requisitos para licencia de Sales Associate en Florida?", a:"1. <strong>18 años</strong>. 2. SSN. 3. Curso de <strong>63 horas</strong>. 4. Aprobar examen estatal. 5. Verificación de antecedentes (fingerprints)." },
     { cat:"Licencia", q:"¿Horas de educación continua para renovar?", a:"<strong>14 horas</strong> cada 2 años. Incluye <strong>3 horas Core Law</strong> + <strong>3 horas Ethics</strong>." },
-    { cat:"Licencia", q:"¿Qué es la FREC?", a:"Florida Real Estate Commission. Parte del DBPR. <strong>7 miembros</strong>: 4 licenciados + 2 consumidores + 1 broker." },
+    { cat:"Licencia", q:"¿Qué es la FREC?", a:"Florida Real Estate Commission. Parte del DBPR. <strong>7 miembros</strong>: 4 brokers con 5+ años, 1 broker o asociado con 2+ años, y 2 consumidores (sin licencia)." },
     { cat:"Licencia", q:"¿Qué pasa si ejerces sin licencia?", a:"<strong>Felony de tercer grado</strong>. Hasta <strong>$5,000</strong> multa y <strong>5 años</strong> prisión." },
     { cat:"Licencia", q:"¿Qué es 'Involuntarily Inactive'?", a:"No renovó a tiempo. Tiene <strong>2 años</strong> para reactivar. Después → <strong>null and void</strong>." },
 
@@ -372,7 +372,7 @@ const ALL_CARDS = [
     { cat:"Propiedad", q:"¿Restricciones gubernamentales sobre la propiedad? (PETE)", a:"<strong>P</strong>olice Power (zoning) · <strong>E</strong>minent Domain (expropiación) · <strong>T</strong>axation · <strong>E</strong>scheat." },
     { cat:"Propiedad", q:"¿Restricciones privadas? (DELL)", a:"<strong>D</strong>eed restrictions · <strong>E</strong>asements · <strong>L</strong>eases · <strong>L</strong>iens." },
     { cat:"Propiedad", q:"Florida sigue Lien Theory. ¿Qué significa?", a:"El <strong>prestatario retiene el título</strong>. El prestamista solo tiene un <strong>lien (gravamen)</strong> como garantía." },
-    { cat:"Propiedad", q:"¿Qué es la Homestead Exemption?", a:"1. Exime <strong>$50,000</strong> del valor tasado. 2. Protege contra ejecución forzosa (excepto impuestos, hipoteca, mechanic's liens). 3. Requiere <strong>consentimiento del cónyuge</strong> para vender." },
+    { cat:"Propiedad", q:"¿Qué es la Homestead Exemption?", a:"Exime <strong>$50,000</strong> del valor tasado (primeros $25K aplican a todo; segundos $25K <strong>NO aplican a school board taxes</strong>). Protege contra ejecución forzosa (excepto impuestos, hipoteca, mechanic's liens). Requiere <strong>consentimiento del cónyuge</strong>." },
     { cat:"Propiedad", q:"¿Qué es un General Warranty Deed?", a:"La escritura con <strong>mayor protección</strong> al comprador. Garantiza: título legítimo, puede transferir, sin gravámenes ocultos, defenderá contra reclamos." },
     { cat:"Propiedad", q:"¿Qué es Tenancy by the Entireties?", a:"Copropiedad <strong>exclusiva para parejas casadas</strong>. Incluye <strong>derecho de supervivencia</strong>. Ninguno puede vender sin el otro." },
 
@@ -404,7 +404,7 @@ const ALL_CARDS = [
     { cat:"Tasación", q:"¿Qué es el GIM?", a:"<strong>GIM = Precio ÷ Renta Bruta Anual</strong>. Estima rápidamente valor de propiedades de inversión." },
 
     // ── CIERRE ──
-    { cat:"Cierre", q:"¿Cuáles son los impuestos documentales en Florida?", a:"1. <strong>Deed</strong>: $0.70/$100 precio (redondear ↑). 2. <strong>Note</strong>: $0.35/$100 préstamo (redondear ↑). 3. <strong>Intangible</strong>: $0.002 × préstamo NUEVO (sin redondeo)." },
+    { cat:"Cierre", q:"¿Cuáles son los impuestos documentales en Florida?", a:"1. <strong>Deed</strong>: $0.70/$100 precio (redondear ↑). <strong>Excepción</strong>: Miami-Dade = <strong>$0.60/$100</strong>. 2. <strong>Note</strong>: $0.35/$100 préstamo (redondear ↑). 3. <strong>Intangible</strong>: $0.002 × préstamo NUEVO (sin redondeo)." },
     { cat:"Cierre", q:"¿Cómo se calculan prorrateos al cierre?", a:"1. Costo anual. 2. ÷ 365 = tasa diaria. 3. × días del vendedor. El vendedor paga los <strong>días que usó</strong>." },
     { cat:"Cierre", q:"¿Quién paga qué impuesto documental?", a:"<strong>Vendedor</strong>: Doc Stamps on Deed. <strong>Comprador</strong>: Doc Stamps on Note + Intangible. Es <strong>negociable</strong>." },
 
@@ -451,6 +451,13 @@ const ALL_CARDS = [
     { cat:"Sanciones", q:"¿Qué es un 'Notice of Noncompliance' del DBPR?", a:"Un aviso para una <strong>primera ofensa de violación menor</strong> que no causa daño económico/físico ni afecta negativamente la salud, seguridad o bienestar públicos." },
     { cat:"Licencia", q:"¿Pueden los 'residential loan alternative agreements' poner un lien sobre propiedad residential?", a:"<strong>No.</strong> Estos acuerdos <strong>no pueden autorizar</strong> a una persona a colocar un lien o gravar de otra forma una propiedad residencial." },
     { cat:"Licencia", q:"¿Pueden los sales associates operar bajo un nombre ficticio (trade name)?", a:"<strong>No.</strong> Deben registrarse y operar estrictamente bajo su <strong>nombre legal</strong>. Solo los brokers pueden usar nombres ficticios." },
+
+    // ── TRICKY EXAM QUESTIONS ──
+    { cat:"Financiamiento", q:"TRICKY: ¿Los Discount Points se calculan sobre el precio de venta o el monto del préstamo?", a:"Siempre sobre el <strong>monto del préstamo (loan amount)</strong>, NUNCA sobre el precio de venta. 1 punto = <strong>1%</strong> del préstamo." },
+    { cat:"Contratos", q:"TRICKY: ¿Cuál es la diferencia entre Statute of Frauds y Statute of Limitations?", a:"<strong>Statute of Frauds</strong>: Exige contratos <strong>por escrito</strong> para ser ejecutables. <strong>Statute of Limitations</strong>: Plazos para demandar — <strong>5 años</strong> contratos escritos, <strong>4 años</strong> contratos orales." },
+    { cat:"Corretaje", q:"TRICKY: ¿Transaction Broker es lo mismo que Dual Agent?", a:"<strong>NO.</strong> Transaction Broker es la relación <strong>por defecto</strong> en FL (legal). Dual Agency está <strong>prohibida</strong>. El TB facilita la transacción sin representar a ninguna parte como fiduciario." },
+    { cat:"Propiedad", q:"TRICKY: Si el landlord guarda el depósito de seguridad (no un broker), ¿qué opciones tiene?", a:"3 opciones: 1. Cuenta <strong>separada sin intereses</strong>. 2. Cuenta <strong>con intereses</strong> (75% al inquilino o 5% simple anual). 3. <strong>Surety bond</strong> (fianza)." },
+    { cat:"Corretaje", q:"TRICKY: ¿La regla 1-3 de depósito de escrow?", a:"El asociado tiene <strong>1 día hábil</strong> para entregar el depósito al broker. El broker tiene hasta el <strong>3er día hábil</strong> (contado desde que el asociado lo recibió) para depositarlo en escrow." },
 ];
 
 let deck = [...ALL_CARDS];
