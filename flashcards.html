@@ -676,28 +676,17 @@ let answered = new Set();
 let wrongSet = new Set();
 let activeCategory = "Todas";
 
-const questionVariations = [
-    "Considera este escenario: ",
-    "Analiza la siguiente situación: ",
-    "Pregunta de repaso: ",
-    "Un caso práctico: ",
-    "Presta atención al siguiente caso: ",
-    "Evalúa lo siguiente: ",
-    "Escenario de examen: ",
-    "Situación hipotética: "
-];
+const questionVariations = []; // Removed so we don't apply prefixes
 
-function applyVariationsToDeck() {
-    deck = ALL_CARDS.map((card, i) => {
-        let newCard = { ...card, opts: [...card.opts] };
-        if (!newCard.q.includes("TRICKY") && Math.random() > 0.3) {
-            let prefix = questionVariations[Math.floor(Math.random() * questionVariations.length)];
-            if (!questionVariations.some(v => newCard.q.startsWith(v))) {
-                 newCard.q = prefix + newCard.q.charAt(0).toLowerCase() + newCard.q.slice(1);
-            }
-        }
-        return newCard;
-    });
+function initDeck() {
+    deck = ALL_CARDS.map(card => ({
+        ...card,
+        opts: [...card.opts] // Deep copy to prevent mutating ALL_CARDS
+    }));
+
+    if (activeCategory !== "Todas") {
+        deck = deck.filter(c => c.cat === activeCategory);
+    }
 
     // Shuffle both the order of questions AND the ABCD options immediately
     for (let i = deck.length - 1; i > 0; i--) {
@@ -706,7 +695,7 @@ function applyVariationsToDeck() {
     }
     deepShuffleCards(deck);
 }
-applyVariationsToDeck();
+initDeck();
 
 const categories = ["Todas", ...new Set(ALL_CARDS.map(c => c.cat))];
 const catBar = document.getElementById('catBar');
@@ -722,8 +711,7 @@ function filterByCategory(cat) {
     activeCategory = cat;
     document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.textContent === cat));
     document.getElementById('modeLabel').textContent = cat;
-    applyVariationsToDeck();
-    deck = cat === "Todas" ? deck : deck.filter(c => c.cat === cat);
+    initDeck();
     idx = 0; answered.clear(); wrongSet.clear();
     stats = { correct: 0, wrong: 0 };
     render();
@@ -751,7 +739,7 @@ function render() {
                 if (sel === i) cls += ' wrong answered-selected';
             }
         }
-        return `<button class="${cls}" onclick="selectAnswer(${i})" ${isAnswered ? 'disabled' : ''}>
+        return `<button class="${cls}" onclick="selectAnswer(${i})">
             <span class="opt-letter">${letters[i]}</span>
             <span class="opt-text">${opt}</span>
         </button>`;
@@ -767,7 +755,7 @@ function render() {
             optsHTML = optsHTML.replace(/class="opt-btn answered"/, 'class="opt-btn answered correct"');
         }
     }
-    optsHTML += `<button class="${dkCls}" onclick="selectAnswer(-1)" ${isAnswered ? 'disabled' : ''} style="margin-top:12px; background:var(--surface-2); border-color:var(--border); color:var(--text-dim); text-align:center; padding:12px;">
+    optsHTML += `<button class="${dkCls}" onclick="selectAnswer(-1)" style="margin-top:12px; background:var(--surface-2); border-color:var(--border); color:var(--text-dim); text-align:center; padding:12px;">
         <span class="opt-text" style="width:100%; text-align:center; font-weight:600;">🤷‍♂️ No sé la respuesta (Saltar)</span>
     </button>`;
 
@@ -830,16 +818,29 @@ function showResults() {
 }
 
 function selectAnswer(selected) {
-    if (answered.has(idx)) return;
+    const isFirstTime = !answered.has(idx);
+    const prevSelected = deck[idx]._selected;
+    
+    // If they change their answer, we revert their old stats
+    if (!isFirstTime && prevSelected !== undefined) {
+        if (prevSelected === deck[idx].correct) {
+            stats.correct--;
+        } else {
+            stats.wrong--;
+        }
+    }
+
     answered.add(idx);
     deck[idx]._selected = selected;
 
     if (selected === deck[idx].correct) {
         stats.correct++;
+        wrongSet.delete(idx); // Clear from wrongs if they corrected it
     } else {
         stats.wrong++;
         wrongSet.add(idx);
     }
+    
     render();
     saveProgress();
 }
@@ -925,8 +926,7 @@ function deepShuffleCards(cardsArray) {
 }
 
 function shuffleDeck() {
-    applyVariationsToDeck();
-    if (activeCategory !== "Todas") deck = deck.filter(c => c.cat === activeCategory);
+    initDeck();
     idx = 0; answered.clear(); wrongSet.clear(); stats = { correct: 0, wrong: 0 };
     deck.forEach(c => delete c._selected);
     saveProgress();
@@ -934,9 +934,7 @@ function shuffleDeck() {
 }
 
 function resetProgress() {
-    applyVariationsToDeck();
-    if (activeCategory !== "Todas") deck = deck.filter(c => c.cat === activeCategory);
-    
+    initDeck();
     idx = 0; answered.clear(); wrongSet.clear(); stats = { correct: 0, wrong: 0 };
     saveProgress();
     render();
@@ -952,15 +950,6 @@ function showOnlyWrong() {
         [wrongs[i], wrongs[j]] = [wrongs[j], wrongs[i]];
     }
     deepShuffleCards(wrongs);
-    
-    // Apply variations to mistakes
-    wrongs.forEach(card => {
-        card.q = card.q.replace(/^(Considera este escenario: |Analiza la siguiente situación: |Pregunta de repaso: |Un caso práctico: |Presta atención al siguiente caso: |Evalúa lo siguiente: |Escenario de examen: |Situación hipotética: )/i, '');
-        if (!card.q.includes("TRICKY") && Math.random() > 0.3) {
-            let prefix = questionVariations[Math.floor(Math.random() * questionVariations.length)];
-            card.q = prefix + card.q.charAt(0).toLowerCase() + card.q.slice(1);
-        }
-    });
 
     deck = wrongs;
     idx = 0; answered.clear(); wrongSet.clear(); stats = { correct: 0, wrong: 0 };

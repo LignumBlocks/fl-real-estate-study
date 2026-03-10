@@ -647,7 +647,14 @@ function selectCat(cat){
     if(window.speechSynthesis) window.speechSynthesis.cancel();
     currentCat=cat;
     document.querySelectorAll('.cat-chip').forEach(c=>c.classList.toggle('active',c.textContent.includes(cat)));
-    currentProblems=cat==="Todos"?[...PROBLEMS]:PROBLEMS.filter(p=>p.cat===cat);
+    
+    let source = cat==="Todos" ? PROBLEMS : PROBLEMS.filter(p=>p.cat===cat);
+    currentProblems = source.map(p => {
+        let newP = { ...p, steps: p.steps.map(s => ({...s})) };
+        if (p.examOpts) newP.examOpts = [...p.examOpts];
+        return newP;
+    });
+
     probIdx=0;
     renderProblem();
 }
@@ -684,7 +691,7 @@ function renderProblem(){
                 if (i === prob.correctOptIdx) cls += ' correct';
                 else if (i === localExamState.selected) cls += ' wrong';
             }
-            return `<button class="${cls}" onclick="selectMathOpt(${probIdx}, ${i})" ${localExamState.answered ? 'disabled' : ''}>${o}</button>`;
+            return `<button class="${cls}" onclick="selectMathOpt(${probIdx}, ${i})">${o}</button>`;
         }).join('')}
 
         <!-- Botón Saltar -->
@@ -693,7 +700,7 @@ function renderProblem(){
             if (localExamState.answered) {
                 if (localExamState.selected === -1) dkCls += ' wrong';
             }
-            return `<button class="${dkCls}" onclick="selectMathOpt(${probIdx}, -1)" ${localExamState.answered ? 'disabled' : ''} style="margin-top:10px; background:var(--surface-2); border-color:var(--border); color:var(--text-dim); text-align:center;">🤷‍♂️ No sé la respuesta</button>`;
+            return `<button class="${dkCls}" onclick="selectMathOpt(${probIdx}, -1)" style="margin-top:10px; background:var(--surface-2); border-color:var(--border); color:var(--text-dim); text-align:center;">🤷‍♂️ No sé la respuesta</button>`;
         })()}
         </div>`;
     }
@@ -722,8 +729,28 @@ function renderProblem(){
 
 function selectMathOpt(pIdx, optIdx) {
     let p = currentProblems[pIdx];
-    if ((p.examState || {}).answered) return;
+    
+    const localExamState = p.examState || {};
+    const isFirstTime = !localExamState.answered;
+    const prevSelected = localExamState.selected;
+    
+    if (!isFirstTime && prevSelected !== undefined) {
+        if (prevSelected === p.correctOptIdx) {
+            stats.correct--;
+        } else {
+            stats.wrong--;
+        }
+    }
+
     p.examState = { answered: true, selected: optIdx };
+    
+    // Always calculate against correctOptIdx, since -1 will never match it
+    if (optIdx === p.correctOptIdx) {
+        stats.correct++;
+    } else {
+        stats.wrong++;
+    }
+
     renderProblem();
     saveMathProgress();
 }
@@ -868,21 +895,31 @@ function deepShuffleMathCards(cardsArray) {
 }
 
 function shuffleMathDeck() {
+    let source = currentCat === "Todos" ? PROBLEMS : PROBLEMS.filter(c => c.cat === currentCat);
+    currentProblems = source.map(p => {
+        let newP = { ...p, steps: p.steps.map(s => ({...s})) };
+        if (p.examOpts) newP.examOpts = [...p.examOpts];
+        return newP;
+    });
+
     deepShuffleArr(currentProblems);
     deepShuffleMathCards(currentProblems);
     probIdx = 0; stats = { correct: 0, wrong: 0 };
-    currentProblems.forEach(p => { delete p.examState; p.steps.forEach(s => delete s.inputVal); });
     saveMathProgress();
     renderProblem();
 }
 
 function resetMathProgress() {
-    currentProblems = currentCat === "Todos" ? [...PROBLEMS] : PROBLEMS.filter(c => c.cat === currentCat);
+    let source = currentCat === "Todos" ? PROBLEMS : PROBLEMS.filter(c => c.cat === currentCat);
+    currentProblems = source.map(p => {
+        let newP = { ...p, steps: p.steps.map(s => ({...s})) };
+        if (p.examOpts) newP.examOpts = [...p.examOpts];
+        return newP;
+    });
     deepShuffleArr(currentProblems);
     deepShuffleMathCards(currentProblems);
     
     probIdx = 0; stats = { correct: 0, wrong: 0 };
-    currentProblems.forEach(p => { delete p.examState; p.steps.forEach(s => delete s.inputVal); });
     saveMathProgress();
     renderProblem();
 }
