@@ -222,8 +222,8 @@ document.addEventListener('keydown', e => {
 const PROBLEMS = [
     // DOC STAMPS ON DEED
     { cat:"Doc Stamps", title:"Sellos en Escritura",
-      examQ:'A property sold for $385,000. What is the amount of documentary stamp tax on the deed?',
-      examOpts:['$2,695.00','$1,347.50','$2,450.00','$770.00'],
+      examQ:'A residential property was conveyed for a consideration of $385,000. What amount of documentary stamp tax is due on the deed at the time of recording?',
+      examOpts:['$2,695.00','$1,347.50','$2,695.50','$770.00'],
       statement:'Propiedad vendida por <span class="highlight">$385,000</span>. ¿Doc Stamps on Deed?',
       formula:'<strong>Deed:</strong> Precio ÷ 100 → redondear ↑ → × $0.70',
       steps:[
@@ -231,7 +231,7 @@ const PROBLEMS = [
         {label:"Paso 2",instruction:'Multiplica por $0.70:<br><code>3,850 × $0.70 = ?</code>',answer:2695,hint:"3850×0.70=2695"}
     ]},
     { cat:"Doc Stamps", title:"Deed (con redondeo)",
-      examQ:'A home is sold for $247,350. How much is owed in documentary stamps on the deed?',
+      examQ:'A single-family home closed for $247,350. Which of the following MOST accurately represents the documentary stamp tax due on the deed?',
       examOpts:['$1,731.80','$1,731.45','$1,731.50','$1,732.50'],
       statement:'Casa vendida por <span class="highlight">$247,350</span>. ¿Doc Stamps on Deed?',
       formula:'<strong>Deed:</strong> Precio ÷ 100 → REDONDEAR ↑ al entero → × $0.70',
@@ -241,7 +241,7 @@ const PROBLEMS = [
         {label:"Paso 3",instruction:'Multiplica por $0.70:<br><code>2,474 × $0.70 = ?</code>',answer:1731.80,tolerance:0.01,hint:"2474×0.70=1731.80"}
     ]},
     { cat:"Doc Stamps", title:"Deed (irregular)",
-      examQ:'A residential property sells for $512,775. Calculate the documentary stamp tax on the deed.',
+      examQ:'A seller conveys property for $512,775. The documentary stamp tax on the deed is CLOSEST to which amount? (Remember: stamps are calculated per $100 or fraction thereof)',
       examOpts:['$3,589.60','$3,589.43','$3,589.00','$3,590.30'],
       statement:'Venta por <span class="highlight">$512,775</span>. ¿Stamps on deed?',
       formula:'Precio ÷ 100 → Redondear ↑ → × $0.70',
@@ -252,7 +252,7 @@ const PROBLEMS = [
     ]},
     // DOC STAMPS ON NOTE
     { cat:"Doc Stamps", title:"Sellos en Pagaré",
-      examQ:'A buyer obtains a new mortgage for $320,000. What is the documentary stamp tax on the promissory note?',
+      examQ:'A buyer executes a promissory note for a NEW mortgage of $320,000. What documentary stamp tax is due on the NOTE? (Note: Do NOT confuse with deed stamps)',
       examOpts:['$1,120.00','$2,240.00','$640.00','$1,600.00'],
       statement:'Préstamo de <span class="highlight">$320,000</span>. ¿Doc Stamps on Note?',
       formula:'<strong>Note:</strong> Préstamo ÷ 100 → redondear ↑ → × $0.35',
@@ -261,8 +261,8 @@ const PROBLEMS = [
         {label:"Paso 2",instruction:'<code>3,200 × $0.35 = ?</code>',answer:1120,hint:"3200×0.35=1120"}
     ]},
     { cat:"Doc Stamps", title:"Note (redondeo)",
-      examQ:'A borrower takes a mortgage loan for $189,450. What are the documentary stamps due on the note?',
-      examOpts:['$663.25','$663.08','$662.58','$663.58'],
+      examQ:'A mortgage loan of $189,450 is given. What is the documentary stamp tax on the promissory note? (Hint: the rate on the note is NOT the same as the deed)',
+      examOpts:['$663.25','$663.08','$1,326.50','$663.58'],
       statement:'Préstamo de <span class="highlight">$189,450</span>. ¿Stamps on note?',
       formula:'Note: Préstamo ÷ 100 → Redondear ↑ → × $0.35',
       steps:[
@@ -272,22 +272,22 @@ const PROBLEMS = [
     ]},
     // INTANGIBLE TAX
     { cat:"Intangible Tax", title:"Impuesto Intangible",
-      examQ:'A buyer finances a NEW mortgage of $275,000. What is the nonrecurring intangible tax due?',
-      examOpts:['$550.00','$192.50','$275.00','$1,100.00'],
+      examQ:'A buyer obtains a NEW first mortgage of $275,000. What nonrecurring intangible tax is owed? (Note: This tax applies ONLY to new obligations, not assumed mortgages)',
+      examOpts:['$550.00','$192.50','$96.25','$1,925.00'],
       statement:'Préstamo NUEVO de <span class="highlight">$275,000</span>. ¿Intangible Tax?',
       formula:'<strong>Intangible</strong> = Préstamo NUEVO × $0.002 (sin redondeo)',
       steps:[{label:"Paso 1",instruction:'<code>$275,000 × 0.002 = ?</code>',answer:550,hint:"275000×0.002=550"}]
     },
     { cat:"Intangible Tax", title:"Intangible (irregular)",
-      examQ:'A purchaser obtains a new loan of $418,750. How much intangible tax is owed on the new mortgage?',
-      examOpts:['$837.50','$838.00','$146.56','$2,093.75'],
+      examQ:'A buyer ASSUMES an existing mortgage of $200,000 and takes a NEW second mortgage of $418,750. How much intangible tax is due? (Remember: intangible tax is ONLY on NEW obligations)',
+      examOpts:['$837.50','$1,237.50','$618,750','$400.00'],
       statement:'Nuevo préstamo: <span class="highlight">$418,750</span>. ¿Intangible?',
       formula:'Préstamo NUEVO × 0.002. Sin redondeo. No aplica a asumidos.',
       steps:[{label:"Paso 1",instruction:'<code>$418,750 × 0.002 = ?</code>',answer:837.50,tolerance:0.01,hint:"418750×0.002=837.50"}]
     },
     // COMBO
     { cat:"Doc Stamps", title:"Combo: Deed+Note+Intangible",
-      examQ:'A property sells for $350,000 with a NEW mortgage of $280,000. What are the TOTAL transfer taxes (doc stamps on deed, doc stamps on note, and intangible tax)?',
+      examQ:'A property closes at $350,000. The BUYER obtains a new loan of $280,000. What is the TOTAL amount of documentary stamps on deed, documentary stamps on note, AND intangible tax due at closing?',
       examOpts:['$3,990.00','$3,430.00','$2,450.00','$4,550.00'],
       statement:'Venta: <span class="highlight">$350,000</span>. Préstamo NUEVO: <span class="highlight">$280,000</span>. Calcula los 3 impuestos.',
       formula:'Deed: Precio÷100×$0.70 | Note: Préstamo÷100×$0.35 | Intangible: Préstamo×$0.002',
@@ -299,8 +299,8 @@ const PROBLEMS = [
     ]},
     // COMISIONES
     { cat:"Comisiones", title:"Comisión de Corredor",
-      examQ:'A property sells for $400,000 with a 6% commission split equally between the listing and selling brokerage firms. How much does EACH firm receive?',
-      examOpts:['$12,000','$24,000','$8,000','$16,000'],
+      examQ:'Broker A listed a property that sold for $400,000. Broker B procured the buyer. The commission rate is 6%, split 50-50 between the two brokerage firms. How much commission does Broker B\'s firm receive?',
+      examOpts:['$12,000','$24,000','$8,000','$6,000'],
       statement:'Venta: <span class="highlight">$400,000</span>. Comisión: <span class="highlight">6%</span>, split 50/50. ¿Cuánto cada oficina?',
       formula:'Comisión = Precio × Tasa. Split = Comisión ÷ 2',
       steps:[
@@ -308,8 +308,8 @@ const PROBLEMS = [
         {label:"Paso 2",instruction:'<code>$24,000 ÷ 2 = ?</code>',answer:12000,hint:"24000/2=12000"}
     ]},
     { cat:"Comisiones", title:"Comisión al Agente",
-      examQ:'A home sells for $550,000 with a 5.5% total commission. The listing broker receives 60% of the commission and pays the listing agent 70% of the listing broker\'s share. How much does the listing agent earn?',
-      examOpts:['$12,705','$18,150','$30,250','$10,083'],
+      examQ:'A home sells for $550,000. The total brokerage fee is 5.5%. The cooperating broker receives 40% of the total commission. The listing broker pays the listing sales associate 70% of the LISTING BROKER\'S share. What does the listing sales associate receive?',
+      examOpts:['$12,705','$18,150','$30,250','$8,470'],
       statement:'Venta: <span class="highlight">$550,000</span>. Comisión: <span class="highlight">5.5%</span>. Split 60/40. Listing agent recibe 70% de su broker. ¿Cuánto gana?',
       formula:'Total → Split broker → Split agente',
       steps:[
@@ -318,7 +318,7 @@ const PROBLEMS = [
         {label:"Paso 3",instruction:'Agent (70%): <code>$18,150 × 0.70 = ?</code>',answer:12705,hint:"18150×0.70=12705"}
     ]},
     { cat:"Comisiones", title:"Precio mínimo por comisión",
-      examQ:'A sales associate wants to earn at least $15,000 from a sale. The associate receives 75% of the broker\'s share after a 50/50 split with the cooperating broker on a 6% commission. What is the MINIMUM sale price needed?',
+      examQ:'A sales associate wants to earn $15,000 on a single transaction. The associate\'s broker splits the 6% total commission 50/50 with the cooperating broker. The associate receives 75% of the associate\'s broker\'s share. What MINIMUM sale price is necessary?',
       examOpts:['$666,667','$500,000','$400,000','$833,333'],
       statement:'Agente quiere ganar <span class="highlight">$15,000</span>. Split: 75%. Comisión 6% dividida 50/50. ¿Precio mínimo?',
       formula:'Trabajo inverso: Agente÷split → ×2 → ÷tasa = Precio',
@@ -329,8 +329,8 @@ const PROBLEMS = [
     ]},
     // IMPUESTOS PROPERTY TAX
     { cat:"Impuestos", title:"Property Tax con Mills",
-      examQ:'A homestead property has a just value of $250,000 with a $50,000 homestead exemption. If the millage rate is 18 mills, what is the ANNUAL property tax?',
-      examOpts:['$3,600','$4,500','$3,200','$2,700'],
+      examQ:'A property has a JUST (market) value of $250,000. The owner qualifies for the full $50,000 homestead exemption. The total millage rate is 18 mills. What is the owner\'s annual ad valorem tax? (Note: 1 mill = $1 per $1,000 of taxable value)',
+      examOpts:['$3,600','$4,500','$3,200','$4,000'],
       statement:'Valor tasado: <span class="highlight">$250,000</span>. Homestead: <span class="highlight">$50,000</span>. Millaje: <span class="highlight">18 mills</span>. ¿Impuesto anual?',
       formula:'Tax = (Valor − Exemptions) ÷ 1,000 × Mills. 1 Mill = $1 por $1,000.',
       steps:[
@@ -339,8 +339,8 @@ const PROBLEMS = [
         {label:"Paso 3",instruction:'<code>200 × 18 = ?</code>',answer:3600,hint:"200×18=3600"}
     ]},
     { cat:"Impuestos", title:"Encontrar tasa de Mills",
-      examQ:'A property with a taxable value of $180,000 pays $2,700 in annual property taxes. What is the millage rate?',
-      examOpts:['15 mills','18 mills','12 mills','20 mills'],
+      examQ:'An owner\'s annual property tax bill is $2,700. The assessor\'s TAXABLE value (after exemptions) is $180,000. What is the millage rate being applied?',
+      examOpts:['15 mills','18 mills','12 mills','1.5 mills'],
       statement:'Valor gravable: <span class="highlight">$180,000</span>. Impuesto: <span class="highlight">$2,700</span>. ¿Tasa de millaje?',
       formula:'Mills = Impuesto ÷ (Valor ÷ 1,000)',
       steps:[
@@ -349,7 +349,7 @@ const PROBLEMS = [
     ]},
     // PRORRATEOS
     { cat:"Prorrateos", title:"Prorrateo de impuestos",
-      examQ:'Annual property taxes are $4,380. The closing date is April 15 (day 105 of the year). Using a 365-day year, how much does the SELLER owe in prorated taxes at closing?',
+      examQ:'The annual property taxes are $4,380. The sale closes on April 15 (day 105). Property taxes have NOT been paid for the current year. Using a 365-day proration, the SELLER\'s share of the taxes as a DEBIT on the settlement statement is CLOSEST to:',
       examOpts:['$1,260.00','$1,200.00','$3,120.00','$1,314.00'],
       statement:'Impuestos anuales: <span class="highlight">$4,380</span>. Cierre: <span class="highlight">15 abril</span> (día 105). ¿Cuánto debe vendedor?',
       formula:'Prorrateo = Anual ÷ 365 × días del vendedor',
@@ -358,7 +358,7 @@ const PROBLEMS = [
         {label:"Paso 2",instruction:'<code>$12.00 × 105 = ?</code>',answer:1260,tolerance:1,hint:"12×105=1260"}
     ]},
     { cat:"Prorrateos", title:"Prorrateo de seguro",
-      examQ:'A seller has a prepaid annual insurance policy of $1,825. If closing occurs on August 1 (day 213), how much should the seller receive as a reimbursement credit at closing?',
+      examQ:'A seller prepaid an annual hazard insurance policy of $1,825 at the beginning of the year. The sale closes on August 1 (day 213). If the buyer does NOT assume the policy, the seller is entitled to a CREDIT of approximately:',
       examOpts:['$760.00','$1,065.00','$912.50','$750.00'],
       statement:'Póliza anual: <span class="highlight">$1,825</span>. Cierre: <span class="highlight">1 agosto</span> (día 213). ¿Reembolso al vendedor?',
       formula:'Reembolso = Tasa diaria × Días restantes (365 − día cierre)',
@@ -369,7 +369,7 @@ const PROBLEMS = [
     ]},
     // AMORTIZACIÓN PIP BRAM
     { cat:"Amortización", title:"PIP BRAM — Mes 1",
-      examQ:'A borrower has a $200,000 loan at 6% annual interest with a monthly payment of $1,199.10. After the FIRST monthly payment, what is the remaining loan balance?',
+      examQ:'A borrower closes on a $200,000 fully amortized loan at 6% ANNUAL interest. The monthly payment is $1,199.10. After making the FIRST payment, the outstanding principal balance is MOST NEARLY:',
       examOpts:['$199,800.90','$198,800.90','$199,000.00','$199,900.90'],
       statement:'Préstamo: <span class="highlight">$200,000</span> al <span class="highlight">6%</span>. Pago: <span class="highlight">$1,199.10</span>. Calcula mes 1.',
       formula:'<strong>B</strong>alance × <strong>R</strong>ate ÷ 12 = Interés | <strong>P</strong>ayment − <strong>I</strong>nterest = <strong>P</strong>rincipal | Balance − Principal = Nuevo Balance',
@@ -379,7 +379,7 @@ const PROBLEMS = [
         {label:"Nuevo Balance",instruction:'<code>$200,000 − $199.10 = ?</code>',answer:199800.90,tolerance:0.01,hint:"200000-199.10=199800.90"}
     ]},
     { cat:"Amortización", title:"PIP BRAM — Mes 2",
-      examQ:'After the first payment, the loan balance is $199,800.90 at 6% with $1,199.10 monthly payments. How much of the SECOND payment is applied to principal?',
+      examQ:'On the same loan (balance $199,800.90, 6% annual rate, $1,199.10 payment), how much of the SECOND monthly payment is applied to reduce the principal? (Note: Interest is calculated on the CURRENT balance, not the original amount)',
       examOpts:['$200.10','$199.10','$201.00','$198.10'],
       statement:'Balance: <span class="highlight">$199,800.90</span> al <span class="highlight">6%</span>. Pago: <span class="highlight">$1,199.10</span>.',
       formula:'Repite: Balance×Rate÷12 → Payment−Interest → Balance−Principal',
@@ -390,7 +390,7 @@ const PROBLEMS = [
     ]},
     // LTV
     { cat:"LTV", title:"Loan-to-Value",
-      examQ:'A buyer agrees to purchase a property for $300,000. The appraisal comes in at $290,000. If the lender approves a loan of $232,000, what is the loan-to-value ratio?',
+      examQ:'A buyer contracts to purchase property for $300,000. The appraised value is $290,000. The lender agrees to a $232,000 loan. What is the loan-to-value ratio? (Lenders use the LOWER of sale price or appraised value)',
       examOpts:['80%','77.3%','85%','73.3%'],
       statement:'Precio: <span class="highlight">$300,000</span>. Tasación: <span class="highlight">$290,000</span>. Préstamo: <span class="highlight">$232,000</span>. ¿LTV?',
       formula:'LTV = (Préstamo ÷ Valor) × 100. Valor = MENOR entre precio y tasación.',
@@ -399,8 +399,8 @@ const PROBLEMS = [
         {label:"Paso 2",instruction:'<code>$232,000 ÷ $290,000 × 100 = ?</code> %',answer:80,tolerance:0.1,hint:"232000/290000×100=80"}
     ]},
     { cat:"LTV", title:"LTV con PMI",
-      examQ:'A buyer purchases a home for $425,000. The appraisal value is $430,000. The buyer makes a 15% down payment. What is the LTV and will PMI be required on a conventional loan?',
-      examOpts:['85%, Yes PMI required','80%, No PMI','90%, Yes PMI required','75%, No PMI'],
+      examQ:'A property under contract for $425,000 appraises for $430,000. The buyer puts 15% down based on the SALE PRICE. For a conventional loan, what is the LTV ratio and is Private Mortgage Insurance (PMI) required?',
+      examOpts:['85% — YES, PMI required','80% — No PMI required','90% — YES, PMI required','75% — No PMI required'],
       statement:'Precio: <span class="highlight">$425,000</span>. Tasación: <span class="highlight">$430,000</span>. Down payment: <span class="highlight">15%</span>. ¿LTV? ¿PMI?',
       formula:'Préstamo = Precio × (1−Down%). LTV = Préstamo÷Valor×100. PMI si >80%.',
       steps:[
