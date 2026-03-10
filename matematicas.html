@@ -239,28 +239,28 @@ const PROBLEMS = [
       examQ_en:'A residential property was conveyed for a consideration of $385,000. What amount of documentary stamp tax is due on the deed at the time of recording?',
       examOpts:['$2,695.00','$1,347.50','$2,695.50','$770.00'],
       statement:'Propiedad vendida por <span class="highlight">$385,000</span>. ¿Doc Stamps on Deed?',
-      formula:'<strong>Deed:</strong> Precio ÷ 100 → redondear ↑ → × $0.70',
+      formula:'🔑 No te olvides: <strong>Deed:</strong> Precio ÷ 100 → redondear ↑ → × $0.70',
       steps:[
-        {label:"Paso 1",instruction:'Divide entre $100:<br><code>$385,000 ÷ 100 = ?</code>',answer:3850,hint:"385000/100=3850"},
-        {label:"Paso 2",instruction:'Multiplica por $0.70:<br><code>3,850 × $0.70 = ?</code>',answer:2695,hint:"3850×0.70=2695"}
+        {label:"Paso 1",instruction:'Corta la cantidad en pedacitos de $100:<br><code>$385,000 ÷ 100 = ?</code>',answer:3850,hint:"385000/100=3850"},
+        {label:"Paso 2",instruction:'Ahora multiplícalo por $0.70:<br><code>3,850 × $0.70 = ?</code>',answer:2695,hint:"3850×0.70=2695"}
     ]},
     { cat:"Doc Stamps", title:"Deed (con redondeo)",
       examQ:'Una vivienda unifamiliar se cerró por $247,350. ¿Cuál de las siguientes opciones representa MÁS exactamente el impuesto de sellos documentales sobre la escritura?',
       examQ_en:'A single-family home closed for $247,350. Which of the following MOST accurately represents the documentary stamp tax due on the deed?',
       examOpts:['$1,731.80','$1,731.45','$1,731.50','$1,732.50'],
       statement:'Casa vendida por <span class="highlight">$247,350</span>. ¿Doc Stamps on Deed?',
-      formula:'<strong>Deed:</strong> Precio ÷ 100 → REDONDEAR ↑ al entero → × $0.70',
+      formula:'🧠 Truco mental: <strong>Deed:</strong> Precio ÷ 100 → REDONDEAR ↑ al entero → × $0.70',
       steps:[
-        {label:"Paso 1",instruction:'Divide entre $100:<br><code>$247,350 ÷ 100 = ?</code>',answer:2473.5,hint:"247350/100=2473.50"},
+        {label:"Paso 1",instruction:'Corta la cantidad en pedacitos de $100:<br><code>$247,350 ÷ 100 = ?</code>',answer:2473.5,hint:"247350/100=2473.50"},
         {label:"Paso 2",instruction:'Redondea ↑ al entero:<br><code>2,473.5 → ?</code>',answer:2474,hint:"2473.5→2474"},
-        {label:"Paso 3",instruction:'Multiplica por $0.70:<br><code>2,474 × $0.70 = ?</code>',answer:1731.80,tolerance:0.01,hint:"2474×0.70=1731.80"}
+        {label:"Paso 3",instruction:'Ahora multiplícalo por $0.70:<br><code>2,474 × $0.70 = ?</code>',answer:1731.80,tolerance:0.01,hint:"2474×0.70=1731.80"}
     ]},
     { cat:"Doc Stamps", title:"Deed (irregular)",
       examQ:'Un vendedor transfiere una propiedad por $512,775. El impuesto de sellos documentales sobre la escritura se APROXIMA MÁS a cuál cantidad? (Recuerda: los sellos se calculan por cada $100 o fracción)',
       examQ_en:'A seller conveys property for $512,775. The documentary stamp tax on the deed is CLOSEST to which amount? (Remember: stamps are calculated per $100 or fraction thereof)',
       examOpts:['$3,589.60','$3,589.43','$3,589.00','$3,590.30'],
       statement:'Venta por <span class="highlight">$512,775</span>. ¿Stamps on deed?',
-      formula:'Precio ÷ 100 → Redondear ↑ → × $0.70',
+      formula:'💡 Piensa en esto: Precio ÷ 100 → Redondear ↑ → × $0.70',
       steps:[
         {label:"Paso 1",instruction:'<code>$512,775 ÷ 100 = ?</code>',answer:5127.75,hint:"512775/100"},
         {label:"Paso 2",instruction:'Redondea ↑: <code>5,127.75 → ?</code>',answer:5128,hint:"→5128"},
@@ -272,7 +272,7 @@ const PROBLEMS = [
       examQ_en:'A buyer executes a promissory note for a NEW mortgage of $320,000. What documentary stamp tax is due on the NOTE? (Note: Do NOT confuse with deed stamps)',
       examOpts:['$1,120.00','$2,240.00','$640.00','$1,600.00'],
       statement:'Préstamo de <span class="highlight">$320,000</span>. ¿Doc Stamps on Note?',
-      formula:'<strong>Note:</strong> Préstamo ÷ 100 → redondear ↑ → × $0.35',
+      formula:'🧠 Truco mental: <strong>Note:</strong> Préstamo ÷ 100 → redondear ↑ → × $0.35',
       steps:[
         {label:"Paso 1",instruction:'<code>$320,000 ÷ 100 = ?</code>',answer:3200,hint:"320000/100"},
         {label:"Paso 2",instruction:'<code>3,200 × $0.35 = ?</code>',answer:1120,hint:"3200×0.35=1120"}
@@ -282,7 +282,7 @@ const PROBLEMS = [
       examQ_en:'A mortgage loan of $189,450 is given. What is the documentary stamp tax on the promissory note? (Hint: the rate on the note is NOT the same as the deed)',
       examOpts:['$663.25','$663.08','$1,326.50','$663.58'],
       statement:'Préstamo de <span class="highlight">$189,450</span>. ¿Stamps on note?',
-      formula:'Note: Préstamo ÷ 100 → Redondear ↑ → × $0.35',
+      formula:'🔑 No te olvides: Note: Préstamo ÷ 100 → Redondear ↑ → × $0.35',
       steps:[
         {label:"Paso 1",instruction:'<code>$189,450 ÷ 100 = ?</code>',answer:1894.50,tolerance:0.01,hint:"189450/100"},
         {label:"Paso 2",instruction:'Redondea ↑: <code>1,894.5 → ?</code>',answer:1895,hint:"→1895"},
@@ -294,7 +294,7 @@ const PROBLEMS = [
       examQ_en:'A buyer obtains a NEW first mortgage of $275,000. What nonrecurring intangible tax is owed? (Note: This tax applies ONLY to new obligations, not assumed mortgages)',
       examOpts:['$550.00','$192.50','$96.25','$1,925.00'],
       statement:'Préstamo NUEVO de <span class="highlight">$275,000</span>. ¿Intangible Tax?',
-      formula:'<strong>Intangible</strong> = Préstamo NUEVO × $0.002 (sin redondeo)',
+      formula:'🧠 Truco mental: <strong>Intangible</strong> = Préstamo NUEVO × $0.002 (sin redondeo)',
       steps:[{label:"Paso 1",instruction:'<code>$275,000 × 0.002 = ?</code>',answer:550,hint:"275000×0.002=550"}]
     },
     { cat:"Intangible Tax", title:"Intangible (irregular)",
@@ -302,7 +302,7 @@ const PROBLEMS = [
       examQ_en:'A buyer ASSUMES an existing mortgage of $200,000 and takes a NEW second mortgage of $418,750. How much intangible tax is due? (Remember: intangible tax is ONLY on NEW obligations)',
       examOpts:['$837.50','$1,237.50','$618,750','$400.00'],
       statement:'Nuevo préstamo: <span class="highlight">$418,750</span>. ¿Intangible?',
-      formula:'Préstamo NUEVO × 0.002. Sin redondeo. No aplica a asumidos.',
+      formula:'👋 ¡Sigue la lógica!: Préstamo NUEVO × 0.002. Sin redondeo. No aplica a asumidos.',
       steps:[{label:"Paso 1",instruction:'<code>$418,750 × 0.002 = ?</code>',answer:837.50,tolerance:0.01,hint:"418750×0.002=837.50"}]
     },
     // COMBO
@@ -311,7 +311,7 @@ const PROBLEMS = [
       examQ_en:'A property closes at $350,000. The BUYER obtains a new loan of $280,000. What is the TOTAL amount of documentary stamps on deed, documentary stamps on note, AND intangible tax due at closing?',
       examOpts:['$3,990.00','$3,430.00','$2,450.00','$4,550.00'],
       statement:'Venta: <span class="highlight">$350,000</span>. Préstamo NUEVO: <span class="highlight">$280,000</span>. Calcula los 3 impuestos.',
-      formula:'Deed: Precio÷100×$0.70 | Note: Préstamo÷100×$0.35 | Intangible: Préstamo×$0.002',
+      formula:'💡 Piensa en esto: Deed: Precio÷100×$0.70 | Note: Préstamo÷100×$0.35 | Intangible: Préstamo×$0.002',
       steps:[
         {label:"Stamps Deed",instruction:'<code>$350,000 ÷ 100 × $0.70 = ?</code>',answer:2450,hint:"3500×0.70"},
         {label:"Stamps Note",instruction:'<code>$280,000 ÷ 100 × $0.35 = ?</code>',answer:980,hint:"2800×0.35"},
@@ -324,7 +324,7 @@ const PROBLEMS = [
       examQ_en:'Broker A listed a property that sold for $400,000. Broker B procured the buyer. The commission rate is 6%, split 50-50 between the two brokerage firms. How much commission does Broker B\'s firm receive?',
       examOpts:['$12,000','$24,000','$8,000','$6,000'],
       statement:'Venta: <span class="highlight">$400,000</span>. Comisión: <span class="highlight">6%</span>, split 50/50. ¿Cuánto cada oficina?',
-      formula:'Comisión = Precio × Tasa. Split = Comisión ÷ 2',
+      formula:'💡 Piensa en esto: La Comisión es repartir el pastel. Primero el porcentaje total, y luego lo divides entre las oficinas y los agentes.',
       steps:[
         {label:"Paso 1",instruction:'<code>$400,000 × 0.06 = ?</code>',answer:24000,hint:"400000×0.06=24000"},
         {label:"Paso 2",instruction:'<code>$24,000 ÷ 2 = ?</code>',answer:12000,hint:"24000/2=12000"}
@@ -334,7 +334,7 @@ const PROBLEMS = [
       examQ_en:'A home sells for $550,000. The total brokerage fee is 5.5%. The cooperating broker receives 40% of the total commission. The listing broker pays the listing sales associate 70% of the LISTING BROKER\'S share. What does the listing sales associate receive?',
       examOpts:['$12,705','$18,150','$30,250','$8,470'],
       statement:'Venta: <span class="highlight">$550,000</span>. Comisión: <span class="highlight">5.5%</span>. Split 60/40. Listing agent recibe 70% de su broker. ¿Cuánto gana?',
-      formula:'Total → Split broker → Split agente',
+      formula:'🧠 Truco mental: Total → Split broker → Split agente',
       steps:[
         {label:"Paso 1",instruction:'<code>$550,000 × 0.055 = ?</code>',answer:30250,hint:"550000×0.055=30250"},
         {label:"Paso 2",instruction:'Listing broker (60%): <code>$30,250 × 0.60 = ?</code>',answer:18150,hint:"30250×0.60=18150"},
@@ -345,7 +345,7 @@ const PROBLEMS = [
       examQ_en:'A sales associate wants to earn $15,000 on a single transaction. The associate\'s broker splits the 6% total commission 50/50 with the cooperating broker. The associate receives 75% of the associate\'s broker\'s share. What MINIMUM sale price is necessary?',
       examOpts:['$666,667','$500,000','$400,000','$833,333'],
       statement:'Agente quiere ganar <span class="highlight">$15,000</span>. Split: 75%. Comisión 6% dividida 50/50. ¿Precio mínimo?',
-      formula:'Trabajo inverso: Agente÷split → ×2 → ÷tasa = Precio',
+      formula:'🔑 No te olvides: Trabajo inverso: Agente÷split → ×2 → ÷tasa = Precio',
       steps:[
         {label:"Paso 1",instruction:'Broker debe recibir: <code>$15,000 ÷ 0.75 = ?</code>',answer:20000,hint:"15000/0.75=20000"},
         {label:"Paso 2",instruction:'Comisión total: <code>$20,000 × 2 = ?</code>',answer:40000,hint:"20000×2"},
@@ -357,7 +357,7 @@ const PROBLEMS = [
       examQ_en:'A property has a JUST (market) value of $250,000. The owner qualifies for the full $50,000 homestead exemption. The total millage rate is 18 mills. What is the owner\'s annual ad valorem tax? (Note: 1 mill = $1 per $1,000 of taxable value)',
       examOpts:['$3,600','$4,500','$3,200','$4,000'],
       statement:'Valor tasado: <span class="highlight">$250,000</span>. Homestead: <span class="highlight">$50,000</span>. Millaje: <span class="highlight">18 mills</span>. ¿Impuesto anual?',
-      formula:'Tax = (Valor − Exemptions) ÷ 1,000 × Mills. 1 Mill = $1 por $1,000.',
+      formula:'💡 Piensa en esto: Tax = (Valor − Exemptions) ÷ 1,000 × Mills. 1 Mill = $1 por $1,000.',
       steps:[
         {label:"Paso 1",instruction:'<code>$250,000 − $50,000 = ?</code>',answer:200000,hint:"250000-50000"},
         {label:"Paso 2",instruction:'<code>$200,000 ÷ 1,000 = ?</code>',answer:200,hint:"200000/1000"},
@@ -368,7 +368,7 @@ const PROBLEMS = [
       examQ_en:'An owner\'s annual property tax bill is $2,700. The assessor\'s TAXABLE value (after exemptions) is $180,000. What is the millage rate being applied?',
       examOpts:['15 mills','18 mills','12 mills','1.5 mills'],
       statement:'Valor gravable: <span class="highlight">$180,000</span>. Impuesto: <span class="highlight">$2,700</span>. ¿Tasa de millaje?',
-      formula:'Mills = Impuesto ÷ (Valor ÷ 1,000)',
+      formula:'🧠 Truco mental: Mills = Impuesto ÷ (Valor ÷ 1,000)',
       steps:[
         {label:"Paso 1",instruction:'<code>$180,000 ÷ 1,000 = ?</code>',answer:180,hint:"180000/1000"},
         {label:"Paso 2",instruction:'<code>$2,700 ÷ 180 = ?</code> mills',answer:15,hint:"2700/180=15"}
@@ -379,7 +379,7 @@ const PROBLEMS = [
       examQ_en:'The annual property taxes are $4,380. The sale closes on April 15 (day 105). Property taxes have NOT been paid for the current year. Using a 365-day proration, the SELLER\'s share of the taxes as a DEBIT on the settlement statement is CLOSEST to:',
       examOpts:['$1,260.00','$1,200.00','$3,120.00','$1,314.00'],
       statement:'Impuestos anuales: <span class="highlight">$4,380</span>. Cierre: <span class="highlight">15 abril</span> (día 105). ¿Cuánto debe vendedor?',
-      formula:'Prorrateo = Anual ÷ 365 × días del vendedor',
+      formula:'🧩 Aquí está el secreto: Prorrateo = Anual ÷ 365 × días del vendedor',
       steps:[
         {label:"Paso 1",instruction:'Tasa diaria: <code>$4,380 ÷ 365 = ?</code>',answer:12,tolerance:0.01,hint:"4380/365=12"},
         {label:"Paso 2",instruction:'<code>$12.00 × 105 = ?</code>',answer:1260,tolerance:1,hint:"12×105=1260"}
@@ -389,7 +389,7 @@ const PROBLEMS = [
       examQ_en:'A seller prepaid an annual hazard insurance policy of $1,825 at the beginning of the year. The sale closes on August 1 (day 213). If the buyer does NOT assume the policy, the seller is entitled to a CREDIT of approximately:',
       examOpts:['$760.00','$1,065.00','$912.50','$750.00'],
       statement:'Póliza anual: <span class="highlight">$1,825</span>. Cierre: <span class="highlight">1 agosto</span> (día 213). ¿Reembolso al vendedor?',
-      formula:'Reembolso = Tasa diaria × Días restantes (365 − día cierre)',
+      formula:'🧩 Aquí está el secreto: Reembolso = Tasa diaria × Días restantes (365 − día cierre)',
       steps:[
         {label:"Paso 1",instruction:'Tasa diaria: <code>$1,825 ÷ 365 = ?</code>',answer:5,tolerance:0.01,hint:"1825/365=5"},
         {label:"Paso 2",instruction:'Días restantes: <code>365 − 213 = ?</code>',answer:152,hint:"365-213=152"},
@@ -401,7 +401,7 @@ const PROBLEMS = [
       examQ_en:'A borrower closes on a $200,000 fully amortized loan at 6% ANNUAL interest. The monthly payment is $1,199.10. After making the FIRST payment, the outstanding principal balance is MOST NEARLY:',
       examOpts:['$199,800.90','$198,800.90','$199,000.00','$199,900.90'],
       statement:'Préstamo: <span class="highlight">$200,000</span> al <span class="highlight">6%</span>. Pago: <span class="highlight">$1,199.10</span>. Calcula mes 1.',
-      formula:'<strong>B</strong>alance × <strong>R</strong>ate ÷ 12 = Interés | <strong>P</strong>ayment − <strong>I</strong>nterest = <strong>P</strong>rincipal | Balance − Principal = Nuevo Balance',
+      formula:'🧠 Truco mental: <strong>B</strong>alance × <strong>R</strong>ate ÷ 12 = Interés | <strong>P</strong>ayment − <strong>I</strong>nterest = <strong>P</strong>rincipal | Balance − Principal = Nuevo Balance',
       steps:[
         {label:"Interés",instruction:'<code>$200,000 × 0.06 ÷ 12 = ?</code>',answer:1000,hint:"200000×0.06/12=1000"},
         {label:"Principal",instruction:'<code>$1,199.10 − $1,000 = ?</code>',answer:199.10,tolerance:0.01,hint:"1199.10-1000=199.10"},
@@ -412,7 +412,7 @@ const PROBLEMS = [
       examQ_en:'On the same loan (balance $199,800.90, 6% annual rate, $1,199.10 payment), how much of the SECOND monthly payment is applied to reduce the principal? (Note: Interest is calculated on the CURRENT balance, not the original amount)',
       examOpts:['$200.10','$199.10','$201.00','$198.10'],
       statement:'Balance: <span class="highlight">$199,800.90</span> al <span class="highlight">6%</span>. Pago: <span class="highlight">$1,199.10</span>.',
-      formula:'Repite: Balance×Rate÷12 → Payment−Interest → Balance−Principal',
+      formula:'🧠 Truco mental: Repite: Balance×Rate÷12 → Payment−Interest → Balance−Principal',
       steps:[
         {label:"Interés",instruction:'<code>$199,800.90 × 0.06 ÷ 12 = ?</code>',answer:999.00,tolerance:0.01,hint:"199800.90×0.06/12≈999.00"},
         {label:"Principal",instruction:'<code>$1,199.10 − $999.00 = ?</code>',answer:200.10,tolerance:0.02,hint:"1199.10-999.00=200.10"},
@@ -424,7 +424,7 @@ const PROBLEMS = [
       examQ_en:'A buyer contracts to purchase property for $300,000. The appraised value is $290,000. The lender agrees to a $232,000 loan. What is the loan-to-value ratio? (Lenders use the LOWER of sale price or appraised value)',
       examOpts:['80%','77.3%','85%','73.3%'],
       statement:'Precio: <span class="highlight">$300,000</span>. Tasación: <span class="highlight">$290,000</span>. Préstamo: <span class="highlight">$232,000</span>. ¿LTV?',
-      formula:'LTV = (Préstamo ÷ Valor) × 100. Valor = MENOR entre precio y tasación.',
+      formula:'🔑 No te olvides: LTV = (Préstamo ÷ Valor) × 100. Valor = MENOR entre precio y tasación.',
       steps:[
         {label:"Paso 1",instruction:'Valor a usar: <code>min($300K, $290K) = ?</code>',answer:290000,hint:"El menor: 290000"},
         {label:"Paso 2",instruction:'<code>$232,000 ÷ $290,000 × 100 = ?</code> %',answer:80,tolerance:0.1,hint:"232000/290000×100=80"}
@@ -434,7 +434,7 @@ const PROBLEMS = [
       examQ_en:'A property under contract for $425,000 appraises for $430,000. The buyer puts 15% down based on the SALE PRICE. For a conventional loan, what is the LTV ratio and is Private Mortgage Insurance (PMI) required?',
       examOpts:['85% — SÍ, requiere PMI','80% — No requiere PMI','90% — SÍ, requiere PMI','75% — No requiere PMI'],
       statement:'Precio: <span class="highlight">$425,000</span>. Tasación: <span class="highlight">$430,000</span>. Down payment: <span class="highlight">15%</span>. ¿LTV? ¿PMI?',
-      formula:'Préstamo = Precio × (1−Down%). LTV = Préstamo÷Valor×100. PMI si >80%.',
+      formula:'💡 Piensa en esto: Préstamo = Precio × (1−Down%). LTV = Préstamo÷Valor×100. PMI si >80%.',
       steps:[
         {label:"Paso 1",instruction:'<code>min($425K, $430K) = ?</code>',answer:425000,hint:"425000"},
         {label:"Paso 2",instruction:'Préstamo: <code>$425,000 × 0.85 = ?</code>',answer:361250,hint:"425000×0.85"},
@@ -446,7 +446,7 @@ const PROBLEMS = [
       examQ_en:'An investment property generates a net operating income (NOI) of $36,000 per year. Using a capitalization rate of 8%, what is the estimated value of the property?',
       examOpts:['$450,000','$288,000','$360,000','$500,000'],
       statement:'NOI: <span class="highlight">$36,000</span>. Cap Rate: <span class="highlight">8%</span>. ¿Valor?',
-      formula:'<strong>V = I ÷ R</strong>',
+      formula:'👋 ¡Sigue la lógica!: <strong>V = I ÷ R</strong>',
       steps:[{label:"Paso 1",instruction:'<code>$36,000 ÷ 0.08 = ?</code>',answer:450000,hint:"36000/0.08=450000"}]
     },
     { cat:"Tasación", title:"IRV — Cap Rate",
@@ -454,7 +454,7 @@ const PROBLEMS = [
       examQ_en:'A commercial property valued at $500,000 produces a net operating income of $40,000. What is the capitalization rate?',
       examOpts:['8%','10%','12.5%','6%'],
       statement:'Valor: <span class="highlight">$500,000</span>. NOI: <span class="highlight">$40,000</span>. ¿Cap Rate %?',
-      formula:'<strong>R = I ÷ V</strong> luego × 100',
+      formula:'🧩 Aquí está el secreto: <strong>R = I ÷ V</strong> luego × 100',
       steps:[
         {label:"Paso 1",instruction:'<code>$40,000 ÷ $500,000 = ?</code>',answer:0.08,tolerance:0.001,hint:"40000/500000"},
         {label:"Paso 2",instruction:'<code>0.08 × 100 = ?</code> %',answer:8,hint:"=8%"}
@@ -464,7 +464,7 @@ const PROBLEMS = [
       examQ_en:'An investor purchases a rental property for $360,000. The annual gross rent is $30,000. What is the gross income multiplier (GIM)?',
       examOpts:['12','10','8','15'],
       statement:'Precio: <span class="highlight">$360,000</span>. Renta bruta anual: <span class="highlight">$30,000</span>. ¿GIM?',
-      formula:'GIM = Precio ÷ Renta Bruta Anual',
+      formula:'🧠 Truco mental: GIM = Precio ÷ Renta Bruta Anual',
       steps:[{label:"Paso 1",instruction:'<code>$360,000 ÷ $30,000 = ?</code>',answer:12,hint:"360000/30000=12"}]
     },
     { cat:"Tasación", title:"Depreciación — Cost Approach",
@@ -472,7 +472,7 @@ const PROBLEMS = [
       examQ_en:'An appraiser estimates the replacement cost of improvements at $350,000 with an economic life of 50 years. The building is 10 years old. The land is valued at $80,000. Using the cost approach, what is the estimated property value?',
       examOpts:['$360,000','$350,000','$430,000','$280,000'],
       statement:'Construcción: <span class="highlight">$350,000</span>. Vida: <span class="highlight">50 años</span>. Edad: <span class="highlight">10 años</span>. Terreno: <span class="highlight">$80,000</span>.',
-      formula:'Dep anual = Costo÷Vida. Dep total = anual×edad. Valor = (Costo−Dep)+Terreno.',
+      formula:'👋 ¡Sigue la lógica!: Dep anual = Costo÷Vida. Dep total = anual×edad. Valor = (Costo−Dep)+Terreno.',
       steps:[
         {label:"Dep. anual",instruction:'<code>$350,000 ÷ 50 = ?</code>',answer:7000,hint:"350000/50=7000"},
         {label:"Dep. total",instruction:'<code>$7,000 × 10 = ?</code>',answer:70000,hint:"7000×10"},
@@ -485,7 +485,7 @@ const PROBLEMS = [
       examQ_en:'How many acres are in the NW ¼ of the SW ¼ of a section?',
       examOpts:['40 acres','80 acres','160 acres','20 acres'],
       statement:'¿Acres del <span class="highlight">NW ¼ del SW ¼</span> de una Sección?',
-      formula:'Sección = 640 acres. Multiplica fracciones × 640. 1 Acre = 43,560 sq ft.',
+      formula:'👋 ¡Sigue la lógica!: Sección = 640 acres. Multiplica fracciones × 640. 1 Acre = 43,560 sq ft.',
       steps:[
         {label:"Paso 1",instruction:'Fracciones: <code>¼ × ¼ = ?</code> (decimal)',answer:0.0625,tolerance:0.001,hint:"1/16=0.0625"},
         {label:"Paso 2",instruction:'<code>0.0625 × 640 = ?</code> acres',answer:40,hint:"640/16=40"}
@@ -495,7 +495,7 @@ const PROBLEMS = [
       examQ_en:'A parcel of land contains 2.5 acres. How many square feet is the parcel?',
       examOpts:['108,900 sq ft','87,120 sq ft','120,000 sq ft','43,560 sq ft'],
       statement:'Terreno de <span class="highlight">2.5 acres</span>. ¿Pies cuadrados?',
-      formula:'Pies² = Acres × 43,560',
+      formula:'💡 Piensa en esto: Pies² = Acres × 43,560',
       steps:[{label:"Paso 1",instruction:'<code>2.5 × 43,560 = ?</code>',answer:108900,hint:"2.5×43560=108900"}]
     },
     { cat:"Acres", title:"Sq Ft → Acres",
@@ -503,7 +503,7 @@ const PROBLEMS = [
       examQ_en:'A lot contains 217,800 square feet. How many acres does this lot contain?',
       examOpts:['5 acres','4.5 acres','3 acres','6 acres'],
       statement:'Lote de <span class="highlight">217,800 sq ft</span>. ¿Acres?',
-      formula:'Acres = Pies² ÷ 43,560',
+      formula:'🧩 Aquí está el secreto: Acres = Pies² ÷ 43,560',
       steps:[{label:"Paso 1",instruction:'<code>217,800 ÷ 43,560 = ?</code>',answer:5,hint:"217800/43560=5"}]
     },
     // DISCOUNT POINTS
@@ -512,7 +512,7 @@ const PROBLEMS = [
       examQ_en:'A buyer obtains a $240,000 loan. The lender charges 2 discount points. How much does the buyer pay in discount points? (Remember: points are calculated on the LOAN amount, not the sale price)',
       examOpts:['$4,800','$2,400','$480','$24,000'],
       statement:'Préstamo: <span class="highlight">$240,000</span>. Lender cobra <span class="highlight">2 discount points</span>. ¿Cuánto paga?',
-      formula:'<strong>Discount Points</strong> = Monto del PRÉSTAMO × Puntos × 1%. (NUNCA sobre el precio de venta)',
+      formula:'💡 Piensa en esto: <strong>Discount Points</strong> = Monto del PRÉSTAMO × Puntos × 1%. (NUNCA sobre el precio de venta)',
       steps:[
         {label:"Paso 1",instruction:'<code>$240,000 × 0.02 = ?</code>',answer:4800,hint:"240000×0.02=4800"}
     ]},
@@ -522,7 +522,7 @@ const PROBLEMS = [
       examQ_en:'A property in Miami-Dade County sells for $525,000. What are the documentary stamp taxes on the deed? (Note: Miami-Dade uses a DIFFERENT rate than the rest of Florida)',
       examOpts:['$3,150.00','$3,675.00','$2,625.00','$1,837.50'],
       statement:'Venta en <span class="highlight">Miami-Dade</span> por <span class="highlight">$525,000</span>. ¿Doc Stamps on Deed?',
-      formula:'Miami-Dade Deed: Precio ÷ 100 → redondear ↑ → × <strong>$0.60</strong> (NO $0.70)',
+      formula:'🧩 Aquí está el secreto: Miami-Dade Deed: Precio ÷ 100 → redondear ↑ → × <strong>$0.60</strong> (NO $0.70)',
       steps:[
         {label:"Paso 1",instruction:'<code>$525,000 ÷ 100 = ?</code>',answer:5250,hint:"525000/100=5250"},
         {label:"Paso 2",instruction:'<code>5,250 × $0.60 = ?</code>',answer:3150,hint:"5250×0.60=3150"}
@@ -533,7 +533,7 @@ const PROBLEMS = [
       examQ_en:'A buyer assumes an existing mortgage of $145,150 and gets a new second mortgage of $44,500. What is the total Documentary Stamp Tax on the Promissory Notes?',
       examOpts:['$664.00','$663.95','$1,327.90','$1,016.05'],
       statement:'Hipoteca asumida <span class="highlight">$145,150</span> + Nueva <span class="highlight">$44,500</span>. ¿Stamps on Note?',
-      formula:'Stamps on Note: Monto Préstamo ÷ 100 → redondear ↑ al siguiente número entero → <strong>× $0.35</strong> (Aplica a CADA préstamo por separado)',
+      formula:'💡 Piensa en esto: Stamps on Note: Monto Préstamo ÷ 100 → redondear ↑ al siguiente número entero → <strong>× $0.35</strong> (Aplica a CADA préstamo por separado)',
       steps:[
         {label:"Paso 1",instruction:'Asumida: <code>$145,150 ÷ 100 = 1,451.5</code>. Redondea ↑ a entero: ?',answer:1452,hint:"1452"},
         {label:"Paso 2",instruction:'Costo asumida: <code>1,452 × $0.35 = ?</code>',answer:508.20,hint:"1452×0.35=508.2"},
@@ -546,7 +546,7 @@ const PROBLEMS = [
       examQ_en:'Using the same loans (Assumed mortgage $145,150 and New second mortgage $44,500). What is the Intangible Tax on the mortgage?',
       examOpts:['$89.00','$379.30','$155.75','$890.00'],
       statement:'Préstamos: Asumido <span class="highlight">$145,150</span>, NUEVO <span class="highlight">$44,500</span>. ¿Intangible Tax?',
-      formula:'Intangible Tax: <strong>Solo se paga sobre hipotecas NUEVAS</strong> (nunca asumidas). Monto exacto × <strong>0.002</strong> (2 mills).',
+      formula:'💡 Piensa en esto: ¡Impuesto Intangible! Este es solo para la Hipoteca NUEVA. Cobra $0.002 directo, sin redondear.',
       steps:[
         {label:"Paso 1",instruction:'Monto aplicable (solo la hipoteca NUEVA): ?',answer:44500,hint:"44500"},
         {label:"Paso 2",instruction:'<code>$44,500 × 0.002 = ?</code>',answer:89,hint:"44500×0.002=89"}
@@ -557,7 +557,7 @@ const PROBLEMS = [
       examQ_en:'Closing date is May 9. Buyer assumes a $94,500 mortgage at 8% annual interest. Interest is paid in arrears. How does the prorated May interest appear on the Closing Disclosure?',
       examOpts:['Débito al vendedor $165.70, Crédito al comprador $165.70','Débito al comprador $165.70, Crédito al vendedor $165.70','Débito al vendedor $662.79, Crédito al comprador $662.79','Crédito al vendedor $165.70, Débito al comprador $497.09'],
       statement:'Día de cierre: <span class="highlight">9 de Mayo</span>. Hipoteca asumida: <span class="highlight">$94,500 al 8%</span>.</br>Intereses de Mayo. ¿Débito/Crédito?',
-      formula:'1. Interés ANUAL = Monto × Tasa. 2. Interés DIARIO = Anual / 365.<br>3. Días del vendedor = hasta el día <strong>antes</strong> del cierre (8 días).<br>El vendedor no los pagó aún (se pagan a mes vencido), por tanto es un <strong>DÉBITO para el Vendedor</strong> y un <strong>CRÉDITO al Comprador</strong>.',
+      formula:'🔑 No te olvides: 1. Interés ANUAL = Monto × Tasa. 2. Interés DIARIO = Anual / 365.<br>3. Días del vendedor = hasta el día <strong>antes</strong> del cierre (8 días).<br>El vendedor no los pagó aún (se pagan a mes vencido), por tanto es un <strong>DÉBITO para el Vendedor</strong> y un <strong>CRÉDITO al Comprador</strong>.',
       steps:[
         {label:"Paso 1",instruction:'Interés anual: <code>$94,500 × 0.08 = ?</code>',answer:7560,hint:"7560"},
         {label:"Paso 2",instruction:'Interés diario: <code>$7,560 ÷ 365 = ?</code>',answer:20.7123,tolerance:0.01,hint:"20.7123"},
@@ -570,7 +570,7 @@ const PROBLEMS = [
       examQ_en:'A lot measures 120 feet by 200 feet deep. It costs $45 per front foot. How much does the lot cost based on frontage?',
       examOpts:['$5,400','$9,000','$14,400','$21,600'],
       statement:'Lote de <span class="highlight">120 pies × 200 pies</span>. Precio: <span class="highlight">$45 por front foot</span>. ¿Costo total?',
-      formula:'Front foot (pies de frente) es siempre el <strong>PRIMER</strong> número mencionado de las dimensiones del lote.',
+      formula:'💡 Piensa en esto: Front foot (pies de frente) es siempre el <strong>PRIMER</strong> número mencionado de las dimensiones del lote.',
       steps:[
         {label:"Paso 1",instruction:'Identifica los pies de frente (front footage): ? pies',answer:120,hint:"120"},
         {label:"Paso 2",instruction:'<code>120 pies × $45 = ?</code>',answer:5400,hint:"120×45=5400"}
@@ -581,7 +581,7 @@ const PROBLEMS = [
       examQ_en:'A broker agrees to charge 7% on the first $200,000 of the sale price, and 5.5% on the amount over $200,000. The house sold for $275,000. What is the total commission?',
       examOpts:['$18,125','$19,250','$14,000','$15,125'],
       statement:'Precio: <span class="highlight">$275,000</span>. Tramos: <span class="highlight">7% primeros $200k</span> y <span class="highlight">5.5% el resto</span>. ¿Total?',
-      formula:'Comisión 1 = Tramos1 * %.<br>Comisión 2 = (Precio - Tramos1) * %.<br>Suma ambas.',
+      formula:'💡 Piensa en esto: La Comisión es repartir el pastel. Primero el porcentaje total, y luego lo divides entre las oficinas y los agentes.',
       steps:[
         {label:"Paso 1",instruction:'Comisión Tramo 1: <code>$200,000 × 0.07 = ?</code>',answer:14000,hint:"14000"},
         {label:"Paso 2",instruction:'Sobrecosto (Tramo 2): <code>$275,000 - $200,000 = ?</code>',answer:75000,hint:"75000"},
@@ -594,7 +594,7 @@ const PROBLEMS = [
       examQ_en:'A homeowner purchased a property for $320,000 with a mortgage of $256,000. After 5 years, the property is worth $375,000 and the remaining mortgage balance is $230,000. What is the owner\'s current equity?',
       examOpts:['$145,000','$90,000','$119,000','$64,000'],
       statement:'Valor actual: <span class="highlight">$375,000</span>. Hipoteca pendiente: <span class="highlight">$230,000</span>. ¿Equity?',
-      formula:'<strong>Equity = Valor de Mercado − Deuda Hipotecaria</strong>',
+      formula:'🧠 Truco mental: <strong>Equity = Valor de Mercado − Deuda Hipotecaria</strong>',
       steps:[
         {label:"Paso 1",instruction:'<code>$375,000 − $230,000 = ?</code>',answer:145000,hint:"375000-230000=145000"}
     ]},
@@ -604,7 +604,7 @@ const PROBLEMS = [
       examQ_en:'Annual property taxes are $4,200. If the owner pays in November, they receive a 4% discount. How much do they pay?',
       examOpts:['$4,032','$4,200','$168','$3,780'],
       statement:'Impuestos anuales: <span class="highlight">$4,200</span>. Pago en <span class="highlight">noviembre</span> (4% descuento). ¿Cuánto paga?',
-      formula:'Descuento Nov = 4%. Pago = Impuesto × (1 − 0.04)',
+      formula:'🧠 Truco mental: Descuento Nov = 4%. Pago = Impuesto × (1 − 0.04)',
       steps:[
         {label:"Paso 1",instruction:'Descuento: <code>$4,200 × 0.04 = ?</code>',answer:168,hint:"4200×0.04=168"},
         {label:"Paso 2",instruction:'Pago: <code>$4,200 − $168 = ?</code>',answer:4032,hint:"4200-168=4032"}
