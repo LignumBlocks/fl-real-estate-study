@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FL Real Estate — Flashcards de Teoría</title>
+    <meta name="description" content="Tarjetas interactivas para el examen de licencia de bienes raíces de Florida.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #f4f6fa;
+            --surface: #ffffff;
+            --surface-2: #f0f2f8;
+            --surface-3: #e8ebf3;
+            --accent: #4f46e5;
+            --accent-light: #6366f1;
+            --accent-bg: #eef2ff;
+            --green: #059669;
+            --green-bg: #ecfdf5;
+            --orange: #d97706;
+            --orange-bg: #fffbeb;
+            --red: #dc2626;
+            --red-bg: #fef2f2;
+            --text: #1e293b;
+            --text-2: #475569;
+            --text-dim: #94a3b8;
+            --border: #e2e8f0;
+            --radius: 20px;
+            --card-h: 340px;
+            --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.04);
+            --shadow-lg: 0 4px 24px rgba(0,0,0,.08);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ─── Top bar ──────────────────────────────── */
+        .topbar {
+            position: sticky; top: 0; z-index: 100;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 24px;
+            display: flex; align-items: center; justify-content: space-between;
+            box-shadow: 0 1px 4px rgba(0,0,0,.04);
+        }
+        .topbar h1 {
+            font-size: 1.1rem; font-weight: 800;
+            color: var(--accent);
+        }
+        .topbar .pill {
+            font-size: .72rem; font-weight: 700;
+            padding: 5px 14px; border-radius: 999px;
+            background: var(--accent-bg); color: var(--accent);
+        }
+
+        /* ─── Category nav ─────────────────────────── */
+        .cat-bar {
+            display: flex; gap: 8px; padding: 14px 24px;
+            overflow-x: auto; scrollbar-width: none;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+        }
+        .cat-bar::-webkit-scrollbar { display: none; }
+        .cat-btn {
+            white-space: nowrap;
+            padding: 8px 18px; border-radius: 999px;
+            border: 1.5px solid var(--border);
+            background: var(--surface); color: var(--text-2);
+            font-size: .78rem; font-weight: 600;
+            cursor: pointer; transition: all .2s;
+            flex-shrink: 0;
+        }
+        .cat-btn.active, .cat-btn:hover {
+            background: var(--accent); color: #fff;
+            border-color: var(--accent);
+            box-shadow: 0 2px 12px rgba(79,70,229,.2);
+        }
+
+        /* ─── Progress ─────────────────────────────── */
+        .progress-wrap { padding: 12px 24px 6px; max-width: 640px; margin: 0 auto; }
+        .progress-row { display: flex; align-items: center; gap: 12px; }
+        .progress-track {
+            flex: 1; height: 6px; border-radius: 6px;
+            background: var(--surface-3);
+        }
+        .progress-fill {
+            height: 100%; border-radius: 6px;
+            background: linear-gradient(90deg, var(--accent), var(--green));
+            transition: width .4s ease;
+        }
+        .progress-label {
+            font-size: .72rem; font-weight: 700; color: var(--text-dim);
+            min-width: 60px; text-align: right;
+        }
+
+        /* ─── Score badges ─────────────────────────── */
+        .score-row {
+            display: flex; justify-content: center; gap: 20px;
+            padding: 8px 24px 12px;
+        }
+        .score-badge {
+            display: flex; align-items: center; gap: 6px;
+            font-size: .75rem; font-weight: 600; color: var(--text-2);
+            padding: 4px 12px; border-radius: 8px;
+        }
+        .score-badge.g { background: var(--green-bg); color: var(--green); }
+        .score-badge.o { background: var(--orange-bg); color: var(--orange); }
+        .score-badge.r { background: var(--red-bg); color: var(--red); }
+
+        /* ─── Card area ────────────────────────────── */
+        .card-area {
+            padding: 6px 24px 16px;
+            max-width: 640px; margin: 0 auto;
+        }
+
+        .flip-card {
+            perspective: 1200px;
+            height: var(--card-h); width: 100%;
+            cursor: pointer;
+        }
+        .flip-inner {
+            position: relative;
+            width: 100%; height: 100%;
+            transition: transform .5s cubic-bezier(.4,.0,.2,1);
+            transform-style: preserve-3d;
+        }
+        .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+
+        .flip-front, .flip-back {
+            position: absolute; inset: 0;
+            backface-visibility: hidden; -webkit-backface-visibility: hidden;
+            border-radius: var(--radius);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 32px 28px;
+            text-align: center;
+        }
+
+        .flip-front {
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            box-shadow: var(--shadow-lg);
+        }
+        .flip-front .cat-tag {
+            position: absolute; top: 18px; left: 22px;
+            font-size: .65rem; font-weight: 700; text-transform: uppercase;
+            color: var(--accent); letter-spacing: .06em;
+            background: var(--accent-bg); padding: 3px 10px; border-radius: 6px;
+        }
+        .flip-front .hint-icon {
+            position: absolute; top: 18px; right: 22px;
+            font-size: .7rem; color: var(--text-dim);
+        }
+        .flip-front .q-text {
+            font-size: 1.1rem; font-weight: 600; line-height: 1.6;
+            color: var(--text);
+        }
+
+        .flip-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(145deg, #4f46e5, #3730a3);
+            border: none;
+            box-shadow: var(--shadow-lg);
+            overflow-y: auto;
+        }
+        .flip-back .a-label {
+            font-size: .65rem; font-weight: 700; text-transform: uppercase;
+            color: rgba(255,255,255,.7); letter-spacing: .08em; margin-bottom: 14px;
+        }
+        .flip-back .a-text {
+            font-size: .95rem; font-weight: 500; line-height: 1.7;
+            color: #fff;
+        }
+        .flip-back .a-text strong { color: #fde68a; }
+
+        /* ─── Controls ─────────────────────────────── */
+        .controls {
+            display: flex; align-items: center; justify-content: center;
+            gap: 14px; padding: 16px 24px;
+            max-width: 640px; margin: 0 auto;
+        }
+        .ctrl-btn {
+            width: 52px; height: 52px; border-radius: 50%;
+            border: 1.5px solid var(--border);
+            background: var(--surface); color: var(--text-2);
+            font-size: 1.2rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all .2s;
+            box-shadow: var(--shadow);
+        }
+        .ctrl-btn:hover {
+            background: var(--accent-bg); border-color: var(--accent);
+            color: var(--accent);
+        }
+        .ctrl-btn.know {
+            background: var(--green); border-color: var(--green);
+            color: #fff;
+        }
+        .ctrl-btn.know:hover {
+            box-shadow: 0 4px 16px rgba(5,150,105,.25);
+            transform: scale(1.06);
+        }
+        .ctrl-btn.skip {
+            background: var(--red-bg); border-color: #fecaca;
+            color: var(--red);
+        }
+        .ctrl-btn.skip:hover {
+            background: var(--red); color: #fff;
+        }
+
+        .counter {
+            font-size: .85rem; font-weight: 700; color: var(--text-2);
+            min-width: 60px; text-align: center;
+        }
+
+        /* ─── Action row ───────────────────────────── */
+        .action-row {
+            display: flex; justify-content: center; gap: 10px;
+            padding: 0 24px 32px;
+        }
+        .action-btn {
+            padding: 10px 22px; border-radius: 12px;
+            border: 1.5px solid var(--border);
+            background: var(--surface); color: var(--text-2);
+            font-size: .78rem; font-weight: 600;
+            cursor: pointer; transition: all .2s;
+            box-shadow: var(--shadow);
+        }
+        .action-btn:hover {
+            border-color: var(--accent); color: var(--accent);
+            background: var(--accent-bg);
+        }
+
+        /* ─── Keyboard hint ────────────────────────── */
+        .key-hint {
+            position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%);
+            font-size: .68rem; color: var(--text-dim);
+            background: var(--surface); padding: 6px 16px; border-radius: 8px;
+            box-shadow: var(--shadow); display: none;
+        }
+        @media (min-width: 769px) { .key-hint { display: block; } }
+
+        @keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:.8} }
+        .hint-icon { animation: pulse 2.5s infinite; }
+
+        .user-badge{display:flex;align-items:center;gap:8px}
+        .user-badge .avatar{width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700}
+        .user-badge .uname{font-size:.75rem;font-weight:600;color:var(--text-2)}
+        .user-badge .logout-btn{font-size:.65rem;color:var(--text-dim);cursor:pointer;text-decoration:underline}
+        .login-overlay{position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center}
+        .login-box{background:var(--surface);border-radius:20px;padding:40px 36px;box-shadow:0 24px 80px rgba(0,0,0,.15);text-align:center;max-width:380px;width:90%}
+        .login-box h2{font-size:1.3rem;font-weight:800;color:var(--accent);margin-bottom:6px}
+        .login-box p{font-size:.85rem;color:var(--text-2);margin-bottom:20px}
+        .login-box input{width:100%;padding:14px 18px;border:2px solid var(--border);border-radius:12px;font-size:1rem;font-weight:600;outline:none;margin-bottom:14px;font-family:'Inter'}
+        .login-box input:focus{border-color:var(--accent)}
+        .login-box button{width:100%;padding:14px;border:none;border-radius:12px;background:var(--accent);color:#fff;font-size:1rem;font-weight:700;cursor:pointer}
+        .login-box button:hover{background:#4338ca}
+
+        @media (max-width: 480px) {
+            :root { --card-h: 300px; }
+            .flip-front .q-text { font-size: .96rem; }
+            .flip-back .a-text { font-size: .88rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <h1>🏠 FL Real Estate — Teoría</h1>
+    <div style="display:flex;align-items:center;gap:12px">
+        <span class="pill" id="modeLabel">Todas</span>
+        <div class="user-badge" id="userBadge" style="display:none">
+            <div class="avatar" id="userAvatar"></div>
+            <div><span class="uname" id="userName"></span><br><span class="logout-btn" onclick="logoutUser()">salir</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="cat-bar" id="catBar"></div>
+
+<div class="progress-wrap">
+    <div class="progress-row">
+        <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+        <div class="progress-label" id="progressLabel">0 / 0</div>
+    </div>
+</div>
+
+<div class="score-row">
+    <div class="score-badge g">✓ Dominadas: <span id="sKnow">0</span></div>
+    <div class="score-badge o">○ Revisar: <span id="sReview">0</span></div>
+    <div class="score-badge r">✗ No sé: <span id="sWrong">0</span></div>
+</div>
+
+<div class="card-area">
+    <div class="flip-card" id="flipCard" onclick="flipCard()">
+        <div class="flip-inner">
+            <div class="flip-front">
+                <span class="cat-tag" id="cardCat"></span>
+                <span class="hint-icon">tap para revelar ↻</span>
+                <p class="q-text" id="cardQ"></p>
+            </div>
+            <div class="flip-back">
+                <span class="a-label">✓ Respuesta</span>
+                <p class="a-text" id="cardA"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="controls">
+    <button class="ctrl-btn skip" onclick="markCard('wrong')" title="No lo sé">✗</button>
+    <button class="ctrl-btn" onclick="prevCard()" title="Anterior">◀</button>
+    <span class="counter" id="counter">1 / 1</span>
+    <button class="ctrl-btn" onclick="nextCard()" title="Siguiente">▶</button>
+    <button class="ctrl-btn know" onclick="markCard('know')" title="¡Lo sé!">✓</button>
+</div>
+
+<div class="action-row">
+    <button class="action-btn" onclick="shuffleDeck()">🔀 Mezclar</button>
+    <button class="action-btn" onclick="resetProgress()">↺ Reiniciar</button>
+    <button class="action-btn" onclick="showOnlyWrong()">🔴 Solo errores</button>
+</div>
+
+<div class="key-hint">⌨️  ← → navegar · Espacio voltear · S = sé · X = no sé</div>
+
+<div class="login-overlay" id="loginOverlay">
+    <div class="login-box">
+        <h2>🏠 FL Real Estate</h2>
+        <p>Ingresa tu nombre para guardar tu progreso</p>
+        <input id="loginInput" placeholder="Tu nombre..." onkeydown="if(event.key==='Enter')doLogin()">
+        <button onclick="doLogin()">Comenzar →</button>
+    </div>
+</div>
+
+<script>
+const ALL_CARDS = [
+    // ── CONTRATOS ──
+    { cat:"Contratos", q:"¿Cuáles son los 5 elementos esenciales para que un contrato de bienes raíces sea válido? (COLIC)", a:"<strong>C</strong>ompetent parties · <strong>O</strong>ffer and acceptance · <strong>L</strong>egality of object · <strong>I</strong>n writing and signed · <strong>C</strong>onsideration (Contraprestación válida)." },
+    { cat:"Contratos", q:"¿Qué exige el Estatuto de Fraudes (Statute of Frauds)?", a:"Que los contratos que transfieren intereses en bienes raíces deben estar <strong>por escrito y firmados</strong> para ser legalmente exigibles. Sin escritura, es <strong>inejecutable</strong> (unenforceable), no necesariamente anulable." },
+    { cat:"Contratos", q:"¿Cuáles son las formas en que una oferta se puede terminar? (WILD CARD)", a:"<strong>W</strong>ithdrawal · <strong>I</strong>nsanity · <strong>L</strong>apse of time · <strong>D</strong>eath · <strong>C</strong>ounteroffer · <strong>A</strong>cceptance · <strong>R</strong>ejection · <strong>D</strong>estruction de la propiedad." },
+    { cat:"Contratos", q:"¿Diferencia entre void, voidable y unenforceable?", a:"<strong>Void</strong>: Nulo, sin efecto legal (ej: ilegal). <strong>Voidable</strong>: Válido hasta que la parte afectada lo anule (ej: menor). <strong>Unenforceable</strong>: Válido pero no ejecutable en corte (ej: no está por escrito)." },
+    { cat:"Contratos", q:"¿Qué es la consideración (consideration)?", a:"Algo de <strong>valor</strong> que cada parte intercambia: dinero, promesa, o incluso 'love and affection'. Sin consideración, <strong>no hay contrato válido</strong>." },
+    { cat:"Contratos", q:"¿Qué es 'Time is of the Essence'?", a:"Cláusula que establece que las <strong>fechas límite son estrictamente obligatorias</strong>. Si no se cumple, es un <strong>incumplimiento</strong> (breach)." },
+    { cat:"Contratos", q:"¿Diferencia entre contrato bilateral y unilateral?", a:"<strong>Bilateral</strong>: Ambas partes prometen (ej: compraventa). <strong>Unilateral</strong>: Solo una promete; la otra actúa voluntariamente (ej: opción de compra)." },
+    { cat:"Contratos", q:"¿Qué remedios tiene un comprador ante incumplimiento del vendedor?", a:"1. <strong>Specific Performance</strong>. 2. <strong>Rescission</strong>. 3. <strong>Liquidated Damages</strong>. 4. <strong>Suit for damages</strong>." },
+
+    // ── CORRETAJE ──
+    { cat:"Corretaje", q:"¿Cuál es la relación de corretaje por defecto en Florida?", a:"<strong>Transaction Broker</strong> (Corredor de Transacción). Se presume legalmente. <strong>No es fiduciario</strong>." },
+    { cat:"Corretaje", q:"¿Deberes de un Single Agent? (COLD-AC)", a:"<strong>C</strong>onfidentiality · <strong>O</strong>bedience · <strong>L</strong>oyalty · <strong>D</strong>isclosure · <strong>A</strong>ccounting · <strong>C</strong>ompetence. Relación <strong>fiduciaria</strong>." },
+    { cat:"Corretaje", q:"¿Cuáles son los 3 deberes bajo 'No Brokerage Relationship'?", a:"1. <strong>Dealing honestly and fairly</strong>. 2. <strong>Disclosing all known material facts</strong>. 3. <strong>Accounting for all funds</strong>. NO hay confidencialidad ni lealtad." },
+    { cat:"Corretaje", q:"¿Es legal la Dual Agency en Florida?", a:"<strong>No.</strong> La Dual Agency está <strong>prohibida</strong> en Florida." },
+    { cat:"Corretaje", q:"¿Puede un Transaction Broker pasar a Single Agent?", a:"<strong>Sí</strong>, pero requiere <strong>consentimiento por escrito</strong>." },
+    { cat:"Corretaje", q:"¿Cuánto tiempo debe un corredor retener documentos?", a:"<strong>5 años</strong> desde la fecha del último acto o del litigio, lo que sea más largo." },
+
+    // ── LICENCIA ──
+    { cat:"Licencia", q:"¿Requisitos para licencia de Sales Associate en Florida?", a:"1. <strong>18 años</strong>. 2. SSN. 3. Curso de <strong>63 horas</strong>. 4. Aprobar examen estatal. 5. Verificación de antecedentes (fingerprints)." },
+    { cat:"Licencia", q:"¿Horas de educación continua para renovar?", a:"<strong>14 horas</strong> cada 2 años. Incluye <strong>3 horas Core Law</strong> + <strong>3 horas Ethics</strong>." },
+    { cat:"Licencia", q:"¿Qué es la FREC?", a:"Florida Real Estate Commission. Parte del DBPR. <strong>7 miembros</strong>: 4 licenciados + 2 consumidores + 1 broker." },
+    { cat:"Licencia", q:"¿Qué pasa si ejerces sin licencia?", a:"<strong>Felony de tercer grado</strong>. Hasta <strong>$5,000</strong> multa y <strong>5 años</strong> prisión." },
+    { cat:"Licencia", q:"¿Qué es 'Involuntarily Inactive'?", a:"No renovó a tiempo. Tiene <strong>2 años</strong> para reactivar. Después → <strong>null and void</strong>." },
+
+    // ── PROPIEDAD ──
+    { cat:"Propiedad", q:"¿Cómo se adquiere título de propiedad? (WADED)", a:"<strong>W</strong>ill · <strong>A</strong>dverse Possession (7 años + impuestos) · <strong>D</strong>eed · <strong>E</strong>scheat · <strong>D</strong>escent (herencia intestada)." },
+    { cat:"Propiedad", q:"¿Restricciones gubernamentales sobre la propiedad? (PETE)", a:"<strong>P</strong>olice Power (zoning) · <strong>E</strong>minent Domain (expropiación) · <strong>T</strong>axation · <strong>E</strong>scheat." },
+    { cat:"Propiedad", q:"¿Restricciones privadas? (DELL)", a:"<strong>D</strong>eed restrictions · <strong>E</strong>asements · <strong>L</strong>eases · <strong>L</strong>iens." },
+    { cat:"Propiedad", q:"Florida sigue Lien Theory. ¿Qué significa?", a:"El <strong>prestatario retiene el título</strong>. El prestamista solo tiene un <strong>lien (gravamen)</strong> como garantía." },
+    { cat:"Propiedad", q:"¿Qué es la Homestead Exemption?", a:"1. Exime <strong>$50,000</strong> del valor tasado. 2. Protege contra ejecución forzosa (excepto impuestos, hipoteca, mechanic's liens). 3. Requiere <strong>consentimiento del cónyuge</strong> para vender." },
+    { cat:"Propiedad", q:"¿Qué es un General Warranty Deed?", a:"La escritura con <strong>mayor protección</strong> al comprador. Garantiza: título legítimo, puede transferir, sin gravámenes ocultos, defenderá contra reclamos." },
+    { cat:"Propiedad", q:"¿Qué es Tenancy by the Entireties?", a:"Copropiedad <strong>exclusiva para parejas casadas</strong>. Incluye <strong>derecho de supervivencia</strong>. Ninguno puede vender sin el otro." },
+
+    // ── DIVULGACIONES ──
+    { cat:"Divulgaciones", q:"¿Qué establece Johnson vs. Davis?", a:"El vendedor debe <strong>revelar defectos materiales conocidos</strong> no fácilmente observables. Aplica a residenciales." },
+    { cat:"Divulgaciones", q:"¿Cuándo aplica divulgación de Lead-Based Paint?", a:"Viviendas construidas <strong>antes de 1978</strong>. Entregar panfleto + divulgar conocimiento + <strong>10 días</strong> para inspección." },
+    { cat:"Divulgaciones", q:"¿Qué es el Radon Gas Disclosure?", a:"Divulgación <strong>obligatoria en todos los contratos</strong> de venta en Florida. Informa sobre el gas radón y pruebas disponibles." },
+    { cat:"Divulgaciones", q:"Fair Housing Act — ¿Qué clases protege?", a:"<strong>7 clases</strong>: Raza, Color, Religión, Sexo, Origen Nacional, Discapacidad, Estado Familiar. Mnemotecnia: <strong>'RC Cola Has No Dark Fizz'</strong>." },
+    { cat:"Divulgaciones", q:"¿Exenciones a la Fair Housing Act?", a:"1. <strong>Mrs. Murphy</strong>: propietario en propiedad ≤4 unidades. 2. Organizaciones religiosas. 3. Clubes privados. <strong>NINGUNA aplica si usa broker</strong> o publicidad discriminatoria." },
+
+    // ── SANCIONES ──
+    { cat:"Sanciones", q:"¿Multa por no mantener letrero de oficina? (61J2)", a:"<strong>$500</strong>." },
+    { cat:"Sanciones", q:"¿Sanción por publicidad falsa o engañosa?", a:"<strong>$250 a $1,000</strong>. Toda publicidad debe incluir nombre del broker." },
+    { cat:"Sanciones", q:"¿Sanción por no depositar fondos de escrow a tiempo?", a:"<strong>$250 a $1,000</strong> + posible suspensión. Depósito: <strong>antes del final del 3er día hábil</strong> después de aceptación." },
+    { cat:"Sanciones", q:"¿Sanción por obtener licencia por fraude?", a:"<strong>$250 a $1,000</strong> + <strong>30 días suspensión</strong>. Puede resultar en revocación." },
+    { cat:"Sanciones", q:"¿Multa máxima que la FREC puede imponer?", a:"Hasta <strong>$5,000 por cada violación</strong>. También puede: suspender, revocar, reprimenda, o educación adicional." },
+
+    // ── FINANCIAMIENTO ──
+    { cat:"Financiamiento", q:"¿Qué es un Promissory Note?", a:"La <strong>promesa personal de pago</strong>. Especifica: monto, tasa, plazo, pagos, penalidades. El pagaré = evidencia de deuda; la hipoteca = garantía." },
+    { cat:"Financiamiento", q:"¿Qué es la cláusula Due-on-Sale?", a:"Permite al prestamista exigir <strong>pago total</strong> si la propiedad se vende/transfiere sin autorización." },
+    { cat:"Financiamiento", q:"¿Diferencia entre Convencional, FHA y VA?", a:"<strong>Convencional</strong>: Sin gobierno; PMI si LTV > 80%. <strong>FHA</strong>: Asegurada gobierno; 3.5% down; MIP. <strong>VA</strong>: Veteranos; 0% down posible; funding fee." },
+    { cat:"Financiamiento", q:"¿Qué es el LTV?", a:"<strong>LTV = Préstamo ÷ Valor × 100</strong>. Valor = el <strong>menor</strong> entre precio y tasación. Si LTV > 80% → PMI requerido (convencional)." },
+    { cat:"Financiamiento", q:"¿Qué es RESPA?", a:"Regula <strong>costos de cierre</strong>. Prohíbe kickbacks. Requiere <strong>Loan Estimate</strong> (3 días) y <strong>Closing Disclosure</strong> (3 días antes cierre)." },
+
+    // ── TASACIÓN ──
+    { cat:"Tasación", q:"¿Cuáles son los 3 enfoques de tasación?", a:"1. <strong>Sales Comparison</strong> (residencias). 2. <strong>Cost Approach</strong> (propiedades únicas). 3. <strong>Income Approach</strong> (inversiones — IRV)." },
+    { cat:"Tasación", q:"¿Fórmula IRV?", a:"<strong>I = R × V</strong>. I = NOI, R = Cap Rate, V = Valor. Para valor: <strong>V = I ÷ R</strong>." },
+    { cat:"Tasación", q:"Comparación de Ventas: ¿cuándo sumar/restar ajuste?", a:"<strong>'CBS'</strong>: Si comparable <strong>Superior</strong> al sujeto → <strong>Restar</strong>. Si <strong>Inferior</strong> → <strong>Sumar</strong>. Siempre ajustar el comparable." },
+    { cat:"Tasación", q:"¿Qué es el GIM?", a:"<strong>GIM = Precio ÷ Renta Bruta Anual</strong>. Estima rápidamente valor de propiedades de inversión." },
+
+    // ── CIERRE ──
+    { cat:"Cierre", q:"¿Cuáles son los impuestos documentales en Florida?", a:"1. <strong>Deed</strong>: $0.70/$100 precio (redondear ↑). 2. <strong>Note</strong>: $0.35/$100 préstamo (redondear ↑). 3. <strong>Intangible</strong>: $0.002 × préstamo NUEVO (sin redondeo)." },
+    { cat:"Cierre", q:"¿Cómo se calculan prorrateos al cierre?", a:"1. Costo anual. 2. ÷ 365 = tasa diaria. 3. × días del vendedor. El vendedor paga los <strong>días que usó</strong>." },
+    { cat:"Cierre", q:"¿Quién paga qué impuesto documental?", a:"<strong>Vendedor</strong>: Doc Stamps on Deed. <strong>Comprador</strong>: Doc Stamps on Note + Intangible. Es <strong>negociable</strong>." },
+
+    // ── USO DE SUELO ──
+    { cat:"Uso de Suelo", q:"¿Qué es el Zoning?", a:"<strong>Police Power</strong> local para regular uso de la tierra: Residencial, Comercial, Industrial, Agrícola. Se puede pedir <strong>Variance</strong> o <strong>Rezoning</strong>." },
+    { cat:"Uso de Suelo", q:"¿Qué es un uso 'Nonconforming'?", a:"Uso legal antes del cambio de zoning. Se permite continuar (<strong>grandfathered</strong>), pero no expandir ni reconstruir si se destruye." },
+    { cat:"Uso de Suelo", q:"¿Qué es el Green Belt Law?", a:"Tierras agrícolas se tasan según <strong>uso agrícola</strong> (no valor de mercado). Reduce impuestos para granjeros." },
+
+    // ── EXTRAS ──
+    { cat:"Extras", q:"¿Diferencia entre agente, broker y REALTOR®?", a:"<strong>Agente</strong>: trabaja bajo broker. <strong>Broker</strong>: opera su oficina y supervisa. <strong>REALTOR®</strong>: miembro de NAR (asociación), no es licencia." },
+    { cat:"Extras", q:"¿Qué es TILA / Regulation Z?", a:"Requiere divulgar <strong>APR, costos totales y términos</strong>. Trigger terms activan divulgación completa. <strong>3 días de rescisión</strong> en refinanciamientos." },
+    { cat:"Extras", q:"¿Qué es un CMA?", a:"Comparative Market Analysis. Estima <strong>precio de listado</strong> con ventas comparables. <strong>No es tasación</strong>." },
+
+    // ── NUEVAS — Liens Comerciales ──
+    { cat:"Corretaje", q:"¿El lien del broker bajo el Commercial RE Sales Commission Lien Act se adhiere al inmueble?", a:"<strong>No.</strong> El lien es sobre los <strong>net proceeds</strong> (propiedad personal), <strong>no se adhiere al inmueble</strong>." },
+    { cat:"Corretaje", q:"¿El lien del broker bajo el Commercial RE Leasing Commission Lien Act a qué se adhiere?", a:"Se adhiere al <strong>interés del landlord</strong> en el inmueble comercial identificado en el acuerdo de corretaje. <strong>No se adhiere al leasehold del inquilino</strong>." },
+    { cat:"Corretaje", q:"¿Puede el propietario renunciar de antemano al derecho del broker a reclamar un lien comercial?", a:"<strong>No.</strong> El derecho a reclamar un lien <strong>no puede ser renunciado</strong> antes de que la comisión sea efectivamente ganada." },
+
+    // ── NUEVAS — Foreign Investment ──
+    { cat:"Divulgaciones", q:"¿Qué deben firmar los compradores al cierre según las regulaciones de Florida sobre Foreign Principals?", a:"Un <strong>affidavit bajo pena de perjurio</strong> declarando si son o no un 'Foreign Principal', reconociendo que la declaración será usada para verificar cumplimiento legal." },
+
+    // ── NUEVAS — CERCLA / Ambiental ──
+    { cat:"Divulgaciones", q:"¿Cuál es el propósito principal de CERCLA (Superfund)?", a:"Establecer un <strong>fondo federal para limpiar sitios con desechos peligrosos</strong>, responder a derrames e identificar <strong>personas potencialmente responsables (PRPs)</strong>." },
+    { cat:"Divulgaciones", q:"¿Qué defensa legal otorga CERCLA/SARA a ciertos propietarios?", a:"La defensa de <strong>'innocent landowner'</strong>, que permite evitar responsabilidad si se cumplen criterios específicos de <strong>due diligence</strong>." },
+
+    // ── NUEVAS — Escrow ──
+    { cat:"Corretaje", q:"¿Qué es 'commingling' en cuentas de escrow?", a:"El acto <strong>ilegal</strong> de mezclar dinero en fideicomiso (escrow) con fondos <strong>personales o empresariales</strong> del broker." },
+    { cat:"Corretaje", q:"¿Cuánto dinero propio puede mantener un broker en la cuenta de escrow?", a:"Hasta <strong>$1,000</strong> en cuenta de sales escrow y hasta <strong>$5,000</strong> en cuenta de property management escrow." },
+    { cat:"Corretaje", q:"¿Qué es 'conversion' en la ley de licencias?", a:"El <strong>uso no autorizado, mal uso o retención</strong> de la propiedad o fondos de un cliente por parte del licenciado." },
+    { cat:"Corretaje", q:"¿Cuántos días tiene el broker para notificar a FREC sobre conflicto de escrow?", a:"<strong>15 días hábiles</strong> después de la última demanda conflictiva recibida." },
+    { cat:"Corretaje", q:"¿Procedimientos MALE para resolver conflictos de escrow?", a:"<strong>M</strong>ediation · <strong>A</strong>rbitration · <strong>L</strong>itigation (interpleader) · <strong>E</strong>scrow Disbursement Order (EDO) de la FREC." },
+    { cat:"Corretaje", q:"¿Cuándo está EXENTO el broker de notificar a FREC en disputa de escrow?", a:"Cuando el comprador <strong>falla de buena fe</strong> en cumplir la cláusula de financiamiento, o cuando el comprador de condominio residencial <strong>cancela bajo el Condominium Act</strong>." },
+
+    // ── NUEVAS — Business Valuation ──
+    { cat:"Tasación", q:"¿El 'going concern value' de un negocio siempre es mayor que el valor de sus bienes raíces?", a:"<strong>No.</strong> El going concern value puede ser <strong>menor, igual o mayor</strong> que el valor de los activos inmobiliarios por separado." },
+    { cat:"Tasación", q:"¿Qué es un ejemplo de activo intangible al valorar un negocio?", a:"<strong>Goodwill</strong> (reputación y nombre del negocio). Es un activo intangible que debe ser considerado en la valuación." },
+    { cat:"Tasación", q:"¿Cuáles son los ratios financieros clave al analizar estados financieros de un negocio?", a:"<strong>Quick ratio</strong>, <strong>inventory turnover</strong>, <strong>debt-to-worth ratio</strong>, y <strong>net profit-to-owner ratio</strong>." },
+
+    // ── NUEVAS — NAR 2024 ──
+    { cat:"Corretaje", q:"Tras el acuerdo NAR 2024, ¿dónde está PROHIBIDO publicar comisiones al buyer's agent?", a:"En el <strong>MLS (Multiple Listing Service)</strong>. Ya no se pueden anunciar ofertas de compensación al agente del comprador en el MLS." },
+    { cat:"Corretaje", q:"Post agosto 2024, ¿qué debe firmar el comprador ANTES de ver propiedades?", a:"Un <strong>acuerdo escrito de representación de comprador</strong> que especifique deberes del agente y los términos de comisión negociados." },
+
+    // ── NUEVAS — Sanciones/Licencia ──
+    { cat:"Sanciones", q:"¿Qué es un 'Notice of Noncompliance' del DBPR?", a:"Un aviso para una <strong>primera ofensa de violación menor</strong> que no causa daño económico/físico ni afecta negativamente la salud, seguridad o bienestar públicos." },
+    { cat:"Licencia", q:"¿Pueden los 'residential loan alternative agreements' poner un lien sobre propiedad residential?", a:"<strong>No.</strong> Estos acuerdos <strong>no pueden autorizar</strong> a una persona a colocar un lien o gravar de otra forma una propiedad residencial." },
+    { cat:"Licencia", q:"¿Pueden los sales associates operar bajo un nombre ficticio (trade name)?", a:"<strong>No.</strong> Deben registrarse y operar estrictamente bajo su <strong>nombre legal</strong>. Solo los brokers pueden usar nombres ficticios." },
+];
+
+let deck = [...ALL_CARDS];
+let idx = 0;
+let scores = { know:0, review:0, wrong:0 };
+let marked = new Set();
+let activeCategory = "Todas";
+
+const categories = ["Todas", ...new Set(ALL_CARDS.map(c => c.cat))];
+const catBar = document.getElementById('catBar');
+categories.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn' + (c === "Todas" ? ' active' : '');
+    btn.textContent = c;
+    btn.onclick = () => filterByCategory(c);
+    catBar.appendChild(btn);
+});
+
+function filterByCategory(cat) {
+    activeCategory = cat;
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.textContent === cat));
+    document.getElementById('modeLabel').textContent = cat;
+    deck = cat === "Todas" ? [...ALL_CARDS] : ALL_CARDS.filter(c => c.cat === cat);
+    idx = 0; marked.clear();
+    scores = { know:0, review:0, wrong:0 };
+    render();
+}
+
+function render() {
+    if (!deck.length) {
+        document.getElementById('cardQ').textContent = "No hay tarjetas en esta categoría.";
+        document.getElementById('cardA').innerHTML = "";
+        document.getElementById('cardCat').textContent = "";
+        document.getElementById('counter').textContent = "0 / 0";
+        return;
+    }
+    const c = deck[idx];
+    document.getElementById('cardQ').textContent = c.q;
+    document.getElementById('cardA').innerHTML = c.a;
+    document.getElementById('cardCat').textContent = c.cat;
+    document.getElementById('counter').textContent = `${idx + 1} / ${deck.length}`;
+    document.getElementById('flipCard').classList.remove('flipped');
+    const pct = deck.length ? ((scores.know + scores.wrong) / deck.length * 100) : 0;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressLabel').textContent = `${scores.know + scores.wrong} / ${deck.length}`;
+    document.getElementById('sKnow').textContent = scores.know;
+    document.getElementById('sReview').textContent = deck.length - scores.know - scores.wrong;
+    document.getElementById('sWrong').textContent = scores.wrong;
+}
+function flipCard() { document.getElementById('flipCard').classList.toggle('flipped'); }
+function nextCard() { if (!deck.length) return; idx = (idx + 1) % deck.length; render(); }
+function prevCard() { if (!deck.length) return; idx = (idx - 1 + deck.length) % deck.length; render(); }
+function markCard(type) {
+    if (!deck.length || marked.has(idx)) { nextCard(); return; }
+    marked.add(idx);
+    if (type === 'know') scores.know++; else scores.wrong++;
+    render(); setTimeout(nextCard, 250);
+}
+function shuffleDeck() {
+    for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+    idx = 0; marked.clear(); scores = { know:0, review:0, wrong:0 }; render();
+}
+function resetProgress() { idx = 0; marked.clear(); scores = { know:0, review:0, wrong:0 }; filterByCategory(activeCategory); saveProgress(); }
+function showOnlyWrong() { idx = 0; marked.clear(); scores = { know:0, review:0, wrong:0 }; render(); }
+
+/* ── LOGIN & PERSISTENCE ─────────────── */
+let currentUser = null;
+function doLogin(){
+    const name = document.getElementById('loginInput').value.trim();
+    if(!name) return;
+    currentUser = name;
+    localStorage.setItem('fl_user', name);
+    document.getElementById('loginOverlay').style.display = 'none';
+    document.getElementById('userBadge').style.display = 'flex';
+    document.getElementById('userAvatar').textContent = name[0].toUpperCase();
+    document.getElementById('userName').textContent = name;
+    loadProgress();
+}
+function logoutUser(){
+    currentUser = null;
+    localStorage.removeItem('fl_user');
+    document.getElementById('loginOverlay').style.display = 'flex';
+    document.getElementById('userBadge').style.display = 'none';
+    document.getElementById('loginInput').value = '';
+}
+function saveProgress(){
+    if(!currentUser) return;
+    const data = { scores, idx, cat: activeCategory, marked: [...marked] };
+    localStorage.setItem('fl_flash_'+currentUser, JSON.stringify(data));
+}
+function loadProgress(){
+    if(!currentUser) return;
+    const raw = localStorage.getItem('fl_flash_'+currentUser);
+    if(!raw) return;
+    try {
+        const data = JSON.parse(raw);
+        if(data.cat) filterByCategory(data.cat);
+        scores = data.scores || {know:0,review:0,wrong:0};
+        idx = data.idx || 0;
+        marked = new Set(data.marked || []);
+        render();
+    } catch(e){}
+}
+// Auto-save on mark
+const _origMark = markCard;
+markCard = function(type){ _origMark(type); saveProgress(); };
+window.addEventListener('beforeunload', saveProgress);
+
+// Auto-login if returning user
+(function(){
+    const saved = localStorage.getItem('fl_user');
+    if(saved){
+        document.getElementById('loginInput').value = saved;
+        doLogin();
+    }
+})();
+
+document.addEventListener('keydown', e => {
+    if (document.getElementById('loginOverlay').style.display !== 'none' && document.getElementById('loginOverlay').style.display !== '') return;
+    if (e.key === 'ArrowRight') nextCard();
+    else if (e.key === 'ArrowLeft') prevCard();
+    else if (e.key === ' ') { e.preventDefault(); flipCard(); }
+    else if (e.key === 's' || e.key === 'S') markCard('know');
+    else if (e.key === 'x' || e.key === 'X') markCard('wrong');
+});
+let touchStartX = 0;
+document.querySelector('.card-area').addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+document.querySelector('.card-area').addEventListener('touchend', e => {
+    const diff = e.changedTouches[0].screenX - touchStartX;
+    if (Math.abs(diff) > 60) diff > 0 ? prevCard() : nextCard();
+}, { passive: true });
+
+render();
+</script>
+</body>
+</html>
