@@ -30,9 +30,15 @@
 
         .container{max-width:640px;margin:0 auto;padding:0 20px 80px;position:relative;z-index:1}
 
-        .formula-ref{background:var(--gold-bg);border:1.5px solid #fde68a;border-radius:var(--radius);padding:20px 24px;margin-bottom:16px}
-        .formula-ref h3{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);margin-bottom:10px}
-        .formula-ref p{font-family:var(--mono);font-size:.82rem;line-height:1.8;color:var(--text-2)}
+        .exam-question{background:linear-gradient(145deg,#fef9e7,#fff8e1);border:2px solid #f9d923;border-radius:16px;padding:20px 24px;margin-bottom:14px;position:relative}
+        .exam-question::before{content:'📝 ASÍ TE LO PREGUNTAN EN EL EXAMEN';display:block;font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#b8860b;margin-bottom:10px}
+        .exam-question p{font-size:.95rem;font-weight:600;line-height:1.65;color:#1a1a2e}
+        .exam-question .exam-options{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:6px 16px}
+        .exam-question .exam-opt{font-size:.85rem;color:#333;font-weight:500;padding:4px 0}
+        .exam-question .exam-opt::before{content:'○ ';color:#b8860b;font-weight:700}
+        .formula-ref{background:var(--accent-bg);border:1.5px solid #c7d2fe;border-radius:16px;padding:18px 22px;margin-bottom:16px}
+        .formula-ref h3{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);margin-bottom:6px}
+        .formula-ref p{font-family:var(--mono);font-size:.82rem;line-height:1.7;color:var(--text)}
         .formula-ref p strong{color:var(--text)}
 
         .problem-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:28px 24px;margin-bottom:16px;box-shadow:var(--shadow)}
@@ -215,20 +221,29 @@ document.addEventListener('keydown', e => {
 /* ── VERIFIED PROBLEMS ─────────────────── */
 const PROBLEMS = [
     // DOC STAMPS ON DEED
-    { cat:"Doc Stamps", title:"Sellos en Escritura", statement:'Propiedad vendida por <span class="highlight">$385,000</span>. ¿Doc Stamps on Deed?',
+    { cat:"Doc Stamps", title:"Sellos en Escritura",
+      examQ:'A property sold for $385,000. What is the amount of documentary stamp tax on the deed?',
+      examOpts:['$2,695.00','$1,347.50','$2,450.00','$770.00'],
+      statement:'Propiedad vendida por <span class="highlight">$385,000</span>. ¿Doc Stamps on Deed?',
       formula:'<strong>Deed:</strong> Precio ÷ 100 → redondear ↑ → × $0.70',
       steps:[
         {label:"Paso 1",instruction:'Divide entre $100:<br><code>$385,000 ÷ 100 = ?</code>',answer:3850,hint:"385000/100=3850"},
         {label:"Paso 2",instruction:'Multiplica por $0.70:<br><code>3,850 × $0.70 = ?</code>',answer:2695,hint:"3850×0.70=2695"}
     ]},
-    { cat:"Doc Stamps", title:"Deed (con redondeo)", statement:'Casa vendida por <span class="highlight">$247,350</span>. ¿Doc Stamps on Deed?',
+    { cat:"Doc Stamps", title:"Deed (con redondeo)",
+      examQ:'A home is sold for $247,350. How much is owed in documentary stamps on the deed?',
+      examOpts:['$1,731.80','$1,731.45','$1,731.50','$1,732.50'],
+      statement:'Casa vendida por <span class="highlight">$247,350</span>. ¿Doc Stamps on Deed?',
       formula:'<strong>Deed:</strong> Precio ÷ 100 → REDONDEAR ↑ al entero → × $0.70',
       steps:[
         {label:"Paso 1",instruction:'Divide entre $100:<br><code>$247,350 ÷ 100 = ?</code>',answer:2473.5,hint:"247350/100=2473.50"},
         {label:"Paso 2",instruction:'Redondea ↑ al entero:<br><code>2,473.5 → ?</code>',answer:2474,hint:"2473.5→2474"},
         {label:"Paso 3",instruction:'Multiplica por $0.70:<br><code>2,474 × $0.70 = ?</code>',answer:1731.80,tolerance:0.01,hint:"2474×0.70=1731.80"}
     ]},
-    { cat:"Doc Stamps", title:"Deed (irregular)", statement:'Venta por <span class="highlight">$512,775</span>. ¿Stamps on deed?',
+    { cat:"Doc Stamps", title:"Deed (irregular)",
+      examQ:'A residential property sells for $512,775. Calculate the documentary stamp tax on the deed.',
+      examOpts:['$3,589.60','$3,589.43','$3,589.00','$3,590.30'],
+      statement:'Venta por <span class="highlight">$512,775</span>. ¿Stamps on deed?',
       formula:'Precio ÷ 100 → Redondear ↑ → × $0.70',
       steps:[
         {label:"Paso 1",instruction:'<code>$512,775 ÷ 100 = ?</code>',answer:5127.75,hint:"512775/100"},
@@ -236,13 +251,19 @@ const PROBLEMS = [
         {label:"Paso 3",instruction:'<code>5,128 × $0.70 = ?</code>',answer:3589.60,tolerance:0.01,hint:"5128×0.70=3589.60"}
     ]},
     // DOC STAMPS ON NOTE
-    { cat:"Doc Stamps", title:"Sellos en Pagaré", statement:'Préstamo de <span class="highlight">$320,000</span>. ¿Doc Stamps on Note?',
+    { cat:"Doc Stamps", title:"Sellos en Pagaré",
+      examQ:'A buyer obtains a new mortgage for $320,000. What is the documentary stamp tax on the promissory note?',
+      examOpts:['$1,120.00','$2,240.00','$640.00','$1,600.00'],
+      statement:'Préstamo de <span class="highlight">$320,000</span>. ¿Doc Stamps on Note?',
       formula:'<strong>Note:</strong> Préstamo ÷ 100 → redondear ↑ → × $0.35',
       steps:[
         {label:"Paso 1",instruction:'<code>$320,000 ÷ 100 = ?</code>',answer:3200,hint:"320000/100"},
         {label:"Paso 2",instruction:'<code>3,200 × $0.35 = ?</code>',answer:1120,hint:"3200×0.35=1120"}
     ]},
-    { cat:"Doc Stamps", title:"Note (redondeo)", statement:'Préstamo de <span class="highlight">$189,450</span>. ¿Stamps on note?',
+    { cat:"Doc Stamps", title:"Note (redondeo)",
+      examQ:'A borrower takes a mortgage loan for $189,450. What are the documentary stamps due on the note?',
+      examOpts:['$663.25','$663.08','$662.58','$663.58'],
+      statement:'Préstamo de <span class="highlight">$189,450</span>. ¿Stamps on note?',
       formula:'Note: Préstamo ÷ 100 → Redondear ↑ → × $0.35',
       steps:[
         {label:"Paso 1",instruction:'<code>$189,450 ÷ 100 = ?</code>',answer:1894.50,tolerance:0.01,hint:"189450/100"},
@@ -250,16 +271,25 @@ const PROBLEMS = [
         {label:"Paso 3",instruction:'<code>1,895 × $0.35 = ?</code>',answer:663.25,tolerance:0.01,hint:"1895×0.35=663.25"}
     ]},
     // INTANGIBLE TAX
-    { cat:"Intangible Tax", title:"Impuesto Intangible", statement:'Préstamo NUEVO de <span class="highlight">$275,000</span>. ¿Intangible Tax?',
+    { cat:"Intangible Tax", title:"Impuesto Intangible",
+      examQ:'A buyer finances a NEW mortgage of $275,000. What is the nonrecurring intangible tax due?',
+      examOpts:['$550.00','$192.50','$275.00','$1,100.00'],
+      statement:'Préstamo NUEVO de <span class="highlight">$275,000</span>. ¿Intangible Tax?',
       formula:'<strong>Intangible</strong> = Préstamo NUEVO × $0.002 (sin redondeo)',
       steps:[{label:"Paso 1",instruction:'<code>$275,000 × 0.002 = ?</code>',answer:550,hint:"275000×0.002=550"}]
     },
-    { cat:"Intangible Tax", title:"Intangible (irregular)", statement:'Nuevo préstamo: <span class="highlight">$418,750</span>. ¿Intangible?',
+    { cat:"Intangible Tax", title:"Intangible (irregular)",
+      examQ:'A purchaser obtains a new loan of $418,750. How much intangible tax is owed on the new mortgage?',
+      examOpts:['$837.50','$838.00','$146.56','$2,093.75'],
+      statement:'Nuevo préstamo: <span class="highlight">$418,750</span>. ¿Intangible?',
       formula:'Préstamo NUEVO × 0.002. Sin redondeo. No aplica a asumidos.',
       steps:[{label:"Paso 1",instruction:'<code>$418,750 × 0.002 = ?</code>',answer:837.50,tolerance:0.01,hint:"418750×0.002=837.50"}]
     },
     // COMBO
-    { cat:"Doc Stamps", title:"Combo: Deed+Note+Intangible", statement:'Venta: <span class="highlight">$350,000</span>. Préstamo NUEVO: <span class="highlight">$280,000</span>. Calcula los 3 impuestos.',
+    { cat:"Doc Stamps", title:"Combo: Deed+Note+Intangible",
+      examQ:'A property sells for $350,000 with a NEW mortgage of $280,000. What are the TOTAL transfer taxes (doc stamps on deed, doc stamps on note, and intangible tax)?',
+      examOpts:['$3,990.00','$3,430.00','$2,450.00','$4,550.00'],
+      statement:'Venta: <span class="highlight">$350,000</span>. Préstamo NUEVO: <span class="highlight">$280,000</span>. Calcula los 3 impuestos.',
       formula:'Deed: Precio÷100×$0.70 | Note: Préstamo÷100×$0.35 | Intangible: Préstamo×$0.002',
       steps:[
         {label:"Stamps Deed",instruction:'<code>$350,000 ÷ 100 × $0.70 = ?</code>',answer:2450,hint:"3500×0.70"},
@@ -268,20 +298,29 @@ const PROBLEMS = [
         {label:"Total",instruction:'Suma: <code>$2,450 + $980 + $560 = ?</code>',answer:3990,hint:"2450+980+560"}
     ]},
     // COMISIONES
-    { cat:"Comisiones", title:"Comisión de Corredor", statement:'Venta: <span class="highlight">$400,000</span>. Comisión: <span class="highlight">6%</span>, split 50/50. ¿Cuánto cada oficina?',
+    { cat:"Comisiones", title:"Comisión de Corredor",
+      examQ:'A property sells for $400,000 with a 6% commission split equally between the listing and selling brokerage firms. How much does EACH firm receive?',
+      examOpts:['$12,000','$24,000','$8,000','$16,000'],
+      statement:'Venta: <span class="highlight">$400,000</span>. Comisión: <span class="highlight">6%</span>, split 50/50. ¿Cuánto cada oficina?',
       formula:'Comisión = Precio × Tasa. Split = Comisión ÷ 2',
       steps:[
         {label:"Paso 1",instruction:'<code>$400,000 × 0.06 = ?</code>',answer:24000,hint:"400000×0.06=24000"},
         {label:"Paso 2",instruction:'<code>$24,000 ÷ 2 = ?</code>',answer:12000,hint:"24000/2=12000"}
     ]},
-    { cat:"Comisiones", title:"Comisión al Agente", statement:'Venta: <span class="highlight">$550,000</span>. Comisión: <span class="highlight">5.5%</span>. Split 60/40. Listing agent recibe 70% de su broker. ¿Cuánto gana?',
+    { cat:"Comisiones", title:"Comisión al Agente",
+      examQ:'A home sells for $550,000 with a 5.5% total commission. The listing broker receives 60% of the commission and pays the listing agent 70% of the listing broker\'s share. How much does the listing agent earn?',
+      examOpts:['$12,705','$18,150','$30,250','$10,083'],
+      statement:'Venta: <span class="highlight">$550,000</span>. Comisión: <span class="highlight">5.5%</span>. Split 60/40. Listing agent recibe 70% de su broker. ¿Cuánto gana?',
       formula:'Total → Split broker → Split agente',
       steps:[
         {label:"Paso 1",instruction:'<code>$550,000 × 0.055 = ?</code>',answer:30250,hint:"550000×0.055=30250"},
         {label:"Paso 2",instruction:'Listing broker (60%): <code>$30,250 × 0.60 = ?</code>',answer:18150,hint:"30250×0.60=18150"},
         {label:"Paso 3",instruction:'Agent (70%): <code>$18,150 × 0.70 = ?</code>',answer:12705,hint:"18150×0.70=12705"}
     ]},
-    { cat:"Comisiones", title:"Precio mínimo por comisión", statement:'Agente quiere ganar <span class="highlight">$15,000</span>. Split: 75%. Comisión 6% dividida 50/50. ¿Precio mínimo?',
+    { cat:"Comisiones", title:"Precio mínimo por comisión",
+      examQ:'A sales associate wants to earn at least $15,000 from a sale. The associate receives 75% of the broker\'s share after a 50/50 split with the cooperating broker on a 6% commission. What is the MINIMUM sale price needed?',
+      examOpts:['$666,667','$500,000','$400,000','$833,333'],
+      statement:'Agente quiere ganar <span class="highlight">$15,000</span>. Split: 75%. Comisión 6% dividida 50/50. ¿Precio mínimo?',
       formula:'Trabajo inverso: Agente÷split → ×2 → ÷tasa = Precio',
       steps:[
         {label:"Paso 1",instruction:'Broker debe recibir: <code>$15,000 ÷ 0.75 = ?</code>',answer:20000,hint:"15000/0.75=20000"},
@@ -289,27 +328,39 @@ const PROBLEMS = [
         {label:"Paso 3",instruction:'Precio: <code>$40,000 ÷ 0.06 = ?</code>',answer:666666.67,tolerance:1,hint:"40000/0.06≈666666.67"}
     ]},
     // IMPUESTOS PROPERTY TAX
-    { cat:"Impuestos", title:"Property Tax con Mills", statement:'Valor tasado: <span class="highlight">$250,000</span>. Homestead: <span class="highlight">$50,000</span>. Millaje: <span class="highlight">18 mills</span>. ¿Impuesto anual?',
+    { cat:"Impuestos", title:"Property Tax con Mills",
+      examQ:'A homestead property has a just value of $250,000 with a $50,000 homestead exemption. If the millage rate is 18 mills, what is the ANNUAL property tax?',
+      examOpts:['$3,600','$4,500','$3,200','$2,700'],
+      statement:'Valor tasado: <span class="highlight">$250,000</span>. Homestead: <span class="highlight">$50,000</span>. Millaje: <span class="highlight">18 mills</span>. ¿Impuesto anual?',
       formula:'Tax = (Valor − Exemptions) ÷ 1,000 × Mills. 1 Mill = $1 por $1,000.',
       steps:[
         {label:"Paso 1",instruction:'<code>$250,000 − $50,000 = ?</code>',answer:200000,hint:"250000-50000"},
         {label:"Paso 2",instruction:'<code>$200,000 ÷ 1,000 = ?</code>',answer:200,hint:"200000/1000"},
         {label:"Paso 3",instruction:'<code>200 × 18 = ?</code>',answer:3600,hint:"200×18=3600"}
     ]},
-    { cat:"Impuestos", title:"Encontrar tasa de Mills", statement:'Valor gravable: <span class="highlight">$180,000</span>. Impuesto: <span class="highlight">$2,700</span>. ¿Tasa de millaje?',
+    { cat:"Impuestos", title:"Encontrar tasa de Mills",
+      examQ:'A property with a taxable value of $180,000 pays $2,700 in annual property taxes. What is the millage rate?',
+      examOpts:['15 mills','18 mills','12 mills','20 mills'],
+      statement:'Valor gravable: <span class="highlight">$180,000</span>. Impuesto: <span class="highlight">$2,700</span>. ¿Tasa de millaje?',
       formula:'Mills = Impuesto ÷ (Valor ÷ 1,000)',
       steps:[
         {label:"Paso 1",instruction:'<code>$180,000 ÷ 1,000 = ?</code>',answer:180,hint:"180000/1000"},
         {label:"Paso 2",instruction:'<code>$2,700 ÷ 180 = ?</code> mills',answer:15,hint:"2700/180=15"}
     ]},
     // PRORRATEOS
-    { cat:"Prorrateos", title:"Prorrateo de impuestos", statement:'Impuestos anuales: <span class="highlight">$4,380</span>. Cierre: <span class="highlight">15 abril</span> (día 105). ¿Cuánto debe vendedor?',
+    { cat:"Prorrateos", title:"Prorrateo de impuestos",
+      examQ:'Annual property taxes are $4,380. The closing date is April 15 (day 105 of the year). Using a 365-day year, how much does the SELLER owe in prorated taxes at closing?',
+      examOpts:['$1,260.00','$1,200.00','$3,120.00','$1,314.00'],
+      statement:'Impuestos anuales: <span class="highlight">$4,380</span>. Cierre: <span class="highlight">15 abril</span> (día 105). ¿Cuánto debe vendedor?',
       formula:'Prorrateo = Anual ÷ 365 × días del vendedor',
       steps:[
         {label:"Paso 1",instruction:'Tasa diaria: <code>$4,380 ÷ 365 = ?</code>',answer:12,tolerance:0.01,hint:"4380/365=12"},
         {label:"Paso 2",instruction:'<code>$12.00 × 105 = ?</code>',answer:1260,tolerance:1,hint:"12×105=1260"}
     ]},
-    { cat:"Prorrateos", title:"Prorrateo de seguro", statement:'Póliza anual: <span class="highlight">$1,825</span>. Cierre: <span class="highlight">1 agosto</span> (día 213). ¿Reembolso al vendedor?',
+    { cat:"Prorrateos", title:"Prorrateo de seguro",
+      examQ:'A seller has a prepaid annual insurance policy of $1,825. If closing occurs on August 1 (day 213), how much should the seller receive as a reimbursement credit at closing?',
+      examOpts:['$760.00','$1,065.00','$912.50','$750.00'],
+      statement:'Póliza anual: <span class="highlight">$1,825</span>. Cierre: <span class="highlight">1 agosto</span> (día 213). ¿Reembolso al vendedor?',
       formula:'Reembolso = Tasa diaria × Días restantes (365 − día cierre)',
       steps:[
         {label:"Paso 1",instruction:'Tasa diaria: <code>$1,825 ÷ 365 = ?</code>',answer:5,tolerance:0.01,hint:"1825/365=5"},
@@ -317,14 +368,20 @@ const PROBLEMS = [
         {label:"Paso 3",instruction:'<code>$5.00 × 152 = ?</code>',answer:760,tolerance:1,hint:"5×152=760"}
     ]},
     // AMORTIZACIÓN PIP BRAM
-    { cat:"Amortización", title:"PIP BRAM — Mes 1", statement:'Préstamo: <span class="highlight">$200,000</span> al <span class="highlight">6%</span>. Pago: <span class="highlight">$1,199.10</span>. Calcula mes 1.',
+    { cat:"Amortización", title:"PIP BRAM — Mes 1",
+      examQ:'A borrower has a $200,000 loan at 6% annual interest with a monthly payment of $1,199.10. After the FIRST monthly payment, what is the remaining loan balance?',
+      examOpts:['$199,800.90','$198,800.90','$199,000.00','$199,900.90'],
+      statement:'Préstamo: <span class="highlight">$200,000</span> al <span class="highlight">6%</span>. Pago: <span class="highlight">$1,199.10</span>. Calcula mes 1.',
       formula:'<strong>B</strong>alance × <strong>R</strong>ate ÷ 12 = Interés | <strong>P</strong>ayment − <strong>I</strong>nterest = <strong>P</strong>rincipal | Balance − Principal = Nuevo Balance',
       steps:[
         {label:"Interés",instruction:'<code>$200,000 × 0.06 ÷ 12 = ?</code>',answer:1000,hint:"200000×0.06/12=1000"},
         {label:"Principal",instruction:'<code>$1,199.10 − $1,000 = ?</code>',answer:199.10,tolerance:0.01,hint:"1199.10-1000=199.10"},
         {label:"Nuevo Balance",instruction:'<code>$200,000 − $199.10 = ?</code>',answer:199800.90,tolerance:0.01,hint:"200000-199.10=199800.90"}
     ]},
-    { cat:"Amortización", title:"PIP BRAM — Mes 2", statement:'Balance: <span class="highlight">$199,800.90</span> al <span class="highlight">6%</span>. Pago: <span class="highlight">$1,199.10</span>.',
+    { cat:"Amortización", title:"PIP BRAM — Mes 2",
+      examQ:'After the first payment, the loan balance is $199,800.90 at 6% with $1,199.10 monthly payments. How much of the SECOND payment is applied to principal?',
+      examOpts:['$200.10','$199.10','$201.00','$198.10'],
+      statement:'Balance: <span class="highlight">$199,800.90</span> al <span class="highlight">6%</span>. Pago: <span class="highlight">$1,199.10</span>.',
       formula:'Repite: Balance×Rate÷12 → Payment−Interest → Balance−Principal',
       steps:[
         {label:"Interés",instruction:'<code>$199,800.90 × 0.06 ÷ 12 = ?</code>',answer:999.00,tolerance:0.01,hint:"199800.90×0.06/12≈999.00"},
@@ -332,13 +389,19 @@ const PROBLEMS = [
         {label:"Nuevo Balance",instruction:'<code>$199,800.90 − $200.10 = ?</code>',answer:199600.80,tolerance:0.1,hint:"199800.90-200.10=199600.80"}
     ]},
     // LTV
-    { cat:"LTV", title:"Loan-to-Value", statement:'Precio: <span class="highlight">$300,000</span>. Tasación: <span class="highlight">$290,000</span>. Préstamo: <span class="highlight">$232,000</span>. ¿LTV?',
+    { cat:"LTV", title:"Loan-to-Value",
+      examQ:'A buyer agrees to purchase a property for $300,000. The appraisal comes in at $290,000. If the lender approves a loan of $232,000, what is the loan-to-value ratio?',
+      examOpts:['80%','77.3%','85%','73.3%'],
+      statement:'Precio: <span class="highlight">$300,000</span>. Tasación: <span class="highlight">$290,000</span>. Préstamo: <span class="highlight">$232,000</span>. ¿LTV?',
       formula:'LTV = (Préstamo ÷ Valor) × 100. Valor = MENOR entre precio y tasación.',
       steps:[
         {label:"Paso 1",instruction:'Valor a usar: <code>min($300K, $290K) = ?</code>',answer:290000,hint:"El menor: 290000"},
         {label:"Paso 2",instruction:'<code>$232,000 ÷ $290,000 × 100 = ?</code> %',answer:80,tolerance:0.1,hint:"232000/290000×100=80"}
     ]},
-    { cat:"LTV", title:"LTV con PMI", statement:'Precio: <span class="highlight">$425,000</span>. Tasación: <span class="highlight">$430,000</span>. Down payment: <span class="highlight">15%</span>. ¿LTV? ¿PMI?',
+    { cat:"LTV", title:"LTV con PMI",
+      examQ:'A buyer purchases a home for $425,000. The appraisal value is $430,000. The buyer makes a 15% down payment. What is the LTV and will PMI be required on a conventional loan?',
+      examOpts:['85%, Yes PMI required','80%, No PMI','90%, Yes PMI required','75%, No PMI'],
+      statement:'Precio: <span class="highlight">$425,000</span>. Tasación: <span class="highlight">$430,000</span>. Down payment: <span class="highlight">15%</span>. ¿LTV? ¿PMI?',
       formula:'Préstamo = Precio × (1−Down%). LTV = Préstamo÷Valor×100. PMI si >80%.',
       steps:[
         {label:"Paso 1",instruction:'<code>min($425K, $430K) = ?</code>',answer:425000,hint:"425000"},
@@ -346,21 +409,33 @@ const PROBLEMS = [
         {label:"Paso 3",instruction:'LTV: <code>$361,250 ÷ $425,000 × 100 = ?</code> %',answer:85,tolerance:0.1,hint:"85% → SÍ requiere PMI"}
     ]},
     // TASACIÓN IRV
-    { cat:"Tasación", title:"IRV — Encontrar Valor", statement:'NOI: <span class="highlight">$36,000</span>. Cap Rate: <span class="highlight">8%</span>. ¿Valor?',
+    { cat:"Tasación", title:"IRV — Encontrar Valor",
+      examQ:'An investment property generates a net operating income (NOI) of $36,000 per year. Using a capitalization rate of 8%, what is the estimated value of the property?',
+      examOpts:['$450,000','$288,000','$360,000','$500,000'],
+      statement:'NOI: <span class="highlight">$36,000</span>. Cap Rate: <span class="highlight">8%</span>. ¿Valor?',
       formula:'<strong>V = I ÷ R</strong>',
       steps:[{label:"Paso 1",instruction:'<code>$36,000 ÷ 0.08 = ?</code>',answer:450000,hint:"36000/0.08=450000"}]
     },
-    { cat:"Tasación", title:"IRV — Cap Rate", statement:'Valor: <span class="highlight">$500,000</span>. NOI: <span class="highlight">$40,000</span>. ¿Cap Rate %?',
+    { cat:"Tasación", title:"IRV — Cap Rate",
+      examQ:'A commercial property valued at $500,000 produces a net operating income of $40,000. What is the capitalization rate?',
+      examOpts:['8%','10%','12.5%','6%'],
+      statement:'Valor: <span class="highlight">$500,000</span>. NOI: <span class="highlight">$40,000</span>. ¿Cap Rate %?',
       formula:'<strong>R = I ÷ V</strong> luego × 100',
       steps:[
         {label:"Paso 1",instruction:'<code>$40,000 ÷ $500,000 = ?</code>',answer:0.08,tolerance:0.001,hint:"40000/500000"},
         {label:"Paso 2",instruction:'<code>0.08 × 100 = ?</code> %',answer:8,hint:"=8%"}
     ]},
-    { cat:"Tasación", title:"GIM", statement:'Precio: <span class="highlight">$360,000</span>. Renta bruta anual: <span class="highlight">$30,000</span>. ¿GIM?',
+    { cat:"Tasación", title:"GIM",
+      examQ:'An investor purchases a rental property for $360,000. The annual gross rent is $30,000. What is the gross income multiplier (GIM)?',
+      examOpts:['12','10','8','15'],
+      statement:'Precio: <span class="highlight">$360,000</span>. Renta bruta anual: <span class="highlight">$30,000</span>. ¿GIM?',
       formula:'GIM = Precio ÷ Renta Bruta Anual',
       steps:[{label:"Paso 1",instruction:'<code>$360,000 ÷ $30,000 = ?</code>',answer:12,hint:"360000/30000=12"}]
     },
-    { cat:"Tasación", title:"Depreciación — Cost Approach", statement:'Construcción: <span class="highlight">$350,000</span>. Vida: <span class="highlight">50 años</span>. Edad: <span class="highlight">10 años</span>. Terreno: <span class="highlight">$80,000</span>.',
+    { cat:"Tasación", title:"Depreciación — Cost Approach",
+      examQ:'An appraiser estimates the replacement cost of improvements at $350,000 with an economic life of 50 years. The building is 10 years old. The land is valued at $80,000. Using the cost approach, what is the estimated property value?',
+      examOpts:['$360,000','$350,000','$430,000','$280,000'],
+      statement:'Construcción: <span class="highlight">$350,000</span>. Vida: <span class="highlight">50 años</span>. Edad: <span class="highlight">10 años</span>. Terreno: <span class="highlight">$80,000</span>.',
       formula:'Dep anual = Costo÷Vida. Dep total = anual×edad. Valor = (Costo−Dep)+Terreno.',
       steps:[
         {label:"Dep. anual",instruction:'<code>$350,000 ÷ 50 = ?</code>',answer:7000,hint:"350000/50=7000"},
@@ -369,17 +444,26 @@ const PROBLEMS = [
         {label:"Valor total",instruction:'<code>$280,000 + $80,000 = ?</code>',answer:360000,hint:"280000+80000=360000"}
     ]},
     // ACRES
-    { cat:"Acres", title:"Descripción legal", statement:'¿Acres del <span class="highlight">NW ¼ del SW ¼</span> de una Sección?',
+    { cat:"Acres", title:"Descripción legal",
+      examQ:'How many acres are in the NW ¼ of the SW ¼ of a section?',
+      examOpts:['40 acres','80 acres','160 acres','20 acres'],
+      statement:'¿Acres del <span class="highlight">NW ¼ del SW ¼</span> de una Sección?',
       formula:'Sección = 640 acres. Multiplica fracciones × 640. 1 Acre = 43,560 sq ft.',
       steps:[
         {label:"Paso 1",instruction:'Fracciones: <code>¼ × ¼ = ?</code> (decimal)',answer:0.0625,tolerance:0.001,hint:"1/16=0.0625"},
         {label:"Paso 2",instruction:'<code>0.0625 × 640 = ?</code> acres',answer:40,hint:"640/16=40"}
     ]},
-    { cat:"Acres", title:"Acres → Sq Ft", statement:'Terreno de <span class="highlight">2.5 acres</span>. ¿Pies cuadrados?',
+    { cat:"Acres", title:"Acres → Sq Ft",
+      examQ:'A parcel of land contains 2.5 acres. How many square feet is the parcel?',
+      examOpts:['108,900 sq ft','87,120 sq ft','120,000 sq ft','43,560 sq ft'],
+      statement:'Terreno de <span class="highlight">2.5 acres</span>. ¿Pies cuadrados?',
       formula:'Pies² = Acres × 43,560',
       steps:[{label:"Paso 1",instruction:'<code>2.5 × 43,560 = ?</code>',answer:108900,hint:"2.5×43560=108900"}]
     },
-    { cat:"Acres", title:"Sq Ft → Acres", statement:'Lote de <span class="highlight">217,800 sq ft</span>. ¿Acres?',
+    { cat:"Acres", title:"Sq Ft → Acres",
+      examQ:'A lot contains 217,800 square feet. How many acres does this lot contain?',
+      examOpts:['5 acres','4.5 acres','3 acres','6 acres'],
+      statement:'Lote de <span class="highlight">217,800 sq ft</span>. ¿Acres?',
       formula:'Acres = Pies² ÷ 43,560',
       steps:[{label:"Paso 1",instruction:'<code>217,800 ÷ 43,560 = ?</code>',answer:5,hint:"217800/43560=5"}]
     },
@@ -409,7 +493,9 @@ function renderProblem(){
             <div class="step-feedback" id="feedback-${i}"></div>
             ${s.hint?`<div style="margin-top:6px;font-size:.72rem;color:var(--text-dim);cursor:pointer" onclick="this.textContent='💡 '+PROBLEMS.find(p=>p.title==='${prob.title.replace(/'/g,"\\'")}')?.steps[${i}]?.hint">💡 Ver pista</div>`:''}
         </div>`).join('');
+    const examOptsHTML = prob.examOpts ? `<div class="exam-options">${prob.examOpts.map(o=>`<span class="exam-opt">${o}</span>`).join('')}</div>` : '';
     area.innerHTML=`
+        ${prob.examQ ? `<div class="exam-question"><p>${prob.examQ}</p>${examOptsHTML}</div>` : ''}
         <div class="formula-ref"><h3>📖 Fórmula de Referencia</h3><p>${prob.formula.replace(/\n/g,'<br>')}</p></div>
         <div class="problem-card">
             <div class="prob-header"><span class="prob-badge">${prob.cat} — ${prob.title}</span><span class="prob-num">${probIdx+1} / ${currentProblems.length}</span></div>
