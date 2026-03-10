@@ -520,6 +520,67 @@ const PROBLEMS = [
         {label:"Paso 1",instruction:'<code>$525,000 ÷ 100 = ?</code>',answer:5250,hint:"525000/100=5250"},
         {label:"Paso 2",instruction:'<code>5,250 × $0.60 = ?</code>',answer:3150,hint:"5250×0.60=3150"}
     ]},
+    // DOC STAMPS ON NOTE (Pagaré) - NEW CRAM
+    { cat:"Doc Stamps", title:"Note (Pagaré)",
+      examQ:'Un comprador asume una hipoteca existente de $145,150 y obtiene una nueva segunda hipoteca por $44,500. ¿Cuánto es el total de Impuestos de Sellos Documentales sobre los Pagarés (Doc Stamps on Promissory Notes)?',
+      examQ_en:'A buyer assumes an existing mortgage of $145,150 and gets a new second mortgage of $44,500. What is the total Documentary Stamp Tax on the Promissory Notes?',
+      examOpts:['$664.00','$663.95','$1,327.90','$1,016.05'],
+      statement:'Hipoteca asumida <span class="highlight">$145,150</span> + Nueva <span class="highlight">$44,500</span>. ¿Stamps on Note?',
+      formula:'Stamps on Note: Monto Préstamo ÷ 100 → redondear ↑ al siguiente número entero → <strong>× $0.35</strong> (Aplica a CADA préstamo por separado)',
+      steps:[
+        {label:"Paso 1",instruction:'Asumida: <code>$145,150 ÷ 100 = 1,451.5</code>. Redondea ↑ a entero: ?',answer:1452,hint:"1452"},
+        {label:"Paso 2",instruction:'Costo asumida: <code>1,452 × $0.35 = ?</code>',answer:508.20,hint:"1452×0.35=508.2"},
+        {label:"Paso 3",instruction:'Nueva: <code>$44,500 ÷ 100 = 445</code>. Redondeado: 445. Costo nueva: <code>445 × $0.35 = ?</code>',answer:155.75,hint:"445×0.35=155.75"},
+        {label:"Paso 4",instruction:'Suma total: <code>$508.20 + $155.75 = ?</code>',answer:663.95,hint:"508.2+155.75=663.95"}
+    ]},
+    // INTANGIBLE TAX - NEW CRAM
+    { cat:"Doc Stamps", title:"Intangible Tax",
+      examQ:'Sobre los mismos préstamos anteriores (Hipoteca asumida de $145,150 y Nueva segunda hipoteca por $44,500). ¿Cuánto es el Impuesto Intangible sobre la hipoteca (Intangible Tax on New Mortgages)?',
+      examQ_en:'Using the same loans (Assumed mortgage $145,150 and New second mortgage $44,500). What is the Intangible Tax on the mortgage?',
+      examOpts:['$89.00','$379.30','$155.75','$890.00'],
+      statement:'Préstamos: Asumido <span class="highlight">$145,150</span>, NUEVO <span class="highlight">$44,500</span>. ¿Intangible Tax?',
+      formula:'Intangible Tax: <strong>Solo se paga sobre hipotecas NUEVAS</strong> (nunca asumidas). Monto exacto × <strong>0.002</strong> (2 mills).',
+      steps:[
+        {label:"Paso 1",instruction:'Monto aplicable (solo la hipoteca NUEVA): ?',answer:44500,hint:"44500"},
+        {label:"Paso 2",instruction:'<code>$44,500 × 0.002 = ?</code>',answer:89,hint:"44500×0.002=89"}
+    ]},
+    // PRORRATA DE HIPOTECA ASUMIDA - NEW CRAM
+    { cat:"Prorrateo", title:"Interés Asumido",
+      examQ:'El cierre de una transacción es el 9 de mayo. El comprador asume una hipoteca de $94,500 a una tasa de 8% anual. El interés se paga a mes vencido (en arrears). ¿Cómo aparecerá el prorrateo de los intereses de mayo en el Closing Disclosure?',
+      examQ_en:'Closing date is May 9. Buyer assumes a $94,500 mortgage at 8% annual interest. Interest is paid in arrears. How does the prorated May interest appear on the Closing Disclosure?',
+      examOpts:['Débito al vendedor $165.70, Crédito al comprador $165.70','Débito al comprador $165.70, Crédito al vendedor $165.70','Débito al vendedor $662.79, Crédito al comprador $662.79','Crédito al vendedor $165.70, Débito al comprador $497.09'],
+      statement:'Día de cierre: <span class="highlight">9 de Mayo</span>. Hipoteca asumida: <span class="highlight">$94,500 al 8%</span>.</br>Intereses de Mayo. ¿Débito/Crédito?',
+      formula:'1. Interés ANUAL = Monto × Tasa. 2. Interés DIARIO = Anual / 365.<br>3. Días del vendedor = hasta el día <strong>antes</strong> del cierre (8 días).<br>El vendedor no los pagó aún (se pagan a mes vencido), por tanto es un <strong>DÉBITO para el Vendedor</strong> y un <strong>CRÉDITO al Comprador</strong>.',
+      steps:[
+        {label:"Paso 1",instruction:'Interés anual: <code>$94,500 × 0.08 = ?</code>',answer:7560,hint:"7560"},
+        {label:"Paso 2",instruction:'Interés diario: <code>$7,560 ÷ 365 = ?</code>',answer:20.7123,tolerance:0.01,hint:"20.7123"},
+        {label:"Paso 3",instruction:'Días responsabilidad vendedor (1 al 8): ? días',answer:8,hint:"8"},
+        {label:"Paso 4",instruction:'<code>8 días × 20.7123 = ?</code> Débito Vendedor / Crédito Comprador',answer:165.70,tolerance:0.01,hint:"165.70"}
+    ]},
+    // PRECIO POR FRONT FOOT - NEW CRAM
+    { cat:"Acres", title:"Front Foot",
+      examQ:'Un lote mide 120 pies por 200 pies de profundidad. Cuesta $45 por «pie frontal» (front foot). Si la calle va a ser pavimentada, ¿cuánto cuesta el lote basado en los pies frontales?',
+      examQ_en:'A lot measures 120 feet by 200 feet deep. It costs $45 per front foot. How much does the lot cost based on frontage?',
+      examOpts:['$5,400','$9,000','$14,400','$21,600'],
+      statement:'Lote de <span class="highlight">120 pies × 200 pies</span>. Precio: <span class="highlight">$45 por front foot</span>. ¿Costo total?',
+      formula:'Front foot (pies de frente) es siempre el <strong>PRIMER</strong> número mencionado de las dimensiones del lote.',
+      steps:[
+        {label:"Paso 1",instruction:'Identifica los pies de frente (front footage): ? pies',answer:120,hint:"120"},
+        {label:"Paso 2",instruction:'<code>120 pies × $45 = ?</code>',answer:5400,hint:"120×45=5400"}
+    ]},
+    // COMISIÓN ESCALONADA - NEW CRAM
+    { cat:"Comisiones", title:"Tiered Commission",
+      examQ:'Una corredora acuerda cobrar 7% en los primeros $200,000 del precio de venta, y 5.5% sobre la cantidad que exceda de $200,000. La casa se vendió en $275,000. ¿Cuál es la comisión total?',
+      examQ_en:'A broker agrees to charge 7% on the first $200,000 of the sale price, and 5.5% on the amount over $200,000. The house sold for $275,000. What is the total commission?',
+      examOpts:['$18,125','$19,250','$14,000','$15,125'],
+      statement:'Precio: <span class="highlight">$275,000</span>. Tramos: <span class="highlight">7% primeros $200k</span> y <span class="highlight">5.5% el resto</span>. ¿Total?',
+      formula:'Comisión 1 = Tramos1 * %.<br>Comisión 2 = (Precio - Tramos1) * %.<br>Suma ambas.',
+      steps:[
+        {label:"Paso 1",instruction:'Comisión Tramo 1: <code>$200,000 × 0.07 = ?</code>',answer:14000,hint:"14000"},
+        {label:"Paso 2",instruction:'Sobrecosto (Tramo 2): <code>$275,000 - $200,000 = ?</code>',answer:75000,hint:"75000"},
+        {label:"Paso 3",instruction:'Comisión Tramo 2: <code>$75,000 × 0.055 = ?</code>',answer:4125,hint:"75000×0.055=4125"},
+        {label:"Paso 4",instruction:'Comisión Total: <code>$14,000 + $4,125 = ?</code>',answer:18125,hint:"14000+4125=18125"}
+    ]},
     // EQUITY
     { cat:"LTV", title:"Equity del Propietario",
       examQ:'Un propietario compró una propiedad por $320,000 con una hipoteca de $256,000. Después de 5 años, la propiedad vale $375,000 y el saldo hipotecario pendiente es $230,000. ¿Cuál es el equity (patrimonio neto) actual del propietario?',

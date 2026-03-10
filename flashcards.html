@@ -495,6 +495,143 @@ const ALL_CARDS = [
      opts:["Owner's Policy","Lender's Policy","Hazard Insurance","Surety Bond"],correct:0,
      tip:"<strong>Owner's Policy</strong>: protege al comprador. <strong>Lender's Policy</strong>: protege al prestamista (obligatoria). En Miami-Dade/Broward, generalmente paga el vendedor."},
 
+    // ── NUEVAS — CRAM 2026 SIMULACROS 1-4 ──
+    {cat:"Corretaje",q:"¿Qué campo del corretaje ha aumentado la demanda debido al incremento de los dueños ausentes (absentee owners)?",
+     opts:["Manejo de propiedades (Property Management)","Corretaje de oportunidades de negocios","Ventas comerciales","Ventas de propiedades agrícolas"],correct:0,
+     tip:"Los <strong>dueños ausentes</strong> (absentee owners) confían en administradores de propiedades para mantener sus inversiones y generar ingresos."},
+
+    {cat:"Licencia",q:"El tipo de licencia que permite a un corredor tener más de una sucursal o trabajar para dos compañías de corretaje al mismo tiempo es:",
+     opts:["Licencia múltiple (Multiple license)","Licencia de grupo (Group license)","Licencia de sucursal","Licencia especial"],correct:0,
+     tip:"<strong>Multiple license:</strong> para brokers que tienen más de una firma. <strong>Group license:</strong> para sales associates/broker associates que trabajan para un OWNER/DEVELOPER con múltiples entidades."},
+
+    {cat:"Licencia",q:"Un licenciado que se enrola en el servicio activo de las Fuerzas Armadas, ¿cuántos meses tiene de plazo para renovar su licencia después de ser dado de baja?",
+     opts:["6 meses","1 mes","3 meses","10 días"],correct:0,
+     tip:"Exención militar: <strong>6 meses</strong> tras la baja honorable. Aplica también al cónyuge si reside en otro estado por servicio militar del licenciado."},
+
+    {cat:"Licencia",q:"¿Cuál es la penalidad si un licenciado NO cumple con el curso pos-licencia (Post-License) antes de su primera renovación?",
+     opts:["La licencia queda nula y sin valor (null and void)","La licencia queda inactiva involuntaria","Recibe una penalidad de $500 y 6 meses de gracia","La licencia se suspende temporalmente"],correct:0,
+     tip:"El primer plazo es FATAL. Si no se completa las 45h (SA) o 60h (Broker), la licencia pasa a ser <strong>nula y sin efecto (null and void)</strong>. Debe volver a tomar el curso pre-licencia de 63h."},
+
+    {cat:"Licencia",q:"¿Qué estatuto de la Florida se encarga de la regulación de <em>todas</em> las profesiones bajo el DBPR?",
+     opts:["F.S. 455","F.S. 475","F.S. 120","F.A.C. 61J2"],correct:0,
+     tip:"<strong>F.S. 455</strong> regula al DBPR y TODAS las profesiones. <strong>F.S. 475</strong> es específico para Bienes Raíces (FREC). <strong>F.S. 120</strong> es el Proceso Disciplinario."},
+
+    {cat:"Corretaje",q:"¿Qué es prohibido poner en un anuncio de propiedades (Blind Advertisement)?",
+     opts:["Hacer publicidad sin poner el nombre registrado de la compañía de corretaje","Poner solo el número del celular del agente","Usar el nombre del agente sin el apellido","Todas las anteriores"],correct:0,
+     tip:"Un anuncio ciego <strong>(Blind Ad)</strong> es ilegal. TODO anuncio debe revelar claramente el <strong>nombre registrado de la compañía de corretaje</strong>."},
+
+    {cat:"Corretaje",q:"Dos corredores llegan a un acuerdo y deciden que solamente aceptarán listings que dejen 7.5% o más de comisión. Esto es:",
+     opts:["Ilegal, viola la ley antimonopolio (Sherman Antitrust Act)","Legal si se acuerda por escrito","Legal, es el libre mercado","Permitido si la FREC lo autoriza"],correct:0,
+     tip:"<strong>Sherman Antitrust Act:</strong> prohíbe fijación de precios (price-fixing) o acuerdos para no competir o limitar servicios a ciertos clientes."},
+
+    {cat:"Sanciones",q:"La Comisión de Bienes Raíces de la Florida (FREC) NO puede:",
+     opts:["Imponer encarcelamiento o restitución directa como penalidad","Suspender una licencia por hasta 10 años","Revocar una licencia","Poner una multa administrativa de $5,000 por ofensa"],correct:0,
+     tip:"La FREC impone multas administrativas (hasta $5K), suspende o revoca licencias, pero <strong>NUNCA puede imponer penas de cárcel ni exigir restitución a víctimas</strong>."},
+
+    {cat:"Divulgaciones",q:"Cuando un corredor nombra a un vendedor asociado para representar al vendedor (como single agent) y a otro para el comprador en la misma firma para transacciones NO residenciales de más de $1 millón, son:",
+     opts:["Designated Sales Associates (Asociados de ventas designados)","Dual Agents","Transaction Brokers","Subagentes"],correct:0,
+     tip:"<strong>Designated Sales Associate:</strong> solo permitido en transacciones <strong>NO residenciales</strong> donde ambas partes tienen activos >$1 millón y solicitan representación de agente exclusivo."},
+
+    {cat:"Financiamiento",q:"La Ley RESPA (Real Estate Settlement Procedures Act) NO aplica a:",
+     opts:["Parolero comercial de 50 acres de tierra","Compra de casa unifamiliar con préstamo federal","Préstamos FHA o VA residenciales","Compra financiada de un condominio por un prestatario"],correct:0,
+     tip:"RESPA aplica a propiedades <strong>residenciales de 1-4 unidades</strong> con préstamos con respaldo federal. <strong>NO aplica a propiedades comerciales ni agrícolas >25 acres</strong>, ni préstamos en efectivo."},
+
+    {cat:"Divulgaciones",q:"¿Qué ley exige a prestamistas revelar la Tasa de Porcentaje Anual (APR) completa?",
+     opts:["Regulación Z (Truth In Lending Act - TILA)","RESPA","Fair Housing Act","Equal Credit Opportunity Act"],correct:0,
+     tip:"<strong>Regulación Z (TILA):</strong> requiere que los prestamistas divulguen el VERDADERO costo del crédito (APR = interés anual + cargos financieros)."},
+
+    {cat:"Divulgaciones",q:"Un corredor le comenta a propietarios que personas de ciertas minorías se están mudando al área para inducirlos a vender baratas sus casas. Esta práctica ilegal se llama:",
+     opts:["Blockbusting (rompecuadras)","Steering (conducción)","Redlining (línea roja)","Commingling"],correct:0,
+     tip:"<strong>Blockbusting:</strong> inducir pánico para que los dueños vendan por miedo ('¡Ya vienen!'). <strong>Steering:</strong> guiar compradores hacia o lejos de ciertas áreas. <strong>Redlining:</strong> negar préstamos según la geografía."},
+
+    {cat:"Divulgaciones",q:"¿A quién se le debe entregar la notificación de pintura a base de plomo (Lead-Based Paint Disclosure)?",
+     opts:["A inquilinos y compradores de propiedades residenciales construidas ANTES de 1978","Solo a compradores de casas unifamiliares","A todos los compradores en Florida","Solo si hay niños pequeños viviendo en la casa"],correct:0,
+     tip:"Aplica a TODAS las propiedades residenciales construidas <strong>antes de 1978</strong>. Exige divulgar presencia conocida y dar folleto informativo. No obliga al dueño a quitar la pintura o hacer pruebas."},
+
+    {cat:"Corretaje",q:"El dueño tiene 15 días (si no hará reclamo) o ___ días (si retendrá dinero) para notificar al inquilino qué pasará con el depósito de seguridad:",
+     opts:["30 días","10 días","21 días","45 días"],correct:0,
+     tip:"<strong>Landlord and Tenant Act:</strong> 15 días para devolverlo completo, o <strong>30 días</strong> para notificar por correo certificado que impondrá un reclamo."},
+
+    {cat:"Propiedad",q:"¿Cuáles son las formas de determinar si un artículo es un accesorio fijo (fixture)?",
+     opts:["IRMA: Intención, Relación, Método de anexo, Adaptación","PETE: Police, Eminent domain, Taxation, Escheat","MALE: Mediation, Arbitration, Litigation, EDO","CUP: Control, Use, Possession"],correct:0,
+     tip:"Prueba Legal de Accesorio Fijo (<strong>IRMA</strong>): <strong>I</strong>ntent of parties, <strong>R</strong>elationship of parties, <strong>M</strong>ethod of annexation, <strong>A</strong>daptation. El VALOR no importa."},
+
+    {cat:"Propiedad",q:"¿Qué tipo de propiedad en bienes raíces significa 'dominio absoluto', la propiedad más amplia con todos los derechos?",
+     opts:["Fee simple estate","Life estate","Estate for years","Tenancy at sufferance"],correct:0,
+     tip:"<strong>Fee Simple Estate / Pleno Dominio Absoluto:</strong> el tipo más completo y extenso de propiedad que puede tenerse sobre bienes raíces."},
+
+    {cat:"Propiedad",q:"Juan, Pedro y Luis compran. Pedro muere y su porcentaje pasa a SUS herederos (no a Juan ni Luis). Tenían qué tipo de tenencia?",
+     opts:["Tenancy in common (Tenencia en común)","Joint tenancy (Tenencia mancomunada)","Tenancy by the entireties","Life estate"],correct:0,
+     tip:"<strong>Tenancy in common:</strong> Sin derecho de supervivencia (pasa a herederos). <strong>Joint Tenancy:</strong> CON derecho de supervivencia (PITT: Posesión, Interés, Tiempo, Título)."},
+
+    {cat:"Propiedad",q:"Para que una propiedad se proteja bajo la ley de Homestead en FL contra venta forzosa, debe estar habitada por el dueño, y NO puede tener tamaño mayor a:",
+     opts:["160 acres fuera de ciudad (rural) o 1/2 acre dentro de municipio (urbano)","100 acres","1 acre","10 acres rurales o 1/4 acre urbano"],correct:0,
+     tip:"<strong>Homestead Protection (Vivienda Principal):</strong> Máximo <strong>160 acres contiguos (fuera)</strong> o <strong>1/2 acre contiguo (dentro)</strong>. Protege de deudas personales (tarjetas, médicos), pero NO de hipotecas o taxes de propiedad."},
+
+    {cat:"Cierre",q:"En una escritura (deed), la cláusula que establece la intención de transmitir el título ('to have and to hold') y especifica el tipo de interés a transferirse es:",
+     opts:["Cláusula Habendum","Cláusula Premisas (Granting)","Cláusula de Seisin (Posesión)","Reddendum"],correct:0,
+     tip:"<strong>Habendum ('hasta que lo tenga y retenga'):</strong> define el tipo de propiedad que se transfiere (ej., por siempre o de por vida). <strong>Premisas:</strong> nombra a las partes. <strong>Seisin:</strong> garantía de que el dueño tiene derecho a vender."},
+
+    {cat:"Cierre",q:"El tipo de escritura que NO proporciona garantías sobre la calidad del título y es frecuentemente usada para limpiar 'nubes en el título' es:",
+     opts:["Escritura de Finiquito (Quitclaim Deed)","Escritura de Garantía General (General Warranty)","Escritura de Representante Personal","Bargain and Sale Deed"],correct:0,
+     tip:"<strong>Quitclaim (Finiquito):</strong> El otorgante renuncia a cualquier interés que tenga (si es que tiene) sin ofrecer garantías. Útil para corregir defectos menores en título (clouds on title, como cambio de nombre por divorcio)."},
+
+    {cat:"Cierre",q:"Tomar posesión física de la propiedad da qué tipo de conocimiento al mundo de su derecho legal en la propiedad?",
+     opts:["Notificación real / Aviso de Autenticidad (Actual Notice)","Aviso implícito (Constructive notice)","Aviso judicial","Dominio eminente"],correct:0,
+     tip:"<strong>Actual notice (Aviso real):</strong> tomar posesión física, ver o escuchar algo real. <strong>Constructive notice (Aviso implícito o legal):</strong> registrar el documento oficial en los registros públicos."},
+
+    {cat:"Cierre",q:"El registro histórico completo de todas las transferencias de la propiedad (dueños, gravámenes, juicios) se denomina:",
+     opts:["Cadena de título y Abstracto","Title Insurance","Survey","Póliza del dueño"],correct:0,
+     tip:"<strong>Chain of title:</strong> secuencia de dueños. <strong>Abstract of title:</strong> resumen histórico completo preparado por el abogado/compañía de títulos con opinión de nubes/gravámenes."},
+
+    {cat:"Propiedad",q:"Los cuatro poderes gubernamentales sobre la propiedad se pueden recordar por el acrónimo PETE, que significa:",
+     opts:["Police power, Eminent domain, Taxation, Escheat (Confiscación)","Possession, Enjoyment, Transfer, Exclusion","Public, Executive, Testing, Economic","Property, Exemptions, Timeshare, Escheat"],correct:0,
+     tip:"<strong>PETE:</strong> <strong>P</strong>olice Power (Zonificación), <strong>E</strong>minent Domain (Expropiación justa), <strong>T</strong>axation (Impuestos), <strong>E</strong>scheat (Reversión al estado si dueño muere sin herederos)."},
+
+    {cat:"Propiedad",q:"Los impuestos a la propiedad de bienes raíces y Special Assessments son gravámenes (liens):",
+     opts:["Superiores específicos (priority over all others)","Superiores generales","Específicos subordinados","Generales subordinados"],correct:0,
+     tip:"Taxes a la propiedad y Special Assessments (impuestos por mejoras de calle/alcantarillas) son <strong>Gravámenes Superiores</strong>. Están primero en la línea de pago ante un foreclosure, seguidos de IRS, y luego por FECHA de registro/grabación."},
+
+    {cat:"Financiamiento",q:"¿En qué teoría de hipotecas el prestamista ES quien retiene el título de la propiedad hasta que se paga en su totalidad?",
+     opts:["Teoría del título (Title Theory)","Teoría del gravamen (Lien Theory)","Estoppel Theory","Hipotecación"],correct:0,
+     tip:"<strong>Title theory:</strong> El BANCO o tercera parte retiene el título (Deed of Trust). <strong>Lien theory (Florida):</strong> El DEUDOR tiene el título, y el banco solo inserta un gravamen (lien)."},
+
+    {cat:"Financiamiento",q:"El documento que sirve como evidencia de la deuda prometiendo pagar el préstamo, monto, tasa de interés, y plazos se conoce como:",
+     opts:["Pagaré (Promissory Note)","Hipoteca (Mortgage)","Satisfacción de Hipoteca","Escritura (Deed)"],correct:0,
+     tip:"<strong>Pagaré (Note):</strong> El préstamo en sí (la evidencia de la obligación y la DEUDA). <strong>Hipoteca (Mortgage):</strong> El documento que GARANTIZA la deuda prendando la propiedad."},
+
+    {cat:"Financiamiento",q:"¿Qué cláusula de una hipoteca impide al banco perseguir los otros activos personales del deudor en caso de subasta insuficiente?",
+     opts:["Cláusula Exculpatoria (Exculpatory clause)","Cláusula de Aceleración","Cláusula de Alienación (Due on sale)","Cláusula Defeasance"],correct:0,
+     tip:"<strong>Exculpatory clause:</strong> El prestamista renuncia a su derecho (ante insuficiencia tras remate judicial) de cobrar la deuda de los bienes personales del individuo. Impide un juicio por deficiencia."},
+
+    {cat:"Financiamiento",q:"Una hipoteca que se usa al comprar una casa nueva con todos sus electrodomésticos (lavadora, refrigerador) es una:",
+     opts:["Hipoteca de Paquete (Package Mortgage)","Hipoteca Purchase-Money","Hipoteca Combinada (Blanket)","Reverse Mortgage"],correct:0,
+     tip:"<strong>Package mortgage:</strong> Incluye propiedad REAL (la casa) + propiedad PERSONAL (appliances, muebles)."},
+
+    {cat:"Financiamiento",q:"¿Qué hipoteca contiene un pago global final gigante (balloon payment) e incluye solo intereses cada mes?",
+     opts:["Term / Straight Mortgage (Hipoteca a término)","Partially Amortized Mortgage","Adjustable Rate (ARM)","Growing Equity Mortgage"],correct:0,
+     tip:"En la hipoteca a término (<strong>Term mortgage</strong>) o <strong>Straight mortgage</strong>, se paga SOLO interés, y el total del principal se debe al final del plazo. Si los pagos regulares mensuales tampoco alcanzan a cancelar todo el capital, el pago final gigante se llama balloon payment (<strong>Partially Amortized</strong>)."},
+
+    {cat:"Financiamiento",q:"¿Quién asegura el préstamo FHA?",
+     opts:["El FHA asegura el préstamo contra pérdidas del prestamista","El VA","El FNMA","El banco asegura el monto"],correct:0,
+     tip:"La <strong>FHA (Federal Housing Administration) ASEGURA</strong> el préstamo de los prestamistas locales para incentivar que den préstamos (cálculo sobre Down Payment pequeño 3.5%). <strong>Cobra prima de seguro hipotecario (MIP/UFMIP).</strong>"},
+
+    {cat:"Financiamiento",q:"El VA (Veterans Affairs):",
+     opts:["GARANTIZA un porcentaje del préstamo si hay pérdida ('Guarantee')","Asegura el 100% de los préstamos","Financia directamente los préstamos de su propio dinero (salvo en áreas remotas)","Es solo para veteranos con enganche obligatorio de 20%"],correct:0,
+     tip:"El <strong>VA GARANTIZA</strong> una porción del préstamo. En la mayoría de casos NO proveen el dinero, lo dan los prestamistas convencionales. Generalmente permite comprar casa con <strong>cero down payment</strong> (100% financiados)."},
+
+    {cat:"Contratos",q:"Un contrato Opción u Opcional (Option Contract) para comprar a precio fijo por tiempo limitado es:",
+     opts:["Unilateral","Bilateral","Inválido","Ejecutado (Executed)"],correct:0,
+     tip:"<strong>Option Contract (Unilateral):</strong> El dueño (opcional) PROMETE mantener precio disponible. El comprador TIENE OPCIÓN (pero no la obligación) de comprar (él debe dar un consideration valioso por esta opción)."},
+
+    {cat:"Contratos",q:"¿Qué ocurre automáticamente si se realiza una contraoferta (Counteroffer) sobre la oferta inicial?",
+     opts:["La oferta inicial es cancelada y rechazada","El comprador inicial ya no puede cancelar","Hay que re-firmar el primer documento antes de negociar","El contrato queda inmediatamente ejecutoriado (Executed)"],correct:0,
+     tip:"Una contraoferta <strong>mata permanentemente la oferta original</strong> y constituye ahora una NUEVA oferta."},
+
+    {cat:"Cierre",q:"En el estado de liquidación (Closing Disclosure), el Earnest Money Deposit o depósito de buena fe, ¿aparece como crédito para quién?",
+     opts:["Crédito para el comprador (Credit to buyer)","Débito para el comprador","Crédito al vendedor","Débito al vendedor"],correct:0,
+     tip:"El depósito de garantía ya fue PAGADO por el comprador, por tanto, se acredita como parte del pago total en contra de lo que debe pagar al final (<strong>Credit to Buyer</strong>, no entra en el balance del vendedor de esa misma forma directa al cierre)."},
+
     // ── TRICKY EXAM QUESTIONS ──
     {cat:"Financiamiento",q:"TRICKY: Los Discount Points se calculan sobre:",
      opts:["El monto del PRÉSTAMO (loan amount), nunca sobre el precio de venta","El precio de venta de la propiedad","El down payment del comprador","El valor de tasación"],correct:0,
