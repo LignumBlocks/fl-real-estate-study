@@ -655,12 +655,37 @@ const ALL_CARDS = [
 ];
 
 /* ─── STATE ───────────────────────────── */
-let deck = [...ALL_CARDS];
+let deck = [];
 let idx = 0;
 let stats = { correct: 0, wrong: 0 };
 let answered = new Set();
 let wrongSet = new Set();
 let activeCategory = "Todas";
+
+const questionVariations = [
+    "Considera este escenario: ",
+    "Analiza la siguiente situación: ",
+    "Pregunta de repaso: ",
+    "Un caso práctico: ",
+    "Presta atención al siguiente caso: ",
+    "Evalúa lo siguiente: ",
+    "Escenario de examen: ",
+    "Situación hipotética: "
+];
+
+function applyVariationsToDeck() {
+    deck = ALL_CARDS.map((card, i) => {
+        let newCard = { ...card, opts: [...card.opts] };
+        if (!newCard.q.includes("TRICKY") && Math.random() > 0.3) {
+            let prefix = questionVariations[Math.floor(Math.random() * questionVariations.length)];
+            if (!questionVariations.some(v => newCard.q.startsWith(v))) {
+                 newCard.q = prefix + newCard.q.charAt(0).toLowerCase() + newCard.q.slice(1);
+            }
+        }
+        return newCard;
+    });
+}
+applyVariationsToDeck();
 
 const categories = ["Todas", ...new Set(ALL_CARDS.map(c => c.cat))];
 const catBar = document.getElementById('catBar');
@@ -676,7 +701,8 @@ function filterByCategory(cat) {
     activeCategory = cat;
     document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.textContent === cat));
     document.getElementById('modeLabel').textContent = cat;
-    deck = cat === "Todas" ? [...ALL_CARDS] : ALL_CARDS.filter(c => c.cat === cat);
+    applyVariationsToDeck();
+    deck = cat === "Todas" ? deck : deck.filter(c => c.cat === cat);
     idx = 0; answered.clear(); wrongSet.clear();
     stats = { correct: 0, wrong: 0 };
     render();
