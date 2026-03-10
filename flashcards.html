@@ -727,10 +727,18 @@ function render() {
             </div>
         </div>
         <div class="nav-row">
-            <button class="nav-btn" onclick="goPrev()">◀ Anterior</button>
-            <button class="nav-btn primary" onclick="goNext()">Siguiente ▶</button>
+            <button class="nav-btn" onclick="goPrev()" ${idx === 0 ? 'style="opacity:0.5;pointer-events:none;"' : ''}>◀ Anterior</button>
+            ${idx < deck.length - 1 
+                ? '<button class="nav-btn primary" onclick="goNext()">Siguiente ▶</button>' 
+                : '<button class="nav-btn primary" style="background:var(--green);border-color:var(--green);" onclick="showResults()">✅ Ver Resultados</button>'}
         </div>`;
     updateScore();
+}
+
+function showResults() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const btn = document.querySelector('.nav-btn.primary');
+    if(btn) btn.textContent = '¡Completado! Arriba tienes tus stats 👆';
 }
 
 function selectAnswer(selected) {
@@ -762,29 +770,52 @@ function updateScore() {
 function goNext() { if (idx < deck.length - 1) { idx++; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); } }
 function goPrev() { if (idx > 0) { idx--; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); } }
 
+function deepShuffleCards(cardsArray) {
+    for (let c of cardsArray) {
+        // Shuffle the options array and keep track of the correct answer
+        let correctText = c.opts[c.correct];
+        for (let i = c.opts.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [c.opts[i], c.opts[j]] = [c.opts[j], c.opts[i]];
+        }
+        c.correct = c.opts.indexOf(correctText);
+    }
+}
+
 function shuffleDeck() {
     for (let i = deck.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [deck[i], deck[j]] = [deck[j], deck[i]];
     }
+    deepShuffleCards(deck); // Shuffle answers too
     idx = 0; answered.clear(); wrongSet.clear(); stats = { correct: 0, wrong: 0 };
+    deck.forEach(c => delete c._selected);
     render();
+    saveProgress();
 }
 
 function resetProgress() {
     idx = 0; answered.clear(); wrongSet.clear(); stats = { correct: 0, wrong: 0 };
     deck.forEach(c => delete c._selected);
     filterByCategory(activeCategory);
+    if(activeCategory === "Todas") {
+         shuffleDeck(); // Also shuffle everything on reset
+    } else {
+         deepShuffleCards(deck); // Just shuffle options for this category
+    }
     saveProgress();
+    render();
 }
 
 function showOnlyWrong() {
     const wrongs = deck.filter((c, i) => wrongSet.has(i));
     if (!wrongs.length) { alert('No hay preguntas incorrectas aún. Responde algunas primero.'); return; }
+    deepShuffleCards(wrongs); // Shuffle answers to avoid rote memorization
     deck = wrongs;
     idx = 0; answered.clear(); wrongSet.clear(); stats = { correct: 0, wrong: 0 };
     deck.forEach(c => delete c._selected);
     document.getElementById('modeLabel').textContent = '🔴 Errores';
+    saveProgress();
     render();
 }
 
