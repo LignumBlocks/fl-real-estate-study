@@ -748,6 +748,20 @@ function render() {
         </button>`;
     }).join('');
 
+    // Add explicit "I don't know" option to prevent guessing
+    let dkCls = 'opt-btn dk-btn';
+    if (isAnswered) {
+        dkCls += ' answered';
+        if (deck[idx]._selected === -1) {
+            dkCls += ' wrong answered-selected';
+            // Also highlight the actual correct one since they skipped
+            optsHTML = optsHTML.replace(/class="opt-btn answered"/, 'class="opt-btn answered correct"');
+        }
+    }
+    optsHTML += `<button class="${dkCls}" onclick="selectAnswer(-1)" ${isAnswered ? 'disabled' : ''} style="margin-top:12px; background:var(--surface-2); border-color:var(--border); color:var(--text-dim); text-align:center; padding:12px;">
+        <span class="opt-text" style="width:100%; text-align:center; font-weight:600;">🤷‍♂️ No sé la respuesta (Saltar)</span>
+    </button>`;
+
     area.innerHTML = `
         <div class="question-card">
             <div class="q-header">
@@ -836,9 +850,14 @@ function showErrorSummary() {
         if (wrongSet.has(i)) {
             hasErrors = true;
             const userOptIdx = card._selected;
-            const wrongText = userOptIdx !== undefined ? card.opts[userOptIdx] : "No respondiste / Saltada";
+            const wrongText = (userOptIdx !== undefined && userOptIdx !== -1) ? card.opts[userOptIdx] : "🤷‍♂️ No sabías la respuesta (Saltaste la pregunta)";
             const rightText = card.opts[card.correct];
-            const pt = psycTips[Math.floor(Math.random() * psycTips.length)];
+            let pt = "";
+            if (userOptIdx === -1) {
+                pt = "Al no adivinar, actuaste como un profesional. En el examen real de Florida, si no sabes una pregunta, en márcala para revisión, pero siempre respóndela antes de entregar. Aquí te damos la base para que no te vuelva a pasar.";
+            } else {
+                pt = psycTips[Math.floor(Math.random() * psycTips.length)];
+            }
             
             content.innerHTML += `
                 <div style="padding:16px; border:1px solid var(--red-border); border-radius:12px; background:var(--surface);">

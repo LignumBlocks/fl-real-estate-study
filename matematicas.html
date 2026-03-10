@@ -683,7 +683,17 @@ function renderProblem(){
                 else if (i === localExamState.selected) cls += ' wrong';
             }
             return `<button class="${cls}" onclick="selectMathOpt(${probIdx}, ${i})" ${localExamState.answered ? 'disabled' : ''}>${o}</button>`;
-        }).join('')}</div>`;
+        }).join('')}
+
+        <!-- Botón Saltar -->
+        ${(() => {
+            let dkCls = 'exam-opt dk-opt';
+            if (localExamState.answered) {
+                if (localExamState.selected === -1) dkCls += ' wrong';
+            }
+            return `<button class="${dkCls}" onclick="selectMathOpt(${probIdx}, -1)" ${localExamState.answered ? 'disabled' : ''} style="margin-top:10px; background:var(--surface-2); border-color:var(--border); color:var(--text-dim); text-align:center;">🤷‍♂️ No sé la respuesta</button>`;
+        })()}
+        </div>`;
     }
 
     const qText = examLang==='es' ? prob.examQ : (prob.examQ_en||prob.examQ);
@@ -763,9 +773,15 @@ function showMathSummary() {
             hasErrors = true;
             const wrongIdx = p.examState.selected;
             const rightIdx = p.correctOptIdx;
-            const wrongText = p.examOpts[wrongIdx];
+            const wrongText = wrongIdx !== -1 ? p.examOpts[wrongIdx] : "🤷‍♂️ Decidiste no adivinar (Pregunta saltada)";
             const rightText = p.examOpts[rightIdx];
-            const pt = psycTips[Math.floor(Math.random() * psycTips.length)];
+            
+            let pt = "";
+            if (wrongIdx === -1) {
+                pt = "Aceptar que no se sabe una fórmula es el primer paso. En Florida, muchas veces intentar adivinar los números de impuestos te quita tiempo y confianza. Revisa la lógica base de abajo.";
+            } else {
+                pt = psycTips[Math.floor(Math.random() * psycTips.length)];
+            }
             
             content.innerHTML += `
                 <div style="padding:16px; border:1px solid var(--red-border); border-radius:12px; background:var(--surface);">
