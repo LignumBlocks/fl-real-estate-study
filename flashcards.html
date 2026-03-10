@@ -3,253 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FL Real Estate — Flashcards de Teoría</title>
-    <meta name="description" content="Tarjetas interactivas para el examen de licencia de bienes raíces de Florida.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <title>FL Real Estate — Simulacro de Examen</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        :root{--bg:#f4f6fa;--surface:#fff;--surface-2:#f0f2f8;--surface-3:#e8ebf3;--accent:#4f46e5;--accent-bg:#eef2ff;--green:#059669;--green-bg:#ecfdf5;--green-border:#a7f3d0;--orange:#d97706;--orange-bg:#fffbeb;--red:#dc2626;--red-bg:#fef2f2;--red-border:#fecaca;--text:#1e293b;--text-2:#475569;--text-dim:#94a3b8;--border:#e2e8f0;--radius:16px;--shadow:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.04)}
+        body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 
-        :root {
-            --bg: #f4f6fa;
-            --surface: #ffffff;
-            --surface-2: #f0f2f8;
-            --surface-3: #e8ebf3;
-            --accent: #4f46e5;
-            --accent-light: #6366f1;
-            --accent-bg: #eef2ff;
-            --green: #059669;
-            --green-bg: #ecfdf5;
-            --orange: #d97706;
-            --orange-bg: #fffbeb;
-            --red: #dc2626;
-            --red-bg: #fef2f2;
-            --text: #1e293b;
-            --text-2: #475569;
-            --text-dim: #94a3b8;
-            --border: #e2e8f0;
-            --radius: 20px;
-            --card-h: 340px;
-            --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.04);
-            --shadow-lg: 0 4px 24px rgba(0,0,0,.08);
-        }
+        .topbar{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+        .topbar h1{font-size:1.05rem;font-weight:800;color:var(--accent)}
+        .topbar .pill{font-size:.72rem;font-weight:700;padding:5px 14px;border-radius:999px;background:var(--accent-bg);color:var(--accent)}
 
-        body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+        .cat-bar{display:flex;gap:8px;padding:14px 24px;overflow-x:auto;scrollbar-width:none;background:var(--surface);border-bottom:1px solid var(--border)}
+        .cat-bar::-webkit-scrollbar{display:none}
+        .cat-btn{white-space:nowrap;padding:8px 18px;border-radius:999px;border:1.5px solid var(--border);background:var(--surface);color:var(--text-2);font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s;flex-shrink:0}
+        .cat-btn.active,.cat-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 2px 12px rgba(79,70,229,.2)}
 
-        /* ─── Top bar ──────────────────────────────── */
-        .topbar {
-            position: sticky; top: 0; z-index: 100;
-            background: var(--surface);
-            border-bottom: 1px solid var(--border);
-            padding: 14px 24px;
-            display: flex; align-items: center; justify-content: space-between;
-            box-shadow: 0 1px 4px rgba(0,0,0,.04);
-        }
-        .topbar h1 {
-            font-size: 1.1rem; font-weight: 800;
-            color: var(--accent);
-        }
-        .topbar .pill {
-            font-size: .72rem; font-weight: 700;
-            padding: 5px 14px; border-radius: 999px;
-            background: var(--accent-bg); color: var(--accent);
-        }
+        .score-strip{display:flex;justify-content:center;gap:16px;padding:10px 24px;flex-wrap:wrap}
+        .ss-item{display:flex;align-items:center;gap:6px;font-size:.75rem;font-weight:600;padding:4px 12px;border-radius:8px}
+        .ss-item.g{background:var(--green-bg);color:var(--green)}
+        .ss-item.r{background:var(--red-bg);color:var(--red)}
+        .ss-item.n{background:var(--surface-2);color:var(--text-dim)}
+        .ss-item.o{background:var(--orange-bg);color:var(--orange)}
 
-        /* ─── Category nav ─────────────────────────── */
-        .cat-bar {
-            display: flex; gap: 8px; padding: 14px 24px;
-            overflow-x: auto; scrollbar-width: none;
-            background: var(--surface);
-            border-bottom: 1px solid var(--border);
-        }
-        .cat-bar::-webkit-scrollbar { display: none; }
-        .cat-btn {
-            white-space: nowrap;
-            padding: 8px 18px; border-radius: 999px;
-            border: 1.5px solid var(--border);
-            background: var(--surface); color: var(--text-2);
-            font-size: .78rem; font-weight: 600;
-            cursor: pointer; transition: all .2s;
-            flex-shrink: 0;
-        }
-        .cat-btn.active, .cat-btn:hover {
-            background: var(--accent); color: #fff;
-            border-color: var(--accent);
-            box-shadow: 0 2px 12px rgba(79,70,229,.2);
-        }
+        .progress-wrap{padding:6px 24px;max-width:640px;margin:0 auto}
+        .progress-row{display:flex;align-items:center;gap:12px}
+        .progress-track{flex:1;height:6px;border-radius:6px;background:var(--surface-3)}
+        .progress-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--green));transition:width .4s}
+        .progress-label{font-size:.72rem;font-weight:700;color:var(--text-dim);min-width:60px;text-align:right}
 
-        /* ─── Progress ─────────────────────────────── */
-        .progress-wrap { padding: 12px 24px 6px; max-width: 640px; margin: 0 auto; }
-        .progress-row { display: flex; align-items: center; gap: 12px; }
-        .progress-track {
-            flex: 1; height: 6px; border-radius: 6px;
-            background: var(--surface-3);
-        }
-        .progress-fill {
-            height: 100%; border-radius: 6px;
-            background: linear-gradient(90deg, var(--accent), var(--green));
-            transition: width .4s ease;
-        }
-        .progress-label {
-            font-size: .72rem; font-weight: 700; color: var(--text-dim);
-            min-width: 60px; text-align: right;
-        }
+        .container{max-width:640px;margin:0 auto;padding:12px 20px 80px}
 
-        /* ─── Score badges ─────────────────────────── */
-        .score-row {
-            display: flex; justify-content: center; gap: 20px;
-            padding: 8px 24px 12px;
-        }
-        .score-badge {
-            display: flex; align-items: center; gap: 6px;
-            font-size: .75rem; font-weight: 600; color: var(--text-2);
-            padding: 4px 12px; border-radius: 8px;
-        }
-        .score-badge.g { background: var(--green-bg); color: var(--green); }
-        .score-badge.o { background: var(--orange-bg); color: var(--orange); }
-        .score-badge.r { background: var(--red-bg); color: var(--red); }
+        .question-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:28px 24px;margin-bottom:16px;box-shadow:var(--shadow)}
+        .q-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+        .q-badge{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:4px 12px;border-radius:8px;background:var(--accent-bg);color:var(--accent)}
+        .q-num{font-size:.72rem;font-weight:600;color:var(--text-dim)}
+        .q-text{font-size:1rem;font-weight:600;line-height:1.7;margin-bottom:24px;color:var(--text)}
 
-        /* ─── Card area ────────────────────────────── */
-        .card-area {
-            padding: 6px 24px 16px;
-            max-width: 640px; margin: 0 auto;
-        }
+        .opts{display:flex;flex-direction:column;gap:10px}
+        .opt-btn{display:flex;align-items:flex-start;gap:12px;width:100%;padding:14px 18px;border-radius:14px;border:2px solid var(--border);background:var(--surface);cursor:pointer;transition:all .2s;text-align:left}
+        .opt-btn:hover:not(.answered){border-color:var(--accent);background:var(--accent-bg)}
+        .opt-letter{min-width:28px;height:28px;border-radius:50%;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;color:var(--text-2);flex-shrink:0;transition:all .2s}
+        .opt-text{font-size:.9rem;font-weight:500;line-height:1.5;color:var(--text);padding-top:3px}
 
-        .flip-card {
-            perspective: 1200px;
-            height: var(--card-h); width: 100%;
-            cursor: pointer;
-        }
-        .flip-inner {
-            position: relative;
-            width: 100%; height: 100%;
-            transition: transform .5s cubic-bezier(.4,.0,.2,1);
-            transform-style: preserve-3d;
-        }
-        .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+        .opt-btn.correct{border-color:var(--green);background:var(--green-bg)}
+        .opt-btn.correct .opt-letter{background:var(--green);color:#fff}
+        .opt-btn.wrong{border-color:var(--red);background:var(--red-bg)}
+        .opt-btn.wrong .opt-letter{background:var(--red);color:#fff}
+        .opt-btn.answered{cursor:default;opacity:.7}
+        .opt-btn.correct.answered{opacity:1}
+        .opt-btn.wrong.answered-selected{opacity:1}
 
-        .flip-front, .flip-back {
-            position: absolute; inset: 0;
-            backface-visibility: hidden; -webkit-backface-visibility: hidden;
-            border-radius: var(--radius);
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            padding: 32px 28px;
-            text-align: center;
-        }
+        .explanation{display:none;margin-top:16px;padding:16px 20px;border-radius:14px;background:linear-gradient(145deg,#4f46e5,#3730a3);color:#fff;font-size:.88rem;line-height:1.7;font-weight:500}
+        .explanation.show{display:block}
+        .explanation strong{color:#fde68a}
+        .explanation .exp-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.7);margin-bottom:8px;display:block}
 
-        .flip-front {
-            background: var(--surface);
-            border: 1.5px solid var(--border);
-            box-shadow: var(--shadow-lg);
-        }
-        .flip-front .cat-tag {
-            position: absolute; top: 18px; left: 22px;
-            font-size: .65rem; font-weight: 700; text-transform: uppercase;
-            color: var(--accent); letter-spacing: .06em;
-            background: var(--accent-bg); padding: 3px 10px; border-radius: 6px;
-        }
-        .flip-front .hint-icon {
-            position: absolute; top: 18px; right: 22px;
-            font-size: .7rem; color: var(--text-dim);
-        }
-        .flip-front .q-text {
-            font-size: 1.1rem; font-weight: 600; line-height: 1.6;
-            color: var(--text);
-        }
+        .nav-row{display:flex;gap:12px;justify-content:center;padding:20px 0}
+        .nav-btn{padding:12px 28px;border-radius:12px;border:1.5px solid var(--border);background:var(--surface);color:var(--text-2);font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s;box-shadow:var(--shadow)}
+        .nav-btn:hover{border-color:var(--accent);color:var(--accent)}
+        .nav-btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+        .nav-btn.primary:hover{box-shadow:0 4px 16px rgba(79,70,229,.25)}
 
-        .flip-back {
-            transform: rotateY(180deg);
-            background: linear-gradient(145deg, #4f46e5, #3730a3);
-            border: none;
-            box-shadow: var(--shadow-lg);
-            overflow-y: auto;
-        }
-        .flip-back .a-label {
-            font-size: .65rem; font-weight: 700; text-transform: uppercase;
-            color: rgba(255,255,255,.7); letter-spacing: .08em; margin-bottom: 14px;
-        }
-        .flip-back .a-text {
-            font-size: .95rem; font-weight: 500; line-height: 1.7;
-            color: #fff;
-        }
-        .flip-back .a-text strong { color: #fde68a; }
-
-        /* ─── Controls ─────────────────────────────── */
-        .controls {
-            display: flex; align-items: center; justify-content: center;
-            gap: 14px; padding: 16px 24px;
-            max-width: 640px; margin: 0 auto;
-        }
-        .ctrl-btn {
-            width: 52px; height: 52px; border-radius: 50%;
-            border: 1.5px solid var(--border);
-            background: var(--surface); color: var(--text-2);
-            font-size: 1.2rem; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            transition: all .2s;
-            box-shadow: var(--shadow);
-        }
-        .ctrl-btn:hover {
-            background: var(--accent-bg); border-color: var(--accent);
-            color: var(--accent);
-        }
-        .ctrl-btn.know {
-            background: var(--green); border-color: var(--green);
-            color: #fff;
-        }
-        .ctrl-btn.know:hover {
-            box-shadow: 0 4px 16px rgba(5,150,105,.25);
-            transform: scale(1.06);
-        }
-        .ctrl-btn.skip {
-            background: var(--red-bg); border-color: #fecaca;
-            color: var(--red);
-        }
-        .ctrl-btn.skip:hover {
-            background: var(--red); color: #fff;
-        }
-
-        .counter {
-            font-size: .85rem; font-weight: 700; color: var(--text-2);
-            min-width: 60px; text-align: center;
-        }
-
-        /* ─── Action row ───────────────────────────── */
-        .action-row {
-            display: flex; justify-content: center; gap: 10px;
-            padding: 0 24px 32px;
-        }
-        .action-btn {
-            padding: 10px 22px; border-radius: 12px;
-            border: 1.5px solid var(--border);
-            background: var(--surface); color: var(--text-2);
-            font-size: .78rem; font-weight: 600;
-            cursor: pointer; transition: all .2s;
-            box-shadow: var(--shadow);
-        }
-        .action-btn:hover {
-            border-color: var(--accent); color: var(--accent);
-            background: var(--accent-bg);
-        }
-
-        /* ─── Keyboard hint ────────────────────────── */
-        .key-hint {
-            position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%);
-            font-size: .68rem; color: var(--text-dim);
-            background: var(--surface); padding: 6px 16px; border-radius: 8px;
-            box-shadow: var(--shadow); display: none;
-        }
-        @media (min-width: 769px) { .key-hint { display: block; } }
-
-        @keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:.8} }
-        .hint-icon { animation: pulse 2.5s infinite; }
+        .action-row{display:flex;justify-content:center;gap:10px;padding:0 24px 32px;flex-wrap:wrap}
+        .action-btn{padding:10px 22px;border-radius:12px;border:1.5px solid var(--border);background:var(--surface);color:var(--text-2);font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s;box-shadow:var(--shadow)}
+        .action-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
 
         .user-badge{display:flex;align-items:center;gap:8px}
         .user-badge .avatar{width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700}
@@ -264,18 +82,18 @@
         .login-box button{width:100%;padding:14px;border:none;border-radius:12px;background:var(--accent);color:#fff;font-size:1rem;font-weight:700;cursor:pointer}
         .login-box button:hover{background:#4338ca}
 
-        @media (max-width: 480px) {
-            :root { --card-h: 300px; }
-            .flip-front .q-text { font-size: .96rem; }
-            .flip-back .a-text { font-size: .88rem; }
-        }
+        .key-hint{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);font-size:.68rem;color:var(--text-dim);background:var(--surface);padding:6px 16px;border-radius:8px;box-shadow:var(--shadow);display:none}
+        @media(min-width:769px){.key-hint{display:block}}
+        @media(max-width:480px){.q-text{font-size:.92rem}.opt-text{font-size:.84rem}}
     </style>
 </head>
 <body>
 
 <div class="topbar">
-    <a href="index.html" style="text-decoration:none;font-size:1.1rem;margin-right:10px;color:var(--text-2)" title="Volver al inicio">←</a>
-    <h1>🏠 FL Real Estate — Teoría</h1>
+    <div style="display:flex;align-items:center">
+        <a href="index.html" style="text-decoration:none;font-size:1.1rem;margin-right:10px;color:var(--text-2)" title="Volver al inicio">&#8592;</a>
+        <h1>📝 FL Real Estate — Simulacro</h1>
+    </div>
     <div style="display:flex;align-items:center;gap:12px">
         <span class="pill" id="modeLabel">Todas</span>
         <div class="user-badge" id="userBadge" style="display:none">
@@ -287,6 +105,13 @@
 
 <div class="cat-bar" id="catBar"></div>
 
+<div class="score-strip">
+    <div class="ss-item g">✅ Correctas: <span id="totalCorrect">0</span></div>
+    <div class="ss-item r">❌ Incorrectas: <span id="totalWrong">0</span></div>
+    <div class="ss-item n">📊 Precisión: <span id="accuracy">—</span></div>
+    <div class="ss-item o">📋 Restantes: <span id="remaining">0</span></div>
+</div>
+
 <div class="progress-wrap">
     <div class="progress-row">
         <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
@@ -294,35 +119,7 @@
     </div>
 </div>
 
-<div class="score-row">
-    <div class="score-badge g">✓ Dominadas: <span id="sKnow">0</span></div>
-    <div class="score-badge o">○ Revisar: <span id="sReview">0</span></div>
-    <div class="score-badge r">✗ No sé: <span id="sWrong">0</span></div>
-</div>
-
-<div class="card-area">
-    <div class="flip-card" id="flipCard" onclick="flipCard()">
-        <div class="flip-inner">
-            <div class="flip-front">
-                <span class="cat-tag" id="cardCat"></span>
-                <span class="hint-icon">tap para revelar ↻</span>
-                <p class="q-text" id="cardQ"></p>
-            </div>
-            <div class="flip-back">
-                <span class="a-label">✓ Respuesta</span>
-                <p class="a-text" id="cardA"></p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="controls">
-    <button class="ctrl-btn skip" onclick="markCard('wrong')" title="No lo sé">✗</button>
-    <button class="ctrl-btn" onclick="prevCard()" title="Anterior">◀</button>
-    <span class="counter" id="counter">1 / 1</span>
-    <button class="ctrl-btn" onclick="nextCard()" title="Siguiente">▶</button>
-    <button class="ctrl-btn know" onclick="markCard('know')" title="¡Lo sé!">✓</button>
-</div>
+<div class="container" id="questionArea"></div>
 
 <div class="action-row">
     <button class="action-btn" onclick="shuffleDeck()">🔀 Mezclar</button>
@@ -330,154 +127,402 @@
     <button class="action-btn" onclick="showOnlyWrong()">🔴 Solo errores</button>
 </div>
 
-<div class="key-hint">⌨️  ← → navegar · Espacio voltear · S = sé · X = no sé</div>
+<div class="key-hint">⌨️  ← → navegar · 1-4 seleccionar respuesta · N siguiente</div>
 
 <div class="login-overlay" id="loginOverlay">
     <div class="login-box">
-        <h2>🏠 FL Real Estate</h2>
+        <h2>📝 FL Real Estate</h2>
         <p>Ingresa tu nombre para guardar tu progreso</p>
         <input id="loginInput" placeholder="Tu nombre..." onkeydown="if(event.key==='Enter')doLogin()">
-        <button onclick="doLogin()">Comenzar →</button>
+        <button onclick="doLogin()">Comenzar Simulacro →</button>
     </div>
 </div>
 
 <script>
 const ALL_CARDS = [
     // ── CONTRATOS ──
-    { cat:"Contratos", q:"¿Cuáles son los 5 elementos esenciales para que un contrato de bienes raíces sea válido? (COLIC)", a:"<strong>C</strong>ompetent parties · <strong>O</strong>ffer and acceptance · <strong>L</strong>egality of object · <strong>I</strong>n writing and signed · <strong>C</strong>onsideration (Contraprestación válida)." },
-    { cat:"Contratos", q:"¿Qué exige el Estatuto de Fraudes (Statute of Frauds)?", a:"Que los contratos que transfieren intereses en bienes raíces deben estar <strong>por escrito y firmados</strong> para ser legalmente exigibles. Sin escritura, es <strong>inejecutable</strong> (unenforceable), no necesariamente anulable." },
-    { cat:"Contratos", q:"¿Cuáles son las formas en que una oferta se puede terminar? (WILD CARD)", a:"<strong>W</strong>ithdrawal · <strong>I</strong>nsanity · <strong>L</strong>apse of time · <strong>D</strong>eath · <strong>C</strong>ounteroffer · <strong>A</strong>cceptance · <strong>R</strong>ejection · <strong>D</strong>estruction de la propiedad." },
-    { cat:"Contratos", q:"¿Diferencia entre void, voidable y unenforceable?", a:"<strong>Void</strong>: Nulo, sin efecto legal (ej: ilegal). <strong>Voidable</strong>: Válido hasta que la parte afectada lo anule (ej: menor). <strong>Unenforceable</strong>: Válido pero no ejecutable en corte (ej: no está por escrito)." },
-    { cat:"Contratos", q:"¿Qué es la consideración (consideration)?", a:"Algo de <strong>valor</strong> que cada parte intercambia: dinero, promesa, o incluso 'love and affection'. Sin consideración, <strong>no hay contrato válido</strong>." },
-    { cat:"Contratos", q:"¿Qué es 'Time is of the Essence'?", a:"Cláusula que establece que las <strong>fechas límite son estrictamente obligatorias</strong>. Si no se cumple, es un <strong>incumplimiento</strong> (breach)." },
-    { cat:"Contratos", q:"¿Diferencia entre contrato bilateral y unilateral?", a:"<strong>Bilateral</strong>: Ambas partes prometen (ej: compraventa). <strong>Unilateral</strong>: Solo una promete; la otra actúa voluntariamente (ej: opción de compra)." },
-    { cat:"Contratos", q:"¿Qué remedios tiene un comprador ante incumplimiento del vendedor?", a:"1. <strong>Specific Performance</strong>. 2. <strong>Rescission</strong>. 3. <strong>Liquidated Damages</strong>. 4. <strong>Suit for damages</strong>." },
+    {cat:"Contratos",q:"Para que un contrato de bienes raíces sea válido en Florida, debe contener ciertos elementos esenciales. ¿Cuál de las siguientes opciones lista CORRECTAMENTE los 5 elementos? (COLIC)",
+     opts:["Partes competentes, Oferta y aceptación, Legalidad, Por escrito y firmado, Contraprestación","Partes competentes, Consentimiento mutuo, Legalidad, Earnest money, Entrega","Acuerdo, Capacidad, Legalidad, Forma escrita, Notarización","Oferta, Aceptación, Contraprestación, Legalidad, Registro público"],correct:0,
+     tip:"COLIC: <strong>C</strong>ompetent parties, <strong>O</strong>ffer and acceptance, <strong>L</strong>egality, <strong>I</strong>n writing and signed, <strong>C</strong>onsideration."},
+
+    {cat:"Contratos",q:"Un contrato de bienes raíces fue acordado verbalmente entre comprador y vendedor. Según el Statute of Frauds, este contrato es:",
+     opts:["Unenforceable (inejecutable)","Void (nulo)","Voidable (anulable)","Completamente válido y ejecutable"],correct:0,
+     tip:"El Statute of Frauds exige que los contratos de bienes raíces estén <strong>por escrito y firmados</strong>. Sin escritura = <strong>inejecutable</strong>, no necesariamente nulo."},
+
+    {cat:"Contratos",q:"Un comprador hace una oferta sobre una propiedad. ¿Cuál de las siguientes acciones NO terminaría la oferta? (WILD CARD)",
+     opts:["El comprador obtiene financiamiento aprobado","El vendedor hace una contraoferta","Muere el comprador antes de la aceptación","Expira el plazo de la oferta"],correct:0,
+     tip:"WILD CARD: <strong>W</strong>ithdrawal, <strong>I</strong>nsanity, <strong>L</strong>apse of time, <strong>D</strong>eath, <strong>C</strong>ounteroffer, <strong>A</strong>cceptance, <strong>R</strong>ejection, <strong>D</strong>estruction. Obtener financiamiento no termina la oferta."},
+
+    {cat:"Contratos",q:"Un menor de edad firma un contrato de compraventa de bienes raíces. Este contrato es MEJOR descrito como:",
+     opts:["Voidable — el menor puede anularlo","Void — no tiene efecto legal","Unenforceable — no se puede ejecutar en corte","Valid — los menores pueden contratar con permiso parental"],correct:0,
+     tip:"<strong>Void</strong>: sin efecto legal (ilegal). <strong>Voidable</strong>: válido hasta que la parte afectada lo anule (ej: menor). <strong>Unenforceable</strong>: válido pero no ejecutable (ej: no escrito)."},
+
+    {cat:"Contratos",q:"En un contrato de bienes raíces, ¿qué constituye 'consideration' (contraprestación)?",
+     opts:["Algo de valor intercambiado: dinero, promesa, o incluso 'love and affection'","Exclusivamente dinero en efectivo o cheque certificado","Solo el depósito de buena fe (earnest money)","La inspección de la propiedad por ambas partes"],correct:0,
+     tip:"Consideration = algo de <strong>valor</strong> intercambiado. Puede ser dinero, una promesa, o incluso 'love and affection'. Sin consideración, <strong>no hay contrato válido</strong>."},
+
+    {cat:"Contratos",q:"Un contrato incluye la cláusula 'Time is of the Essence'. El comprador no cierra en la fecha acordada. ¿Cuál es la consecuencia?",
+     opts:["El comprador está en incumplimiento (breach) del contrato","El contrato se extiende automáticamente 30 días","El vendedor debe dar un período de gracia razonable","El contrato se vuelve void automáticamente"],correct:0,
+     tip:"'Time is of the Essence' = las <strong>fechas son estrictamente obligatorias</strong>. No cumplir = <strong>incumplimiento (breach)</strong>."},
+
+    {cat:"Contratos",q:"Un contrato donde AMBAS partes hacen promesas (ej: compraventa) se conoce como:",
+     opts:["Contrato bilateral","Contrato unilateral","Contrato ejecutado","Contrato implícito"],correct:0,
+     tip:"<strong>Bilateral</strong>: ambas partes prometen (compraventa). <strong>Unilateral</strong>: solo una promete, la otra actúa (ej: opción de compra)."},
+
+    {cat:"Contratos",q:"Si un vendedor incumple un contrato de compraventa, ¿cuál de los siguientes NO es un remedio disponible para el comprador?",
+     opts:["Arrestar al vendedor por fraude civil","Specific Performance (cumplimiento forzoso)","Rescission (rescisión del contrato)","Demandar por daños y perjuicios"],correct:0,
+     tip:"Remedios del comprador: <strong>Specific Performance, Rescission, Liquidated Damages, Suit for damages</strong>. El arresto no es un remedio civil."},
 
     // ── CORRETAJE ──
-    { cat:"Corretaje", q:"¿Cuál es la relación de corretaje por defecto en Florida?", a:"<strong>Transaction Broker</strong> (Corredor de Transacción). Se presume legalmente. <strong>No es fiduciario</strong>." },
-    { cat:"Corretaje", q:"¿Deberes de un Single Agent? (COLD-AC)", a:"<strong>C</strong>onfidentiality · <strong>O</strong>bedience · <strong>L</strong>oyalty · <strong>D</strong>isclosure · <strong>A</strong>ccounting · <strong>C</strong>ompetence. Relación <strong>fiduciaria</strong>." },
-    { cat:"Corretaje", q:"¿Cuáles son los 3 deberes bajo 'No Brokerage Relationship'?", a:"1. <strong>Dealing honestly and fairly</strong>. 2. <strong>Disclosing all known material facts</strong>. 3. <strong>Accounting for all funds</strong>. NO hay confidencialidad ni lealtad." },
-    { cat:"Corretaje", q:"¿Es legal la Dual Agency en Florida?", a:"<strong>No.</strong> La Dual Agency está <strong>prohibida</strong> en Florida." },
-    { cat:"Corretaje", q:"¿Puede un Transaction Broker pasar a Single Agent?", a:"<strong>Sí</strong>, pero requiere <strong>consentimiento por escrito</strong>." },
-    { cat:"Corretaje", q:"¿Cuánto tiempo debe un corredor retener documentos?", a:"<strong>5 años</strong> desde la fecha del último acto o del litigio, lo que sea más largo." },
+    {cat:"Corretaje",q:"En Florida, si NO se ha establecido formalmente una relación de corretaje, ¿cuál se presume por defecto?",
+     opts:["Transaction Broker","Single Agent","No Brokerage Relationship","Dual Agent"],correct:0,
+     tip:"<strong>Transaction Broker</strong> es la relación por defecto en FL. Se presume legalmente. <strong>No es fiduciario</strong>."},
+
+    {cat:"Corretaje",q:"Un Single Agent le debe a su cliente ciertos deberes fiduciarios conocidos como COLD-AC. ¿Cuál de los siguientes NO es uno de esos deberes?",
+     opts:["Negociación (Negotiation)","Confidencialidad (Confidentiality)","Obediencia (Obedience)","Lealtad (Loyalty)"],correct:0,
+     tip:"COLD-AC: <strong>C</strong>onfidentiality, <strong>O</strong>bedience, <strong>L</strong>oyalty, <strong>D</strong>isclosure, <strong>A</strong>ccounting, <strong>C</strong>ompetence. Negotiation NO está incluido."},
+
+    {cat:"Corretaje",q:"Bajo una relación de 'No Brokerage Relationship', ¿cuántos deberes tiene el licensee hacia el cliente?",
+     opts:["3: Honestidad, Divulgar hechos materiales, Contabilidad de fondos","6: Los mismos que un Single Agent","2: Honestidad y Confidencialidad","4: Honestidad, Lealtad, Divulgación, Obediencia"],correct:0,
+     tip:"Solo 3 deberes: <strong>Deal honestly and fairly, Disclose known material facts, Account for funds</strong>. NO hay confidencialidad ni lealtad."},
+
+    {cat:"Corretaje",q:"En Florida, la Dual Agency (representar a ambas partes como fiduciario) es:",
+     opts:["Prohibida por ley","Permitida con consentimiento escrito","Permitida solo en transacciones comerciales","La relación por defecto"],correct:0,
+     tip:"La Dual Agency está <strong>prohibida</strong> en Florida. No confundir con Transaction Broker, que es legal."},
+
+    {cat:"Corretaje",q:"¿Puede un Transaction Broker cambiar a Single Agent durante una transacción?",
+     opts:["Sí, pero requiere consentimiento por escrito","No, está prohibido por ley","Sí, automáticamente si el cliente lo solicita verbalmente","Solo con aprobación de la FREC"],correct:0,
+     tip:"Sí, es posible, pero requiere <strong>consentimiento por escrito</strong> de la parte."},
+
+    {cat:"Corretaje",q:"¿Por cuánto tiempo debe un broker retener documentos de transacciones?",
+     opts:["5 años","3 años","7 años","10 años"],correct:0,
+     tip:"<strong>5 años</strong> desde la fecha del último acto o del litigio, lo que sea más largo."},
 
     // ── LICENCIA ──
-    { cat:"Licencia", q:"¿Requisitos para licencia de Sales Associate en Florida?", a:"1. <strong>18 años</strong>. 2. SSN. 3. Curso de <strong>63 horas</strong>. 4. Aprobar examen estatal. 5. Verificación de antecedentes (fingerprints)." },
-    { cat:"Licencia", q:"¿Horas de educación continua para renovar?", a:"<strong>14 horas</strong> cada 2 años. Incluye <strong>3 horas Core Law</strong> (obligatorias) + <strong>11 horas specialty CE</strong>. (Nota: el requisito de Ethics es de <strong>NAR para REALTORS®</strong>, no para la licencia estatal)." },
-    { cat:"Licencia", q:"¿Qué es la FREC?", a:"Florida Real Estate Commission. Parte del DBPR. <strong>7 miembros</strong>: 4 brokers con 5+ años, 1 broker o asociado con 2+ años, y 2 consumidores (sin licencia)." },
-    { cat:"Licencia", q:"¿Qué pasa si ejerces sin licencia?", a:"<strong>Felony de tercer grado</strong>. Hasta <strong>$5,000</strong> multa y <strong>5 años</strong> prisión." },
-    { cat:"Licencia", q:"¿Qué es 'Involuntarily Inactive'?", a:"No renovó a tiempo. Tiene <strong>2 años</strong> para reactivar. Después → <strong>null and void</strong>." },
+    {cat:"Licencia",q:"Para obtener la licencia de Sales Associate en Florida, un candidato debe cumplir TODOS los siguientes requisitos EXCEPTO:",
+     opts:["Tener un título universitario","Tener 18 años de edad","Completar el curso de 63 horas","Pasar el examen estatal"],correct:0,
+     tip:"Requisitos: <strong>18 años, SSN, 63 horas de curso, aprobar examen, fingerprints</strong>. NO se requiere título universitario."},
+
+    {cat:"Licencia",q:"¿Cuántas horas de educación continua se requieren para renovar una licencia de bienes raíces en Florida cada 2 años?",
+     opts:["14 horas: 3h Core Law + 3h Ethics + 8h specialty","12 horas, incluyendo 4 de Ethics","20 horas, incluyendo 5 de Core Law","8 horas, todas de especialidad"],correct:0,
+     tip:"<strong>14 horas</strong> cada 2 años: <strong>3h Core Law</strong> + <strong>3h Ethics and Business Practices</strong> (requisito ESTATAL, Regla 61J2-3.009) + <strong>8h specialty</strong>. La ética ES obligatoria por el estado de FL, no solo por la NAR."},
+
+    {cat:"Licencia",q:"La Florida Real Estate Commission (FREC) está compuesta por cuántos miembros, y cuántos deben ser brokers con experiencia?",
+     opts:["7 miembros: 4 brokers con 5+ años, 1 licensee con 2+ años, 2 consumidores","5 miembros: 3 brokers, 2 consumidores","9 miembros: 5 brokers, 2 sales associates, 2 consumidores","7 miembros: 5 brokers, 2 consumidores"],correct:0,
+     tip:"FREC: <strong>7 miembros</strong> — 4 brokers (5+ años), 1 broker o asociado (2+ años), 2 consumidores (sin licencia)."},
+
+    {cat:"Licencia",q:"Una persona que ejerce como agente de bienes raíces sin licencia en Florida comete:",
+     opts:["Un felony de tercer grado, hasta $5,000 de multa y 5 años de prisión","Un misdemeanor de primer grado, hasta $1,000 de multa","Una violación administrativa con multa de $500","Un felony de segundo grado, hasta $10,000 de multa"],correct:0,
+     tip:"Ejercer sin licencia = <strong>Felony de tercer grado</strong>: hasta <strong>$5,000</strong> multa y <strong>5 años</strong> prisión."},
+
+    {cat:"Licencia",q:"Un licensee no renueva su licencia a tiempo y queda como 'Involuntarily Inactive'. ¿Cuánto tiempo tiene para reactivarla?",
+     opts:["2 años, después se vuelve null and void","1 año, después debe retomar el curso","6 meses, después debe re-examinar","3 años, después se cancela permanentemente"],correct:0,
+     tip:"<strong>2 años</strong> para reactivar. Después → <strong>null and void</strong> (debe empezar de cero)."},
 
     // ── PROPIEDAD ──
-    { cat:"Propiedad", q:"¿Cómo se adquiere título de propiedad? (WADED)", a:"<strong>W</strong>ill · <strong>A</strong>dverse Possession (7 años + impuestos) · <strong>D</strong>eed · <strong>E</strong>scheat · <strong>D</strong>escent (herencia intestada)." },
-    { cat:"Propiedad", q:"¿Restricciones gubernamentales sobre la propiedad? (PETE)", a:"<strong>P</strong>olice Power (zoning) · <strong>E</strong>minent Domain (expropiación) · <strong>T</strong>axation · <strong>E</strong>scheat." },
-    { cat:"Propiedad", q:"¿Restricciones privadas? (DELL)", a:"<strong>D</strong>eed restrictions · <strong>E</strong>asements · <strong>L</strong>eases · <strong>L</strong>iens." },
-    { cat:"Propiedad", q:"Florida sigue Lien Theory. ¿Qué significa?", a:"El <strong>prestatario retiene el título</strong>. El prestamista solo tiene un <strong>lien (gravamen)</strong> como garantía." },
-    { cat:"Propiedad", q:"¿Qué es la Homestead Exemption?", a:"Exime <strong>$50,000</strong> del valor tasado (primeros $25K aplican a todo; segundos $25K <strong>NO aplican a school board taxes</strong>). Protege contra ejecución forzosa (excepto impuestos, hipoteca, mechanic's liens). Requiere <strong>consentimiento del cónyuge</strong>." },
-    { cat:"Propiedad", q:"¿Qué es un General Warranty Deed?", a:"La escritura con <strong>mayor protección</strong> al comprador. Garantiza: título legítimo, puede transferir, sin gravámenes ocultos, defenderá contra reclamos." },
-    { cat:"Propiedad", q:"¿Qué es Tenancy by the Entireties?", a:"Copropiedad <strong>exclusiva para parejas casadas</strong>. Incluye <strong>derecho de supervivencia</strong>. Ninguno puede vender sin el otro." },
+    {cat:"Propiedad",q:"¿Cuál de las siguientes NO es una forma de adquirir título de propiedad según WADED?",
+     opts:["Compra directa (Purchase)","Will (Testamento)","Adverse Possession","Deed (Escritura)"],correct:0,
+     tip:"WADED: <strong>W</strong>ill, <strong>A</strong>dverse Possession (7 años + impuestos), <strong>D</strong>eed, <strong>E</strong>scheat, <strong>D</strong>escent. 'Purchase' no es una de las 5 formas listadas en WADED."},
+
+    {cat:"Propiedad",q:"El gobierno puede tomar propiedad privada para uso público pagando compensación justa. Este poder se llama:",
+     opts:["Eminent Domain","Police Power","Escheat","Taxation"],correct:0,
+     tip:"PETE: <strong>P</strong>olice Power (zoning), <strong>E</strong>minent Domain (expropiación con compensación), <strong>T</strong>axation, <strong>E</strong>scheat."},
+
+    {cat:"Propiedad",q:"¿Cuál de las siguientes es una restricción PRIVADA sobre la propiedad? (DELL)",
+     opts:["Easements (servidumbres)","Eminent Domain","Zoning","Taxation"],correct:0,
+     tip:"Restricciones privadas (DELL): <strong>D</strong>eed restrictions, <strong>E</strong>asements, <strong>L</strong>eases, <strong>L</strong>iens. Las otras son restricciones gubernamentales (PETE)."},
+
+    {cat:"Propiedad",q:"Florida sigue la 'Lien Theory' en hipotecas. Esto significa que:",
+     opts:["El prestatario retiene el título; el prestamista solo tiene un lien como garantía","El prestamista retiene el título hasta que se pague la hipoteca","El título se mantiene en fideicomiso por un tercero","Ambas partes comparten el título equitativamente"],correct:0,
+     tip:"Lien Theory: el <strong>prestatario retiene el título</strong>. El prestamista solo tiene un <strong>lien (gravamen)</strong> como garantía."},
+
+    {cat:"Propiedad",q:"La Homestead Exemption en Florida exime un total de $50,000 del valor tasado. ¿Cuál es la característica ESPECIAL de los segundos $25,000?",
+     opts:["No aplican a impuestos del school board","No aplican a impuestos municipales","Solo aplican a propiedades comerciales","Requieren aprobación del condado"],correct:0,
+     tip:"Primeros $25K aplican a todos los impuestos. Segundos $25K <strong>NO aplican a school board taxes</strong>. Protege contra ejecución forzosa (excepto impuestos, hipoteca, mechanic's liens)."},
+
+    {cat:"Propiedad",q:"¿Cuál tipo de escritura ofrece la MAYOR protección al comprador?",
+     opts:["General Warranty Deed","Special Warranty Deed","Quitclaim Deed","Bargain and Sale Deed"],correct:0,
+     tip:"<strong>General Warranty Deed</strong> = mayor protección. Garantiza: título legítimo, puede transferir, sin gravámenes ocultos, defenderá contra reclamos."},
+
+    {cat:"Propiedad",q:"La co-propiedad exclusiva para parejas casadas que incluye derecho de supervivencia se llama:",
+     opts:["Tenancy by the Entireties","Joint Tenancy","Tenancy in Common","Community Property"],correct:0,
+     tip:"<strong>Tenancy by the Entireties</strong>: solo parejas casadas. Derecho de supervivencia. Ninguno puede vender sin el otro."},
 
     // ── DIVULGACIONES ──
-    { cat:"Divulgaciones", q:"¿Qué establece Johnson vs. Davis?", a:"El vendedor debe <strong>revelar defectos materiales conocidos</strong> no fácilmente observables. Aplica a residenciales." },
-    { cat:"Divulgaciones", q:"¿Cuándo aplica divulgación de Lead-Based Paint?", a:"Viviendas construidas <strong>antes de 1978</strong>. Entregar panfleto + divulgar conocimiento + <strong>10 días</strong> para inspección." },
-    { cat:"Divulgaciones", q:"¿Qué es el Radon Gas Disclosure?", a:"Divulgación <strong>obligatoria en todos los contratos</strong> de venta en Florida. Informa sobre el gas radón y pruebas disponibles." },
-    { cat:"Divulgaciones", q:"Fair Housing Act — ¿Qué clases protege?", a:"<strong>7 clases</strong>: <strong>R</strong>aza, <strong>C</strong>olor, <strong>R</strong>eligión, <strong>S</strong>exo, <strong>O</strong>rigen Nacional, <strong>D</strong>iscapacidad (Handicap), Estado <strong>F</strong>amiliar. Mnemotecnia: <strong>'Run, Corre, Rápido — Sin Olvidar Dos Familias'</strong>." },
-    { cat:"Divulgaciones", q:"¿Exenciones a la Fair Housing Act?", a:"1. <strong>Mrs. Murphy</strong>: propietario en propiedad ≤4 unidades. 2. Organizaciones religiosas. 3. Clubes privados. <strong>NINGUNA aplica si usa broker</strong> o publicidad discriminatoria." },
+    {cat:"Divulgaciones",q:"Según el caso Johnson vs. Davis, ¿qué obligación tiene el vendedor de una propiedad residencial?",
+     opts:["Revelar defectos materiales conocidos no fácilmente observables","Revelar todos los defectos, incluso los visibles","Proporcionar una garantía de 1 año sobre la propiedad","Obtener una inspección profesional antes de la venta"],correct:0,
+     tip:"Johnson vs. Davis: el vendedor debe <strong>revelar defectos materiales conocidos no fácilmente observables</strong>. Aplica a propiedades residenciales."},
+
+    {cat:"Divulgaciones",q:"La divulgación de Lead-Based Paint es obligatoria para viviendas construidas antes de:",
+     opts:["1978","1985","1970","1992"],correct:0,
+     tip:"Viviendas construidas antes de <strong>1978</strong>. Se debe: entregar panfleto, divulgar conocimiento, dar <strong>10 días</strong> para inspección."},
+
+    {cat:"Divulgaciones",q:"¿En qué tipo de transacciones es obligatoria la divulgación de Radon Gas en Florida?",
+     opts:["En TODOS los contratos de venta de bienes raíces","Solo en propiedades con sótano","Solo en propiedades construidas antes de 1990","Solo si se detecta radon en la inspección"],correct:0,
+     tip:"La divulgación de Radon es <strong>obligatoria en TODOS los contratos de venta</strong> en Florida. Informa sobre el gas y pruebas disponibles."},
+
+    {cat:"Divulgaciones",q:"El Fair Housing Act protege 7 clases. ¿Cuál de las siguientes NO es una clase protegida federal?",
+     opts:["Estado civil (Marital Status)","Raza","Discapacidad (Handicap)","Estado Familiar (Familial Status)"],correct:0,
+     tip:"7 clases federales: <strong>Raza, Color, Religión, Sexo, Origen Nacional, Discapacidad, Estado Familiar</strong>. Estado civil NO es clase federal (puede serlo a nivel estatal)."},
+
+    {cat:"Divulgaciones",q:"La exemption 'Mrs. Murphy' del Fair Housing Act aplica cuando:",
+     opts:["El propietario vive en la propiedad de 4 unidades o menos, sin usar broker ni publicidad discriminatoria","Cualquier propietario que no quiera alquilar a familias","La propiedad tiene más de 50 años","El propietario es una persona de la tercera edad"],correct:0,
+     tip:"Mrs. Murphy: propietario en propiedad ≤4 unidades. <strong>NO aplica si usa broker o publicidad discriminatoria</strong>."},
 
     // ── SANCIONES ──
-    { cat:"Sanciones", q:"¿Multa por no mantener letrero de oficina? (61J2)", a:"<strong>$500</strong>." },
-    { cat:"Sanciones", q:"¿Sanción por publicidad falsa o engañosa?", a:"<strong>$250 a $1,000</strong>. Toda publicidad debe incluir nombre del broker." },
-    { cat:"Sanciones", q:"¿Sanción por no depositar fondos de escrow a tiempo?", a:"<strong>$250 a $1,000</strong> + posible suspensión. Depósito: <strong>antes del final del 3er día hábil</strong> después de aceptación." },
-    { cat:"Sanciones", q:"¿Sanción por obtener licencia por fraude?", a:"<strong>$250 a $1,000</strong> + <strong>30 días suspensión</strong>. Puede resultar en revocación." },
-    { cat:"Sanciones", q:"¿Multa máxima que la FREC puede imponer?", a:"Hasta <strong>$5,000 por cada violación</strong>. También puede: suspender, revocar, reprimenda, o educación adicional." },
+    {cat:"Sanciones",q:"Un broker no mantiene el letrero requerido en su oficina. ¿Cuál es la multa según la regla 61J2?",
+     opts:["$500","$250","$1,000","$5,000"],correct:0,
+     tip:"Multa por no tener letrero de oficina: <strong>$500</strong>."},
+
+    {cat:"Sanciones",q:"Un licensee publica un anuncio que no incluye el nombre del broker. ¿Cuál es la sanción?",
+     opts:["$250 a $1,000","$100 a $500","$500 a $5,000","Solo una advertencia verbal"],correct:0,
+     tip:"Publicidad falsa o sin nombre del broker: <strong>$250 a $1,000</strong>. Toda publicidad debe incluir nombre del broker."},
+
+    {cat:"Sanciones",q:"¿Cuál es el plazo máximo para depositar fondos de escrow después de la aceptación del contrato?",
+     opts:["Antes del final del 3er día hábil","Antes del final del 5to día hábil","Dentro de 24 horas","Dentro de 10 días calendario"],correct:0,
+     tip:"Depósito de escrow: antes del <strong>final del 3er día hábil</strong> después de aceptación. Sanción: $250-$1,000 + posible suspensión."},
+
+    {cat:"Sanciones",q:"Si un licensee obtiene su licencia por medios fraudulentos, ¿cuál es la sanción?",
+     opts:["$250 a $1,000 + 30 días de suspensión","$5,000 + revocación inmediata","$100 + curso de ética obligatorio","Solo revocación sin multa"],correct:0,
+     tip:"Licencia por fraude: <strong>$250 a $1,000</strong> + <strong>30 días suspensión</strong>. Puede resultar en revocación."},
+
+    {cat:"Sanciones",q:"¿Cuál es la multa MÁXIMA que la FREC puede imponer por cada violación?",
+     opts:["$5,000","$10,000","$1,000","$25,000"],correct:0,
+     tip:"FREC puede imponer hasta <strong>$5,000 por cada violación</strong>. También: suspender, revocar, reprimenda, o educación adicional."},
 
     // ── FINANCIAMIENTO ──
-    { cat:"Financiamiento", q:"¿Qué es un Promissory Note?", a:"La <strong>promesa personal de pago</strong>. Especifica: monto, tasa, plazo, pagos, penalidades. El pagaré = evidencia de deuda; la hipoteca = garantía." },
-    { cat:"Financiamiento", q:"¿Qué es la cláusula Due-on-Sale?", a:"Permite al prestamista exigir <strong>pago total</strong> si la propiedad se vende/transfiere sin autorización." },
-    { cat:"Financiamiento", q:"¿Diferencia entre Convencional, FHA y VA?", a:"<strong>Convencional</strong>: Sin gobierno; PMI si LTV > 80%. <strong>FHA</strong>: Asegurada gobierno; 3.5% down; MIP. <strong>VA</strong>: Veteranos; 0% down posible; funding fee." },
-    { cat:"Financiamiento", q:"¿Qué es el LTV?", a:"<strong>LTV = Préstamo ÷ Valor × 100</strong>. Valor = el <strong>menor</strong> entre precio y tasación. Si LTV > 80% → PMI requerido (convencional)." },
-    { cat:"Financiamiento", q:"¿Qué es RESPA?", a:"Regula <strong>costos de cierre</strong>. Prohíbe kickbacks. Requiere <strong>Loan Estimate</strong> (3 días) y <strong>Closing Disclosure</strong> (3 días antes cierre)." },
+    {cat:"Financiamiento",q:"¿Cuál es la diferencia principal entre un Promissory Note y una Mortgage?",
+     opts:["El Note es la promesa de pago; la Mortgage es la garantía sobre la propiedad","El Note se registra; la Mortgage no","Ambos son lo mismo con nombres diferentes","La Mortgage es la promesa de pago; el Note es la garantía"],correct:0,
+     tip:"<strong>Promissory Note</strong> = promesa personal de pago (evidencia de deuda). <strong>Mortgage</strong> = garantía sobre la propiedad."},
+
+    {cat:"Financiamiento",q:"La cláusula Due-on-Sale en una hipoteca permite al prestamista:",
+     opts:["Exigir pago total si la propiedad se vende sin autorización","Aumentar la tasa de interés anualmente","Ejecutar la hipoteca sin orden judicial","Cobrar penalidades por pagos anticipados"],correct:0,
+     tip:"Due-on-Sale: el prestamista puede exigir <strong>pago total</strong> si la propiedad se vende/transfiere sin autorización."},
+
+    {cat:"Financiamiento",q:"¿Cuál tipo de préstamo permite un down payment de 3.5% y requiere Mortgage Insurance Premium (MIP)?",
+     opts:["FHA","VA","Convencional","USDA"],correct:0,
+     tip:"<strong>Convencional</strong>: sin gobierno, PMI si LTV>80%. <strong>FHA</strong>: gobierno, 3.5% down, MIP. <strong>VA</strong>: veteranos, 0% down posible."},
+
+    {cat:"Financiamiento",q:"Al calcular el LTV (Loan-to-Value), el prestamista usa como 'valor' de la propiedad:",
+     opts:["El MENOR entre el precio de venta y el valor de tasación","El MAYOR entre el precio de venta y el valor de tasación","Siempre el precio de venta","Siempre el valor de tasación"],correct:0,
+     tip:"LTV = Préstamo ÷ Valor × 100. Valor = el <strong>MENOR</strong> entre precio y tasación. Si LTV > 80% → PMI requerido (convencional)."},
+
+    {cat:"Financiamiento",q:"RESPA requiere que el prestamista entregue el Loan Estimate al prestatario dentro de:",
+     opts:["3 días hábiles después de la solicitud","5 días hábiles después de la solicitud","Al momento del cierre","7 días antes del cierre"],correct:0,
+     tip:"RESPA: <strong>Loan Estimate</strong> dentro de <strong>3 días</strong> de la solicitud. <strong>Closing Disclosure</strong> al menos <strong>3 días antes</strong> del cierre."},
 
     // ── TASACIÓN ──
-    { cat:"Tasación", q:"¿Cuáles son los 3 enfoques de tasación?", a:"1. <strong>Sales Comparison</strong> (residencias). 2. <strong>Cost Approach</strong> (propiedades únicas). 3. <strong>Income Approach</strong> (inversiones — IRV)." },
-    { cat:"Tasación", q:"¿Fórmula IRV?", a:"<strong>I = R × V</strong>. I = NOI, R = Cap Rate, V = Valor. Para valor: <strong>V = I ÷ R</strong>." },
-    { cat:"Tasación", q:"Comparación de Ventas: ¿cuándo sumar/restar ajuste?", a:"<strong>'CBS'</strong>: Si comparable <strong>Superior</strong> al sujeto → <strong>Restar</strong>. Si <strong>Inferior</strong> → <strong>Sumar</strong>. Siempre ajustar el comparable." },
-    { cat:"Tasación", q:"¿Qué es el GIM?", a:"<strong>GIM = Precio ÷ Renta Bruta Anual</strong>. Estima rápidamente valor de propiedades de inversión." },
+    {cat:"Tasación",q:"¿Cuál enfoque de tasación es MÁS apropiado para valorar propiedades de inversión que generan renta?",
+     opts:["Income Approach (enfoque de ingresos)","Sales Comparison Approach","Cost Approach","Market Data Approach"],correct:0,
+     tip:"3 enfoques: <strong>Sales Comparison</strong> (residencias), <strong>Cost Approach</strong> (propiedades únicas), <strong>Income Approach</strong> (inversiones — usa IRV)."},
+
+    {cat:"Tasación",q:"Una propiedad de inversión genera un NOI de $48,000 y el cap rate es 6%. Usando la fórmula IRV, el valor estimado es:",
+     opts:["$800,000","$288,000","$480,000","$2,880"],correct:0,
+     tip:"IRV: <strong>V = I ÷ R</strong>. $48,000 ÷ 0.06 = <strong>$800,000</strong>."},
+
+    {cat:"Tasación",q:"En el enfoque de Sales Comparison, si una propiedad comparable tiene piscina y el sujeto NO tiene piscina, el tasador debe:",
+     opts:["RESTAR el valor de la piscina del precio del comparable","SUMAR el valor de la piscina al precio del comparable","Descartar ese comparable","No hacer ajuste alguno"],correct:0,
+     tip:"CBS: Comparable <strong>Superior</strong> → <strong>Restar</strong>. Comparable <strong>Inferior</strong> → <strong>Sumar</strong>. Siempre se ajusta el comparable."},
+
+    {cat:"Tasación",q:"Un inversionista compra una propiedad por $480,000. La renta bruta anual es $40,000. ¿Cuál es el GIM?",
+     opts:["12","8","48","0.083"],correct:0,
+     tip:"<strong>GIM = Precio ÷ Renta Bruta Anual</strong>. $480,000 ÷ $40,000 = <strong>12</strong>."},
 
     // ── CIERRE ──
-    { cat:"Cierre", q:"¿Cuáles son los impuestos documentales en Florida?", a:"1. <strong>Deed</strong>: $0.70/$100 precio (redondear ↑). <strong>Excepción</strong>: Miami-Dade = <strong>$0.60/$100</strong>. 2. <strong>Note</strong>: $0.35/$100 préstamo (redondear ↑). 3. <strong>Intangible</strong>: $0.002 × préstamo NUEVO (sin redondeo)." },
-    { cat:"Cierre", q:"¿Cómo se calculan prorrateos al cierre?", a:"1. Costo anual. 2. ÷ 365 = tasa diaria. 3. × días del vendedor. El vendedor paga los <strong>días que usó</strong>." },
-    { cat:"Cierre", q:"¿Quién paga qué impuesto documental?", a:"<strong>Vendedor</strong>: Doc Stamps on Deed. <strong>Comprador</strong>: Doc Stamps on Note + Intangible. Es <strong>negociable</strong>." },
+    {cat:"Cierre",q:"En Florida (excepto Miami-Dade), ¿cuál es la tasa de Documentary Stamps on the DEED?",
+     opts:["$0.70 por cada $100 del precio (redondeando hacia arriba)","$0.35 por cada $100 del precio","$0.60 por cada $100 del precio","$1.00 por cada $100 del precio"],correct:0,
+     tip:"Deed: <strong>$0.70/$100</strong> del precio (redondear ↑). Miami-Dade: $0.60/$100. Note: $0.35/$100. Intangible: $0.002 × préstamo nuevo."},
+
+    {cat:"Cierre",q:"Para calcular prorrateos al cierre, ¿cuál es el método correcto?",
+     opts:["Costo anual ÷ 365 = tasa diaria × días del vendedor","Costo anual ÷ 12 = tasa mensual × meses del comprador","Costo anual × porcentaje de ocupación del vendedor","Costo anual ÷ 360 = tasa diaria × días restantes"],correct:0,
+     tip:"Prorrateo: 1) Costo anual. 2) ÷ 365 = tasa diaria. 3) × días del vendedor. El vendedor paga los <strong>días que usó</strong>."},
+
+    {cat:"Cierre",q:"En una transacción típica en Florida, ¿quién paga los Documentary Stamps on the DEED?",
+     opts:["El vendedor","El comprador","Se divide 50/50","El prestamista"],correct:0,
+     tip:"<strong>Vendedor</strong>: Doc Stamps on Deed. <strong>Comprador</strong>: Doc Stamps on Note + Intangible Tax. Es <strong>negociable</strong>."},
 
     // ── USO DE SUELO ──
-    { cat:"Uso de Suelo", q:"¿Qué es el Zoning?", a:"<strong>Police Power</strong> local para regular uso de la tierra: Residencial, Comercial, Industrial, Agrícola. Se puede pedir <strong>Variance</strong> o <strong>Rezoning</strong>." },
-    { cat:"Uso de Suelo", q:"¿Qué es un uso 'Nonconforming'?", a:"Uso legal antes del cambio de zoning. Se permite continuar (<strong>grandfathered</strong>), pero no expandir ni reconstruir si se destruye." },
-    { cat:"Uso de Suelo", q:"¿Qué es el Green Belt Law?", a:"Tierras agrícolas se tasan según <strong>uso agrícola</strong> (no valor de mercado). Reduce impuestos para granjeros." },
+    {cat:"Uso de Suelo",q:"El poder del gobierno local para regular el uso de la tierra (residencial, comercial, industrial) se ejerce mediante:",
+     opts:["Zoning (bajo Police Power)","Eminent Domain","Deed Restrictions","Escheat"],correct:0,
+     tip:"<strong>Zoning</strong> = Police Power local para regular uso de tierra. Se puede solicitar <strong>Variance</strong> o <strong>Rezoning</strong>."},
+
+    {cat:"Uso de Suelo",q:"Una propiedad se usaba como tienda antes de que la zona se reclasificara como residencial. ¿Qué pasa con la tienda?",
+     opts:["Puede continuar como uso 'nonconforming' (grandfathered) pero no expandirse","Debe cerrar inmediatamente","Puede expandirse con permiso especial","Recibe compensación del gobierno por el cambio"],correct:0,
+     tip:"Uso <strong>nonconforming</strong> (grandfathered): se permite continuar, pero <strong>no expandir ni reconstruir</strong> si se destruye."},
+
+    {cat:"Uso de Suelo",q:"El Green Belt Law en Florida permite que las tierras agrícolas sean tasadas según:",
+     opts:["Su uso agrícola (no su valor de mercado)","Su valor de mercado más alto posible","El promedio entre uso agrícola y comercial","Su valor potencial de desarrollo"],correct:0,
+     tip:"Green Belt Law: tierras agrícolas se tasan según <strong>uso agrícola</strong>, no valor de mercado. Reduce impuestos para granjeros."},
 
     // ── EXTRAS ──
-    { cat:"Extras", q:"¿Diferencia entre agente, broker y REALTOR®?", a:"<strong>Agente</strong>: trabaja bajo broker. <strong>Broker</strong>: opera su oficina y supervisa. <strong>REALTOR®</strong>: miembro de NAR (asociación), no es licencia." },
-    { cat:"Extras", q:"¿Qué es TILA / Regulation Z?", a:"Requiere divulgar <strong>APR, costos totales y términos</strong>. Trigger terms activan divulgación completa. <strong>3 días de rescisión</strong> en refinanciamientos." },
-    { cat:"Extras", q:"¿Qué es un CMA?", a:"Comparative Market Analysis. Estima <strong>precio de listado</strong> con ventas comparables. <strong>No es tasación</strong>." },
+    {cat:"Extras",q:"¿Cuál es la diferencia PRINCIPAL entre un Broker y un REALTOR®?",
+     opts:["REALTOR® es miembro de NAR (asociación), no es un tipo de licencia","REALTOR® es una licencia superior al Broker","Broker trabaja bajo un REALTOR®","No hay diferencia, son sinónimos"],correct:0,
+     tip:"<strong>Agente</strong>: trabaja bajo broker. <strong>Broker</strong>: opera su oficina. <strong>REALTOR®</strong>: miembro de NAR, no es licencia."},
 
-    // ── NUEVAS — Liens Comerciales ──
-    { cat:"Corretaje", q:"¿El lien del broker bajo el Commercial RE Sales Commission Lien Act se adhiere al inmueble?", a:"<strong>No.</strong> El lien es sobre los <strong>net proceeds</strong> (propiedad personal), <strong>no se adhiere al inmueble</strong>." },
-    { cat:"Corretaje", q:"¿El lien del broker bajo el Commercial RE Leasing Commission Lien Act a qué se adhiere?", a:"Se adhiere al <strong>interés del landlord</strong> en el inmueble comercial identificado en el acuerdo de corretaje. <strong>No se adhiere al leasehold del inquilino</strong>." },
-    { cat:"Corretaje", q:"¿Puede el propietario renunciar de antemano al derecho del broker a reclamar un lien comercial?", a:"<strong>No.</strong> El derecho a reclamar un lien <strong>no puede ser renunciado</strong> antes de que la comisión sea efectivamente ganada." },
+    {cat:"Extras",q:"Bajo TILA/Regulation Z, ¿cuántos días tiene un prestatario para rescindir un refinanciamiento de su vivienda principal?",
+     opts:["3 días","5 días","7 días","10 días"],correct:0,
+     tip:"TILA/Reg Z: divulgar APR, costos, términos. Trigger terms activan divulgación completa. <strong>3 días de rescisión</strong> en refinanciamientos."},
 
-    // ── NUEVAS — Foreign Investment ──
-    { cat:"Divulgaciones", q:"¿Qué deben firmar los compradores al cierre según las regulaciones de Florida sobre Foreign Principals?", a:"Un <strong>affidavit bajo pena de perjurio</strong> declarando si son o no un 'Foreign Principal', reconociendo que la declaración será usada para verificar cumplimiento legal." },
+    {cat:"Extras",q:"Un CMA (Comparative Market Analysis) elaborado por un sales associate:",
+     opts:["Estima el precio de listado, pero NO es una tasación (appraisal)","Es legalmente equivalente a una tasación","Puede usarse para obtener financiamiento hipotecario","Requiere certificación de tasador"],correct:0,
+     tip:"CMA = estima <strong>precio de listado</strong> con ventas comparables. <strong>No es tasación</strong>. Solo tasadores con licencia hacen appraisals."},
 
-    // ── NUEVAS — CERCLA / Ambiental ──
-    { cat:"Divulgaciones", q:"¿Cuál es el propósito principal de CERCLA (Superfund)?", a:"Establecer un <strong>fondo federal para limpiar sitios con desechos peligrosos</strong>, responder a derrames e identificar <strong>personas potencialmente responsables (PRPs)</strong>." },
-    { cat:"Divulgaciones", q:"¿Qué defensa legal otorga CERCLA/SARA a ciertos propietarios?", a:"La defensa de <strong>'innocent landowner'</strong>, que permite evitar responsabilidad si se cumplen criterios específicos de <strong>due diligence</strong>." },
+    // ── LIENS COMERCIALES ──
+    {cat:"Corretaje",q:"Bajo el Commercial RE Sales Commission Lien Act, ¿el lien del broker se adhiere al inmueble?",
+     opts:["No, solo se adhiere a los net proceeds (propiedad personal)","Sí, se adhiere directamente al inmueble","Sí, pero solo por 90 días","Depende del monto de la comisión"],correct:0,
+     tip:"El lien es sobre los <strong>net proceeds</strong> (propiedad personal), <strong>NO se adhiere al inmueble</strong>."},
 
-    // ── NUEVAS — Escrow ──
-    { cat:"Corretaje", q:"¿Qué es 'commingling' en cuentas de escrow?", a:"El acto <strong>ilegal</strong> de mezclar dinero en fideicomiso (escrow) con fondos <strong>personales o empresariales</strong> del broker." },
-    { cat:"Corretaje", q:"¿Cuánto dinero propio puede mantener un broker en la cuenta de escrow?", a:"Hasta <strong>$1,000</strong> en cuenta de sales escrow y hasta <strong>$5,000</strong> en cuenta de property management escrow." },
-    { cat:"Corretaje", q:"¿Qué es 'conversion' en la ley de licencias?", a:"El <strong>uso no autorizado, mal uso o retención</strong> de la propiedad o fondos de un cliente por parte del licenciado." },
-    { cat:"Corretaje", q:"¿Cuántos días tiene el broker para notificar a FREC sobre conflicto de escrow?", a:"<strong>15 días hábiles</strong> después de la última demanda conflictiva recibida." },
-    { cat:"Corretaje", q:"¿Procedimientos MALE para resolver conflictos de escrow?", a:"<strong>M</strong>ediation · <strong>A</strong>rbitration · <strong>L</strong>itigation (interpleader) · <strong>E</strong>scrow Disbursement Order (EDO) de la FREC." },
-    { cat:"Corretaje", q:"¿Cuándo está EXENTO el broker de notificar a FREC en disputa de escrow?", a:"Cuando el comprador <strong>falla de buena fe</strong> en cumplir la cláusula de financiamiento, o cuando el comprador de condominio residencial <strong>cancela bajo el Condominium Act</strong>." },
+    {cat:"Corretaje",q:"Bajo el Commercial RE Leasing Commission Lien Act, ¿a qué se adhiere el lien del broker?",
+     opts:["Al interés del landlord en el inmueble comercial","Al leasehold del inquilino","A los ingresos del alquiler","A la propiedad personal del landlord"],correct:0,
+     tip:"Se adhiere al <strong>interés del landlord</strong> en el inmueble. <strong>NO se adhiere al leasehold del inquilino</strong>."},
 
-    // ── NUEVAS — Business Valuation ──
-    { cat:"Tasación", q:"¿El 'going concern value' de un negocio siempre es mayor que el valor de sus bienes raíces?", a:"<strong>No.</strong> El going concern value puede ser <strong>menor, igual o mayor</strong> que el valor de los activos inmobiliarios por separado." },
-    { cat:"Tasación", q:"¿Qué es un ejemplo de activo intangible al valorar un negocio?", a:"<strong>Goodwill</strong> (reputación y nombre del negocio). Es un activo intangible que debe ser considerado en la valuación." },
-    { cat:"Tasación", q:"¿Cuáles son los ratios financieros clave al analizar estados financieros de un negocio?", a:"<strong>Quick ratio</strong>, <strong>inventory turnover</strong>, <strong>debt-to-worth ratio</strong>, y <strong>net profit-to-owner ratio</strong>." },
+    {cat:"Corretaje",q:"¿Puede un propietario renunciar de antemano al derecho del broker a reclamar un lien comercial?",
+     opts:["No, el derecho no puede ser renunciado antes de que la comisión sea ganada","Sí, con una cláusula en el contrato","Sí, si ambas partes lo acuerdan","Solo si el broker es un Transaction Broker"],correct:0,
+     tip:"El derecho a reclamar un lien <strong>NO puede ser renunciado</strong> antes de que la comisión sea efectivamente ganada."},
 
-    // ── NUEVAS — NAR 2024 ──
-    { cat:"Corretaje", q:"Tras el acuerdo NAR 2024, ¿dónde está PROHIBIDO publicar comisiones al buyer's agent?", a:"En el <strong>MLS (Multiple Listing Service)</strong>. Ya no se pueden anunciar ofertas de compensación al agente del comprador en el MLS." },
-    { cat:"Corretaje", q:"Post agosto 2024, ¿qué debe firmar el comprador ANTES de ver propiedades?", a:"Un <strong>acuerdo escrito de representación de comprador</strong> que especifique deberes del agente y los términos de comisión negociados." },
+    // ── FOREIGN INVESTMENT ──
+    {cat:"Divulgaciones",q:"¿Qué deben firmar los compradores al cierre según las regulaciones de Florida sobre Foreign Principals?",
+     opts:["Un affidavit bajo pena de perjurio declarando si son o no un Foreign Principal","Una carta de intención de residencia","Un acuerdo de divulgación de ingresos","Un formulario de verificación de ciudadanía"],correct:0,
+     tip:"Deben firmar un <strong>affidavit bajo pena de perjurio</strong> declarando si son o no un 'Foreign Principal'."},
 
-    // ── NUEVAS — Sanciones/Licencia ──
-    { cat:"Sanciones", q:"¿Qué es un 'Notice of Noncompliance' del DBPR?", a:"Un aviso para una <strong>primera ofensa de violación menor</strong> que no causa daño económico/físico ni afecta negativamente la salud, seguridad o bienestar públicos." },
-    { cat:"Licencia", q:"¿Pueden los 'residential loan alternative agreements' poner un lien sobre propiedad residential?", a:"<strong>No.</strong> Estos acuerdos <strong>no pueden autorizar</strong> a una persona a colocar un lien o gravar de otra forma una propiedad residencial." },
-    { cat:"Licencia", q:"¿Pueden los sales associates operar bajo un nombre ficticio (trade name)?", a:"<strong>No.</strong> Deben registrarse y operar estrictamente bajo su <strong>nombre legal</strong>. Solo los brokers pueden usar nombres ficticios." },
+    // ── CERCLA ──
+    {cat:"Divulgaciones",q:"¿Cuál es el propósito principal de CERCLA (Superfund)?",
+     opts:["Establecer un fondo federal para limpiar sitios con desechos peligrosos","Regular la construcción de viviendas nuevas","Establecer estándares de eficiencia energética","Proteger especies en peligro en terrenos privados"],correct:0,
+     tip:"CERCLA: <strong>fondo federal para limpiar sitios contaminados</strong> e identificar <strong>personas potencialmente responsables (PRPs)</strong>."},
 
-    // ── NUEVAS — Temas Clave Faltantes ──
-    { cat:"Impuestos", q:"¿Cuáles son las fechas clave de Ad Valorem Tax en Florida?", a:"<strong>Enero 1</strong>: Fecha de evaluación (assessment date). <strong>Marzo 1</strong>: Deadline para exenciones (homestead). <strong>Noviembre 1</strong>: Impuestos pagaderos con descuento (<strong>4%</strong> Nov, 3% Dic, 2% Ene, 1% Feb). <strong>Abril 1</strong>: Impuestos se vuelven <strong>morosos (delinquent)</strong>." },
-    { cat:"Corretaje", q:"¿Cuáles son los tipos de listing agreements?", a:"1. <strong>Exclusive Right of Sale</strong>: Broker gana comisión sin importar quién venda (más común). 2. <strong>Exclusive Agency</strong>: Broker gana solo si él vende, dueño puede vender solo sin pagar. 3. <strong>Open Listing</strong>: Varios brokers; solo el que trae al comprador gana. 4. <strong>Net Listing</strong>: Legal en FL pero <strong>desaconsejado</strong>; broker gana todo sobre precio mínimo." },
-    { cat:"Financiamiento", q:"¿Tipos de hipotecas especiales?", a:"<strong>Purchase Money</strong>: Financiamiento del vendedor. <strong>Blanket</strong>: Cubre múltiples propiedades (release clause). <strong>Package</strong>: Incluye propiedad personal. <strong>Wraparound</strong>: Nueva hipoteca que envuelve la existente. <strong>Reverse</strong>: Prestamista paga al dueño (62+ años)." },
-    { cat:"Propiedad", q:"¿Métodos de descripción legal de propiedades?", a:"1. <strong>Metes and Bounds</strong>: Punto de inicio (POB) + medidas y ángulos. 2. <strong>Government Survey</strong> (Rectangular): Townships, Ranges, Sections (640 acres). 3. <strong>Plat Map</strong> (Lot and Block): Lote, bloque, subdivisión — más común en áreas urbanas." },
-    { cat:"Divulgaciones", q:"¿Qué es FIRPTA?", a:"<strong>Foreign Investment in Real Property Tax Act</strong>. Retención del <strong>15%</strong> del precio de venta cuando el vendedor es extranjero. El <strong>comprador</strong> es responsable de retener y remitir al IRS. Excepciones si precio ≤$300K y comprador usará como residencia." },
-    { cat:"Propiedad", q:"¿Diferencia entre derechos Riparian y Littoral?", a:"<strong>Riparian</strong>: Propiedades adyacentes a <strong>agua corriente</strong> (ríos, arroyos). <strong>Littoral</strong>: Propiedades adyacentes a <strong>agua estancada/costera</strong> (lagos, océano). Ambos tienen derecho de uso razonable. La tierra ganada por depósito natural = <strong>accretion/alluvion</strong>." },
-    { cat:"Financiamiento", q:"¿Qué es un Deficiency Judgment?", a:"Cuando el producto de la <strong>venta por ejecución hipotecaria</strong> no cubre la deuda, el prestamista puede obtener un <strong>juicio por deficiencia</strong> contra el prestatario por el saldo restante. En FL, el proceso de foreclosure es <strong>judicial</strong> (requiere corte)." },
-    { cat:"Licencia", q:"¿Requisitos del curso post-licencia (Post-License)?", a:"Sales Associates: <strong>45 horas</strong> antes de la <strong>primera renovación</strong>. Brokers: <strong>60 horas</strong> antes de la primera renovación. Si no se completa → licencia se vuelve <strong>null and void</strong> (no solo inactiva)." },
-    { cat:"Impuestos", q:"¿Qué es un Special Assessment?", a:"Impuesto especial a propiedades que se <strong>benefician directamente</strong> de una mejora pública (aceras, alcantarillado, alumbrado). Solo pagan los propietarios beneficiados, <strong>no todos los contribuyentes</strong>." },
-    { cat:"Cierre", q:"¿Qué es Title Insurance y quién la paga en Florida?", a:"Protege contra <strong>defectos ocultos en el título</strong> (liens, errores). <strong>Owner's Policy</strong>: Protege al comprador. <strong>Lender's Policy</strong>: Protege al prestamista (obligatoria). En FL, costumbre varía por condado: en <strong>Miami-Dade/Broward</strong> generalmente paga el <strong>vendedor</strong>." },
+    {cat:"Divulgaciones",q:"¿Qué defensa legal otorga CERCLA/SARA a ciertos propietarios que no causaron la contaminación?",
+     opts:["La defensa de 'innocent landowner' con due diligence","Inmunidad total automática","Exención por antigüedad de la propiedad","Protección solo para compradores de primera vivienda"],correct:0,
+     tip:"La defensa de <strong>'innocent landowner'</strong> permite evitar responsabilidad si se cumplen criterios de <strong>due diligence</strong>."},
+
+    // ── ESCROW ──
+    {cat:"Corretaje",q:"'Commingling' en cuentas de escrow se refiere a:",
+     opts:["Mezclar ilegalmente dinero de escrow con fondos personales del broker","Depositar el dinero de escrow en múltiples bancos","No depositar el dinero de escrow a tiempo","Usar fondos de escrow para publicidad"],correct:0,
+     tip:"Commingling = acto <strong>ilegal</strong> de mezclar dinero de escrow con fondos <strong>personales o empresariales</strong> del broker."},
+
+    {cat:"Corretaje",q:"¿Cuánto dinero propio puede mantener un broker en la cuenta de sales escrow?",
+     opts:["Hasta $1,000","$0 — ningún dinero propio","Hasta $5,000","Hasta $500"],correct:0,
+     tip:"Hasta <strong>$1,000</strong> en sales escrow. Hasta <strong>$5,000</strong> en property management escrow."},
+
+    {cat:"Corretaje",q:"El uso no autorizado o mal uso de fondos de un cliente por parte de un licensee se denomina:",
+     opts:["Conversion","Commingling","Embezzlement","Misrepresentation"],correct:0,
+     tip:"<strong>Conversion</strong> = uso no autorizado, mal uso o retención de propiedad/fondos del cliente."},
+
+    {cat:"Corretaje",q:"¿Cuántos días hábiles tiene el broker para notificar a la FREC sobre un conflicto de escrow?",
+     opts:["15 días hábiles","10 días hábiles","30 días calendario","5 días hábiles"],correct:0,
+     tip:"<strong>15 días hábiles</strong> después de la última demanda conflictiva recibida."},
+
+    {cat:"Corretaje",q:"¿Cuáles son los procedimientos MALE para resolver conflictos de escrow?",
+     opts:["Mediation, Arbitration, Litigation (interpleader), EDO de la FREC","Mediation, Adjudication, Liquidation, Enforcement","Meeting, Agreement, Legal action, Escrow release","Mediation, Appeal, Lawsuit, Escrow surrender"],correct:0,
+     tip:"MALE: <strong>M</strong>ediation, <strong>A</strong>rbitration, <strong>L</strong>itigation (interpleader), <strong>E</strong>scrow Disbursement Order (EDO) de la FREC."},
+
+    {cat:"Corretaje",q:"¿En cuál situación está EXENTO el broker de notificar a la FREC sobre una disputa de escrow?",
+     opts:["Cuando el comprador falla en cumplir la cláusula de financiamiento de buena fe","Cuando el monto en disputa es menor a $1,000","Cuando ambas partes son licensees","Cuando el contrato no tiene fecha de cierre"],correct:0,
+     tip:"Exento cuando: comprador <strong>falla de buena fe</strong> en financiamiento, o comprador de condo cancela bajo el <strong>Condominium Act</strong>."},
+
+    // ── BUSINESS VALUATION ──
+    {cat:"Tasación",q:"El 'going concern value' de un negocio comparado con el valor de sus bienes raíces:",
+     opts:["Puede ser menor, igual o mayor","Siempre es mayor","Siempre es igual","Siempre es menor"],correct:0,
+     tip:"El going concern value puede ser <strong>menor, igual o mayor</strong> que el valor de los activos inmobiliarios por separado."},
+
+    {cat:"Tasación",q:"¿Cuál es un ejemplo de activo INTANGIBLE al valorar un negocio?",
+     opts:["Goodwill (reputación y nombre del negocio)","El edificio donde opera","El inventario de productos","Los muebles y equipos"],correct:0,
+     tip:"<strong>Goodwill</strong> = reputación y nombre del negocio. Es un activo intangible en la valuación."},
+
+    {cat:"Tasación",q:"Al analizar los estados financieros de un negocio, ¿cuál de los siguientes es un ratio financiero clave?",
+     opts:["Debt-to-worth ratio","Price-to-earnings ratio","Dividend yield","Market capitalization"],correct:0,
+     tip:"Ratios clave: <strong>Quick ratio, inventory turnover, debt-to-worth ratio, net profit-to-owner ratio</strong>."},
+
+    // ── NAR 2024 ──
+    {cat:"Corretaje",q:"Tras el acuerdo NAR 2024, ¿dónde está PROHIBIDO publicar ofertas de compensación al buyer's agent?",
+     opts:["En el MLS (Multiple Listing Service)","En el sitio web del broker","En periódicos locales","En redes sociales"],correct:0,
+     tip:"Ya <strong>NO se pueden publicar</strong> ofertas de compensación al agente del comprador en el <strong>MLS</strong>."},
+
+    {cat:"Corretaje",q:"Post agosto 2024, ¿qué debe firmar el comprador ANTES de que un agente le muestre propiedades?",
+     opts:["Un acuerdo escrito de representación de comprador","Un pre-approval de hipoteca","Una carta de intención de compra","Un formulario de divulgación de agencia"],correct:0,
+     tip:"Se requiere un <strong>acuerdo escrito de representación de comprador</strong> que especifique deberes y términos de comisión."},
+
+    // ── SANCIONES/LICENCIA NUEVAS ──
+    {cat:"Sanciones",q:"Un 'Notice of Noncompliance' del DBPR se emite para:",
+     opts:["Una primera ofensa de violación menor sin daño económico o físico","Cualquier violación que resulte en pérdida económica","Violaciones repetidas de la misma norma","Fraude o misrepresentation intencional"],correct:0,
+     tip:"Notice of Noncompliance: <strong>primera ofensa menor</strong> que no causa daño económico/físico ni afecta salud, seguridad o bienestar público."},
+
+    {cat:"Licencia",q:"¿Pueden los 'residential loan alternative agreements' autorizar un lien sobre propiedad residencial?",
+     opts:["No, no pueden autorizar liens sobre propiedad residencial","Sí, con consentimiento del prestatario","Sí, pero solo por 12 meses","Solo si el monto es menor a $50,000"],correct:0,
+     tip:"Estos acuerdos <strong>NO pueden autorizar</strong> a una persona a colocar un lien sobre propiedad residencial."},
+
+    {cat:"Licencia",q:"¿Pueden los sales associates operar bajo un nombre ficticio (trade name)?",
+     opts:["No, solo los brokers pueden usar nombres ficticios","Sí, con aprobación del DBPR","Sí, si el broker lo autoriza por escrito","Sí, si el nombre está registrado"],correct:0,
+     tip:"Sales associates deben operar bajo su <strong>nombre legal</strong>. Solo <strong>brokers</strong> pueden usar nombres ficticios."},
+
+    // ── TEMAS CLAVE FALTANTES ──
+    {cat:"Impuestos",q:"¿En qué fecha se vuelven MOROSOS (delinquent) los impuestos de propiedad en Florida?",
+     opts:["Abril 1","Enero 1","Noviembre 1","Julio 1"],correct:0,
+     tip:"Fechas clave: <strong>Ene 1</strong>: assessment. <strong>Mar 1</strong>: deadline exenciones. <strong>Nov 1</strong>: pagaderos con descuento (4% Nov, 3% Dic, 2% Ene, 1% Feb). <strong>Abr 1</strong>: delinquent."},
+
+    {cat:"Corretaje",q:"¿Cuál tipo de listing agreement le garantiza al broker la comisión SIN IMPORTAR quién venda la propiedad?",
+     opts:["Exclusive Right of Sale","Exclusive Agency","Open Listing","Net Listing"],correct:0,
+     tip:"<strong>Exclusive Right of Sale</strong>: broker gana siempre (más común). <strong>Exclusive Agency</strong>: broker gana solo si él vende. <strong>Open</strong>: varios brokers. <strong>Net</strong>: legal pero desaconsejado."},
+
+    {cat:"Financiamiento",q:"Una hipoteca donde el VENDEDOR financia directamente al comprador se llama:",
+     opts:["Purchase Money Mortgage","Blanket Mortgage","Package Mortgage","Wraparound Mortgage"],correct:0,
+     tip:"<strong>Purchase Money</strong>: vendedor financia. <strong>Blanket</strong>: múltiples propiedades. <strong>Package</strong>: incluye propiedad personal. <strong>Wraparound</strong>: envuelve hipoteca existente."},
+
+    {cat:"Propiedad",q:"¿Cuál método de descripción legal usa un 'punto de inicio' (POB) con medidas y ángulos?",
+     opts:["Metes and Bounds","Government Survey (Rectangular)","Plat Map (Lot and Block)","Tax Parcel Identification"],correct:0,
+     tip:"<strong>Metes and Bounds</strong>: POB + medidas/ángulos. <strong>Government Survey</strong>: Townships, Sections. <strong>Plat Map</strong>: Lote/bloque (más común en áreas urbanas)."},
+
+    {cat:"Divulgaciones",q:"FIRPTA requiere retención del ___% del precio de venta cuando el vendedor es extranjero:",
+     opts:["15%","10%","20%","5%"],correct:0,
+     tip:"<strong>FIRPTA</strong>: retención del <strong>15%</strong>. El <strong>comprador</strong> es responsable de retener y remitir al IRS. Excepción: precio ≤$300K y comprador usará como residencia."},
+
+    {cat:"Propiedad",q:"Los derechos de propiedad adyacente a agua CORRIENTE (ríos, arroyos) se llaman:",
+     opts:["Riparian rights","Littoral rights","Alluvion rights","Accretion rights"],correct:0,
+     tip:"<strong>Riparian</strong>: agua corriente (ríos). <strong>Littoral</strong>: agua estancada/costera (lagos, océano). Tierra ganada por depósito natural = <strong>accretion/alluvion</strong>."},
+
+    {cat:"Financiamiento",q:"Si el producto de una venta por foreclosure NO cubre la deuda hipotecaria, el prestamista puede buscar un:",
+     opts:["Deficiency Judgment","Lis Pendens","Estoppel Certificate","Satisfaction of Mortgage"],correct:0,
+     tip:"<strong>Deficiency Judgment</strong>: el prestamista demanda al prestatario por el saldo restante. En FL, foreclosure es <strong>judicial</strong> (requiere corte)."},
+
+    {cat:"Licencia",q:"Un sales associate debe completar _____ horas de educación post-licencia antes de su primera renovación:",
+     opts:["45 horas","63 horas","14 horas","30 horas"],correct:0,
+     tip:"Sales Associates: <strong>45 horas</strong>. Brokers: <strong>60 horas</strong>. Si no se completa → licencia <strong>null and void</strong>."},
+
+    {cat:"Impuestos",q:"Un impuesto especial cobrado SOLO a propiedades que se benefician directamente de una mejora pública se llama:",
+     opts:["Special Assessment","Ad Valorem Tax","Millage Tax","Transfer Tax"],correct:0,
+     tip:"<strong>Special Assessment</strong>: solo pagan propietarios que se benefician directamente (aceras, alcantarillado, alumbrado)."},
+
+    {cat:"Cierre",q:"¿Cuál tipo de Title Insurance protege al COMPRADOR contra defectos ocultos en el título?",
+     opts:["Owner's Policy","Lender's Policy","Hazard Insurance","Surety Bond"],correct:0,
+     tip:"<strong>Owner's Policy</strong>: protege al comprador. <strong>Lender's Policy</strong>: protege al prestamista (obligatoria). En Miami-Dade/Broward, generalmente paga el vendedor."},
 
     // ── TRICKY EXAM QUESTIONS ──
-    { cat:"Financiamiento", q:"TRICKY: ¿Los Discount Points se calculan sobre el precio de venta o el monto del préstamo?", a:"Siempre sobre el <strong>monto del préstamo (loan amount)</strong>, NUNCA sobre el precio de venta. 1 punto = <strong>1%</strong> del préstamo." },
-    { cat:"Contratos", q:"TRICKY: ¿Cuál es la diferencia entre Statute of Frauds y Statute of Limitations?", a:"<strong>Statute of Frauds</strong>: Exige contratos <strong>por escrito</strong> para ser ejecutables. <strong>Statute of Limitations</strong>: Plazos para demandar — <strong>5 años</strong> contratos escritos, <strong>4 años</strong> contratos orales." },
-    { cat:"Corretaje", q:"TRICKY: ¿Transaction Broker es lo mismo que Dual Agent?", a:"<strong>NO.</strong> Transaction Broker es la relación <strong>por defecto</strong> en FL (legal). Dual Agency está <strong>prohibida</strong>. El TB facilita la transacción sin representar a ninguna parte como fiduciario." },
-    { cat:"Propiedad", q:"TRICKY: Si el landlord guarda el depósito de seguridad (no un broker), ¿qué opciones tiene?", a:"3 opciones: 1. Cuenta <strong>separada sin intereses</strong>. 2. Cuenta <strong>con intereses</strong> (75% al inquilino o 5% simple anual). 3. <strong>Surety bond</strong> (fianza)." },
-    { cat:"Corretaje", q:"TRICKY: ¿La regla 1-3 de depósito de escrow?", a:"El asociado tiene <strong>1 día hábil</strong> para entregar el depósito al broker. El broker tiene hasta el <strong>3er día hábil</strong> (contado desde que el asociado lo recibió) para depositarlo en escrow." },
+    {cat:"Financiamiento",q:"TRICKY: Los Discount Points se calculan sobre:",
+     opts:["El monto del PRÉSTAMO (loan amount), nunca sobre el precio de venta","El precio de venta de la propiedad","El down payment del comprador","El valor de tasación"],correct:0,
+     tip:"Siempre sobre el <strong>monto del préstamo</strong>. 1 punto = <strong>1% del préstamo</strong>. NUNCA sobre el precio de venta."},
+
+    {cat:"Contratos",q:"TRICKY: ¿Cuál es la diferencia entre Statute of Frauds y Statute of Limitations?",
+     opts:["Frauds exige contratos escritos; Limitations establece plazos para demandar","Ambos requieren contratos escritos","Frauds es federal; Limitations es estatal","Frauds aplica a fraude; Limitations a contratos"],correct:0,
+     tip:"<strong>Statute of Frauds</strong>: contratos por escrito para ser ejecutables. <strong>Statute of Limitations</strong>: <strong>5 años</strong> contratos escritos, <strong>4 años</strong> orales."},
+
+    {cat:"Corretaje",q:"TRICKY: ¿Es un Transaction Broker lo mismo que un Dual Agent?",
+     opts:["No. TB es legal y es el default en FL. Dual Agency está prohibida","Sí, son términos equivalentes","TB es una forma limitada de Dual Agency","Dual Agency es el default, TB requiere acuerdo"],correct:0,
+     tip:"<strong>NO son lo mismo</strong>. Transaction Broker es <strong>legal y default</strong> en FL. Dual Agency está <strong>prohibida</strong>. TB facilita sin representar como fiduciario."},
+
+    {cat:"Propiedad",q:"TRICKY: Si un landlord (no un broker) guarda el depósito de seguridad, ¿cuáles son sus opciones?",
+     opts:["Cuenta sin intereses, cuenta con intereses (75% al inquilino o 5% simple), o surety bond","Solo cuenta sin intereses en un banco aprobado","Solo surety bond","Puede mantenerlo en efectivo en su oficina"],correct:0,
+     tip:"3 opciones: 1) Cuenta <strong>separada sin intereses</strong>. 2) Cuenta <strong>con intereses</strong> (75% al inquilino o 5% simple). 3) <strong>Surety bond</strong>."},
+
+    {cat:"Corretaje",q:"TRICKY: En la regla 1-3 de depósito de escrow, ¿cuántos días tiene el sales associate para entregar el depósito al broker?",
+     opts:["1 día hábil","3 días hábiles","24 horas naturales","Inmediatamente"],correct:0,
+     tip:"Asociado: <strong>1 día hábil</strong> para entregar al broker. Broker: hasta el <strong>3er día hábil</strong> desde que el asociado lo recibió para depositarlo."},
 ];
 
+/* ─── STATE ───────────────────────────── */
 let deck = [...ALL_CARDS];
 let idx = 0;
-let scores = { know:0, review:0, wrong:0 };
-let marked = new Set();
-let knownSet = new Set();
+let stats = { correct: 0, wrong: 0 };
+let answered = new Set();
+let wrongSet = new Set();
 let activeCategory = "Todas";
 
 const categories = ["Todas", ...new Set(ALL_CARDS.map(c => c.cat))];
@@ -495,63 +540,127 @@ function filterByCategory(cat) {
     document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.textContent === cat));
     document.getElementById('modeLabel').textContent = cat;
     deck = cat === "Todas" ? [...ALL_CARDS] : ALL_CARDS.filter(c => c.cat === cat);
-    idx = 0; marked.clear(); knownSet.clear();
-    scores = { know:0, review:0, wrong:0 };
+    idx = 0; answered.clear(); wrongSet.clear();
+    stats = { correct: 0, wrong: 0 };
     render();
 }
 
 function render() {
+    const area = document.getElementById('questionArea');
     if (!deck.length) {
-        document.getElementById('cardQ').textContent = "No hay tarjetas en esta categoría.";
-        document.getElementById('cardA').innerHTML = "";
-        document.getElementById('cardCat').textContent = "";
-        document.getElementById('counter').textContent = "0 / 0";
+        area.innerHTML = '<div class="question-card"><p style="text-align:center;color:var(--text-dim)">No hay preguntas en esta categoría.</p></div>';
+        updateScore();
         return;
     }
-    const c = deck[idx];
-    document.getElementById('cardQ').textContent = c.q;
-    document.getElementById('cardA').innerHTML = c.a;
-    document.getElementById('cardCat').textContent = c.cat;
-    document.getElementById('counter').textContent = `${idx + 1} / ${deck.length}`;
-    document.getElementById('flipCard').classList.remove('flipped');
-    const pct = deck.length ? ((scores.know + scores.wrong) / deck.length * 100) : 0;
+    const card = deck[idx];
+    const letters = ['A', 'B', 'C', 'D'];
+    const isAnswered = answered.has(idx);
+
+    let optsHTML = card.opts.map((opt, i) => {
+        let cls = 'opt-btn';
+        if (isAnswered) {
+            cls += ' answered';
+            if (i === card.correct) cls += ' correct';
+            if (wrongSet.has(idx) && i !== card.correct) {
+                // find which was selected - stored in data
+                const sel = deck[idx]._selected;
+                if (sel === i) cls += ' wrong answered-selected';
+            }
+        }
+        return `<button class="${cls}" onclick="selectAnswer(${i})" ${isAnswered ? 'disabled' : ''}>
+            <span class="opt-letter">${letters[i]}</span>
+            <span class="opt-text">${opt}</span>
+        </button>`;
+    }).join('');
+
+    area.innerHTML = `
+        <div class="question-card">
+            <div class="q-header">
+                <span class="q-badge">${card.cat}</span>
+                <span class="q-num">${idx + 1} / ${deck.length}</span>
+            </div>
+            <p class="q-text">${card.q}</p>
+            <div class="opts">${optsHTML}</div>
+            <div class="explanation ${isAnswered ? 'show' : ''}" id="explanation">
+                <span class="exp-label">📖 Explicación</span>
+                ${card.tip}
+            </div>
+        </div>
+        <div class="nav-row">
+            <button class="nav-btn" onclick="goPrev()">◀ Anterior</button>
+            <button class="nav-btn primary" onclick="goNext()">Siguiente ▶</button>
+        </div>`;
+    updateScore();
+}
+
+function selectAnswer(selected) {
+    if (answered.has(idx)) return;
+    answered.add(idx);
+    deck[idx]._selected = selected;
+
+    if (selected === deck[idx].correct) {
+        stats.correct++;
+    } else {
+        stats.wrong++;
+        wrongSet.add(idx);
+    }
+    render();
+    saveProgress();
+}
+
+function updateScore() {
+    const total = stats.correct + stats.wrong;
+    document.getElementById('totalCorrect').textContent = stats.correct;
+    document.getElementById('totalWrong').textContent = stats.wrong;
+    document.getElementById('accuracy').textContent = total ? Math.round(stats.correct / total * 100) + '%' : '—';
+    document.getElementById('remaining').textContent = deck.length - total;
+    const pct = deck.length ? (total / deck.length * 100) : 0;
     document.getElementById('progressFill').style.width = pct + '%';
-    document.getElementById('progressLabel').textContent = `${scores.know + scores.wrong} / ${deck.length}`;
-    document.getElementById('sKnow').textContent = scores.know;
-    document.getElementById('sReview').textContent = deck.length - scores.know - scores.wrong;
-    document.getElementById('sWrong').textContent = scores.wrong;
+    document.getElementById('progressLabel').textContent = `${total} / ${deck.length}`;
 }
-function flipCard() { document.getElementById('flipCard').classList.toggle('flipped'); }
-function nextCard() { if (!deck.length) return; idx = (idx + 1) % deck.length; render(); }
-function prevCard() { if (!deck.length) return; idx = (idx - 1 + deck.length) % deck.length; render(); }
-function markCard(type) {
-    if (!deck.length || marked.has(idx)) { nextCard(); return; }
-    marked.add(idx);
-    if (type === 'know') { scores.know++; knownSet.add(idx); } else scores.wrong++;
-    render(); setTimeout(nextCard, 250);
-}
+
+function goNext() { if (idx < deck.length - 1) { idx++; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); } }
+function goPrev() { if (idx > 0) { idx--; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); } }
+
 function shuffleDeck() {
     for (let i = deck.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [deck[i], deck[j]] = [deck[j], deck[i]];
     }
-    idx = 0; marked.clear(); knownSet.clear(); scores = { know:0, review:0, wrong:0 }; render();
+    idx = 0; answered.clear(); wrongSet.clear(); stats = { correct: 0, wrong: 0 };
+    render();
 }
-function resetProgress() { idx = 0; marked.clear(); knownSet.clear(); scores = { know:0, review:0, wrong:0 }; filterByCategory(activeCategory); saveProgress(); }
+
+function resetProgress() {
+    idx = 0; answered.clear(); wrongSet.clear(); stats = { correct: 0, wrong: 0 };
+    deck.forEach(c => delete c._selected);
+    filterByCategory(activeCategory);
+    saveProgress();
+}
+
 function showOnlyWrong() {
-    const wrongCards = deck.filter((c, i) => marked.has(i) && !knownSet.has(i));
-    if (!wrongCards.length) { alert('No hay tarjetas marcadas como error. Marca algunas con ✗ primero.'); return; }
-    deck = wrongCards;
-    idx = 0; marked.clear(); knownSet.clear(); scores = { know:0, review:0, wrong:0 };
+    const wrongs = deck.filter((c, i) => wrongSet.has(i));
+    if (!wrongs.length) { alert('No hay preguntas incorrectas aún. Responde algunas primero.'); return; }
+    deck = wrongs;
+    idx = 0; answered.clear(); wrongSet.clear(); stats = { correct: 0, wrong: 0 };
+    deck.forEach(c => delete c._selected);
     document.getElementById('modeLabel').textContent = '🔴 Errores';
     render();
 }
 
+/* ── KEYBOARD ─────────────────────────── */
+document.addEventListener('keydown', e => {
+    if (document.getElementById('loginOverlay').style.display !== 'none' && document.getElementById('loginOverlay').style.display !== '') return;
+    if (e.key === 'ArrowRight' || e.key === 'n' || e.key === 'N') goNext();
+    else if (e.key === 'ArrowLeft') goPrev();
+    else if (e.key >= '1' && e.key <= '4') selectAnswer(parseInt(e.key) - 1);
+});
+
 /* ── LOGIN & PERSISTENCE ─────────────── */
 let currentUser = null;
-function doLogin(){
+function doLogin() {
     const name = document.getElementById('loginInput').value.trim();
-    if(!name) return;
+    if (!name) return;
     currentUser = name;
     localStorage.setItem('fl_user', name);
     document.getElementById('loginOverlay').style.display = 'none';
@@ -560,59 +669,41 @@ function doLogin(){
     document.getElementById('userName').textContent = name;
     loadProgress();
 }
-function logoutUser(){
+function logoutUser() {
     currentUser = null;
     localStorage.removeItem('fl_user');
     document.getElementById('loginOverlay').style.display = 'flex';
     document.getElementById('userBadge').style.display = 'none';
     document.getElementById('loginInput').value = '';
 }
-function saveProgress(){
-    if(!currentUser) return;
-    const data = { scores, idx, cat: activeCategory, marked: [...marked] };
-    localStorage.setItem('fl_flash_'+currentUser, JSON.stringify(data));
+function saveProgress() {
+    if (!currentUser) return;
+    const data = { stats, idx, cat: activeCategory, answered: [...answered], wrongSet: [...wrongSet] };
+    localStorage.setItem('fl_flash_' + currentUser, JSON.stringify(data));
 }
-function loadProgress(){
-    if(!currentUser) return;
-    const raw = localStorage.getItem('fl_flash_'+currentUser);
-    if(!raw) return;
+function loadProgress() {
+    if (!currentUser) return;
+    const raw = localStorage.getItem('fl_flash_' + currentUser);
+    if (!raw) return;
     try {
         const data = JSON.parse(raw);
-        if(data.cat) filterByCategory(data.cat);
-        scores = data.scores || {know:0,review:0,wrong:0};
+        if (data.cat) filterByCategory(data.cat);
+        stats = data.stats || { correct: 0, wrong: 0 };
         idx = data.idx || 0;
-        marked = new Set(data.marked || []);
+        answered = new Set(data.answered || []);
+        wrongSet = new Set(data.wrongSet || []);
         render();
-    } catch(e){}
+    } catch (e) {}
 }
-// Auto-save on mark
-const _origMark = markCard;
-markCard = function(type){ _origMark(type); saveProgress(); };
 window.addEventListener('beforeunload', saveProgress);
 
-// Auto-login if returning user
-(function(){
+(function () {
     const saved = localStorage.getItem('fl_user');
-    if(saved){
+    if (saved) {
         document.getElementById('loginInput').value = saved;
         doLogin();
     }
 })();
-
-document.addEventListener('keydown', e => {
-    if (document.getElementById('loginOverlay').style.display !== 'none' && document.getElementById('loginOverlay').style.display !== '') return;
-    if (e.key === 'ArrowRight') nextCard();
-    else if (e.key === 'ArrowLeft') prevCard();
-    else if (e.key === ' ') { e.preventDefault(); flipCard(); }
-    else if (e.key === 's' || e.key === 'S') markCard('know');
-    else if (e.key === 'x' || e.key === 'X') markCard('wrong');
-});
-let touchStartX = 0;
-document.querySelector('.card-area').addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
-document.querySelector('.card-area').addEventListener('touchend', e => {
-    const diff = e.changedTouches[0].screenX - touchStartX;
-    if (Math.abs(diff) > 60) diff > 0 ? prevCard() : nextCard();
-}, { passive: true });
 
 render();
 </script>

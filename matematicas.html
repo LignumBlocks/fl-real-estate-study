@@ -501,7 +501,8 @@ const PROBLEMS = [
     },
     // DISCOUNT POINTS
     { cat:"Comisiones", title:"Discount Points",
-      examQ:'A buyer obtains a $240,000 loan. The lender charges 2 discount points. How much does the buyer pay in discount points? (Remember: points are calculated on the LOAN amount, not the sale price)',
+      examQ:'Un comprador obtiene un préstamo de $240,000. El prestamista cobra 2 discount points. ¿Cuánto paga el comprador en discount points? (Recuerda: los puntos se calculan sobre el MONTO DEL PRÉSTAMO, no el precio de venta)',
+      examQ_en:'A buyer obtains a $240,000 loan. The lender charges 2 discount points. How much does the buyer pay in discount points? (Remember: points are calculated on the LOAN amount, not the sale price)',
       examOpts:['$4,800','$2,400','$480','$24,000'],
       statement:'Préstamo: <span class="highlight">$240,000</span>. Lender cobra <span class="highlight">2 discount points</span>. ¿Cuánto paga?',
       formula:'<strong>Discount Points</strong> = Monto del PRÉSTAMO × Puntos × 1%. (NUNCA sobre el precio de venta)',
@@ -510,7 +511,8 @@ const PROBLEMS = [
     ]},
     // MIAMI-DADE DOC STAMPS
     { cat:"Doc Stamps", title:"Deed Miami-Dade",
-      examQ:'A property in Miami-Dade County sells for $525,000. What are the documentary stamp taxes on the deed? (Note: Miami-Dade uses a DIFFERENT rate than the rest of Florida)',
+      examQ:'Una propiedad en el Condado de Miami-Dade se vende por $525,000. ¿Cuánto son los sellos documentales sobre la escritura? (Nota: Miami-Dade usa una tasa DIFERENTE al resto de Florida)',
+      examQ_en:'A property in Miami-Dade County sells for $525,000. What are the documentary stamp taxes on the deed? (Note: Miami-Dade uses a DIFFERENT rate than the rest of Florida)',
       examOpts:['$3,150.00','$3,675.00','$2,625.00','$1,837.50'],
       statement:'Venta en <span class="highlight">Miami-Dade</span> por <span class="highlight">$525,000</span>. ¿Doc Stamps on Deed?',
       formula:'Miami-Dade Deed: Precio ÷ 100 → redondear ↑ → × <strong>$0.60</strong> (NO $0.70)',
@@ -520,7 +522,8 @@ const PROBLEMS = [
     ]},
     // EQUITY
     { cat:"LTV", title:"Equity del Propietario",
-      examQ:'A homeowner purchased a property for $320,000 with a mortgage of $256,000. After 5 years, the property is worth $375,000 and the remaining mortgage balance is $230,000. What is the owner\'s current equity?',
+      examQ:'Un propietario compró una propiedad por $320,000 con una hipoteca de $256,000. Después de 5 años, la propiedad vale $375,000 y el saldo hipotecario pendiente es $230,000. ¿Cuál es el equity (patrimonio neto) actual del propietario?',
+      examQ_en:'A homeowner purchased a property for $320,000 with a mortgage of $256,000. After 5 years, the property is worth $375,000 and the remaining mortgage balance is $230,000. What is the owner\'s current equity?',
       examOpts:['$145,000','$90,000','$119,000','$64,000'],
       statement:'Valor actual: <span class="highlight">$375,000</span>. Hipoteca pendiente: <span class="highlight">$230,000</span>. ¿Equity?',
       formula:'<strong>Equity = Valor de Mercado − Deuda Hipotecaria</strong>',
@@ -529,7 +532,8 @@ const PROBLEMS = [
     ]},
     // PROPERTY TAX WITH DISCOUNT
     { cat:"Impuestos", title:"Tax con descuento Nov",
-      examQ:'Annual property taxes are $4,200. If the owner pays in November, they receive a 4% discount. How much do they pay?',
+      examQ:'Los impuestos anuales de propiedad son $4,200. Si el propietario paga en noviembre, recibe un descuento del 4%. ¿Cuánto paga?',
+      examQ_en:'Annual property taxes are $4,200. If the owner pays in November, they receive a 4% discount. How much do they pay?',
       examOpts:['$4,032','$4,200','$168','$3,780'],
       statement:'Impuestos anuales: <span class="highlight">$4,200</span>. Pago en <span class="highlight">noviembre</span> (4% descuento). ¿Cuánto paga?',
       formula:'Descuento Nov = 4%. Pago = Impuesto × (1 − 0.04)',
