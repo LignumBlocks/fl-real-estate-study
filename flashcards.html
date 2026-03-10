@@ -712,7 +712,10 @@ function render() {
     area.innerHTML = `
         <div class="question-card">
             <div class="q-header">
-                <span class="q-badge">${card.cat}</span>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <span class="q-badge">${card.cat}</span>
+                    <button onclick="readAloud()" style="background:var(--card-bg); border:1px solid var(--border-color); color:var(--text-color); padding:4px 8px; border-radius:6px; cursor:pointer; font-size:0.85rem; display:flex; align-items:center; gap:4px;" title="Escuchar pregunta">🔊 Leer</button>
+                </div>
                 <span class="q-num">${idx + 1} / ${deck.length}</span>
             </div>
             <p class="q-text">${card.q}</p>
@@ -842,6 +845,26 @@ window.addEventListener('beforeunload', saveProgress);
 })();
 
 render();
+
+/* ─── TTS LOGIC ───────────────────────────── */
+function readAloud() {
+    if (!('speechSynthesis' in window)) {
+        alert("Tu navegador no soporta lectura de texto a voz.");
+        return;
+    }
+    window.speechSynthesis.cancel();
+    const qEl = document.querySelector('.q-text');
+    let text = qEl ? qEl.innerText : '';
+    const optsEls = document.querySelectorAll('.opt-text');
+    if (optsEls.length > 0) {
+        text += ". Opciones: ";
+        optsEls.forEach(el => text += el.innerText + ". ");
+    }
+    let utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'es-US';
+    utterance.rate = 0.9;
+    window.speechSynthesis.speak(utterance);
+}
 </script>
 </body>
 </html>
