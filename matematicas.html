@@ -617,7 +617,14 @@ const cats=["Todos",...new Set(PROBLEMS.map(p=>p.cat))];
 const catBar=document.getElementById('catBar');
 cats.forEach(c=>{const chip=document.createElement('button');chip.className='cat-chip'+(c==="Todos"?' active':'');chip.innerHTML=`<span>${catEmojis[c]||'📌'}</span> ${c}`;chip.onclick=()=>selectCat(c);catBar.appendChild(chip);});
 
-function selectCat(cat){currentCat=cat;document.querySelectorAll('.cat-chip').forEach(c=>c.classList.toggle('active',c.textContent.includes(cat)));currentProblems=cat==="Todos"?[...PROBLEMS]:PROBLEMS.filter(p=>p.cat===cat);probIdx=0;renderProblem();}
+function selectCat(cat){
+    if(window.speechSynthesis) window.speechSynthesis.cancel();
+    currentCat=cat;
+    document.querySelectorAll('.cat-chip').forEach(c=>c.classList.toggle('active',c.textContent.includes(cat)));
+    currentProblems=cat==="Todos"?[...PROBLEMS]:PROBLEMS.filter(p=>p.cat===cat);
+    probIdx=0;
+    renderProblem();
+}
 
 function renderProblem(){
     const area=document.getElementById('problemArea');
@@ -708,8 +715,8 @@ function updateGlobalScore(){
     document.getElementById('totalWrong').textContent=stats.wrong;
     document.getElementById('accuracy').textContent=t?Math.round(stats.correct/t*100)+'%':'—';
 }
-function goNext(){if(probIdx<currentProblems.length-1){probIdx++;renderProblem();window.scrollTo({top:0,behavior:'smooth'});}}
-function goPrev(){if(probIdx>0){probIdx--;renderProblem();window.scrollTo({top:0,behavior:'smooth'});}}
+function goNext(){if(probIdx<currentProblems.length-1){window.speechSynthesis.cancel();probIdx++;renderProblem();window.scrollTo({top:0,behavior:'smooth'});}}
+function goPrev(){if(probIdx>0){window.speechSynthesis.cancel();probIdx--;renderProblem();window.scrollTo({top:0,behavior:'smooth'});}}
 
 /* ── LOGIN & PERSISTENCE ─────────────── */
 let currentUser = null;
@@ -727,13 +734,19 @@ function doLogin(){
 function logoutUser(){
     currentUser = null;
     localStorage.removeItem('fl_user');
+    window.speechSynthesis.cancel();
     document.getElementById('loginOverlay').style.display = 'flex';
     document.getElementById('userBadge').style.display = 'none';
     document.getElementById('loginInput').value = '';
 }
 function saveMathProgress(){
     if(!currentUser) return;
-    const data = { stats, probIdx, cat: currentCat };
+    const data = { 
+        stats, 
+        probIdx, 
+        cat: currentCat, 
+        examStates: PROBLEMS.map(p => p.examState) 
+    };
     localStorage.setItem('fl_math_'+currentUser, JSON.stringify(data));
 }
 function loadProgress(){
@@ -745,13 +758,22 @@ function loadProgress(){
         if(data.cat) selectCat(data.cat);
         stats = data.stats || {correct:0,wrong:0};
         probIdx = data.probIdx || 0;
+        
+        // Restore exam button states
+        if (data.examStates && data.examStates.length === PROBLEMS.length) {
+            PROBLEMS.forEach((p, i) => { p.examState = data.examStates[i]; });
+            if (currentCat === "Todos") currentProblems = [...PROBLEMS];
+            else currentProblems = PROBLEMS.filter(p => p.cat === currentCat);
+        }
+        
         renderProblem();
     } catch(e){}
 }
 // Auto-save after check
 const _origCheck = checkStep;
 checkStep = function(i){ _origCheck(i); saveMathProgress(); };
-window.addEventListener('beforeunload', saveMathProgress);
+window.addEventListener('beforeunload', () => { window.speechSynthesis.cancel(); saveMathProgress(); });
+
 
 // Auto-login
 (function(){
@@ -765,6 +787,28 @@ window.addEventListener('beforeunload', saveMathProgress);
 renderProblem();
 
 /* ─── TTS LOGIC ───────────────────────────── */
+let availableVoices = [];
+function updateVoices() { availableVoices = window.speechSynthesis.getVoices(); }
+if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    window.speechSynthesis.onvoiceschanged = updateVoices;
+    updateVoices();
+}
+
+function getBestVoice(lang) {
+    if (!availableVoices.length) updateVoices();
+    let langPrefix = lang.split('-')[0];
+    let voices = availableVoices.filter(v => v.lang.startsWith(langPrefix));
+    if (!voices.length) return null;
+
+    // Priorizar voces de alta calidad (Natural, Premium, Google, Siri, etc.)
+    const keywords = ["natural", "online", "premium", "neural", "google", "siri", "monica", "paulina", "jorge", "dalia"];
+    for (let kw of keywords) {
+        let match = voices.find(v => v.name.toLowerCase().includes(kw));
+        if (match) return match;
+    }
+    return voices[0];
+}
+
 function readAloud(btn) {
     if (!('speechSynthesis' in window)) {
         alert("Tu navegador no soporta lectura de texto a voz.");
@@ -773,10 +817,21 @@ function readAloud(btn) {
     window.speechSynthesis.cancel();
     const q = btn.getAttribute('data-q');
     const opts = btn.getAttribute('data-opts');
-    const text = q + (opts ? ". Opciones: " + opts : "");
+    
+    let isEn = typeof examLang !== 'undefined' && examLang === 'en';
+    let langContext = isEn ? 'en-US' : 'es-US';
+    let optsLabel = isEn ? "Options:" : "Opciones:";
+    
+    const text = q + (opts ? ". " + optsLabel + " " + opts : "");
     let utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = typeof examLang !== 'undefined' ? (examLang === 'en' ? 'en-US' : 'es-US') : 'es-US';
+    
+    utterance.lang = langContext;
     utterance.rate = 0.9;
+    utterance.pitch = 1.0;
+    
+    let bestVoice = getBestVoice(langContext);
+    if (bestVoice) utterance.voice = bestVoice;
+
     window.speechSynthesis.speak(utterance);
 }
 </script>
