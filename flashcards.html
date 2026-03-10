@@ -763,8 +763,32 @@ function render() {
 
 function showResults() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    const btn = document.querySelector('.nav-btn.primary');
-    if(btn) btn.textContent = '¡Completado! Arriba tienes tus stats 👆';
+    const area = document.getElementById('questionArea');
+    const total = deck.length;
+    const correct = stats.correct;
+    const wrong = stats.wrong;
+    
+    area.innerHTML = `
+        <div class="question-card" style="text-align:center; padding: 40px 20px;">
+            <h2 style="font-size:2rem; margin-bottom:10px;">📊 ¡Sesión Completada!</h2>
+            <p style="font-size:1.2rem; margin:20px 0; color:var(--text-color);">
+                Respondiste correctamente <strong>${correct}</strong> de <strong>${total}</strong> preguntas.
+            </p>
+            ${wrong > 0 
+                ? `<p style="color:var(--danger); font-size:1.1rem; margin-bottom:20px;">Tuviste <strong>${wrong}</strong> respuestas incorrectas.</p>` 
+                : `<p style="color:var(--green); font-size:1.1rem; margin-bottom:20px;">¡Excelente! No tuviste ningún error.</p>`}
+            
+            <div style="display:flex; flex-direction:column; gap: 16px; max-width: 400px; margin: 0 auto; margin-top: 30px;">
+                ${wrong > 0 ? `
+                <button class="nav-btn primary" onclick="showOnlyWrong()" style="width:100%; justify-content:center; background:var(--danger); border-color:var(--danger);">
+                    🔴 Repasar solo mis errores (${wrong})
+                </button>` : ''}
+                <button class="nav-btn primary" onclick="resetProgress()" style="width:100%; justify-content:center; background:var(--primary); border-color:var(--border-color);">
+                    🔀 Nuevo Examen (Revuelto y Variado)
+                </button>
+            </div>
+        </div>
+    `;
 }
 
 function selectAnswer(selected) {
@@ -816,27 +840,49 @@ function shuffleDeck() {
     deepShuffleCards(deck); // Shuffle answers too
     idx = 0; answered.clear(); wrongSet.clear(); stats = { correct: 0, wrong: 0 };
     deck.forEach(c => delete c._selected);
-    render();
     saveProgress();
+    render();
 }
 
 function resetProgress() {
-    idx = 0; answered.clear(); wrongSet.clear(); stats = { correct: 0, wrong: 0 };
-    deck.forEach(c => delete c._selected);
-    filterByCategory(activeCategory);
-    if(activeCategory === "Todas") {
-         shuffleDeck(); // Also shuffle everything on reset
-    } else {
-         deepShuffleCards(deck); // Just shuffle options for this category
+    // Generate new variations directly into deck from ALL_CARDS
+    applyVariationsToDeck();
+    if (activeCategory !== "Todas") {
+        deck = deck.filter(c => c.cat === activeCategory);
     }
+    
+    // Shuffle the deck questions
+    for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+    deepShuffleCards(deck); // Shuffle answers inside each card
+    
+    idx = 0; answered.clear(); wrongSet.clear(); stats = { correct: 0, wrong: 0 };
     saveProgress();
     render();
 }
 
 function showOnlyWrong() {
-    const wrongs = deck.filter((c, i) => wrongSet.has(i));
+    let wrongs = deck.filter((c, i) => wrongSet.has(i));
     if (!wrongs.length) { alert('No hay preguntas incorrectas aún. Responde algunas primero.'); return; }
-    deepShuffleCards(wrongs); // Shuffle answers to avoid rote memorization
+    
+    // Shuffle the wrong deck
+    for (let i = wrongs.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [wrongs[i], wrongs[j]] = [wrongs[j], wrongs[i]];
+    }
+    deepShuffleCards(wrongs);
+    
+    // Apply variations to mistakes
+    wrongs.forEach(card => {
+        card.q = card.q.replace(/^(Considera este escenario: |Analiza la siguiente situación: |Pregunta de repaso: |Un caso práctico: |Presta atención al siguiente caso: |Evalúa lo siguiente: |Escenario de examen: |Situación hipotética: )/i, '');
+        if (!card.q.includes("TRICKY") && Math.random() > 0.3) {
+            let prefix = questionVariations[Math.floor(Math.random() * questionVariations.length)];
+            card.q = prefix + card.q.charAt(0).toLowerCase() + card.q.slice(1);
+        }
+    });
+
     deck = wrongs;
     idx = 0; answered.clear(); wrongSet.clear(); stats = { correct: 0, wrong: 0 };
     deck.forEach(c => delete c._selected);
