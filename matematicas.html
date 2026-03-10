@@ -31,7 +31,10 @@
         .container{max-width:640px;margin:0 auto;padding:0 20px 80px;position:relative;z-index:1}
 
         .exam-question{background:linear-gradient(145deg,#fef9e7,#fff8e1);border:2px solid #f9d923;border-radius:16px;padding:20px 24px;margin-bottom:14px;position:relative}
-        .exam-question::before{content:'📝 ASÍ TE LO PREGUNTAN EN EL EXAMEN';display:block;font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#b8860b;margin-bottom:10px}
+        .exam-question .exam-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+        .exam-question .exam-label{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#b8860b}
+        .exam-question .lang-toggle{font-size:.7rem;font-weight:700;color:#5b21b6;background:#ede9fe;border:1px solid #c4b5fd;border-radius:20px;padding:3px 12px;cursor:pointer;transition:all .2s}
+        .exam-question .lang-toggle:hover{background:#c4b5fd;color:#fff}
         .exam-question p{font-size:.95rem;font-weight:600;line-height:1.65;color:#1a1a2e}
         .exam-question .exam-options{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:6px 16px}
         .exam-question .exam-opt{font-size:.85rem;color:#333;font-weight:500;padding:4px 0}
@@ -120,6 +123,7 @@
 <body>
 
 <div class="topbar">
+    <a href="index.html" style="text-decoration:none;font-size:1.1rem;margin-right:10px;color:var(--text-2)" title="Volver al inicio">←</a>
     <h1>📐 FL Real Estate — Matemáticas</h1>
     <div style="display:flex;align-items:center;gap:10px">
         <span class="score-pill" id="globalScore">⭐ 0 / 0</span>
@@ -211,6 +215,8 @@ function calcEval() {
 }
 document.addEventListener('keydown', e => {
     if (!document.getElementById('calcWindow').classList.contains('open')) return;
+    // Don't intercept if user is typing in an input field
+    if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) return;
     if ('0123456789.+-*/%'.includes(e.key)) { e.preventDefault(); calcInput(e.key); }
     else if (e.key === 'Enter') { e.preventDefault(); calcEval(); }
     else if (e.key === 'Backspace') { e.preventDefault(); calcBackspace(); }
@@ -222,7 +228,8 @@ document.addEventListener('keydown', e => {
 const PROBLEMS = [
     // DOC STAMPS ON DEED
     { cat:"Doc Stamps", title:"Sellos en Escritura",
-      examQ:'A residential property was conveyed for a consideration of $385,000. What amount of documentary stamp tax is due on the deed at the time of recording?',
+      examQ:'Una propiedad residencial fue transferida por un monto de $385,000. ¿Qué cantidad de impuesto de sellos documentales corresponde sobre la escritura al momento de registrarla?',
+      examQ_en:'A residential property was conveyed for a consideration of $385,000. What amount of documentary stamp tax is due on the deed at the time of recording?',
       examOpts:['$2,695.00','$1,347.50','$2,695.50','$770.00'],
       statement:'Propiedad vendida por <span class="highlight">$385,000</span>. ¿Doc Stamps on Deed?',
       formula:'<strong>Deed:</strong> Precio ÷ 100 → redondear ↑ → × $0.70',
@@ -231,7 +238,8 @@ const PROBLEMS = [
         {label:"Paso 2",instruction:'Multiplica por $0.70:<br><code>3,850 × $0.70 = ?</code>',answer:2695,hint:"3850×0.70=2695"}
     ]},
     { cat:"Doc Stamps", title:"Deed (con redondeo)",
-      examQ:'A single-family home closed for $247,350. Which of the following MOST accurately represents the documentary stamp tax due on the deed?',
+      examQ:'Una vivienda unifamiliar se cerró por $247,350. ¿Cuál de las siguientes opciones representa MÁS exactamente el impuesto de sellos documentales sobre la escritura?',
+      examQ_en:'A single-family home closed for $247,350. Which of the following MOST accurately represents the documentary stamp tax due on the deed?',
       examOpts:['$1,731.80','$1,731.45','$1,731.50','$1,732.50'],
       statement:'Casa vendida por <span class="highlight">$247,350</span>. ¿Doc Stamps on Deed?',
       formula:'<strong>Deed:</strong> Precio ÷ 100 → REDONDEAR ↑ al entero → × $0.70',
@@ -241,7 +249,8 @@ const PROBLEMS = [
         {label:"Paso 3",instruction:'Multiplica por $0.70:<br><code>2,474 × $0.70 = ?</code>',answer:1731.80,tolerance:0.01,hint:"2474×0.70=1731.80"}
     ]},
     { cat:"Doc Stamps", title:"Deed (irregular)",
-      examQ:'A seller conveys property for $512,775. The documentary stamp tax on the deed is CLOSEST to which amount? (Remember: stamps are calculated per $100 or fraction thereof)',
+      examQ:'Un vendedor transfiere una propiedad por $512,775. El impuesto de sellos documentales sobre la escritura se APROXIMA MÁS a cuál cantidad? (Recuerda: los sellos se calculan por cada $100 o fracción)',
+      examQ_en:'A seller conveys property for $512,775. The documentary stamp tax on the deed is CLOSEST to which amount? (Remember: stamps are calculated per $100 or fraction thereof)',
       examOpts:['$3,589.60','$3,589.43','$3,589.00','$3,590.30'],
       statement:'Venta por <span class="highlight">$512,775</span>. ¿Stamps on deed?',
       formula:'Precio ÷ 100 → Redondear ↑ → × $0.70',
@@ -252,7 +261,8 @@ const PROBLEMS = [
     ]},
     // DOC STAMPS ON NOTE
     { cat:"Doc Stamps", title:"Sellos en Pagaré",
-      examQ:'A buyer executes a promissory note for a NEW mortgage of $320,000. What documentary stamp tax is due on the NOTE? (Note: Do NOT confuse with deed stamps)',
+      examQ:'Un comprador firma un pagaré por una hipoteca NUEVA de $320,000. ¿Qué impuesto de sellos documentales corresponde sobre el PAGARÉ? (Nota: NO confundir con sellos sobre la escritura)',
+      examQ_en:'A buyer executes a promissory note for a NEW mortgage of $320,000. What documentary stamp tax is due on the NOTE? (Note: Do NOT confuse with deed stamps)',
       examOpts:['$1,120.00','$2,240.00','$640.00','$1,600.00'],
       statement:'Préstamo de <span class="highlight">$320,000</span>. ¿Doc Stamps on Note?',
       formula:'<strong>Note:</strong> Préstamo ÷ 100 → redondear ↑ → × $0.35',
@@ -261,7 +271,8 @@ const PROBLEMS = [
         {label:"Paso 2",instruction:'<code>3,200 × $0.35 = ?</code>',answer:1120,hint:"3200×0.35=1120"}
     ]},
     { cat:"Doc Stamps", title:"Note (redondeo)",
-      examQ:'A mortgage loan of $189,450 is given. What is the documentary stamp tax on the promissory note? (Hint: the rate on the note is NOT the same as the deed)',
+      examQ:'Se otorga un préstamo hipotecario de $189,450. ¿Cuál es el impuesto de sellos documentales sobre el pagaré? (Ojo: la tasa del pagaré NO es la misma que la de la escritura)',
+      examQ_en:'A mortgage loan of $189,450 is given. What is the documentary stamp tax on the promissory note? (Hint: the rate on the note is NOT the same as the deed)',
       examOpts:['$663.25','$663.08','$1,326.50','$663.58'],
       statement:'Préstamo de <span class="highlight">$189,450</span>. ¿Stamps on note?',
       formula:'Note: Préstamo ÷ 100 → Redondear ↑ → × $0.35',
@@ -272,14 +283,16 @@ const PROBLEMS = [
     ]},
     // INTANGIBLE TAX
     { cat:"Intangible Tax", title:"Impuesto Intangible",
-      examQ:'A buyer obtains a NEW first mortgage of $275,000. What nonrecurring intangible tax is owed? (Note: This tax applies ONLY to new obligations, not assumed mortgages)',
+      examQ:'Un comprador obtiene una primera hipoteca NUEVA de $275,000. ¿Cuánto impuesto intangible no recurrente se debe? (Nota: este impuesto aplica SOLO a obligaciones nuevas, no a hipotecas asumidas)',
+      examQ_en:'A buyer obtains a NEW first mortgage of $275,000. What nonrecurring intangible tax is owed? (Note: This tax applies ONLY to new obligations, not assumed mortgages)',
       examOpts:['$550.00','$192.50','$96.25','$1,925.00'],
       statement:'Préstamo NUEVO de <span class="highlight">$275,000</span>. ¿Intangible Tax?',
       formula:'<strong>Intangible</strong> = Préstamo NUEVO × $0.002 (sin redondeo)',
       steps:[{label:"Paso 1",instruction:'<code>$275,000 × 0.002 = ?</code>',answer:550,hint:"275000×0.002=550"}]
     },
     { cat:"Intangible Tax", title:"Intangible (irregular)",
-      examQ:'A buyer ASSUMES an existing mortgage of $200,000 and takes a NEW second mortgage of $418,750. How much intangible tax is due? (Remember: intangible tax is ONLY on NEW obligations)',
+      examQ:'Un comprador ASUME una hipoteca existente de $200,000 y toma una NUEVA segunda hipoteca de $418,750. ¿Cuánto impuesto intangible se debe? (Recuerda: el impuesto intangible es SOLO sobre obligaciones NUEVAS)',
+      examQ_en:'A buyer ASSUMES an existing mortgage of $200,000 and takes a NEW second mortgage of $418,750. How much intangible tax is due? (Remember: intangible tax is ONLY on NEW obligations)',
       examOpts:['$837.50','$1,237.50','$618,750','$400.00'],
       statement:'Nuevo préstamo: <span class="highlight">$418,750</span>. ¿Intangible?',
       formula:'Préstamo NUEVO × 0.002. Sin redondeo. No aplica a asumidos.',
@@ -287,7 +300,8 @@ const PROBLEMS = [
     },
     // COMBO
     { cat:"Doc Stamps", title:"Combo: Deed+Note+Intangible",
-      examQ:'A property closes at $350,000. The BUYER obtains a new loan of $280,000. What is the TOTAL amount of documentary stamps on deed, documentary stamps on note, AND intangible tax due at closing?',
+      examQ:'Una propiedad se cierra en $350,000. El COMPRADOR obtiene un préstamo nuevo de $280,000. ¿Cuál es el monto TOTAL de sellos documentales sobre escritura, sellos sobre pagaré E impuesto intangible a pagar en el cierre?',
+      examQ_en:'A property closes at $350,000. The BUYER obtains a new loan of $280,000. What is the TOTAL amount of documentary stamps on deed, documentary stamps on note, AND intangible tax due at closing?',
       examOpts:['$3,990.00','$3,430.00','$2,450.00','$4,550.00'],
       statement:'Venta: <span class="highlight">$350,000</span>. Préstamo NUEVO: <span class="highlight">$280,000</span>. Calcula los 3 impuestos.',
       formula:'Deed: Precio÷100×$0.70 | Note: Préstamo÷100×$0.35 | Intangible: Préstamo×$0.002',
@@ -299,7 +313,8 @@ const PROBLEMS = [
     ]},
     // COMISIONES
     { cat:"Comisiones", title:"Comisión de Corredor",
-      examQ:'Broker A listed a property that sold for $400,000. Broker B procured the buyer. The commission rate is 6%, split 50-50 between the two brokerage firms. How much commission does Broker B\'s firm receive?',
+      examQ:'El Broker A listó una propiedad que se vendió en $400,000. El Broker B consiguió al comprador. La tasa de comisión es 6%, dividida 50-50 entre ambas firmas de corretaje. ¿Cuánta comisión recibe la firma del Broker B?',
+      examQ_en:'Broker A listed a property that sold for $400,000. Broker B procured the buyer. The commission rate is 6%, split 50-50 between the two brokerage firms. How much commission does Broker B\'s firm receive?',
       examOpts:['$12,000','$24,000','$8,000','$6,000'],
       statement:'Venta: <span class="highlight">$400,000</span>. Comisión: <span class="highlight">6%</span>, split 50/50. ¿Cuánto cada oficina?',
       formula:'Comisión = Precio × Tasa. Split = Comisión ÷ 2',
@@ -308,7 +323,8 @@ const PROBLEMS = [
         {label:"Paso 2",instruction:'<code>$24,000 ÷ 2 = ?</code>',answer:12000,hint:"24000/2=12000"}
     ]},
     { cat:"Comisiones", title:"Comisión al Agente",
-      examQ:'A home sells for $550,000. The total brokerage fee is 5.5%. The cooperating broker receives 40% of the total commission. The listing broker pays the listing sales associate 70% of the LISTING BROKER\'S share. What does the listing sales associate receive?',
+      examQ:'Una casa se vende por $550,000. La comisión total de corretaje es 5.5%. El broker cooperante recibe 40% de la comisión total. El listing broker le paga al sales associate el 70% de LA PARTE DEL LISTING BROKER. ¿Cuánto recibe el sales associate?',
+      examQ_en:'A home sells for $550,000. The total brokerage fee is 5.5%. The cooperating broker receives 40% of the total commission. The listing broker pays the listing sales associate 70% of the LISTING BROKER\'S share. What does the listing sales associate receive?',
       examOpts:['$12,705','$18,150','$30,250','$8,470'],
       statement:'Venta: <span class="highlight">$550,000</span>. Comisión: <span class="highlight">5.5%</span>. Split 60/40. Listing agent recibe 70% de su broker. ¿Cuánto gana?',
       formula:'Total → Split broker → Split agente',
@@ -318,7 +334,8 @@ const PROBLEMS = [
         {label:"Paso 3",instruction:'Agent (70%): <code>$18,150 × 0.70 = ?</code>',answer:12705,hint:"18150×0.70=12705"}
     ]},
     { cat:"Comisiones", title:"Precio mínimo por comisión",
-      examQ:'A sales associate wants to earn $15,000 on a single transaction. The associate\'s broker splits the 6% total commission 50/50 with the cooperating broker. The associate receives 75% of the associate\'s broker\'s share. What MINIMUM sale price is necessary?',
+      examQ:'Un sales associate quiere ganar $15,000 en una sola transacción. El broker del associate divide la comisión total de 6% en 50/50 con el broker cooperante. El associate recibe 75% de la parte de su broker. ¿Cuál es el precio MÍNIMO de venta necesario?',
+      examQ_en:'A sales associate wants to earn $15,000 on a single transaction. The associate\'s broker splits the 6% total commission 50/50 with the cooperating broker. The associate receives 75% of the associate\'s broker\'s share. What MINIMUM sale price is necessary?',
       examOpts:['$666,667','$500,000','$400,000','$833,333'],
       statement:'Agente quiere ganar <span class="highlight">$15,000</span>. Split: 75%. Comisión 6% dividida 50/50. ¿Precio mínimo?',
       formula:'Trabajo inverso: Agente÷split → ×2 → ÷tasa = Precio',
@@ -329,7 +346,8 @@ const PROBLEMS = [
     ]},
     // IMPUESTOS PROPERTY TAX
     { cat:"Impuestos", title:"Property Tax con Mills",
-      examQ:'A property has a JUST (market) value of $250,000. The owner qualifies for the full $50,000 homestead exemption. The total millage rate is 18 mills. What is the owner\'s annual ad valorem tax? (Note: 1 mill = $1 per $1,000 of taxable value)',
+      examQ:'Una propiedad tiene un valor JUSTO (de mercado) de $250,000. El dueño califica para la exención homestead completa de $50,000. La tasa de millaje total es 18 mills. ¿Cuál es el impuesto ad valorem anual? (Nota: 1 mill = $1 por cada $1,000 de valor gravable)',
+      examQ_en:'A property has a JUST (market) value of $250,000. The owner qualifies for the full $50,000 homestead exemption. The total millage rate is 18 mills. What is the owner\'s annual ad valorem tax? (Note: 1 mill = $1 per $1,000 of taxable value)',
       examOpts:['$3,600','$4,500','$3,200','$4,000'],
       statement:'Valor tasado: <span class="highlight">$250,000</span>. Homestead: <span class="highlight">$50,000</span>. Millaje: <span class="highlight">18 mills</span>. ¿Impuesto anual?',
       formula:'Tax = (Valor − Exemptions) ÷ 1,000 × Mills. 1 Mill = $1 por $1,000.',
@@ -339,7 +357,8 @@ const PROBLEMS = [
         {label:"Paso 3",instruction:'<code>200 × 18 = ?</code>',answer:3600,hint:"200×18=3600"}
     ]},
     { cat:"Impuestos", title:"Encontrar tasa de Mills",
-      examQ:'An owner\'s annual property tax bill is $2,700. The assessor\'s TAXABLE value (after exemptions) is $180,000. What is the millage rate being applied?',
+      examQ:'La factura anual de impuestos de propiedad de un dueño es $2,700. El valor GRAVABLE del tasador (después de exenciones) es $180,000. ¿Cuál es la tasa de millaje aplicada?',
+      examQ_en:'An owner\'s annual property tax bill is $2,700. The assessor\'s TAXABLE value (after exemptions) is $180,000. What is the millage rate being applied?',
       examOpts:['15 mills','18 mills','12 mills','1.5 mills'],
       statement:'Valor gravable: <span class="highlight">$180,000</span>. Impuesto: <span class="highlight">$2,700</span>. ¿Tasa de millaje?',
       formula:'Mills = Impuesto ÷ (Valor ÷ 1,000)',
@@ -349,7 +368,8 @@ const PROBLEMS = [
     ]},
     // PRORRATEOS
     { cat:"Prorrateos", title:"Prorrateo de impuestos",
-      examQ:'The annual property taxes are $4,380. The sale closes on April 15 (day 105). Property taxes have NOT been paid for the current year. Using a 365-day proration, the SELLER\'s share of the taxes as a DEBIT on the settlement statement is CLOSEST to:',
+      examQ:'Los impuestos anuales de propiedad son $4,380. La venta cierra el 15 de abril (día 105). Los impuestos NO se han pagado en el año en curso. Usando prorrateo de 365 días, la parte del VENDEDOR como DÉBITO en el estado de liquidación se APROXIMA MÁS a:',
+      examQ_en:'The annual property taxes are $4,380. The sale closes on April 15 (day 105). Property taxes have NOT been paid for the current year. Using a 365-day proration, the SELLER\'s share of the taxes as a DEBIT on the settlement statement is CLOSEST to:',
       examOpts:['$1,260.00','$1,200.00','$3,120.00','$1,314.00'],
       statement:'Impuestos anuales: <span class="highlight">$4,380</span>. Cierre: <span class="highlight">15 abril</span> (día 105). ¿Cuánto debe vendedor?',
       formula:'Prorrateo = Anual ÷ 365 × días del vendedor',
@@ -358,7 +378,8 @@ const PROBLEMS = [
         {label:"Paso 2",instruction:'<code>$12.00 × 105 = ?</code>',answer:1260,tolerance:1,hint:"12×105=1260"}
     ]},
     { cat:"Prorrateos", title:"Prorrateo de seguro",
-      examQ:'A seller prepaid an annual hazard insurance policy of $1,825 at the beginning of the year. The sale closes on August 1 (day 213). If the buyer does NOT assume the policy, the seller is entitled to a CREDIT of approximately:',
+      examQ:'Un vendedor prepagó una póliza anual de seguro contra riesgos de $1,825 al inicio del año. La venta cierra el 1 de agosto (día 213). Si el comprador NO asume la póliza, el vendedor tiene derecho a un CRÉDITO de aproximadamente:',
+      examQ_en:'A seller prepaid an annual hazard insurance policy of $1,825 at the beginning of the year. The sale closes on August 1 (day 213). If the buyer does NOT assume the policy, the seller is entitled to a CREDIT of approximately:',
       examOpts:['$760.00','$1,065.00','$912.50','$750.00'],
       statement:'Póliza anual: <span class="highlight">$1,825</span>. Cierre: <span class="highlight">1 agosto</span> (día 213). ¿Reembolso al vendedor?',
       formula:'Reembolso = Tasa diaria × Días restantes (365 − día cierre)',
@@ -369,7 +390,8 @@ const PROBLEMS = [
     ]},
     // AMORTIZACIÓN PIP BRAM
     { cat:"Amortización", title:"PIP BRAM — Mes 1",
-      examQ:'A borrower closes on a $200,000 fully amortized loan at 6% ANNUAL interest. The monthly payment is $1,199.10. After making the FIRST payment, the outstanding principal balance is MOST NEARLY:',
+      examQ:'Un prestatario cierra un préstamo completamente amortizado de $200,000 al 6% de interés ANUAL. El pago mensual es $1,199.10. Después de hacer el PRIMER pago, el saldo principal pendiente se APROXIMA MÁS a:',
+      examQ_en:'A borrower closes on a $200,000 fully amortized loan at 6% ANNUAL interest. The monthly payment is $1,199.10. After making the FIRST payment, the outstanding principal balance is MOST NEARLY:',
       examOpts:['$199,800.90','$198,800.90','$199,000.00','$199,900.90'],
       statement:'Préstamo: <span class="highlight">$200,000</span> al <span class="highlight">6%</span>. Pago: <span class="highlight">$1,199.10</span>. Calcula mes 1.',
       formula:'<strong>B</strong>alance × <strong>R</strong>ate ÷ 12 = Interés | <strong>P</strong>ayment − <strong>I</strong>nterest = <strong>P</strong>rincipal | Balance − Principal = Nuevo Balance',
@@ -379,7 +401,8 @@ const PROBLEMS = [
         {label:"Nuevo Balance",instruction:'<code>$200,000 − $199.10 = ?</code>',answer:199800.90,tolerance:0.01,hint:"200000-199.10=199800.90"}
     ]},
     { cat:"Amortización", title:"PIP BRAM — Mes 2",
-      examQ:'On the same loan (balance $199,800.90, 6% annual rate, $1,199.10 payment), how much of the SECOND monthly payment is applied to reduce the principal? (Note: Interest is calculated on the CURRENT balance, not the original amount)',
+      examQ:'En el mismo préstamo (saldo $199,800.90, tasa anual 6%, pago $1,199.10), ¿cuánto del SEGUNDO pago mensual se aplica a reducir el principal? (Nota: el interés se calcula sobre el saldo ACTUAL, no el monto original)',
+      examQ_en:'On the same loan (balance $199,800.90, 6% annual rate, $1,199.10 payment), how much of the SECOND monthly payment is applied to reduce the principal? (Note: Interest is calculated on the CURRENT balance, not the original amount)',
       examOpts:['$200.10','$199.10','$201.00','$198.10'],
       statement:'Balance: <span class="highlight">$199,800.90</span> al <span class="highlight">6%</span>. Pago: <span class="highlight">$1,199.10</span>.',
       formula:'Repite: Balance×Rate÷12 → Payment−Interest → Balance−Principal',
@@ -390,7 +413,8 @@ const PROBLEMS = [
     ]},
     // LTV
     { cat:"LTV", title:"Loan-to-Value",
-      examQ:'A buyer contracts to purchase property for $300,000. The appraised value is $290,000. The lender agrees to a $232,000 loan. What is the loan-to-value ratio? (Lenders use the LOWER of sale price or appraised value)',
+      examQ:'Un comprador se compromete a comprar una propiedad por $300,000. El avalúo resulta en $290,000. El prestamista aprueba un préstamo de $232,000. ¿Cuál es la relación préstamo-valor (LTV)? (Los prestamistas usan el MENOR entre precio de venta y avalúo)',
+      examQ_en:'A buyer contracts to purchase property for $300,000. The appraised value is $290,000. The lender agrees to a $232,000 loan. What is the loan-to-value ratio? (Lenders use the LOWER of sale price or appraised value)',
       examOpts:['80%','77.3%','85%','73.3%'],
       statement:'Precio: <span class="highlight">$300,000</span>. Tasación: <span class="highlight">$290,000</span>. Préstamo: <span class="highlight">$232,000</span>. ¿LTV?',
       formula:'LTV = (Préstamo ÷ Valor) × 100. Valor = MENOR entre precio y tasación.',
@@ -399,8 +423,9 @@ const PROBLEMS = [
         {label:"Paso 2",instruction:'<code>$232,000 ÷ $290,000 × 100 = ?</code> %',answer:80,tolerance:0.1,hint:"232000/290000×100=80"}
     ]},
     { cat:"LTV", title:"LTV con PMI",
-      examQ:'A property under contract for $425,000 appraises for $430,000. The buyer puts 15% down based on the SALE PRICE. For a conventional loan, what is the LTV ratio and is Private Mortgage Insurance (PMI) required?',
-      examOpts:['85% — YES, PMI required','80% — No PMI required','90% — YES, PMI required','75% — No PMI required'],
+      examQ:'Una propiedad bajo contrato por $425,000 se avalúa en $430,000. El comprador da 15% de enganche basado en el PRECIO DE VENTA. Para un préstamo convencional, ¿cuál es el ratio LTV y se requiere Seguro Hipotecario Privado (PMI)?',
+      examQ_en:'A property under contract for $425,000 appraises for $430,000. The buyer puts 15% down based on the SALE PRICE. For a conventional loan, what is the LTV ratio and is Private Mortgage Insurance (PMI) required?',
+      examOpts:['85% — SÍ, requiere PMI','80% — No requiere PMI','90% — SÍ, requiere PMI','75% — No requiere PMI'],
       statement:'Precio: <span class="highlight">$425,000</span>. Tasación: <span class="highlight">$430,000</span>. Down payment: <span class="highlight">15%</span>. ¿LTV? ¿PMI?',
       formula:'Préstamo = Precio × (1−Down%). LTV = Préstamo÷Valor×100. PMI si >80%.',
       steps:[
@@ -410,14 +435,16 @@ const PROBLEMS = [
     ]},
     // TASACIÓN IRV
     { cat:"Tasación", title:"IRV — Encontrar Valor",
-      examQ:'An investment property generates a net operating income (NOI) of $36,000 per year. Using a capitalization rate of 8%, what is the estimated value of the property?',
+      examQ:'Una propiedad de inversión genera un ingreso neto operativo (NOI) de $36,000 al año. Usando una tasa de capitalización del 8%, ¿cuál es el valor estimado de la propiedad?',
+      examQ_en:'An investment property generates a net operating income (NOI) of $36,000 per year. Using a capitalization rate of 8%, what is the estimated value of the property?',
       examOpts:['$450,000','$288,000','$360,000','$500,000'],
       statement:'NOI: <span class="highlight">$36,000</span>. Cap Rate: <span class="highlight">8%</span>. ¿Valor?',
       formula:'<strong>V = I ÷ R</strong>',
       steps:[{label:"Paso 1",instruction:'<code>$36,000 ÷ 0.08 = ?</code>',answer:450000,hint:"36000/0.08=450000"}]
     },
     { cat:"Tasación", title:"IRV — Cap Rate",
-      examQ:'A commercial property valued at $500,000 produces a net operating income of $40,000. What is the capitalization rate?',
+      examQ:'Una propiedad comercial valorada en $500,000 produce un ingreso neto operativo de $40,000. ¿Cuál es la tasa de capitalización?',
+      examQ_en:'A commercial property valued at $500,000 produces a net operating income of $40,000. What is the capitalization rate?',
       examOpts:['8%','10%','12.5%','6%'],
       statement:'Valor: <span class="highlight">$500,000</span>. NOI: <span class="highlight">$40,000</span>. ¿Cap Rate %?',
       formula:'<strong>R = I ÷ V</strong> luego × 100',
@@ -426,14 +453,16 @@ const PROBLEMS = [
         {label:"Paso 2",instruction:'<code>0.08 × 100 = ?</code> %',answer:8,hint:"=8%"}
     ]},
     { cat:"Tasación", title:"GIM",
-      examQ:'An investor purchases a rental property for $360,000. The annual gross rent is $30,000. What is the gross income multiplier (GIM)?',
+      examQ:'Un inversionista compra una propiedad de alquiler por $360,000. La renta bruta anual es $30,000. ¿Cuál es el multiplicador de ingreso bruto (GIM)?',
+      examQ_en:'An investor purchases a rental property for $360,000. The annual gross rent is $30,000. What is the gross income multiplier (GIM)?',
       examOpts:['12','10','8','15'],
       statement:'Precio: <span class="highlight">$360,000</span>. Renta bruta anual: <span class="highlight">$30,000</span>. ¿GIM?',
       formula:'GIM = Precio ÷ Renta Bruta Anual',
       steps:[{label:"Paso 1",instruction:'<code>$360,000 ÷ $30,000 = ?</code>',answer:12,hint:"360000/30000=12"}]
     },
     { cat:"Tasación", title:"Depreciación — Cost Approach",
-      examQ:'An appraiser estimates the replacement cost of improvements at $350,000 with an economic life of 50 years. The building is 10 years old. The land is valued at $80,000. Using the cost approach, what is the estimated property value?',
+      examQ:'Un tasador estima el costo de reemplazo de las mejoras en $350,000 con una vida económica de 50 años. El edificio tiene 10 años de antigüedad. El terreno está valorado en $80,000. Usando el enfoque de costo, ¿cuál es el valor estimado de la propiedad?',
+      examQ_en:'An appraiser estimates the replacement cost of improvements at $350,000 with an economic life of 50 years. The building is 10 years old. The land is valued at $80,000. Using the cost approach, what is the estimated property value?',
       examOpts:['$360,000','$350,000','$430,000','$280,000'],
       statement:'Construcción: <span class="highlight">$350,000</span>. Vida: <span class="highlight">50 años</span>. Edad: <span class="highlight">10 años</span>. Terreno: <span class="highlight">$80,000</span>.',
       formula:'Dep anual = Costo÷Vida. Dep total = anual×edad. Valor = (Costo−Dep)+Terreno.',
@@ -445,7 +474,8 @@ const PROBLEMS = [
     ]},
     // ACRES
     { cat:"Acres", title:"Descripción legal",
-      examQ:'How many acres are in the NW ¼ of the SW ¼ of a section?',
+      examQ:'¿Cuántos acres hay en el NW ¼ del SW ¼ de una sección?',
+      examQ_en:'How many acres are in the NW ¼ of the SW ¼ of a section?',
       examOpts:['40 acres','80 acres','160 acres','20 acres'],
       statement:'¿Acres del <span class="highlight">NW ¼ del SW ¼</span> de una Sección?',
       formula:'Sección = 640 acres. Multiplica fracciones × 640. 1 Acre = 43,560 sq ft.',
@@ -454,23 +484,63 @@ const PROBLEMS = [
         {label:"Paso 2",instruction:'<code>0.0625 × 640 = ?</code> acres',answer:40,hint:"640/16=40"}
     ]},
     { cat:"Acres", title:"Acres → Sq Ft",
-      examQ:'A parcel of land contains 2.5 acres. How many square feet is the parcel?',
+      examQ:'Un terreno contiene 2.5 acres. ¿Cuántos pies cuadrados tiene el terreno?',
+      examQ_en:'A parcel of land contains 2.5 acres. How many square feet is the parcel?',
       examOpts:['108,900 sq ft','87,120 sq ft','120,000 sq ft','43,560 sq ft'],
       statement:'Terreno de <span class="highlight">2.5 acres</span>. ¿Pies cuadrados?',
       formula:'Pies² = Acres × 43,560',
       steps:[{label:"Paso 1",instruction:'<code>2.5 × 43,560 = ?</code>',answer:108900,hint:"2.5×43560=108900"}]
     },
     { cat:"Acres", title:"Sq Ft → Acres",
-      examQ:'A lot contains 217,800 square feet. How many acres does this lot contain?',
+      examQ:'Un lote contiene 217,800 pies cuadrados. ¿Cuántos acres tiene este lote?',
+      examQ_en:'A lot contains 217,800 square feet. How many acres does this lot contain?',
       examOpts:['5 acres','4.5 acres','3 acres','6 acres'],
       statement:'Lote de <span class="highlight">217,800 sq ft</span>. ¿Acres?',
       formula:'Acres = Pies² ÷ 43,560',
       steps:[{label:"Paso 1",instruction:'<code>217,800 ÷ 43,560 = ?</code>',answer:5,hint:"217800/43560=5"}]
     },
+    // DISCOUNT POINTS
+    { cat:"Comisiones", title:"Discount Points",
+      examQ:'A buyer obtains a $240,000 loan. The lender charges 2 discount points. How much does the buyer pay in discount points? (Remember: points are calculated on the LOAN amount, not the sale price)',
+      examOpts:['$4,800','$2,400','$480','$24,000'],
+      statement:'Préstamo: <span class="highlight">$240,000</span>. Lender cobra <span class="highlight">2 discount points</span>. ¿Cuánto paga?',
+      formula:'<strong>Discount Points</strong> = Monto del PRÉSTAMO × Puntos × 1%. (NUNCA sobre el precio de venta)',
+      steps:[
+        {label:"Paso 1",instruction:'<code>$240,000 × 0.02 = ?</code>',answer:4800,hint:"240000×0.02=4800"}
+    ]},
+    // MIAMI-DADE DOC STAMPS
+    { cat:"Doc Stamps", title:"Deed Miami-Dade",
+      examQ:'A property in Miami-Dade County sells for $525,000. What are the documentary stamp taxes on the deed? (Note: Miami-Dade uses a DIFFERENT rate than the rest of Florida)',
+      examOpts:['$3,150.00','$3,675.00','$2,625.00','$1,837.50'],
+      statement:'Venta en <span class="highlight">Miami-Dade</span> por <span class="highlight">$525,000</span>. ¿Doc Stamps on Deed?',
+      formula:'Miami-Dade Deed: Precio ÷ 100 → redondear ↑ → × <strong>$0.60</strong> (NO $0.70)',
+      steps:[
+        {label:"Paso 1",instruction:'<code>$525,000 ÷ 100 = ?</code>',answer:5250,hint:"525000/100=5250"},
+        {label:"Paso 2",instruction:'<code>5,250 × $0.60 = ?</code>',answer:3150,hint:"5250×0.60=3150"}
+    ]},
+    // EQUITY
+    { cat:"LTV", title:"Equity del Propietario",
+      examQ:'A homeowner purchased a property for $320,000 with a mortgage of $256,000. After 5 years, the property is worth $375,000 and the remaining mortgage balance is $230,000. What is the owner\'s current equity?',
+      examOpts:['$145,000','$90,000','$119,000','$64,000'],
+      statement:'Valor actual: <span class="highlight">$375,000</span>. Hipoteca pendiente: <span class="highlight">$230,000</span>. ¿Equity?',
+      formula:'<strong>Equity = Valor de Mercado − Deuda Hipotecaria</strong>',
+      steps:[
+        {label:"Paso 1",instruction:'<code>$375,000 − $230,000 = ?</code>',answer:145000,hint:"375000-230000=145000"}
+    ]},
+    // PROPERTY TAX WITH DISCOUNT
+    { cat:"Impuestos", title:"Tax con descuento Nov",
+      examQ:'Annual property taxes are $4,200. If the owner pays in November, they receive a 4% discount. How much do they pay?',
+      examOpts:['$4,032','$4,200','$168','$3,780'],
+      statement:'Impuestos anuales: <span class="highlight">$4,200</span>. Pago en <span class="highlight">noviembre</span> (4% descuento). ¿Cuánto paga?',
+      formula:'Descuento Nov = 4%. Pago = Impuesto × (1 − 0.04)',
+      steps:[
+        {label:"Paso 1",instruction:'Descuento: <code>$4,200 × 0.04 = ?</code>',answer:168,hint:"4200×0.04=168"},
+        {label:"Paso 2",instruction:'Pago: <code>$4,200 − $168 = ?</code>',answer:4032,hint:"4200-168=4032"}
+    ]},
 ];
 
 /* ─── STATE ───────────────────────────── */
-let currentCat="Todos", currentProblems=[...PROBLEMS], probIdx=0, stats={correct:0,wrong:0};
+let currentCat="Todos", currentProblems=[...PROBLEMS], probIdx=0, stats={correct:0,wrong:0}, examLang='es';
 const catEmojis={"Todos":"📋","Doc Stamps":"📄","Intangible Tax":"🏷️","Comisiones":"💰","Impuestos":"🏠","Prorrateos":"📅","Amortización":"🔄","LTV":"📊","Tasación":"📐","Acres":"🌾"};
 const cats=["Todos",...new Set(PROBLEMS.map(p=>p.cat))];
 const catBar=document.getElementById('catBar');
@@ -494,8 +564,10 @@ function renderProblem(){
             ${s.hint?`<div style="margin-top:6px;font-size:.72rem;color:var(--text-dim);cursor:pointer" onclick="this.textContent='💡 '+PROBLEMS.find(p=>p.title==='${prob.title.replace(/'/g,"\\'")}')?.steps[${i}]?.hint">💡 Ver pista</div>`:''}
         </div>`).join('');
     const examOptsHTML = prob.examOpts ? `<div class="exam-options">${prob.examOpts.map(o=>`<span class="exam-opt">${o}</span>`).join('')}</div>` : '';
+    const qText = examLang==='es' ? prob.examQ : (prob.examQ_en||prob.examQ);
+    const toggleLabel = examLang==='es' ? '🌐 English' : '🌐 Español';
     area.innerHTML=`
-        ${prob.examQ ? `<div class="exam-question"><p>${prob.examQ}</p>${examOptsHTML}</div>` : ''}
+        ${prob.examQ ? `<div class="exam-question"><div class="exam-header"><span class="exam-label">📝 ASÍ TE LO PREGUNTAN EN EL EXAMEN</span><button class="lang-toggle" onclick="examLang=examLang==='es'?'en':'es';renderProblem()">${toggleLabel}</button></div><p>${qText}</p>${examOptsHTML}</div>` : ''}
         <div class="formula-ref"><h3>📖 Fórmula de Referencia</h3><p>${prob.formula.replace(/\n/g,'<br>')}</p></div>
         <div class="problem-card">
             <div class="prob-header"><span class="prob-badge">${prob.cat} — ${prob.title}</span><span class="prob-num">${probIdx+1} / ${currentProblems.length}</span></div>

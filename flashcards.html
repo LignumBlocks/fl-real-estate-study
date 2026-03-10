@@ -274,6 +274,7 @@
 <body>
 
 <div class="topbar">
+    <a href="index.html" style="text-decoration:none;font-size:1.1rem;margin-right:10px;color:var(--text-2)" title="Volver al inicio">←</a>
     <h1>🏠 FL Real Estate — Teoría</h1>
     <div style="display:flex;align-items:center;gap:12px">
         <span class="pill" id="modeLabel">Todas</span>
@@ -362,7 +363,7 @@ const ALL_CARDS = [
 
     // ── LICENCIA ──
     { cat:"Licencia", q:"¿Requisitos para licencia de Sales Associate en Florida?", a:"1. <strong>18 años</strong>. 2. SSN. 3. Curso de <strong>63 horas</strong>. 4. Aprobar examen estatal. 5. Verificación de antecedentes (fingerprints)." },
-    { cat:"Licencia", q:"¿Horas de educación continua para renovar?", a:"<strong>14 horas</strong> cada 2 años. Incluye <strong>3 horas Core Law</strong> + <strong>3 horas Ethics</strong>." },
+    { cat:"Licencia", q:"¿Horas de educación continua para renovar?", a:"<strong>14 horas</strong> cada 2 años. Incluye <strong>3 horas Core Law</strong> (obligatorias) + <strong>11 horas specialty CE</strong>. (Nota: el requisito de Ethics es de <strong>NAR para REALTORS®</strong>, no para la licencia estatal)." },
     { cat:"Licencia", q:"¿Qué es la FREC?", a:"Florida Real Estate Commission. Parte del DBPR. <strong>7 miembros</strong>: 4 brokers con 5+ años, 1 broker o asociado con 2+ años, y 2 consumidores (sin licencia)." },
     { cat:"Licencia", q:"¿Qué pasa si ejerces sin licencia?", a:"<strong>Felony de tercer grado</strong>. Hasta <strong>$5,000</strong> multa y <strong>5 años</strong> prisión." },
     { cat:"Licencia", q:"¿Qué es 'Involuntarily Inactive'?", a:"No renovó a tiempo. Tiene <strong>2 años</strong> para reactivar. Después → <strong>null and void</strong>." },
@@ -380,7 +381,7 @@ const ALL_CARDS = [
     { cat:"Divulgaciones", q:"¿Qué establece Johnson vs. Davis?", a:"El vendedor debe <strong>revelar defectos materiales conocidos</strong> no fácilmente observables. Aplica a residenciales." },
     { cat:"Divulgaciones", q:"¿Cuándo aplica divulgación de Lead-Based Paint?", a:"Viviendas construidas <strong>antes de 1978</strong>. Entregar panfleto + divulgar conocimiento + <strong>10 días</strong> para inspección." },
     { cat:"Divulgaciones", q:"¿Qué es el Radon Gas Disclosure?", a:"Divulgación <strong>obligatoria en todos los contratos</strong> de venta en Florida. Informa sobre el gas radón y pruebas disponibles." },
-    { cat:"Divulgaciones", q:"Fair Housing Act — ¿Qué clases protege?", a:"<strong>7 clases</strong>: Raza, Color, Religión, Sexo, Origen Nacional, Discapacidad, Estado Familiar. Mnemotecnia: <strong>'RC Cola Has No Dark Fizz'</strong>." },
+    { cat:"Divulgaciones", q:"Fair Housing Act — ¿Qué clases protege?", a:"<strong>7 clases</strong>: <strong>R</strong>aza, <strong>C</strong>olor, <strong>R</strong>eligión, <strong>S</strong>exo, <strong>O</strong>rigen Nacional, <strong>D</strong>iscapacidad (Handicap), Estado <strong>F</strong>amiliar. Mnemotecnia: <strong>'Run, Corre, Rápido — Sin Olvidar Dos Familias'</strong>." },
     { cat:"Divulgaciones", q:"¿Exenciones a la Fair Housing Act?", a:"1. <strong>Mrs. Murphy</strong>: propietario en propiedad ≤4 unidades. 2. Organizaciones religiosas. 3. Clubes privados. <strong>NINGUNA aplica si usa broker</strong> o publicidad discriminatoria." },
 
     // ── SANCIONES ──
@@ -452,6 +453,18 @@ const ALL_CARDS = [
     { cat:"Licencia", q:"¿Pueden los 'residential loan alternative agreements' poner un lien sobre propiedad residential?", a:"<strong>No.</strong> Estos acuerdos <strong>no pueden autorizar</strong> a una persona a colocar un lien o gravar de otra forma una propiedad residencial." },
     { cat:"Licencia", q:"¿Pueden los sales associates operar bajo un nombre ficticio (trade name)?", a:"<strong>No.</strong> Deben registrarse y operar estrictamente bajo su <strong>nombre legal</strong>. Solo los brokers pueden usar nombres ficticios." },
 
+    // ── NUEVAS — Temas Clave Faltantes ──
+    { cat:"Impuestos", q:"¿Cuáles son las fechas clave de Ad Valorem Tax en Florida?", a:"<strong>Enero 1</strong>: Fecha de evaluación (assessment date). <strong>Marzo 1</strong>: Deadline para exenciones (homestead). <strong>Noviembre 1</strong>: Impuestos pagaderos con descuento (<strong>4%</strong> Nov, 3% Dic, 2% Ene, 1% Feb). <strong>Abril 1</strong>: Impuestos se vuelven <strong>morosos (delinquent)</strong>." },
+    { cat:"Corretaje", q:"¿Cuáles son los tipos de listing agreements?", a:"1. <strong>Exclusive Right of Sale</strong>: Broker gana comisión sin importar quién venda (más común). 2. <strong>Exclusive Agency</strong>: Broker gana solo si él vende, dueño puede vender solo sin pagar. 3. <strong>Open Listing</strong>: Varios brokers; solo el que trae al comprador gana. 4. <strong>Net Listing</strong>: Legal en FL pero <strong>desaconsejado</strong>; broker gana todo sobre precio mínimo." },
+    { cat:"Financiamiento", q:"¿Tipos de hipotecas especiales?", a:"<strong>Purchase Money</strong>: Financiamiento del vendedor. <strong>Blanket</strong>: Cubre múltiples propiedades (release clause). <strong>Package</strong>: Incluye propiedad personal. <strong>Wraparound</strong>: Nueva hipoteca que envuelve la existente. <strong>Reverse</strong>: Prestamista paga al dueño (62+ años)." },
+    { cat:"Propiedad", q:"¿Métodos de descripción legal de propiedades?", a:"1. <strong>Metes and Bounds</strong>: Punto de inicio (POB) + medidas y ángulos. 2. <strong>Government Survey</strong> (Rectangular): Townships, Ranges, Sections (640 acres). 3. <strong>Plat Map</strong> (Lot and Block): Lote, bloque, subdivisión — más común en áreas urbanas." },
+    { cat:"Divulgaciones", q:"¿Qué es FIRPTA?", a:"<strong>Foreign Investment in Real Property Tax Act</strong>. Retención del <strong>15%</strong> del precio de venta cuando el vendedor es extranjero. El <strong>comprador</strong> es responsable de retener y remitir al IRS. Excepciones si precio ≤$300K y comprador usará como residencia." },
+    { cat:"Propiedad", q:"¿Diferencia entre derechos Riparian y Littoral?", a:"<strong>Riparian</strong>: Propiedades adyacentes a <strong>agua corriente</strong> (ríos, arroyos). <strong>Littoral</strong>: Propiedades adyacentes a <strong>agua estancada/costera</strong> (lagos, océano). Ambos tienen derecho de uso razonable. La tierra ganada por depósito natural = <strong>accretion/alluvion</strong>." },
+    { cat:"Financiamiento", q:"¿Qué es un Deficiency Judgment?", a:"Cuando el producto de la <strong>venta por ejecución hipotecaria</strong> no cubre la deuda, el prestamista puede obtener un <strong>juicio por deficiencia</strong> contra el prestatario por el saldo restante. En FL, el proceso de foreclosure es <strong>judicial</strong> (requiere corte)." },
+    { cat:"Licencia", q:"¿Requisitos del curso post-licencia (Post-License)?", a:"Sales Associates: <strong>45 horas</strong> antes de la <strong>primera renovación</strong>. Brokers: <strong>60 horas</strong> antes de la primera renovación. Si no se completa → licencia se vuelve <strong>null and void</strong> (no solo inactiva)." },
+    { cat:"Impuestos", q:"¿Qué es un Special Assessment?", a:"Impuesto especial a propiedades que se <strong>benefician directamente</strong> de una mejora pública (aceras, alcantarillado, alumbrado). Solo pagan los propietarios beneficiados, <strong>no todos los contribuyentes</strong>." },
+    { cat:"Cierre", q:"¿Qué es Title Insurance y quién la paga en Florida?", a:"Protege contra <strong>defectos ocultos en el título</strong> (liens, errores). <strong>Owner's Policy</strong>: Protege al comprador. <strong>Lender's Policy</strong>: Protege al prestamista (obligatoria). En FL, costumbre varía por condado: en <strong>Miami-Dade/Broward</strong> generalmente paga el <strong>vendedor</strong>." },
+
     // ── TRICKY EXAM QUESTIONS ──
     { cat:"Financiamiento", q:"TRICKY: ¿Los Discount Points se calculan sobre el precio de venta o el monto del préstamo?", a:"Siempre sobre el <strong>monto del préstamo (loan amount)</strong>, NUNCA sobre el precio de venta. 1 punto = <strong>1%</strong> del préstamo." },
     { cat:"Contratos", q:"TRICKY: ¿Cuál es la diferencia entre Statute of Frauds y Statute of Limitations?", a:"<strong>Statute of Frauds</strong>: Exige contratos <strong>por escrito</strong> para ser ejecutables. <strong>Statute of Limitations</strong>: Plazos para demandar — <strong>5 años</strong> contratos escritos, <strong>4 años</strong> contratos orales." },
@@ -464,6 +477,7 @@ let deck = [...ALL_CARDS];
 let idx = 0;
 let scores = { know:0, review:0, wrong:0 };
 let marked = new Set();
+let knownSet = new Set();
 let activeCategory = "Todas";
 
 const categories = ["Todas", ...new Set(ALL_CARDS.map(c => c.cat))];
@@ -481,7 +495,7 @@ function filterByCategory(cat) {
     document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.textContent === cat));
     document.getElementById('modeLabel').textContent = cat;
     deck = cat === "Todas" ? [...ALL_CARDS] : ALL_CARDS.filter(c => c.cat === cat);
-    idx = 0; marked.clear();
+    idx = 0; marked.clear(); knownSet.clear();
     scores = { know:0, review:0, wrong:0 };
     render();
 }
@@ -513,7 +527,7 @@ function prevCard() { if (!deck.length) return; idx = (idx - 1 + deck.length) % 
 function markCard(type) {
     if (!deck.length || marked.has(idx)) { nextCard(); return; }
     marked.add(idx);
-    if (type === 'know') scores.know++; else scores.wrong++;
+    if (type === 'know') { scores.know++; knownSet.add(idx); } else scores.wrong++;
     render(); setTimeout(nextCard, 250);
 }
 function shuffleDeck() {
@@ -521,10 +535,17 @@ function shuffleDeck() {
         const j = Math.floor(Math.random() * (i + 1));
         [deck[i], deck[j]] = [deck[j], deck[i]];
     }
-    idx = 0; marked.clear(); scores = { know:0, review:0, wrong:0 }; render();
+    idx = 0; marked.clear(); knownSet.clear(); scores = { know:0, review:0, wrong:0 }; render();
 }
-function resetProgress() { idx = 0; marked.clear(); scores = { know:0, review:0, wrong:0 }; filterByCategory(activeCategory); saveProgress(); }
-function showOnlyWrong() { idx = 0; marked.clear(); scores = { know:0, review:0, wrong:0 }; render(); }
+function resetProgress() { idx = 0; marked.clear(); knownSet.clear(); scores = { know:0, review:0, wrong:0 }; filterByCategory(activeCategory); saveProgress(); }
+function showOnlyWrong() {
+    const wrongCards = deck.filter((c, i) => marked.has(i) && !knownSet.has(i));
+    if (!wrongCards.length) { alert('No hay tarjetas marcadas como error. Marca algunas con ✗ primero.'); return; }
+    deck = wrongCards;
+    idx = 0; marked.clear(); knownSet.clear(); scores = { know:0, review:0, wrong:0 };
+    document.getElementById('modeLabel').textContent = '🔴 Errores';
+    render();
+}
 
 /* ── LOGIN & PERSISTENCE ─────────────── */
 let currentUser = null;
