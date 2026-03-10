@@ -814,7 +814,17 @@ function readAloud(btn) {
         alert("Tu navegador no soporta lectura de texto a voz.");
         return;
     }
+    
+    // Si ya está hablando, lo detenemos y restauramos el botón (funciona como Toggle)
+    if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+        btn.innerHTML = '🔊 Leer';
+        return;
+    }
+
+    // Por seguridad, cancelamos cualquier cosa pendiente
     window.speechSynthesis.cancel();
+
     const q = btn.getAttribute('data-q');
     const opts = btn.getAttribute('data-opts');
     
@@ -831,6 +841,17 @@ function readAloud(btn) {
     
     let bestVoice = getBestVoice(langContext);
     if (bestVoice) utterance.voice = bestVoice;
+
+    // Cambiar texto a detener mientras lee
+    btn.innerHTML = '⏹️ Detener';
+
+    // Cuando termina de hablar o se cancela, volver al botón original
+    utterance.onend = function() {
+        btn.innerHTML = '🔊 Leer';
+    };
+    utterance.onerror = function() {
+        btn.innerHTML = '🔊 Leer';
+    };
 
     window.speechSynthesis.speak(utterance);
 }
