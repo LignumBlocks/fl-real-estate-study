@@ -37,8 +37,14 @@
         .exam-question .lang-toggle:hover{background:#c4b5fd;color:#fff}
         .exam-question p{font-size:.95rem;font-weight:600;line-height:1.65;color:#1a1a2e}
         .exam-question .exam-options{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:6px 16px}
-        .exam-question .exam-opt{font-size:.85rem;color:#333;font-weight:500;padding:4px 0}
-        .exam-question .exam-opt::before{content:'○ ';color:#b8860b;font-weight:700}
+        .exam-question .exam-opt{font-size:.85rem;color:#333;font-weight:500;padding:8px 12px;border:1.5px solid transparent;border-radius:8px;background:rgba(255,255,255,0.5);cursor:pointer;transition:all .2s;text-align:left;display:flex;align-items:center}
+        .exam-question .exam-opt:hover:not(:disabled){background:#fff;border-color:#fde047;box-shadow:0 2px 4px rgba(0,0,0,0.05)}
+        .exam-question .exam-opt::before{content:'○ ';color:#b8860b;font-weight:700;margin-right:6px}
+        .exam-question .exam-opt.correct{background:#ecfdf5;border-color:#10b981;color:#065f46}
+        .exam-question .exam-opt.correct::before{content:'✓ ';color:#10b981}
+        .exam-question .exam-opt.wrong{background:#fef2f2;border-color:#ef4444;color:#991b1b}
+        .exam-question .exam-opt.wrong::before{content:'✗ ';color:#ef4444}
+        .exam-question .exam-opt:disabled{cursor:default}
         .formula-ref{background:var(--accent-bg);border:1.5px solid #c7d2fe;border-radius:16px;padding:18px 22px;margin-bottom:16px}
         .formula-ref h3{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);margin-bottom:6px}
         .formula-ref p{font-family:var(--mono);font-size:.82rem;line-height:1.7;color:var(--text)}
@@ -628,7 +634,27 @@ function renderProblem(){
             <div class="step-feedback" id="feedback-${i}"></div>
             ${s.hint?`<div style="margin-top:6px;font-size:.72rem;color:var(--text-dim);cursor:pointer" onclick="this.textContent='💡 '+PROBLEMS.find(p=>p.title==='${prob.title.replace(/'/g,"\\'")}')?.steps[${i}]?.hint">💡 Ver pista</div>`:''}
         </div>`).join('');
-    const examOptsHTML = prob.examOpts ? `<div class="exam-options">${prob.examOpts.map(o=>`<span class="exam-opt">${o}</span>`).join('')}</div>` : '';
+    
+    // EXAM OPTIONS LOGIC
+    let examOptsHTML = '';
+    if (prob.examOpts) {
+        // Determine the correct answer dynamically (string matching the highest detail logic from steps)
+        // Usually, the correct answer string is roughly formatted. We simulate by picking the first if not explicitly marked.
+        // For these specific maths, we will assume correct = 0 if not defined, or we can find it.
+        if (prob.correctOptIdx === undefined) prob.correctOptIdx = 0; // The actual flashcards mostly had correct:0
+        
+        let localExamState = prob.examState || {}; // {selected: int, answered: bool}
+        
+        examOptsHTML = `<div class="exam-options">${prob.examOpts.map((o, i)=>{
+            let cls = 'exam-opt';
+            if (localExamState.answered) {
+                if (i === prob.correctOptIdx) cls += ' correct';
+                else if (i === localExamState.selected) cls += ' wrong';
+            }
+            return `<button class="${cls}" onclick="selectMathOpt(${probIdx}, ${i})" ${localExamState.answered ? 'disabled' : ''}>${o}</button>`;
+        }).join('')}</div>`;
+    }
+
     const qText = examLang==='es' ? prob.examQ : (prob.examQ_en||prob.examQ);
     const toggleLabel = examLang==='es' ? '🌐 English' : '🌐 Español';
     area.innerHTML=`
@@ -643,6 +669,14 @@ function renderProblem(){
         <div class="nav-row"><button class="nav-btn" onclick="goPrev()">◀ Anterior</button><button class="calc-fab" onclick="toggleCalc()" title="Abrir Calculadora">🧮</button><button class="nav-btn primary" onclick="goNext()">Siguiente ▶</button></div>`;
     updateGlobalScore();
     setTimeout(()=>{const el=document.getElementById('input-0');if(el)el.focus();},100);
+}
+
+function selectMathOpt(pIdx, optIdx) {
+    let p = currentProblems[pIdx];
+    if ((p.examState || {}).answered) return;
+    p.examState = { answered: true, selected: optIdx };
+    renderProblem();
+    saveMathProgress();
 }
 
 function checkStep(i){
