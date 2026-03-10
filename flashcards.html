@@ -819,11 +819,12 @@ function showResults() {
 
 function selectAnswer(selected) {
     const isFirstTime = !answered.has(idx);
-    const prevSelected = deck[idx]._selected;
+    const card = deck[idx];
+    const prevSelected = card._selected;
     
-    // If they change their answer, we revert their old stats
+    // If they change their answer, we revert the old stats before applying new ones
     if (!isFirstTime && prevSelected !== undefined) {
-        if (prevSelected === deck[idx].correct) {
+        if (prevSelected === card.correct) {
             stats.correct--;
         } else {
             stats.wrong--;
@@ -831,11 +832,11 @@ function selectAnswer(selected) {
     }
 
     answered.add(idx);
-    deck[idx]._selected = selected;
+    card._selected = selected;
 
-    if (selected === deck[idx].correct) {
+    if (selected === card.correct) {
         stats.correct++;
-        wrongSet.delete(idx); // Clear from wrongs if they corrected it
+        wrongSet.delete(idx); 
     } else {
         stats.wrong++;
         wrongSet.add(idx);
@@ -1009,8 +1010,8 @@ function saveProgress() {
         cat: activeCategory, 
         answered: [...answered], 
         wrongSet: [...wrongSet],
-        selectedOpts: deck.map(c => c._selected),
-        savedDeck: deck.map(c => ({ q: c.q, opts: c.opts, correct: c.correct }))
+        // Save question text + selected index to rebuild state reliably
+        stateMap: deck.map(c => ({ q: c.q, sel: c._selected, opts: c.opts, correct: c.correct }))
     };
     localStorage.setItem('fl_flash_' + currentUser, JSON.stringify(data));
 }
@@ -1026,14 +1027,22 @@ function loadProgress() {
             document.getElementById('modeLabel').textContent = data.cat;
         }
 
-        if (data.savedDeck && data.savedDeck.length > 0) {
-            let baseArray = data.cat === "Todas" ? [...ALL_CARDS] : ALL_CARDS.filter(c => c.cat === data.cat);
-            deck = baseArray.map((c, i) => {
-                let saved = data.savedDeck[i];
-                return saved ? { ...c, q: saved.q, opts: saved.opts, correct: saved.correct } : c;
+        if (data.stateMap && data.stateMap.length > 0) {
+            // REBUILD DECK FROM MASTER DATA TO PREVENT TIP/Q MISMATCH
+            deck = data.stateMap.map(savedItem => {
+                // Find the original master card by matching the question text perfectly
+                const master = ALL_CARDS.find(m => m.q === savedItem.q);
+                if (master) {
+                    return {
+                        ...master,
+                        opts: savedItem.opts, // Use the shuffled opts from the save
+                        correct: savedItem.correct, // Use the correct index relative to these opts
+                        _selected: savedItem.sel
+                    };
+                }
+                // Fallback (should not happen if data is clean)
+                return { ...savedItem, _selected: savedItem.sel };
             });
-        } else {
-             deck = activeCategory === "Todas" ? deck : deck.filter(c => c.cat === activeCategory);
         }
 
         stats = data.stats || { correct: 0, wrong: 0 };
@@ -1041,13 +1050,10 @@ function loadProgress() {
         answered = new Set(data.answered || []);
         wrongSet = new Set(data.wrongSet || []);
         
-        // Restore selected options
-        if (data.selectedOpts && data.selectedOpts.length === deck.length) {
-            deck.forEach((c, i) => { c._selected = data.selectedOpts[i]; });
-        }
-        
         render();
-    } catch (e) {}
+    } catch (e) {
+        console.error("Error loading progress:", e);
+    }
 }
 window.addEventListener('beforeunload', saveProgress);
 
