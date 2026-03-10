@@ -145,9 +145,11 @@
     <div class="login-box">
         <h2>📝 FL Real Estate</h2>
         <p>Ingresa tu nombre y crea una contraseña para guardar tu progreso de forma segura en este dispositivo.</p>
-        <input id="loginInput" placeholder="Tu nombre..." autocomplete="username">
-        <input id="loginPass" type="password" placeholder="Tu contraseña..." autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
-        <button onclick="doLogin()">Comenzar Simulacro →</button>
+        <form onsubmit="event.preventDefault(); doLogin();">
+            <input id="loginInput" name="username" placeholder="Tu nombre..." autocomplete="username" required>
+            <input id="loginPass" name="password" type="password" placeholder="Tu contraseña..." autocomplete="current-password" required>
+            <button type="submit">Comenzar Simulacro →</button>
+        </form>
     </div>
 </div>
 
@@ -1064,7 +1066,11 @@ window.addEventListener('beforeunload', saveProgress);
     const saved = localStorage.getItem('fl_user');
     if (saved) {
         document.getElementById('loginInput').value = saved;
-        doLogin();
+        const savedPass = localStorage.getItem('fl_pass_' + saved);
+        if (savedPass) {
+            document.getElementById('loginPass').value = savedPass;
+            doLogin();
+        }
     }
 })();
 
