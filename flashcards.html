@@ -125,9 +125,21 @@
     <button class="action-btn" onclick="shuffleDeck()">🔀 Mezclar</button>
     <button class="action-btn" onclick="resetProgress()">↺ Reiniciar</button>
     <button class="action-btn" onclick="showOnlyWrong()">🔴 Solo errores</button>
+    <button class="action-btn" style="background:var(--accent);color:#fff" onclick="showErrorSummary()">📊 Ver Resumen Final</button>
 </div>
 
 <div class="key-hint">⌨️  ← → navegar · 1-4 seleccionar respuesta · N siguiente</div>
+
+<div class="login-overlay" id="summaryOverlay" style="display:none; align-items:flex-start; padding-top:40px; overflow-y:auto;">
+    <div class="login-box" style="max-width:800px; text-align:left; padding:30px; margin-bottom:40px; box-shadow: 0 10px 40px rgba(0,0,0,0.5);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <h2 style="margin:0; font-size:1.4rem;">📊 Resumen Psicológico de Fallos</h2>
+            <button onclick="document.getElementById('summaryOverlay').style.display='none'" style="background:none; border:none; color:var(--text-dim); width:auto; padding:5px 10px; font-size:1.2rem; cursor:pointer;">✕</button>
+        </div>
+        <p style="margin-bottom:20px; font-weight:500; color:var(--text-2);">Este análisis desglosa <em>por qué</em> te equivocaste, enfocando tu mente en el camino correcto para el próximo intento.</p>
+        <div id="summaryContent" style="display:flex; flex-direction:column; gap:20px;"></div>
+    </div>
+</div>
 
 <div class="login-overlay" id="loginOverlay">
     <div class="login-box">
@@ -780,8 +792,11 @@ function showResults() {
             
             <div style="display:flex; flex-direction:column; gap: 16px; max-width: 400px; margin: 0 auto; margin-top: 30px;">
                 ${wrong > 0 ? `
+                <button class="nav-btn primary" onclick="showErrorSummary()" style="width:100%; justify-content:center; background:var(--accent); border-color:var(--accent);">
+                    📊 Ver Resumen de Errores
+                </button>
                 <button class="nav-btn primary" onclick="showOnlyWrong()" style="width:100%; justify-content:center; background:var(--danger); border-color:var(--danger);">
-                    🔴 Repasar solo mis errores (${wrong})
+                    🔴 Repasar mis errores (${wrong})
                 </button>` : ''}
                 <button class="nav-btn primary" onclick="resetProgress()" style="width:100%; justify-content:center; background:var(--primary); border-color:var(--border-color);">
                     🔀 Nuevo Examen (Revuelto y Variado)
@@ -804,6 +819,55 @@ function selectAnswer(selected) {
     }
     render();
     saveProgress();
+}
+
+const psycTips = [
+    "Al elegir esta opción, es muy probable que tu mente haya asociado impulsivamente un término similar o caído en un distractor clásico. Florida evalúa estas sutilezas, así que reenfoca tu regla general.",
+    "Esta es una respuesta 'trampa' muy común. Suele elegirse por leer rápido una palabra clave que invierte el sentido de la ley. La ruta correcta requiere pausar y detectar esa palabra clave.",
+    "Elegir esto indica que quizás aplicaste una excepción incorrecta o mezclaste dos leyes distintas en tu memoria. Despeja el concepto y quédate con la regla directa."
+];
+
+function showErrorSummary() {
+    const content = document.getElementById('summaryContent');
+    content.innerHTML = '';
+    let hasErrors = false;
+    
+    deck.forEach((card, i) => {
+        if (wrongSet.has(i)) {
+            hasErrors = true;
+            const userOptIdx = card._selected;
+            const wrongText = userOptIdx !== undefined ? card.opts[userOptIdx] : "No respondiste / Saltada";
+            const rightText = card.opts[card.correct];
+            const pt = psycTips[Math.floor(Math.random() * psycTips.length)];
+            
+            content.innerHTML += `
+                <div style="padding:16px; border:1px solid var(--red-border); border-radius:12px; background:var(--surface);">
+                    <div style="font-weight:700; color:var(--text); margin-bottom:12px;">Q: ${card.q}</div>
+                    
+                    <div style="background:var(--red-bg); padding:10px 14px; border-radius:8px; margin-bottom:10px;">
+                        <span style="color:var(--red); font-weight:700; font-size:0.85rem; text-transform:uppercase;">❌ Desviación Conceptual:</span><br>
+                        <span style="font-size:0.9rem; font-weight:500;">"${wrongText}"</span>
+                        <div style="margin-top:6px; font-size:0.8rem; color:#991b1b;"><em>Diagnóstico: ${pt}</em></div>
+                    </div>
+
+                    <div style="background:var(--green-bg); padding:10px 14px; border-radius:8px; margin-bottom:12px;">
+                        <span style="color:var(--green); font-weight:700; font-size:0.85rem; text-transform:uppercase;">✅ Enrutamiento Correcto:</span><br>
+                        <span style="font-size:0.9rem; font-weight:500;">"${rightText}"</span>
+                    </div>
+                    
+                    <div style="background:var(--surface-2); border-left:4px solid var(--accent); padding:12px 16px; border-radius:8px; font-size:0.85rem; color:var(--text-2);">
+                        <strong>💡 La explicación base:</strong><br>${card.tip}
+                    </div>
+                </div>
+            `;
+        }
+    });
+
+    if(!hasErrors) {
+        content.innerHTML = '<div style="text-align:center; padding:40px; font-weight:700; color:var(--text-dim);">¡No tienes errores registrados en esta sesión! Tu enfoque es perfecto. 🎉</div>';
+    }
+
+    document.getElementById('summaryOverlay').style.display = 'flex';
 }
 
 function updateScore() {
