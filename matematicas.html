@@ -89,6 +89,10 @@
         .nav-btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
         .nav-btn.primary:hover{box-shadow:0 4px 16px rgba(79,70,229,.25)}
 
+        .action-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;padding:0 20px 30px}
+        .action-btn{padding:10px 16px;border-radius:10px;border:1.5px solid var(--border);background:var(--surface);color:var(--text-2);font-weight:600;font-size:.85rem;cursor:pointer;transition:all .2s;}
+        .action-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg);}
+
         /* ─── DRAGGABLE CALCULATOR ─────────────────── */
         .calc-window{display:none;position:fixed;top:120px;right:40px;width:300px;background:var(--surface);border-radius:20px;box-shadow:0 8px 40px rgba(0,0,0,.15);overflow:hidden;z-index:9999;border:1px solid var(--border);resize:none}
         .calc-window.open{display:block}
@@ -150,6 +154,13 @@
 </div>
 
 <div class="container" id="problemArea"></div>
+
+<div class="action-row">
+    <button class="action-btn" onclick="shuffleMathDeck()">🔀 Mezclar</button>
+    <button class="action-btn" onclick="resetMathProgress()">↺ Reiniciar</button>
+    <button class="action-btn" onclick="showOnlyWrongMath()">🔴 Solo errores</button>
+    <button class="action-btn" style="background:var(--accent);color:#fff" onclick="showMathSummary()">📊 Ver Resumen Final</button>
+</div>
 
 <div class="login-overlay" id="summaryOverlay" style="display:none; align-items:flex-start; padding-top:40px; overflow-y:auto;">
     <div class="login-box" style="max-width:800px; text-align:left; padding:30px; margin-bottom:40px; box-shadow: 0 10px 40px rgba(0,0,0,0.5);">
@@ -686,7 +697,13 @@ function renderProblem(){
             <div class="steps">${stepsHTML}</div>
             <div class="result-banner" id="resultBanner"><h3>🎉 ¡Problema Completado!</h3><p id="resultText">Todos los pasos correctos.</p></div>
         </div>
-        <div class="nav-row"><button class="nav-btn" onclick="goPrev()">◀ Anterior</button><button class="calc-fab" onclick="toggleCalc()" title="Abrir Calculadora">🧮</button><button class="nav-btn primary" onclick="goNext()">Siguiente ▶</button></div>`;
+        <div class="nav-row">
+            <button class="nav-btn" onclick="goPrev()" ${probIdx === 0 ? 'style="opacity:0.5;pointer-events:none;"' : ''}>◀ Anterior</button>
+            <button class="calc-fab" onclick="toggleCalc()" title="Abrir Calculadora">🧮</button>
+            ${probIdx < currentProblems.length - 1 
+                ? '<button class="nav-btn primary" onclick="goNext()">Siguiente ▶</button>' 
+                : '<button class="nav-btn primary" style="background:var(--green);border-color:var(--green);" onclick="showResults()">✅ Ver Resultados</button>'}
+        </div>`;
     updateGlobalScore();
     setTimeout(()=>{const el=document.getElementById('input-0');if(el)el.focus();},100);
 }
@@ -778,6 +795,92 @@ function showMathSummary() {
     }
 
     document.getElementById('summaryOverlay').style.display = 'flex';
+}
+
+function showResults() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const area = document.getElementById('problemArea');
+    const total = currentProblems.length;
+    const correct = stats.correct;
+    const wrong = stats.wrong;
+    
+    area.innerHTML = `
+        <div class="problem-card" style="text-align:center; padding: 40px 20px;">
+            <h2 style="font-size:2rem; margin-bottom:10px;">📊 ¡Sesión Completada!</h2>
+            <p style="font-size:1.2rem; margin:20px 0; color:var(--text-color);">
+                Completaste correctamente <strong>${correct}</strong> de <strong>${total}</strong> ejercicios matemáticos.
+            </p>
+            ${wrong > 0 
+                ? `<p style="color:var(--danger); font-size:1.1rem; margin-bottom:20px;">Tuviste <strong>${wrong}</strong> trampas o equivocaciones seleccionadas al inicio.</p>` 
+                : `<p style="color:var(--green); font-size:1.1rem; margin-bottom:20px;">¡Excelente! Matemática pura sin errores.</p>`}
+            
+            <div style="display:flex; flex-direction:column; gap: 16px; max-width: 400px; margin: 0 auto; margin-top: 30px;">
+                ${wrong > 0 ? `
+                <button class="nav-btn primary" onclick="showMathSummary()" style="width:100%; justify-content:center; background:var(--accent); border-color:var(--accent);">
+                    📊 Ver Resumen de Errores
+                </button>
+                <button class="nav-btn primary" onclick="showOnlyWrongMath()" style="width:100%; justify-content:center; background:var(--danger); border-color:var(--danger);">
+                    🔴 Repasar mis errores (${wrong})
+                </button>` : ''}
+                <button class="nav-btn primary" onclick="resetMathProgress()" style="width:100%; justify-content:center; background:var(--primary); border-color:var(--border-color);">
+                    🔀 Nuevo Examen (Revuelto y Variado)
+                </button>
+            </div>
+        </div>
+    `;
+}
+
+function deepShuffleArr(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+}
+
+function deepShuffleMathCards(cardsArray) {
+    for (let c of cardsArray) {
+        if (!c.examOpts) continue;
+        let correctText = c.examOpts[c.correctOptIdx];
+        for (let i = c.examOpts.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [c.examOpts[i], c.examOpts[j]] = [c.examOpts[j], c.examOpts[i]];
+        }
+        c.correctOptIdx = c.examOpts.indexOf(correctText);
+    }
+}
+
+function shuffleMathDeck() {
+    deepShuffleArr(currentProblems);
+    deepShuffleMathCards(currentProblems);
+    probIdx = 0; stats = { correct: 0, wrong: 0 };
+    currentProblems.forEach(p => { delete p.examState; p.steps.forEach(s => delete s.inputVal); });
+    saveMathProgress();
+    renderProblem();
+}
+
+function resetMathProgress() {
+    currentProblems = currentCat === "Todos" ? [...PROBLEMS] : PROBLEMS.filter(c => c.cat === currentCat);
+    deepShuffleArr(currentProblems);
+    deepShuffleMathCards(currentProblems);
+    
+    probIdx = 0; stats = { correct: 0, wrong: 0 };
+    currentProblems.forEach(p => { delete p.examState; p.steps.forEach(s => delete s.inputVal); });
+    saveMathProgress();
+    renderProblem();
+}
+
+function showOnlyWrongMath() {
+    let wrongs = currentProblems.filter((p) => p.examState && p.examState.answered && p.examState.selected !== p.correctOptIdx);
+    if (!wrongs.length) { alert('No hay preguntas incorrectas aún o no has finalizado los tests.'); return; }
+    
+    deepShuffleArr(wrongs);
+    deepShuffleMathCards(wrongs);
+    
+    currentProblems = wrongs;
+    probIdx = 0; stats = { correct: 0, wrong: 0 };
+    currentProblems.forEach(p => { delete p.examState; p.steps.forEach(s => delete s.inputVal); });
+    saveMathProgress();
+    renderProblem();
 }
 
 function goNext(){if(probIdx<currentProblems.length-1){window.speechSynthesis.cancel();probIdx++;renderProblem();window.scrollTo({top:0,behavior:'smooth'});}}
