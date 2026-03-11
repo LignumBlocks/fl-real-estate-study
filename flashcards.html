@@ -154,10 +154,16 @@
             <input id="loginPass" name="password" type="password" placeholder="Tu contraseña..." autocomplete="current-password" required>
             <button type="submit">Comenzar Simulacro →</button>
         </form>
+        <div style="margin-top:20px; border-top:1px solid var(--border); padding-top:14px;">
+            <p style="font-size:0.7rem; color:var(--text-dim); margin-bottom:8px;">¿Tienes problemas para ver las tarjetas? Intenta resetear el sistema (borrará tu progreso local).</p>
+            <button onclick="if(confirm('¿Seguro? Se borrará todo tu progreso local.')){localStorage.clear(); location.reload();}" style="background:var(--red-bg); color:var(--red); border:1px solid var(--red-border); padding:6px 12px; border-radius:8px; font-size:0.75rem; width:auto; cursor:pointer;">Resetear Sistema (Emergency)</button>
+        </div>
     </div>
 </div>
 
 <script>
+let examLang = 'es';
+
 const ALL_CARDS = [
     // ── CONTRATOS ──
     {cat:"Contratos",q:"Para que un contrato de bienes raíces sea válido en Florida, debe contener ciertos elementos esenciales. ¿Cuál de las siguientes opciones lista CORRECTAMENTE los 5 elementos? (COLIC)",
@@ -432,7 +438,6 @@ const ALL_CARDS = [
      opts:["Estima el precio de listado, pero NO es una tasación (appraisal)","Es legalmente equivalente a una tasación","Puede usarse para obtener financiamiento hipotecario","Requiere certificación de tasador"],correct:0,
      tip:"CMA = estima <strong>precio de listado</strong> con ventas comparables. <strong>No es tasación</strong>. Solo tasadores con licencia hacen appraisals."},
 
-    // ── LIENS COMERCIALES ──
     // ── LIENS COMERCIALES ──
     {cat:"Corretaje",q:"Un broker firma un acuerdo exclusivo para vender un almacén comercial. La venta se concreta, pero el vendedor se niega a pagar la comisión acordada. Bajo el Commercial Real Estate Sales Commission Lien Act, ¿a qué tiene derecho legalmente el broker para asegurar su pago?",
      q_en:"A broker signs an exclusive agreement to sell a commercial warehouse. The sale goes through, but the seller refuses to pay the agreed-upon commission. Under the Commercial Real Estate Sales Commission Lien Act, what is the broker legally entitled to do to secure payment?",
@@ -769,6 +774,77 @@ const ALL_CARDS = [
     {cat:"Corretaje",q:"TRICKY: En la regla 1-3 de depósito de escrow, ¿cuántos días tiene el sales associate para entregar el depósito al broker?",
      opts:["1 día hábil","3 días hábiles","24 horas naturales","Inmediatamente"],correct:0,
      tip:"Asociado: <strong>1 día hábil</strong> para entregar al broker. Broker: hasta el <strong>3er día hábil</strong> desde que el asociado lo recibió para depositarlo."},
+
+    // ── AMPLIACIÓN EXAMEN FINAL 2026 ──
+    {cat:"Corretaje",q:"Un corredor lista un edificio de oficinas comerciales para la venta. Se firma el acuerdo de comisión. La propiedad se vende, pero el vendedor no paga nada. El corredor registra un gravamen (lien). ¿Dónde se registra el gravamen y a qué se dirige?",
+     q_en:"A broker lists a commercial office building for sale. The commission agreement is signed. The property sells, but the seller pays nothing. The broker files a lien. Where is the lien recorded and what does it target?",
+     opts:["Se registra en los registros públicos del condado y se dirige a los ingresos netos (net proceeds) del vendedor","Se registra en los registros públicos y se adhiere directamente al título de la propiedad","Se registra en la FREC y se dirige a la licencia del vendedor","Se registra en el tribunal de circuito y se dirige a la cuenta bancaria del vendedor"],correct:0,
+     tip:"<strong>Commercial Sales Commission Lien Act:</strong> solo aplica a <strong>ingresos netos (net proceeds)</strong> de la venta (se considera propiedad personal). <strong>NO se adhiere al inmueble físico</strong>."},
+
+    {cat:"Divulgaciones",q:"Un mandante extranjero de un 'país de preocupación' (ej. China) desea comprar una gran granja agrícola en Florida. Según la ley actual (SB 264), ¿está esto permitido?",
+     q_en:"A foreign principal from a 'country of concern' (e.g., China) wants to buy a large farm in Florida. Under current law (SB 264), is this permitted?",
+     opts:["No, los mandantes extranjeros de países de preocupación tienen prohibido comprar tierras agrícolas en Florida","Sí, siempre que la granja tenga menos de 100 acres","Sí, pero deben pagar un impuesto adicional del 25% al estado","Solo si el vendedor es un ciudadano de EE. UU. nacido en Florida"],correct:0,
+     tip:"<strong>Florida SB 264 (2023):</strong> Restringe severamente la compra de <strong>tierras agrícolas</strong> y propiedades cerca de infraestructura crítica por parte de extranjeros de 'países de preocupación'."},
+
+    {cat:"Divulgaciones",q:"Un inversionista está comprando una antigua estación de servicio. Para evitar la responsabilidad futura por contaminación que no causaron, ¿cuál es el paso de 'diligencia debida' más importante bajo CERCLA?",
+     q_en:"An investor is buying an old gas station. To avoid future liability for contamination they didn't cause, what is the most important 'due diligence' step under CERCLA?",
+     opts:["Realizar una Evaluación Ambiental del Sitio Fase I (Phase I ESA)","Comprar una póliza de seguro de título estándar de dueño","Obtener una declaración jurada del vendedor diciendo que el sitio está limpio","Registrar la propiedad como 'Brownfield preservation'"],correct:0,
+     tip:"<strong>Phase I ESA:</strong> Es la diligencia debida mínima necesaria para establecer la defensa legal de <strong>'propietario inocente'</strong> ante el gobierno federal (CERCLA/SARA)."},
+
+    {cat:"Corretaje",q:"Un corredor recibe demandas conflictivas por un depósito de escrow. Notifican a la FREC dentro de los 15 días hábiles. ¿Cuántos días totales desde el inicio del conflicto tienen para implementar realmente un procedimiento de liquidación (MALE)?",
+     q_en:"A broker receives conflicting demands for an escrow deposit. They notify the FREC within 15 business days. How many total days from the start of the conflict do they have to actually implement a settlement procedure (MALE)?",
+     opts:["30 días hábiles","15 días hábiles","45 días calendario","60 días hábiles"],correct:0,
+     tip:"<strong>Regla 15/30:</strong> El broker tiene <strong>15 días hábiles</strong> para notificar a la FREC y un total de <strong>30 días hábiles</strong> (desde el estallido de la disputa) para iniciar formalmente uno de los 4 remedios MALE."},
+
+    {cat:"Corretaje",q:"Un administrador de propiedades (Property Manager) maneja varias unidades de alquiler para un dueño ausente. ¿Por cuánto tiempo debe conservar los registros originales de los contratos de alquiler y los fondos?",
+     q_en:"A property manager handles several rental units for an absentee owner. How long must they keep the original records of the rental agreements and funds?",
+     opts:["5 años","2 años","7 años","3 años"],correct:0,
+     tip:"Todos los documentos de corretaje, incluyendo <strong>Property Management</strong> y depósitos de escrow, deben conservarse por un mínimo de <strong>5 años</strong> (incluyendo archivos electrónicos)."},
+
+    {cat:"Propiedad",q:"Una residente de Florida es viuda y tiene su residencia principal protegida por Homestead. Además de la exención estándar de $50,000, ella tiene derecho a una exención adicional por su estatus de viudez de:",
+     q_en:"A Florida resident is a widow and has her primary residence homesteaded. In addition to the standard $50,000 exemption, she is entitled to an additional exemption for her widow status of:",
+     opts:["$500 adicionales","$5,000 adicionales","$1,000 adicionales","$25,000 acumulativos"],correct:0,
+     tip:"Exenciones adicionales: <strong>Viudos/as, Ciegos y Discapacitados permanentes</strong> (no veteranos) califican para un extra de <strong>$500</strong> cada uno en su valor tasado."},
+
+    {cat:"Uso de Suelo",q:"El propietario de una propiedad desea construir una terraza que violaría ligeramente los requisitos de retiro (setback) de la ciudad debido a la forma triangular irregular de su lote. Debería solicitar un(a):",
+     q_en:"A property owner wants to build a deck that would slightly violate the city's setback requirements due to the irregular triangular shape of their lot. They should apply for a:",
+     opts:["Variance (Variación o Variancia)","Special Exception (Excepción especial)","Nonconforming Use (Uso no conforme)","Rezoning (Rezonificación)"],correct:0,
+     tip:"<strong>Variance:</strong> Se otorga cuando una norma de zonificación causa una <strong>dificultad (hardship)</strong> innecesaria debido a las características físicas del terreno mismo."},
+
+    {cat:"Impuestos",q:"Los propietarios en Florida reciben un aviso informativo cada agosto que muestra el valor tasado de su propiedad y las tasas de impuestos propuestas por las autoridades. Este aviso se conoce como:",
+     q_en:"Florida homeowners receive an informational notice every August showing their property's assessed value and the tax rates proposed by the authorities. This notice is known as:",
+     opts:["TRIM Notice (Truth in Millage)","Tax Certificate","Ad Valorem Bill","Delinquent Tax Notice"],correct:0,
+     tip:"<strong>TRIM Notice:</strong> Es el aviso previo que el tasador del condado envía para informar sobre impuestos proyectados (antes de la factura oficial de noviembre)."},
+
+    {cat:"Tasación",q:"Un tasador está valorando un negocio con problemas financieros graves que se ve obligado a vender todos sus activos rápidamente en lugar de seguir operando. ¿Qué valor es más probable que estén calculando?",
+     q_en:"An appraiser is valuing a business with severe financial problems that is forced to sell all its assets quickly instead of continuing to operate. Which value are they most likely calculating?",
+     opts:["Liquidation Value (Valor de liquidación)","Going Concern Value (Valor de negocio en marcha)","Reproduction Cost","Assessed Value"],correct:0,
+     tip:"<strong>Liquidation Value:</strong> Es el valor neto que queda tras vender los activos de un negocio que deja de funcionar (opuesto al Going Concern)."},
+
+    {cat:"Propiedad",q:"Cuatro amigos compran una propiedad juntos y especifican que desean el derecho de supervivencia (Right of Survivorship). Si uno de ellos muere, ¿qué ocurre legalmente con su parte de la propiedad?",
+     q_en:"Four friends buy a property together and specify they want the Right of Survivorship. If one of them dies, what legally happens to their share of the property?",
+     opts:["Su parte se divide equitativamente entre los tres sobrevivientes","Su parte pasa a sus herederos según su testamento","La propiedad se convierte en Tenancy in Common automáticamente","El estado confisca esa parte (Escheat)"],correct:0,
+     tip:"<strong>Joint Tenancy:</strong> El elemento clave es el <strong>Derecho de Supervivencia</strong>. La parte del fallecido se reparte entre los demás dueños vivos de forma inmediata."},
+
+    {cat:"Corretaje",q:"¿Qué información NO es obligatoria por ley en el letrero principal de la oficina (Office Sign) de un corredor de bienes raíces en Florida?",
+     q_en:"What information is NOT mandatory by law on the main office sign of a real estate broker in Florida?",
+     opts:["El número de teléfono de la oficina","Nombre del Broker (o nombre comercial/Trade Name)","Las palabras 'Licensed Real Estate Broker'","El nombre de los asociados (si se incluyen)"],correct:0,
+     tip:"Requisitos: 1) <strong>Nombre legal/Trade Name</strong>, 2) Al menos un corredor, 3) <strong>'Licensed Real Estate Broker'</strong>. El teléfono o dirección NO son obligatorios en el letrero exterior."},
+
+    {cat:"Licencia",q:"Si un vendedor asociado decide cambiar de empleador (Broker) y comienza a trabajar en la nueva firma sin notificar al DBPR dentro de los 10 días requeridos, se dice que su licencia:",
+     q_en:"If a sales associate decides to change employers (Broker) and begins working at the new firm without notifying the DBPR within the required 10 days, their license is said to be:",
+     opts:["Ceases to be in force (Cesa de estar vigente)","Involuntary Inactive","Null and Void","Canceled"],correct:0,
+     tip:"<strong>Cease to be in force:</strong> La licencia deja de ser válida para operar hasta que se notifique el cambio de dirección o empleador (Plazo: <strong>10 días</strong>)."},
+
+    {cat:"Corretaje",q:"¿Bajo qué condiciones puede una cuenta de depósito en garantía (Escrow) de Florida ganar intereses legales?",
+     q_en:"Under what conditions can a Florida escrow deposit account earn legal interest?",
+     opts:["Si todas las partes acuerdan por escrito quién recibirá el interés","Solo si el interés se paga directamente al DBPR","Está prohibido; el dinero de terceros nunca puede ganar interés","Si el broker es un Transaction Broker certificado"],correct:0,
+     tip:"<strong>Interest-bearing Escrow:</strong> Es legal SIEMPRE Y CUANDO haya un <strong>acuerdo escrito por todas las partes</strong> indicando a quién se le pagará el interés ganado."},
+
+    {cat:"Divulgaciones",q:"Respecto a la divulgación obligatoria del Gas Radón en Florida, ¿cuál de las siguientes afirmaciones es CORRECTA?",
+     q_en:"Regarding the mandatory Radon Gas disclosure in Florida, which of the following statements is CORRECT?",
+     opts:["La ley exige informar sobre el riesgo del gas, pero NO realizar una prueba obligatoria","El vendedor debe pagar por una prueba de radón antes de listar","Solo es obligatoria en casas con sótanos inhabitables","Solo aplica a propiedades comerciales industriales"],correct:0,
+     tip:"La ley de Florida exige que se incluya el **Radon Disclosure** en todos los contratos para informar, pero **NO obliga** legalmente a nadie a realizar una inspección o prueba de gas."},
 ];
 
 /* ─── STATE ───────────────────────────── */
@@ -786,6 +862,11 @@ function initDeck() {
         ...card,
         opts: [...card.opts] // Deep copy to prevent mutating ALL_CARDS
     }));
+
+    const validCats = ["Todas", ...new Set(ALL_CARDS.map(c => c.cat))];
+    if (!validCats.includes(activeCategory)) {
+        activeCategory = "Todas";
+    }
 
     if (activeCategory !== "Todas") {
         deck = deck.filter(c => c.cat === activeCategory);
@@ -1075,28 +1156,33 @@ document.addEventListener('keydown', e => {
 /* ── LOGIN & PERSISTENCE ─────────────── */
 let currentUser = null;
 function doLogin() {
-    const name = document.getElementById('loginInput').value.trim();
-    const pass = document.getElementById('loginPass').value.trim();
-    if (!name || !pass) {
-        alert("Por favor, ingresa tu nombre y una contraseña.");
-        return;
-    }
-    
-    // Basic verification if user exists
-    const savedPass = localStorage.getItem('fl_pass_' + name);
-    if (savedPass && savedPass !== pass) {
-        alert("Contraseña incorrecta para el usuario " + name);
-        return;
-    }
-    if (!savedPass) localStorage.setItem('fl_pass_' + name, pass);
+    try {
+        const name = document.getElementById('loginInput').value.trim();
+        const pass = document.getElementById('loginPass').value.trim();
+        if (!name || !pass) {
+            alert("Por favor, ingresa tu nombre y una contraseña.");
+            return;
+        }
+        
+        // Basic verification if user exists
+        const savedPass = localStorage.getItem('fl_pass_' + name);
+        if (savedPass && savedPass !== pass) {
+            alert("Contraseña incorrecta para el usuario " + name);
+            return;
+        }
+        if (!savedPass) localStorage.setItem('fl_pass_' + name, pass);
 
-    currentUser = name;
-    localStorage.setItem('fl_user', name);
-    document.getElementById('loginOverlay').style.display = 'none';
-    document.getElementById('userBadge').style.display = 'flex';
-    document.getElementById('userAvatar').textContent = name[0].toUpperCase();
-    document.getElementById('userName').textContent = name;
-    loadProgress();
+        currentUser = name;
+        localStorage.setItem('fl_user', name);
+        document.getElementById('loginOverlay').style.display = 'none';
+        document.getElementById('userBadge').style.display = 'flex';
+        document.getElementById('userAvatar').textContent = name[0].toUpperCase();
+        document.getElementById('userName').textContent = name;
+        loadProgress();
+    } catch (err) {
+        console.error("Login Error:", err);
+        alert("Ocurrió un error al iniciar sesión. Intenta usar el botón de 'Resetear Sistema' si el problema persiste.");
+    }
 }
 function logoutUser() {
     currentUser = null;
@@ -1133,20 +1219,30 @@ function loadProgress() {
 
         if (data.stateMap && data.stateMap.length > 0) {
             // REBUILD DECK FROM MASTER DATA TO PREVENT TIP/Q MISMATCH
-            deck = data.stateMap.map(savedItem => {
+            const rebuiltDeck = [];
+            data.stateMap.forEach(savedItem => {
                 // Find the original master card by matching the question text perfectly
                 const master = ALL_CARDS.find(m => m.q === savedItem.q);
                 if (master) {
-                    return {
+                    rebuiltDeck.push({
                         ...master,
                         opts: savedItem.opts, // Use the shuffled opts from the save
                         correct: savedItem.correct, // Use the correct index relative to these opts
                         _selected: savedItem.sel
-                    };
+                    });
+                } else {
+                    console.warn("Card not found in master list, skipping to avoid UI errors:", savedItem.q);
                 }
-                // Fallback (should not happen if data is clean)
-                return { ...savedItem, _selected: savedItem.sel };
             });
+            
+            if (rebuiltDeck.length > 0) {
+                deck = rebuiltDeck;
+            } else {
+                console.warn("Could not rebuild deck from save data. Initializing fresh deck.");
+                initDeck();
+            }
+        } else {
+            initDeck();
         }
 
         stats = data.stats || { correct: 0, wrong: 0 };
@@ -1211,7 +1307,7 @@ function toggleTheme() {
 })();
 
 /* ─── LANGUAGE TOGGLE ────────────────────── */
-let examLang = 'es';
+
 </script>
 </body>
 </html>
