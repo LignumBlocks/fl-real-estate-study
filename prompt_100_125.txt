@@ -1,0 +1,159 @@
+
+I need you to act as an expert real estate tutor who specializes in explaining complex concepts to 12-year-olds.
+I am providing you with a list of Florida Real Estate Exam multiple-choice questions (flashcards) numbered 100 to 125.
+Currently, the explanations (the "tip" field) are very schematic, rigid, and sometimes too technical. 
+
+Your task is to REWRITE JUST the "tip" for each of these questions.
+Rules for the new tips:
+1. Make the explanation feel human, warm, and highly intuitive. 
+2. Explain the fundamental logic so a 12-year-old could understand the core concept.
+3. Keep the factual accuracy 100% strictly aligned with Florida Real Estate Law.
+4. If there's an acronym or trick, you can keep it, but explain it gently.
+5. Keep it reasonably concise (2-4 sentences max), do not write essays. Use basic HTML like <strong> for emphasis if needed.
+
+Here are the cards:
+
+--- ID 100 ---
+Question: Jim, Matt y Jack fueron copropietarios de una parcela de tierra. Matt murió y su parte del terreno se distribuyó de acuerdo con su testamento como parte de la herencia que dejó a sus herederos. ¿Qué tipo de patrimonio o tenencia tenía Matt en el terreno?
+Correct Option: tenencia en común (tenancy in common)
+Old Tip (Rewrite this): <strong>Tenancy in common (Tenencia en común):</strong> Cada propietario puede dejar su participación a sus herederos directos según su testamento. (Sin derecho de supervivencia hacia Jim y Jack).
+--------------------
+
+--- ID 101 ---
+Question: ¿Con respecto a la protección de la vivienda principal contra deudas del propietario, cuál de las siguientes alternativas es INCORRECTA?
+Correct Option: Solo es afectada por gravámenes hipotecarios.
+Old Tip (Rewrite this): <strong>Respuesta: Solo es afectada por gravámenes hipotecarios.</strong> FALSO. También la pueden ejecutar (foreclose) por no pagar taxes de propiedad (Property Taxes), expensas de asociación (HOA) o tarifas de mejoras (Special Assessments) que recaen primero.
+--------------------
+
+--- ID 102 ---
+Question: En una escritura, la cláusula que contiene el nombre del otorgante y la descripción legal es la:
+Correct Option: cláusula de transferencia o de premisas
+Old Tip (Rewrite this): <strong>Cláusula de Premisas (Premises / Granting Clause):</strong> La ÚNICA requerida legalmente para la validez de la escritura. Establece los nombres de las partes operativas, la descripción de la propiedad y las palabras de transferencia (granting words).
+--------------------
+
+--- ID 103 ---
+Question: El tipo de escritura que NO proporciona garantías sobre la calidad del título y es frecuentemente usada para limpiar 'nubes en el título' es:
+Correct Option: Escritura de Finiquito (Quitclaim Deed)
+Old Tip (Rewrite this): <strong>Quitclaim (Finiquito):</strong> El otorgante renuncia a cualquier interés que tenga (si es que tiene) sin ofrecer garantías. Útil para corregir defectos menores en título (clouds on title, como cambio de nombre por divorcio).
+--------------------
+
+--- ID 104 ---
+Question: Tomar posesión física de la propiedad da qué tipo de conocimiento al mundo de su derecho legal en la propiedad?
+Correct Option: Notificación real / Aviso de Autenticidad (Actual Notice)
+Old Tip (Rewrite this): <strong>Actual notice (Aviso real):</strong> tomar posesión física, ver o escuchar algo real. <strong>Constructive notice (Aviso implícito o legal):</strong> registrar el documento oficial en los registros públicos.
+--------------------
+
+--- ID 105 ---
+Question: El registro histórico completo de todas las transferencias de la propiedad (dueños, gravámenes, juicios) se denomina:
+Correct Option: Cadena de título y Abstracto
+Old Tip (Rewrite this): <strong>Chain of title:</strong> secuencia de dueños. <strong>Abstract of title:</strong> resumen histórico completo preparado por el abogado/compañía de títulos con opinión de nubes/gravámenes.
+--------------------
+
+--- ID 106 ---
+Question: Los cuatro poderes gubernamentales sobre la propiedad se pueden recordar por el acrónimo PETE, que significa:
+Correct Option: Police power, Eminent domain, Taxation, Escheat (Confiscación)
+Old Tip (Rewrite this): <strong>PETE:</strong> <strong>P</strong>olice Power (Zonificación), <strong>E</strong>minent Domain (Expropiación justa), <strong>T</strong>axation (Impuestos), <strong>E</strong>scheat (Reversión al estado si dueño muere sin herederos).
+--------------------
+
+--- ID 107 ---
+Question: Los impuestos a la propiedad de bienes raíces y Special Assessments son gravámenes (liens):
+Correct Option: Superiores específicos (priority over all others)
+Old Tip (Rewrite this): Taxes a la propiedad y Special Assessments (impuestos por mejoras de calle/alcantarillas) son <strong>Gravámenes Superiores</strong>. Están primero en la línea de pago ante un foreclosure, seguidos de IRS, y luego por FECHA de registro/grabación.
+--------------------
+
+--- ID 108 ---
+Question: En los estados en los cuales opera la teoría del título (title theory), el prestatario o deudor (borrower):
+Correct Option: Transfiere el título de la propiedad al prestamista o a una tercera parte hasta que el préstamo sea pagado por completo.
+Old Tip (Rewrite this): <strong>Title Theory:</strong> El título legal se le confiere temporalmente (transfiere) al acreedor o intermediario hasta que se liquide la deuda por completo.
+--------------------
+
+--- ID 109 ---
+Question: El documento que sirve como evidencia de la deuda prometiendo pagar el préstamo, monto, tasa de interés, y plazos se conoce como:
+Correct Option: Pagaré (Promissory Note)
+Old Tip (Rewrite this): <strong>Pagaré (Note):</strong> El préstamo en sí (la evidencia de la obligación y la DEUDA). <strong>Hipoteca (Mortgage):</strong> El documento que GARANTIZA la deuda prendando la propiedad.
+--------------------
+
+--- ID 110 ---
+Question: Un purchase money mortgage se define como:
+Correct Option: Es el préstamo que el vendedor le hace al comprador para completar la cuota inicial o para financiar parte del precio de la propiedad.
+Old Tip (Rewrite this): <strong>Purchase Money Mortgage (PMM / Hipoteca de pago parcial):</strong> cuando el vendedor financia parcial o totalmente al comprador (Seller Financing) usando la propiedad misma como garantía.
+--------------------
+
+--- ID 111 ---
+Question: El documento legal que sirve para colocar la propiedad como garantía por una deuda se llama:
+Correct Option: hipoteca (mortgage)
+Old Tip (Rewrite this): <strong>Hipoteca (Mortgage):</strong> Es el instrumento de garantía pública. 'Hipoteca' el bien raíz como colateral o garantía de repago para respaldar la deuda.
+--------------------
+
+--- ID 112 ---
+Question: ¿Qué hipoteca contiene un pago global final gigante (balloon payment) e incluye solo intereses cada mes?
+Correct Option: Term / Straight Mortgage (Hipoteca a término)
+Old Tip (Rewrite this): En la hipoteca a término (<strong>Term mortgage</strong>) o <strong>Straight mortgage</strong>, se paga SOLO interés, y el total del principal se debe al final del plazo. Si los pagos regulares mensuales tampoco alcanzan a cancelar todo el capital, el pago final gigante se llama balloon payment (<strong>Partially Amortized</strong>).
+--------------------
+
+--- ID 113 ---
+Question: ¿Quién asegura el préstamo FHA?
+Correct Option: El FHA asegura el préstamo contra pérdidas del prestamista
+Old Tip (Rewrite this): La <strong>FHA (Federal Housing Administration) ASEGURA</strong> el préstamo de los prestamistas locales para incentivar que den préstamos (cálculo sobre Down Payment pequeño 3.5%). <strong>Cobra prima de seguro hipotecario (MIP/UFMIP).</strong>
+--------------------
+
+--- ID 114 ---
+Question: El VA (Veterans Affairs):
+Correct Option: GARANTIZA un porcentaje del préstamo si hay pérdida ('Guarantee')
+Old Tip (Rewrite this): El <strong>VA GARANTIZA</strong> una porción del préstamo. En la mayoría de casos NO proveen el dinero, lo dan los prestamistas convencionales. Generalmente permite comprar casa con <strong>cero down payment</strong> (100% financiados).
+--------------------
+
+--- ID 115 ---
+Question: Un contrato Opción u Opcional (Option Contract) para comprar a precio fijo por tiempo limitado es:
+Correct Option: Unilateral
+Old Tip (Rewrite this): <strong>Option Contract (Unilateral):</strong> El dueño (opcional) PROMETE mantener precio disponible. El comprador TIENE OPCIÓN (pero no la obligación) de comprar (él debe dar un consideration valioso por esta opción).
+--------------------
+
+--- ID 116 ---
+Question: ¿Qué ocurre automáticamente si se realiza una contraoferta (Counteroffer) sobre la oferta inicial?
+Correct Option: La oferta inicial es cancelada y rechazada
+Old Tip (Rewrite this): Una contraoferta <strong>mata permanentemente la oferta original</strong> y constituye ahora una NUEVA oferta.
+--------------------
+
+--- ID 117 ---
+Question: En el estado de liquidación (Closing Disclosure), el Earnest Money Deposit o depósito de buena fe, ¿aparece como crédito para quién?
+Correct Option: Crédito para el comprador (Credit to buyer)
+Old Tip (Rewrite this): El depósito de garantía ya fue PAGADO por el comprador, por tanto, se acredita como parte del pago total en contra de lo que debe pagar al final (<strong>Credit to Buyer</strong>, no entra en el balance del vendedor de esa misma forma directa al cierre).
+--------------------
+
+--- ID 118 ---
+Question: TRICKY: Los Discount Points se calculan sobre:
+Correct Option: El monto del PRÉSTAMO (loan amount), nunca sobre el precio de venta
+Old Tip (Rewrite this): Siempre sobre el <strong>monto del préstamo</strong>. 1 punto = <strong>1% del préstamo</strong>. NUNCA sobre el precio de venta.
+--------------------
+
+--- ID 119 ---
+Question: TRICKY: ¿Cuál es la diferencia entre Statute of Frauds y Statute of Limitations?
+Correct Option: Frauds exige contratos escritos; Limitations establece plazos para demandar
+Old Tip (Rewrite this): <strong>Statute of Frauds</strong>: contratos por escrito para ser ejecutables. <strong>Statute of Limitations</strong>: <strong>5 años</strong> contratos escritos, <strong>4 años</strong> orales.
+--------------------
+
+--- ID 120 ---
+Question: TRICKY: ¿Es un Transaction Broker lo mismo que un Dual Agent?
+Correct Option: No. TB es legal y es el default en FL. Dual Agency está prohibida
+Old Tip (Rewrite this): <strong>NO son lo mismo</strong>. Transaction Broker es <strong>legal y default</strong> en FL. Dual Agency está <strong>prohibida</strong>. TB facilita sin representar como fiduciario.
+--------------------
+
+--- ID 121 ---
+Question: TRICKY: Si un landlord (no un broker) guarda el depósito de seguridad, ¿cuáles son sus opciones?
+Correct Option: Cuenta sin intereses, cuenta con intereses (75% al inquilino o 5% simple), o surety bond
+Old Tip (Rewrite this): 3 opciones: 1) Cuenta <strong>separada sin intereses</strong>. 2) Cuenta <strong>con intereses</strong> (75% al inquilino o 5% simple). 3) <strong>Surety bond</strong>.
+--------------------
+
+--- ID 122 ---
+Question: TRICKY: En la regla 1-3 de depósito de escrow, ¿cuántos días tiene el sales associate para entregar el depósito al broker?
+Correct Option: 1 día hábil
+Old Tip (Rewrite this): Asociado: <strong>1 día hábil</strong> para entregar al broker. Broker: hasta el <strong>3er día hábil</strong> desde que el asociado lo recibió para depositarlo.
+--------------------
+
+Please return YOUR RESPONSE EXACTLY in this JSON format so I can parse it back:
+{
+  "rewrites": [
+    {"id": number, "newTip": "Your new 12-year-old friendly explanation in Spanish with <strong> tags."}
+  ]
+}

@@ -1,0 +1,171 @@
+
+I need you to act as an expert real estate tutor who specializes in explaining complex concepts to 12-year-olds.
+I am providing you with a list of Florida Real Estate Exam multiple-choice questions (flashcards) numbered 0 to 25.
+Currently, the explanations (the "tip" field) are very schematic, rigid, and sometimes too technical. 
+
+Your task is to REWRITE JUST the "tip" for each of these questions.
+Rules for the new tips:
+1. Make the explanation feel human, warm, and highly intuitive. 
+2. Explain the fundamental logic so a 12-year-old could understand the core concept.
+3. Keep the factual accuracy 100% strictly aligned with Florida Real Estate Law.
+4. If there's an acronym or trick, you can keep it, but explain it gently.
+5. Keep it reasonably concise (2-4 sentences max), do not write essays. Use basic HTML like <strong> for emphasis if needed.
+
+Here are the cards:
+
+--- ID 0 ---
+Question: Para que un contrato de bienes raíces sea válido en Florida, debe contener ciertos elementos esenciales. ¿Cuál de las siguientes opciones lista CORRECTAMENTE los 5 elementos? (COLIC)
+Correct Option: Partes competentes, Oferta y aceptación, Legalidad, Por escrito y firmado, Contraprestación
+Old Tip (Rewrite this): COLIC: <strong>C</strong>ompetent parties, <strong>O</strong>ffer and acceptance, <strong>L</strong>egality, <strong>I</strong>n writing and signed, <strong>C</strong>onsideration.
+--------------------
+
+--- ID 1 ---
+Question: Un contrato de bienes raíces fue acordado verbalmente entre comprador y vendedor. Según el Statute of Frauds, este contrato es:
+Correct Option: Unenforceable (inejecutable)
+Old Tip (Rewrite this): El Statute of Frauds exige que los contratos de bienes raíces estén <strong>por escrito y firmados</strong>. Sin escritura = <strong>inejecutable</strong>, no necesariamente nulo.
+--------------------
+
+--- ID 2 ---
+Question: Un comprador hace una oferta sobre una propiedad. ¿Cuál de las siguientes acciones NO terminaría la oferta? (WILD CARD)
+Correct Option: El comprador obtiene financiamiento aprobado
+Old Tip (Rewrite this): WILD CARD: <strong>W</strong>ithdrawal, <strong>I</strong>nsanity, <strong>L</strong>apse of time, <strong>D</strong>eath, <strong>C</strong>ounteroffer, <strong>A</strong>cceptance, <strong>R</strong>ejection, <strong>D</strong>estruction. Obtener financiamiento no termina la oferta.
+--------------------
+
+--- ID 3 ---
+Question: Un menor de edad firma un contrato de compraventa de bienes raíces. Este contrato es MEJOR descrito como:
+Correct Option: Voidable — el menor puede anularlo
+Old Tip (Rewrite this): <strong>Void</strong>: sin efecto legal (ilegal). <strong>Voidable</strong>: válido hasta que la parte afectada lo anule (ej: menor). <strong>Unenforceable</strong>: válido pero no ejecutable (ej: no escrito).
+--------------------
+
+--- ID 4 ---
+Question: En un contrato de bienes raíces, ¿qué constituye 'consideration' (contraprestación)?
+Correct Option: Algo de valor intercambiado: dinero, promesa, o incluso 'love and affection'
+Old Tip (Rewrite this): Consideration = algo de <strong>valor</strong> intercambiado. Puede ser dinero, una promesa, o incluso 'love and affection'. Sin consideración, <strong>no hay contrato válido</strong>.
+--------------------
+
+--- ID 5 ---
+Question: Un contrato incluye la cláusula 'Time is of the Essence'. El comprador no cierra en la fecha acordada. ¿Cuál es la consecuencia?
+Correct Option: El comprador está en incumplimiento (breach) del contrato
+Old Tip (Rewrite this): 'Time is of the Essence' = las <strong>fechas son estrictamente obligatorias</strong>. No cumplir = <strong>incumplimiento (breach)</strong>.
+--------------------
+
+--- ID 6 ---
+Question: Un contrato donde AMBAS partes hacen promesas (ej: compraventa) se conoce como:
+Correct Option: Contrato bilateral
+Old Tip (Rewrite this): <strong>Bilateral</strong>: ambas partes prometen (compraventa). <strong>Unilateral</strong>: solo una promete, la otra actúa (ej: opción de compra).
+--------------------
+
+--- ID 7 ---
+Question: Si un vendedor incumple un contrato de compraventa, ¿cuál de los siguientes NO es un remedio disponible para el comprador?
+Correct Option: Arrestar al vendedor por fraude civil
+Old Tip (Rewrite this): Remedios del comprador: <strong>Specific Performance, Rescission, Liquidated Damages, Suit for damages</strong>. El arresto no es un remedio civil.
+--------------------
+
+--- ID 8 ---
+Question: Un corredor que recibe una propiedad de un vendedor y le dice que él acepta $80,000, sin importar el precio por el cual se venda. ¿Qué tipo de contrato deben hacer antes de vender la propiedad?
+Correct Option: contrato de precio neto (net listing)
+Old Tip (Rewrite this): <strong>Net Listing:</strong> Es legal, pero crea un conflicto de intereses en FL y debe acompañarse del desglose del valor de la comisión. Ocurre cuando el vendedor establece una meta de ingreso garantizado y el bróker retiene lo excedente.
+--------------------
+
+--- ID 9 ---
+Question: Un Single Agent le debe a su cliente ciertos deberes fiduciarios conocidos como COLD-AC. ¿Cuál de los siguientes NO es uno de esos deberes?
+Correct Option: Negociación (Negotiation)
+Old Tip (Rewrite this): COLD-AC: <strong>C</strong>onfidentiality, <strong>O</strong>bedience, <strong>L</strong>oyalty, <strong>D</strong>isclosure, <strong>A</strong>ccounting, <strong>C</strong>ompetence. Negotiation NO está incluido.
+--------------------
+
+--- ID 10 ---
+Question: Bajo una relación de 'No Brokerage Relationship', ¿cuántos deberes tiene el licensee hacia el cliente?
+Correct Option: 3: Honestidad, Divulgar hechos materiales, Contabilidad de fondos
+Old Tip (Rewrite this): Solo 3 deberes: <strong>Deal honestly and fairly, Disclose known material facts, Account for funds</strong>. NO hay confidencialidad ni lealtad.
+--------------------
+
+--- ID 11 ---
+Question: En Florida, la Dual Agency (representar a ambas partes como fiduciario) es:
+Correct Option: Prohibida por ley
+Old Tip (Rewrite this): La Dual Agency está <strong>prohibida</strong> en Florida. No confundir con Transaction Broker, que es legal.
+--------------------
+
+--- ID 12 ---
+Question: ¿Puede un Transaction Broker cambiar a Single Agent durante una transacción?
+Correct Option: Sí, pero requiere consentimiento por escrito
+Old Tip (Rewrite this): Sí, es posible, pero requiere <strong>consentimiento por escrito</strong> de la parte.
+--------------------
+
+--- ID 13 ---
+Question: ¿Por cuánto tiempo debe un broker retener documentos de transacciones?
+Correct Option: 5 años
+Old Tip (Rewrite this): <strong>5 años</strong> desde la fecha del último acto o del litigio, lo que sea más largo.
+--------------------
+
+--- ID 14 ---
+Question: Para obtener la licencia de Sales Associate en Florida, un candidato debe cumplir TODOS los siguientes requisitos EXCEPTO:
+Correct Option: Tener un título universitario
+Old Tip (Rewrite this): Requisitos: <strong>18 años, SSN, 63 horas de curso, aprobar examen, fingerprints</strong>. NO se requiere título universitario.
+--------------------
+
+--- ID 15 ---
+Question: ¿Cuántas horas de educación continua se requieren para renovar una licencia de bienes raíces en Florida cada 2 años?
+Correct Option: 14 horas: 3h Core Law + 3h Ethics + 8h specialty
+Old Tip (Rewrite this): <strong>14 horas</strong> cada 2 años: <strong>3h Core Law</strong> + <strong>3h Ethics and Business Practices</strong> (requisito ESTATAL, Regla 61J2-3.009) + <strong>8h specialty</strong>. La ética ES obligatoria por el estado de FL, no solo por la NAR.
+--------------------
+
+--- ID 16 ---
+Question: La Florida Real Estate Commission (FREC) está compuesta por cuántos miembros, y cuántos deben ser brokers con experiencia?
+Correct Option: 7 miembros: 4 brokers con 5+ años, 1 licensee con 2+ años, 2 consumidores
+Old Tip (Rewrite this): FREC: <strong>7 miembros</strong> — 4 brokers (5+ años), 1 broker o asociado (2+ años), 2 consumidores (sin licencia).
+--------------------
+
+--- ID 17 ---
+Question: Una persona que ejerce como agente de bienes raíces sin licencia en Florida comete:
+Correct Option: Un felony de tercer grado, hasta $5,000 de multa y 5 años de prisión
+Old Tip (Rewrite this): Ejercer sin licencia = <strong>Felony de tercer grado</strong>: hasta <strong>$5,000</strong> multa y <strong>5 años</strong> prisión.
+--------------------
+
+--- ID 18 ---
+Question: Un licensee no renueva su licencia a tiempo y queda como 'Involuntarily Inactive'. ¿Cuánto tiempo tiene para reactivarla?
+Correct Option: 2 años, después se vuelve null and void
+Old Tip (Rewrite this): <strong>2 años</strong> para reactivar. Después → <strong>null and void</strong> (debe empezar de cero).
+--------------------
+
+--- ID 19 ---
+Question: ¿Cuál de las siguientes NO es una forma de adquirir título de propiedad según WADED?
+Correct Option: Compra directa (Purchase)
+Old Tip (Rewrite this): WADED: <strong>W</strong>ill, <strong>A</strong>dverse Possession (7 años + impuestos), <strong>D</strong>eed, <strong>E</strong>scheat, <strong>D</strong>escent. 'Purchase' no es una de las 5 formas listadas en WADED.
+--------------------
+
+--- ID 20 ---
+Question: El gobierno puede tomar propiedad privada para uso público pagando compensación justa. Este poder se llama:
+Correct Option: Eminent Domain
+Old Tip (Rewrite this): PETE: <strong>P</strong>olice Power (zoning), <strong>E</strong>minent Domain (expropiación con compensación), <strong>T</strong>axation, <strong>E</strong>scheat.
+--------------------
+
+--- ID 21 ---
+Question: ¿Cuál de las siguientes es una restricción PRIVADA sobre la propiedad? (DELL)
+Correct Option: Easements (servidumbres)
+Old Tip (Rewrite this): Restricciones privadas (DELL): <strong>D</strong>eed restrictions, <strong>E</strong>asements, <strong>L</strong>eases, <strong>L</strong>iens. Las otras son restricciones gubernamentales (PETE).
+--------------------
+
+--- ID 22 ---
+Question: La teoría del gravamen establece que:
+Correct Option: El prestatario posee el título y la propiedad y en el caso de que el deudor no pague las cuotas, el prestamista puede hacer un juicio, acelerar los pagos y vender la propiedad en una subasta.
+Old Tip (Rewrite this): <strong>Lien Theory (Teoría del gravamen):</strong> El comprador TIENE el título de la propiedad, el banco interpone un 'gravamen' contra la propiedad hasta pagar la deuda.
+--------------------
+
+--- ID 23 ---
+Question: La Homestead Exemption en Florida exime un total de $50,000 del valor tasado. ¿Cuál es la característica ESPECIAL de los segundos $25,000?
+Correct Option: No aplican a impuestos del school board
+Old Tip (Rewrite this): Primeros $25K aplican a todos los impuestos. Segundos $25K <strong>NO aplican a school board taxes</strong>. Protege contra ejecución forzosa (excepto impuestos, hipoteca, mechanic's liens).
+--------------------
+
+--- ID 24 ---
+Question: ¿Cuál tipo de escritura ofrece la MAYOR protección al comprador?
+Correct Option: General Warranty Deed
+Old Tip (Rewrite this): <strong>General Warranty Deed</strong> = mayor protección. Garantiza: título legítimo, puede transferir, sin gravámenes ocultos, defenderá contra reclamos.
+--------------------
+
+Please return YOUR RESPONSE EXACTLY in this JSON format so I can parse it back:
+{
+  "rewrites": [
+    {"id": number, "newTip": "Your new 12-year-old friendly explanation in Spanish with <strong> tags."}
+  ]
+}

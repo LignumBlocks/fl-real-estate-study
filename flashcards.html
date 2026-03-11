@@ -8,7 +8,10 @@
     <style>
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
         :root{--bg:#f4f6fa;--surface:#fff;--surface-2:#f0f2f8;--surface-3:#e8ebf3;--accent:#4f46e5;--accent-bg:#eef2ff;--green:#059669;--green-bg:#ecfdf5;--green-border:#a7f3d0;--orange:#d97706;--orange-bg:#fffbeb;--red:#dc2626;--red-bg:#fef2f2;--red-border:#fecaca;--text:#1e293b;--text-2:#475569;--text-dim:#94a3b8;--border:#e2e8f0;--radius:16px;--shadow:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.04)}
-        body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+        [data-theme="dark"]{--bg:#0f172a;--surface:#1e293b;--surface-2:#334155;--surface-3:#475569;--accent:#818cf8;--accent-bg:rgba(129,140,248,.12);--green:#34d399;--green-bg:rgba(52,211,153,.1);--green-border:#065f46;--orange:#fbbf24;--orange-bg:rgba(251,191,36,.1);--red:#f87171;--red-bg:rgba(248,113,113,.1);--red-border:#991b1b;--text:#e2e8f0;--text-2:#94a3b8;--text-dim:#64748b;--border:#334155;--shadow:0 1px 3px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.2)}
+        body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s}
+        .theme-btn{background:none;border:1.5px solid var(--border);border-radius:10px;padding:6px 12px;cursor:pointer;font-size:.85rem;color:var(--text-2);transition:all .2s}
+        .theme-btn:hover{border-color:var(--accent);color:var(--accent)}
 
         .topbar{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 4px rgba(0,0,0,.04)}
         .topbar h1{font-size:1.05rem;font-weight:800;color:var(--accent)}
@@ -95,6 +98,7 @@
         <h1>📝 FL Real Estate — Simulacro</h1>
     </div>
     <div style="display:flex;align-items:center;gap:12px">
+        <button class="theme-btn" id="themeToggle" onclick="toggleTheme()" title="Cambiar tema">🌙</button>
         <span class="pill" id="modeLabel">Todas</span>
         <div class="user-badge" id="userBadge" style="display:none">
             <div class="avatar" id="userAvatar"></div>
@@ -157,195 +161,242 @@
 const ALL_CARDS = [
     // ── CONTRATOS ──
     {cat:"Contratos",q:"Para que un contrato de bienes raíces sea válido en Florida, debe contener ciertos elementos esenciales. ¿Cuál de las siguientes opciones lista CORRECTAMENTE los 5 elementos? (COLIC)",
+     q_en:"For a real estate contract to be valid in Florida, it must contain certain essential elements. Which of the following options CORRECTLY lists the 5 elements? (COLIC)",
      opts:["Partes competentes, Oferta y aceptación, Legalidad, Por escrito y firmado, Contraprestación","Partes competentes, Consentimiento mutuo, Legalidad, Earnest money, Entrega","Acuerdo, Capacidad, Legalidad, Forma escrita, Notarización","Oferta, Aceptación, Contraprestación, Legalidad, Registro público"],correct:0,
      tip:"COLIC: <strong>C</strong>ompetent parties, <strong>O</strong>ffer and acceptance, <strong>L</strong>egality, <strong>I</strong>n writing and signed, <strong>C</strong>onsideration."},
 
-    {cat:"Contratos",q:"Un contrato de bienes raíces fue acordado verbalmente entre comprador y vendedor. Según el Statute of Frauds, este contrato es:",
+    {cat:"Contratos",q:"Un comprador y un vendedor acuerdan verbalmente la compraventa de una propiedad residencial en Florida. El comprador entrega un cheque de $5,000 como depósito. Según el Statute of Frauds, este contrato es:",
+     q_en:"A buyer and seller verbally agree to the sale of a residential property in Florida. The buyer delivers a $5,000 check as a deposit. Under the Statute of Frauds, this contract is:",
      opts:["Unenforceable (inejecutable)","Void (nulo)","Voidable (anulable)","Completamente válido y ejecutable"],correct:0,
      tip:"El Statute of Frauds exige que los contratos de bienes raíces estén <strong>por escrito y firmados</strong>. Sin escritura = <strong>inejecutable</strong>, no necesariamente nulo."},
 
-    {cat:"Contratos",q:"Un comprador hace una oferta sobre una propiedad. ¿Cuál de las siguientes acciones NO terminaría la oferta? (WILD CARD)",
+    {cat:"Contratos",q:"Un comprador presenta una oferta por escrito para comprar una casa en Orlando. Antes de que el vendedor acepte, el comprador obtiene la aprobación de su financiamiento hipotecario. ¿Cuál de las siguientes acciones NO terminaría la oferta? (WILD CARD)",
+     q_en:"A buyer submits a written offer to purchase a home in Orlando. Before the seller accepts, the buyer obtains approval for mortgage financing. Which of the following actions would NOT terminate the offer? (WILD CARD)",
      opts:["El comprador obtiene financiamiento aprobado","El vendedor hace una contraoferta","Muere el comprador antes de la aceptación","Expira el plazo de la oferta"],correct:0,
      tip:"WILD CARD: <strong>W</strong>ithdrawal, <strong>I</strong>nsanity, <strong>L</strong>apse of time, <strong>D</strong>eath, <strong>C</strong>ounteroffer, <strong>A</strong>cceptance, <strong>R</strong>ejection, <strong>D</strong>estruction. Obtener financiamiento no termina la oferta."},
 
-    {cat:"Contratos",q:"Un menor de edad firma un contrato de compraventa de bienes raíces. Este contrato es MEJOR descrito como:",
+    {cat:"Contratos",q:"Un joven de 17 años firma un contrato para comprar un condominio en Miami Beach. La semana siguiente cumple 18 años. Este contrato es MEJOR descrito como:",
+     q_en:"A 17-year-old signs a contract to purchase a condominium in Miami Beach. The following week they turn 18. This contract is BEST described as:",
      opts:["Voidable — el menor puede anularlo","Void — no tiene efecto legal","Unenforceable — no se puede ejecutar en corte","Valid — los menores pueden contratar con permiso parental"],correct:0,
      tip:"<strong>Void</strong>: sin efecto legal (ilegal). <strong>Voidable</strong>: válido hasta que la parte afectada lo anule (ej: menor). <strong>Unenforceable</strong>: válido pero no ejecutable (ej: no escrito)."},
 
-    {cat:"Contratos",q:"En un contrato de bienes raíces, ¿qué constituye 'consideration' (contraprestación)?",
+    {cat:"Contratos",q:"Un comprador y un vendedor firman un contrato de compraventa por $350,000. El comprador entrega $10,000 como earnest money deposit. Este depósito es un ejemplo de:",
+     q_en:"A buyer and seller sign a purchase contract for $350,000. The buyer delivers $10,000 as an earnest money deposit. This deposit is an example of:",
      opts:["Algo de valor intercambiado: dinero, promesa, o incluso 'love and affection'","Exclusivamente dinero en efectivo o cheque certificado","Solo el depósito de buena fe (earnest money)","La inspección de la propiedad por ambas partes"],correct:0,
      tip:"Consideration = algo de <strong>valor</strong> intercambiado. Puede ser dinero, una promesa, o incluso 'love and affection'. Sin consideración, <strong>no hay contrato válido</strong>."},
 
-    {cat:"Contratos",q:"Un contrato incluye la cláusula 'Time is of the Essence'. El comprador no cierra en la fecha acordada. ¿Cuál es la consecuencia?",
+    {cat:"Contratos",q:"Un contrato de compraventa incluye la cláusula 'Time is of the Essence' con fecha de cierre el 15 de marzo. El comprador no logra cerrar hasta el 20 de marzo. ¿Cuál es la consecuencia?",
+     q_en:"A purchase contract includes a 'Time is of the Essence' clause with a closing date of March 15. The buyer fails to close until March 20. What is the consequence?",
      opts:["El comprador está en incumplimiento (breach) del contrato","El contrato se extiende automáticamente 30 días","El vendedor debe dar un período de gracia razonable","El contrato se vuelve void automáticamente"],correct:0,
      tip:"'Time is of the Essence' = las <strong>fechas son estrictamente obligatorias</strong>. No cumplir = <strong>incumplimiento (breach)</strong>."},
 
-    {cat:"Contratos",q:"Un contrato donde AMBAS partes hacen promesas (ej: compraventa) se conoce como:",
+    {cat:"Contratos",q:"Un vendedor firma un contrato donde se compromete a vender su casa por $400,000. El comprador firma comprometiéndose a comprarla. Ambas partes han hecho promesas. Este tipo de contrato se conoce como:",
+     q_en:"A seller signs a contract committing to sell their home for $400,000. The buyer signs committing to purchase it. Both parties have made promises. This type of contract is known as:",
      opts:["Contrato bilateral","Contrato unilateral","Contrato ejecutado","Contrato implícito"],correct:0,
      tip:"<strong>Bilateral</strong>: ambas partes prometen (compraventa). <strong>Unilateral</strong>: solo una promete, la otra actúa (ej: opción de compra)."},
 
-    {cat:"Contratos",q:"Si un vendedor incumple un contrato de compraventa, ¿cuál de los siguientes NO es un remedio disponible para el comprador?",
+    {cat:"Contratos",q:"Un vendedor incumple un contrato de compraventa y se niega a transferir el título al comprador. El comprador quiere forzar la venta. ¿Cuál de los siguientes NO es un remedio disponible para el comprador?",
+     q_en:"A seller breaches a purchase contract and refuses to transfer title to the buyer. The buyer wants to force the sale. Which of the following is NOT a remedy available to the buyer?",
      opts:["Arrestar al vendedor por fraude civil","Specific Performance (cumplimiento forzoso)","Rescission (rescisión del contrato)","Demandar por daños y perjuicios"],correct:0,
      tip:"Remedios del comprador: <strong>Specific Performance, Rescission, Liquidated Damages, Suit for damages</strong>. El arresto no es un remedio civil."},
 
     // ── CORRETAJE ──
-    {cat:"Corretaje",q:"Un corredor que recibe una propiedad de un vendedor y le dice que él acepta $80,000, sin importar el precio por el cual se venda. ¿Qué tipo de contrato deben hacer antes de vender la propiedad?",
-     opts:["contrato de precio neto (net listing)","contrato de listado de agencia exclusiva (exclusive agency listing)","contrato de derecho exclusivo de venta (exclusive right of sale listing)","contrato de listado abierto (open listing)"],correct:0,
+    {cat:"Corretaje",q:"Un vendedor le dice a su corredor que quiere recibir exactamente $80,000 netos por la venta de su casa, y que el corredor puede quedarse con cualquier monto que exceda esa cantidad. ¿Qué tipo de contrato de listado están creando?",
+     q_en:"A seller tells his broker that he wants to receive exactly $80,000 net from the sale of his home, and the broker can keep any amount over that. What type of listing agreement are they creating?",
+     opts:["Contrato de precio neto (net listing)","Contrato de listado de agencia exclusiva (exclusive agency listing)","Contrato de derecho exclusivo de venta (exclusive right of sale listing)","Contrato de listado abierto (open listing)"],correct:0,
      tip:"<strong>Net Listing:</strong> Es legal, pero crea un conflicto de intereses en FL y debe acompañarse del desglose del valor de la comisión. Ocurre cuando el vendedor establece una meta de ingreso garantizado y el bróker retiene lo excedente."},
-    {cat:"Corretaje",q:"Un Single Agent le debe a su cliente ciertos deberes fiduciarios conocidos como COLD-AC. ¿Cuál de los siguientes NO es uno de esos deberes?",
+     
+    {cat:"Corretaje",q:"Un corredor actúa como Single Agent representando a un vendedor. El corredor le debe a su cliente los deberes fiduciarios conocidos como COLD-AC. ¿Cuál de los siguientes NO es uno de esos deberes fiduciarios?",
+     q_en:"A broker acts as a Single Agent representing a seller. The broker owes his client the fiduciary duties known as COLD-AC. Which of the following is NOT one of those fiduciary duties?",
      opts:["Negociación (Negotiation)","Confidencialidad (Confidentiality)","Obediencia (Obedience)","Lealtad (Loyalty)"],correct:0,
      tip:"COLD-AC: <strong>C</strong>onfidentiality, <strong>O</strong>bedience, <strong>L</strong>oyalty, <strong>D</strong>isclosure, <strong>A</strong>ccounting, <strong>C</strong>ompetence. Negotiation NO está incluido."},
 
-    {cat:"Corretaje",q:"Bajo una relación de 'No Brokerage Relationship', ¿cuántos deberes tiene el licensee hacia el cliente?",
+    {cat:"Corretaje",q:"Un comprador firma un acuerdo de 'No Brokerage Relationship' con una agencia de bienes raíces. Bajo esta relación, ¿qué deberes tiene el licensee hacia el comprador?",
+     q_en:"A buyer signs a 'No Brokerage Relationship' agreement with a real estate agency. Under this relationship, what duties does the licensee owe the buyer?",
      opts:["3: Honestidad, Divulgar hechos materiales, Contabilidad de fondos","6: Los mismos que un Single Agent","2: Honestidad y Confidencialidad","4: Honestidad, Lealtad, Divulgación, Obediencia"],correct:0,
      tip:"Solo 3 deberes: <strong>Deal honestly and fairly, Disclose known material facts, Account for funds</strong>. NO hay confidencialidad ni lealtad."},
 
-    {cat:"Corretaje",q:"En Florida, la Dual Agency (representar a ambas partes como fiduciario) es:",
+    {cat:"Corretaje",q:"Un corredor desea representar simultáneamente como fiduciario (Single Agent) tanto al comprador como al vendedor en la misma transacción residencial. En Florida, esta práctica (Dual Agency) es:",
+     q_en:"A broker wishes to simultaneously represent both the buyer and the seller as a fiduciary (Single Agent) in the same residential transaction. In Florida, this practice (Dual Agency) is:",
      opts:["Prohibida por ley","Permitida con consentimiento escrito","Permitida solo en transacciones comerciales","La relación por defecto"],correct:0,
      tip:"La Dual Agency está <strong>prohibida</strong> en Florida. No confundir con Transaction Broker, que es legal."},
 
-    {cat:"Corretaje",q:"¿Puede un Transaction Broker cambiar a Single Agent durante una transacción?",
+    {cat:"Corretaje",q:"Durante una transacción, un Transaction Broker nota que necesita representar al vendedor exclusivamente como Single Agent. ¿Puede el Transaction Broker hacer esta transición?",
+     q_en:"During a transaction, a Transaction Broker realizes they need to exclusively represent the seller as a Single Agent. Can the Transaction Broker make this transition?",
      opts:["Sí, pero requiere consentimiento por escrito","No, está prohibido por ley","Sí, automáticamente si el cliente lo solicita verbalmente","Solo con aprobación de la FREC"],correct:0,
      tip:"Sí, es posible, pero requiere <strong>consentimiento por escrito</strong> de la parte."},
 
-    {cat:"Corretaje",q:"¿Por cuánto tiempo debe un broker retener documentos de transacciones?",
+    {cat:"Corretaje",q:"Un broker cierra exitosamente una transacción residencial. Según la ley de Florida, ¿por cuánto tiempo debe el broker retener los documentos de esta transacción?",
+     q_en:"A broker successfully closes a residential transaction. According to Florida law, for how long must the broker retain the documents for this transaction?",
      opts:["5 años","3 años","7 años","10 años"],correct:0,
      tip:"<strong>5 años</strong> desde la fecha del último acto o del litigio, lo que sea más largo."},
 
     // ── LICENCIA ──
-    {cat:"Licencia",q:"Para obtener la licencia de Sales Associate en Florida, un candidato debe cumplir TODOS los siguientes requisitos EXCEPTO:",
+    {cat:"Licencia",q:"Un individuo se está preparando para solicitar una licencia de Sales Associate en Florida. Debe cumplir con TODOS los siguientes requisitos, EXCEPTO:",
+     q_en:"An individual is preparing to apply for a Sales Associate license in Florida. They must meet ALL of the following requirements, EXCEPT:",
      opts:["Tener un título universitario","Tener 18 años de edad","Completar el curso de 63 horas","Pasar el examen estatal"],correct:0,
      tip:"Requisitos: <strong>18 años, SSN, 63 horas de curso, aprobar examen, fingerprints</strong>. NO se requiere título universitario."},
 
-    {cat:"Licencia",q:"¿Cuántas horas de educación continua se requieren para renovar una licencia de bienes raíces en Florida cada 2 años?",
+    {cat:"Licencia",q:"Una sales associate necesita renovar su licencia después de su primer período de renovación exitoso. ¿Cuántas horas de educación continua (CE) se requieren para renovar la licencia cada 2 años?",
+     q_en:"A sales associate needs to renew her license after her first successful renewal period. How many hours of continuing education (CE) are required to renew the license every 2 years?",
      opts:["14 horas: 3h Core Law + 3h Ethics + 8h specialty","12 horas, incluyendo 4 de Ethics","20 horas, incluyendo 5 de Core Law","8 horas, todas de especialidad"],correct:0,
      tip:"<strong>14 horas</strong> cada 2 años: <strong>3h Core Law</strong> + <strong>3h Ethics and Business Practices</strong> (requisito ESTATAL, Regla 61J2-3.009) + <strong>8h specialty</strong>. La ética ES obligatoria por el estado de FL, no solo por la NAR."},
 
-    {cat:"Licencia",q:"La Florida Real Estate Commission (FREC) está compuesta por cuántos miembros, y cuántos deben ser brokers con experiencia?",
+    {cat:"Licencia",q:"La Florida Real Estate Commission (FREC) es la junta responsable de regular las licencias. ¿Cuál es su composición CORRECTA?",
+     q_en:"The Florida Real Estate Commission (FREC) is the board responsible for regulating licenses. What is its CORRECT composition?",
      opts:["7 miembros: 4 brokers con 5+ años, 1 licensee con 2+ años, 2 consumidores","5 miembros: 3 brokers, 2 consumidores","9 miembros: 5 brokers, 2 sales associates, 2 consumidores","7 miembros: 5 brokers, 2 consumidores"],correct:0,
      tip:"FREC: <strong>7 miembros</strong> — 4 brokers (5+ años), 1 broker o asociado (2+ años), 2 consumidores (sin licencia)."},
 
-    {cat:"Licencia",q:"Una persona que ejerce como agente de bienes raíces sin licencia en Florida comete:",
+    {cat:"Licencia",q:"Un individuo ayuda a vender la casa de su vecino y cobra una comisión de $3,000, sin tener una licencia de bienes raíces. En Florida, esta persona ha cometido:",
+     q_en:"An individual helps sell his neighbor's house and charges a $3,000 commission, without holding a real estate license. In Florida, this person has committed:",
      opts:["Un felony de tercer grado, hasta $5,000 de multa y 5 años de prisión","Un misdemeanor de primer grado, hasta $1,000 de multa","Una violación administrativa con multa de $500","Un felony de segundo grado, hasta $10,000 de multa"],correct:0,
      tip:"Ejercer sin licencia = <strong>Felony de tercer grado</strong>: hasta <strong>$5,000</strong> multa y <strong>5 años</strong> prisión."},
 
-    {cat:"Licencia",q:"Un licensee no renueva su licencia a tiempo y queda como 'Involuntarily Inactive'. ¿Cuánto tiempo tiene para reactivarla?",
+    {cat:"Licencia",q:"Un sales associate olvida renovar su licencia antes de la fecha límite y su estado cambia a 'Involuntarily Inactive'. ¿Cuál es el tiempo MÁXIMO que tiene para reactivarla antes de perderla permanentemente?",
+     q_en:"A sales associate forgets to renew his license before the deadline and his status changes to 'Involuntarily Inactive'. What is the MAXIMUM time he has to reactivate it before losing it permanently?",
      opts:["2 años, después se vuelve null and void","1 año, después debe retomar el curso","6 meses, después debe re-examinar","3 años, después se cancela permanentemente"],correct:0,
      tip:"<strong>2 años</strong> para reactivar. Después → <strong>null and void</strong> (debe empezar de cero)."},
 
     // ── PROPIEDAD ──
-    {cat:"Propiedad",q:"¿Cuál de las siguientes NO es una forma de adquirir título de propiedad según WADED?",
+    {cat:"Propiedad",q:"El acrónimo WADED describe los métodos voluntarios e involuntarios para adquirir el título de una propiedad. ¿Cuál de las siguientes acciones NO es descrita por este acrónimo?",
+     q_en:"The acronym WADED describes voluntary and involuntary methods of acquiring title to property. Which of the following actions is NOT described by this acronym?",
      opts:["Compra directa (Purchase)","Will (Testamento)","Adverse Possession","Deed (Escritura)"],correct:0,
      tip:"WADED: <strong>W</strong>ill, <strong>A</strong>dverse Possession (7 años + impuestos), <strong>D</strong>eed, <strong>E</strong>scheat, <strong>D</strong>escent. 'Purchase' no es una de las 5 formas listadas en WADED."},
 
-    {cat:"Propiedad",q:"El gobierno puede tomar propiedad privada para uso público pagando compensación justa. Este poder se llama:",
+    {cat:"Propiedad",q:"La ciudad planifica construir una nueva autopista que pasará directamente por el terreno de un propietario privado. El gobierno local toma la propiedad y paga una compensación justa al dueño. Este es un ejemplo de la aplicación de:",
+     q_en:"The city plans to build a new highway that will run directly through a private owner's land. The local government takes the property and pays the owner fair compensation. This is an example of the application of:",
      opts:["Eminent Domain","Police Power","Escheat","Taxation"],correct:0,
      tip:"PETE: <strong>P</strong>olice Power (zoning), <strong>E</strong>minent Domain (expropiación con compensación), <strong>T</strong>axation, <strong>E</strong>scheat."},
 
-    {cat:"Propiedad",q:"¿Cuál de las siguientes es una restricción PRIVADA sobre la propiedad? (DELL)",
+    {cat:"Propiedad",q:"Las regulaciones sobre las propiedades provienen tanto del gobierno (PETE) como de fuentes privadas (DELL). ¿Cuál de las siguientes es un ejemplo de una restricción PRIVADA?",
+     q_en:"Property regulations come from both the government (PETE) and private sources (DELL). Which of the following is an example of a PRIVATE restriction?",
      opts:["Easements (servidumbres)","Eminent Domain","Zoning","Taxation"],correct:0,
      tip:"Restricciones privadas (DELL): <strong>D</strong>eed restrictions, <strong>E</strong>asements, <strong>L</strong>eases, <strong>L</strong>iens. Las otras son restricciones gubernamentales (PETE)."},
 
-    {cat:"Propiedad",q:"La teoría del gravamen establece que:",
+    {cat:"Propiedad",q:"Florida es un estado que aplica la doctrina de \"Lien Theory\" para hipotecas. ¿Qué significa esto para el prestatario (comprador)?",
+     q_en:"Florida is a state that applies the \"Lien Theory\" doctrine for mortgages. What does this mean for the borrower (buyer)?",
      opts:["El prestatario posee el título y la propiedad y en el caso de que el deudor no pague las cuotas, el prestamista puede hacer un juicio, acelerar los pagos y vender la propiedad en una subasta.","Los intereses de un prestamista son mayores que los derechos de posesión del prestatario.","El prestamista tiene el título.","El prestamista tiene los derechos de posesión."],correct:0,
      tip:"<strong>Lien Theory (Teoría del gravamen):</strong> El comprador TIENE el título de la propiedad, el banco interpone un 'gravamen' contra la propiedad hasta pagar la deuda."},
 
-    {cat:"Propiedad",q:"La Homestead Exemption en Florida exime un total de $50,000 del valor tasado. ¿Cuál es la característica ESPECIAL de los segundos $25,000?",
+    {cat:"Propiedad",q:"Un propietario califica en Florida para la máxima Homestead Exemption base de $50,000 en su vivienda principal. Al calcular sus impuestos, ¿cuál es la característica ESPECIAL de los segundos $25,000 de esa exención?",
+     q_en:"A Florida homeowner qualifies for the maximum base $50,000 Homestead Exemption on their primary residence. When calculating their taxes, what is the SPECIAL characteristic of the second $25,000 of that exemption?",
      opts:["No aplican a impuestos del school board","No aplican a impuestos municipales","Solo aplican a propiedades comerciales","Requieren aprobación del condado"],correct:0,
      tip:"Primeros $25K aplican a todos los impuestos. Segundos $25K <strong>NO aplican a school board taxes</strong>. Protege contra ejecución forzosa (excepto impuestos, hipoteca, mechanic's liens)."},
 
-    {cat:"Propiedad",q:"¿Cuál tipo de escritura ofrece la MAYOR protección al comprador?",
+    {cat:"Propiedad",q:"Un comprador desea adquirir el título de una propiedad y busca solicitar la escrituración que le brinde la MAYOR protección legal. El comprador debería solicitar un(a):",
+     q_en:"A buyer wishes to acquire title to a property and seeks the deed that will provide the GREATEST legal protection. The buyer should request a:",
      opts:["General Warranty Deed","Special Warranty Deed","Quitclaim Deed","Bargain and Sale Deed"],correct:0,
      tip:"<strong>General Warranty Deed</strong> = mayor protección. Garantiza: título legítimo, puede transferir, sin gravámenes ocultos, defenderá contra reclamos."},
 
-    {cat:"Propiedad",q:"La co-propiedad exclusiva para parejas casadas que incluye derecho de supervivencia se llama:",
+    {cat:"Propiedad",q:"Un matrimonio en Florida compra una casa conjuntamente. Con el tiempo, uno de los cónyuges fallece, y la propiedad del fallecido se transfiere automáticamente al cónyuge sobreviviente por derecho de supervivencia. Esta forma de co-propiedad se conoce como:",
+     q_en:"A married couple in Florida buys a house jointly. Over time, one spouse passes away, and the deceased spouse's ownership automatically transfers to the surviving spouse by right of survivorship. This form of concurrent ownership is known as:",
      opts:["Tenancy by the Entireties","Joint Tenancy","Tenancy in Common","Community Property"],correct:0,
      tip:"<strong>Tenancy by the Entireties</strong>: solo parejas casadas. Derecho de supervivencia. Ninguno puede vender sin el otro."},
 
     // ── DIVULGACIONES ──
-    {cat:"Divulgaciones",q:"Según el caso Johnson vs. Davis, ¿qué obligación tiene el vendedor de una propiedad residencial?",
+    {cat:"Divulgaciones",q:"Un vendedor está listando su casa construida en 1995 que tiene un problema recurrente de humedad en el techo, el cual fue recién pintado y no es visible. Según el precedente del caso Johnson vs. Davis, ¿qué obligación tiene el vendedor?",
+     q_en:"A seller is listing his home built in 1995 that has a recurring roof leak, which was recently painted over and is not visible. According to the precedent set in Johnson vs. Davis, what obligation does the seller have?",
      opts:["Revelar defectos materiales conocidos no fácilmente observables","Revelar todos los defectos, incluso los visibles","Proporcionar una garantía de 1 año sobre la propiedad","Obtener una inspección profesional antes de la venta"],correct:0,
      tip:"Johnson vs. Davis: el vendedor debe <strong>revelar defectos materiales conocidos no fácilmente observables</strong>. Aplica a propiedades residenciales."},
 
-    {cat:"Divulgaciones",q:"La divulgación de Lead-Based Paint es obligatoria para viviendas construidas antes de:",
-     opts:["1978","1985","1970","1992"],correct:0,
-     tip:"Viviendas construidas antes de <strong>1978</strong>. Se debe: entregar panfleto, divulgar conocimiento, dar <strong>10 días</strong> para inspección."},
+    {cat:"Divulgaciones",q:"Un agente inmobiliario está ayudando a vender una casa construida en 1975. Para cumplir con las regulaciones federales, el agente debe asegurarse de que se proporcione una divulgación obligatoria específica. Esta divulgación está relacionada con:",
+     q_en:"A real estate agent is helping sell a home built in 1975. To comply with federal regulations, the agent must ensure a specific mandatory disclosure is provided. This disclosure is related to:",
+     opts:["Lead-Based Paint (Pintura a base de plomo)","Radon Gas (Gas Radón)","Asbestos (Asbesto)","Mold (Moho)"],correct:0,
+     tip:"Viviendas construidas antes de <strong>1978</strong>. Se debe: entregar panfleto, divulgar conocimiento, dar <strong>10 días</strong> para inspección (Lead-Based Paint)."},
 
-    {cat:"Divulgaciones",q:"¿En qué tipo de transacciones es obligatoria la divulgación de Radon Gas en Florida?",
-     opts:["En TODOS los contratos de venta de bienes raíces","Solo en propiedades con sótano","Solo en propiedades construidas antes de 1990","Solo si se detecta radon en la inspección"],correct:0,
-     tip:"La divulgación de Radon es <strong>obligatoria en TODOS los contratos de venta</strong> en Florida. Informa sobre el gas y pruebas disponibles."},
+    {cat:"Divulgaciones",q:"Un comprador está adquiriendo un condominio de nueva construcción en Miami. Al firmar el contrato de compraventa, el desarrollador le entrega un documento informativo sobre un gas natural radiactivo. ¿En qué tipo de transacciones de bienes raíces de Florida es obligatoria esta divulgación?",
+     q_en:"A buyer is purchasing a newly constructed condominium in Miami. Upon signing the purchase contract, the developer provides an informational document about a naturally occurring radioactive gas. In which type of Florida real estate transactions is this disclosure mandatory?",
+     opts:["En TODOS los contratos de venta y arrendamiento de bienes raíces","Solo en propiedades con sótano","Solo en propiedades construidas antes de 1990","Solo si se detecta gas radón en la inspección previa"],correct:0,
+     tip:"La divulgación de Radon Gas es <strong>obligatoria en TODOS los contratos de venta y arrendamiento</strong> en Florida. Informa sobre el gas y pruebas disponibles, no obliga a hacer pruebas."},
 
-    {cat:"Divulgaciones",q:"El Fair Housing Act protege 7 clases. ¿Cuál de las siguientes NO es una clase protegida federal?",
-     opts:["Estado civil (Marital Status)","Raza","Discapacidad (Handicap)","Estado Familiar (Familial Status)"],correct:0,
+    {cat:"Divulgaciones",q:"Un arrendador rechaza la solicitud de alquiler de un prospecto basándose en ciertas características. Bajo el Fair Housing Act (Ley de Vivienda Justa), ¿cuál de las siguientes características NO es una clase protegida a nivel federal?",
+     q_en:"A landlord rejects a prospect's rental application based on certain characteristics. Under the Fair Housing Act, which of the following characteristics is NOT a federally protected class?",
+     opts:["Estado civil (Marital Status)","Raza (Race)","Discapacidad (Handicap)","Estado Familiar (Familial Status)"],correct:0,
      tip:"7 clases federales: <strong>Raza, Color, Religión, Sexo, Origen Nacional, Discapacidad, Estado Familiar</strong>. Estado civil NO es clase federal (puede serlo a nivel estatal)."},
 
-    {cat:"Divulgaciones",q:"La exemption 'Mrs. Murphy' del Fair Housing Act aplica cuando:",
-     opts:["El propietario vive en la propiedad de 4 unidades o menos, sin usar broker ni publicidad discriminatoria","Cualquier propietario que no quiera alquilar a familias","La propiedad tiene más de 50 años","El propietario es una persona de la tercera edad"],correct:0,
-     tip:"Mrs. Murphy: propietario en propiedad ≤4 unidades. <strong>NO aplica si usa broker o publicidad discriminatoria</strong>."},
+    {cat:"Divulgaciones",q:"Una viuda de 70 años alquila una habitación en la casa donde vive. Ella coloca un anuncio buscando exclusivamente a otra mujer mayor para que le haga compañía e ignora las solicitudes de hombres jóvenes. ¿Bajo qué excepción del Fair Housing Act podría ser legal esta acción?",
+     q_en:"A 70-year-old widow rents out a room in the house where she lives. She places an ad looking exclusively for another older woman for companionship and ignores applications from young men. Under which Fair Housing Act exemption could this action be legal?",
+     opts:["La exemption 'Mrs. Murphy' si no usa broker ni publicidad discriminatoria","Cualquier propietario que no quiera alquilar a familias con niños","La propiedad tiene más de 50 años","El propietario es una persona de la tercera edad (exención del 100%)"],correct:0,
+     tip:"Mrs. Murphy: propietario que vive en propiedad de ≤4 unidades. Puede discriminar (excepto por raza) <strong>SOLO si NO usa broker NI publicidad discriminatoria</strong>. Nota: publicar un anuncio excluyente anula la exención."},
 
     // ── SANCIONES ──
-    {cat:"Sanciones",q:"Un broker no mantiene el letrero requerido en su oficina. ¿Cuál es la multa según la regla 61J2?",
+    {cat:"Sanciones",q:"Durante una inspección de rutina de la DBPR, el inspector nota que el broker principal no tiene el letrero de oficina requerido en la entrada de su lugar principal de negocios. Según las directrices de citación (Regla 61J2), ¿cuál es la multa típica por esta infracción?",
+     q_en:"During a routine DBPR inspection, the inspector notes that the principal broker does not have the required office sign at the entrance of their principal place of business. According to citation guidelines (Rule 61J2), what is the typical fine for this violation?",
      opts:["$500","$250","$1,000","$5,000"],correct:0,
-     tip:"Multa por no tener letrero de oficina: <strong>$500</strong>."},
+     tip:"Multa administrativa por no tener el letrero de la oficina (Office Sign): <strong>$500</strong>."},
 
-    {cat:"Sanciones",q:"Un licensee publica un anuncio que no incluye el nombre del broker. ¿Cuál es la sanción?",
-     opts:["$250 a $1,000","$100 a $500","$500 a $5,000","Solo una advertencia verbal"],correct:0,
-     tip:"Publicidad falsa o sin nombre del broker: <strong>$250 a $1,000</strong>. Toda publicidad debe incluir nombre del broker."},
+    {cat:"Sanciones",q:"Un licensee publica un anuncio de una propiedad en Facebook, pero olvida incluir el nombre de su brokerage firm, haciendo que parezca que la propiedad está a la venta por el dueño. Este tipo de publicidad se conoce como 'blind advertisement'. ¿Cuál es la sanción típica en Florida?",
+     q_en:"A licensee posts a property ad on Facebook but forgets to include the name of their brokerage firm, making it appear the property is for sale by owner. This type of advertising is known as a 'blind advertisement'. What is the typical penalty in Florida?",
+     opts:["$250 a $1,000 de multa","$100 a $500 de multa","$500 a $5,000 de multa","Solo una advertencia (Notice of Noncompliance) verbal"],correct:0,
+     tip:"Publicidad falsa o 'Blind Advertising' (sin nombre del broker): multa de <strong>$250 a $1,000</strong>. Toda publicidad debe incluir el nombre registrado del broker."},
 
-    {cat:"Sanciones",q:"¿Cuál es el plazo máximo para depositar fondos de escrow después de la aceptación del contrato?",
-     opts:["Antes del final del 3er día hábil","Antes del final del 5to día hábil","Dentro de 24 horas","Dentro de 10 días calendario"],correct:0,
-     tip:"Depósito de escrow: antes del <strong>final del 3er día hábil</strong> después de aceptación. Sanción: $250-$1,000 + posible suspensión."},
+    {cat:"Sanciones",q:"Un sales associate recibe un cheque de earnest money de un comprador un martes. El associate se lo entrega a su broker el miércoles. ¿Cuál es la fecha límite máxima que tiene el broker para depositar estos fondos en la cuenta de escrow (sin contar feriados)?",
+     q_en:"A sales associate receives an earnest money check from a buyer on a Tuesday. The associate gives it to their broker on Wednesday. What is the maximum deadline for the broker to deposit these funds into the escrow account (excluding holidays)?",
+     opts:["Antes del final del día hábil del viernes (3er día hábil)","Antes del final del día hábil del jueves","Dentro de 24 horas exactas","Al final del quinto día hábil"],correct:0,
+     tip:"Regla de depósito de escrow: El agente tiene hasta el <strong>final del siguiente día hábil</strong> para entregar al broker. El broker tiene hasta el <strong>final del 3er día hábil</strong> (contando desde que el comprador dio los fondos) para depositar."},
 
-    {cat:"Sanciones",q:"Si un licensee obtiene su licencia por medios fraudulentos, ¿cuál es la sanción?",
-     opts:["$250 a $1,000 + 30 días de suspensión","$5,000 + revocación inmediata","$100 + curso de ética obligatorio","Solo revocación sin multa"],correct:0,
-     tip:"Licencia por fraude: <strong>$250 a $1,000</strong> + <strong>30 días suspensión</strong>. Puede resultar en revocación."},
+    {cat:"Sanciones",q:"La FREC descubre que un individuo obtuvo su licencia de broker proporcionando deliberadamente información falsa sobre su experiencia previa. ¿Cuál es el rango de sanción que enfrenta este individuo por obtener la licencia por medios fraudulentos?",
+     q_en:"The FREC discovers that an individual obtained their broker's license by deliberately providing false information about their previous experience. What is the penalty range this individual faces for obtaining the license by fraudulent means?",
+     opts:["$250 a $1,000 de multa administrativa y 30 días de suspensión (con posible revocación)","$5,000 de multa y revocación inmediata automática","$100 de multa y un curso obligatorio de ética de la FREC","Solo revocación de licencia sin multa monetaria adicional"],correct:0,
+     tip:"Obtener una licencia por fraude o engaño: Multa de <strong>$250 a $1,000</strong> más <strong>30 días de suspensión</strong> a posible revocación."},
 
-    {cat:"Sanciones",q:"La FHA:",
-     opts:["Asegura los préstamos, pero no los garantiza.","Garantiza los préstamos, pero no los asegura.","Los préstamos son concedidos por el HUD.","Tiene un programa (sección 234) para viviendas unifamiliares."],correct:0,
-     tip:"<strong>Federal Housing Administration (FHA):</strong> Agencia de gobierno que ASEGURA los préstamos en caso de default (impago), cobrando un MIP al deudor. <strong>VA</strong> garantiza y <strong>Convencional</strong> no tiene respaldo federal."},
+    {cat:"Sanciones",q:"Un veterano desea comprar una casa y solicita un préstamo de la FHA (Federal Housing Administration). ¿Cuál de las siguientes afirmaciones describe CORRECTAMENTE el papel de la FHA en esta transacción?",
+     q_en:"A veteran wishes to buy a home and applies for an FHA (Federal Housing Administration) loan. Which of the following statements CORRECTLY describes the role of the FHA in this transaction?",
+     opts:["Asegura los préstamos en caso de incumplimiento, pero no los garantiza directamente ni presta el dinero.","Garantiza los préstamos al 100%, pero no requiere seguro hipotecario.","Origina y concede los préstamos directamente al comprador a través del HUD.","Otorga préstamos exclusivos con cero por ciento de pago inicial (0% down)."],correct:0,
+     tip:"<strong>Federal Housing Administration (FHA):</strong> Es una agencia federal que ASEGURA los préstamos contra default (impago), cobrando un Mortgage Insurance Premium (MIP). <strong>VA</strong> garantiza y <strong>Convencional</strong> no tiene respaldo federal."},
 
     // ── FINANCIAMIENTO ──
-    {cat:"Financiamiento",q:"¿Cuál es la diferencia principal entre un Promissory Note y una Mortgage?",
-     opts:["El Note es la promesa de pago; la Mortgage es la garantía sobre la propiedad","El Note se registra; la Mortgage no","Ambos son lo mismo con nombres diferentes","La Mortgage es la promesa de pago; el Note es la garantía"],correct:0,
-     tip:"<strong>Promissory Note</strong> = promesa personal de pago (evidencia de deuda). <strong>Mortgage</strong> = garantía sobre la propiedad."},
+    {cat:"Financiamiento",q:"Al cerrar una transacción de compraventa financiada, el comprador firma dos documentos clave: el Promissory Note y la Mortgage. ¿Cuál es la diferencia legal principal entre estos dos documentos?",
+     q_en:"When closing a financed real estate transaction, the buyer signs two key documents: the Promissory Note and the Mortgage. What is the primary legal difference between these two documents?",
+     opts:["El Note es la promesa personal de repago (evidencia de la deuda); la Mortgage es la garantía que vincula la deuda a la propiedad.","El Note se registra en los registros públicos; la Mortgage no se registra.","Ambos términos son sinónimos y se usan indistintamente para referirse al préstamo.","La Mortgage es la promesa personal e incondicional de pago; el Note es simplemente un recibo del banco."],correct:0,
+     tip:"<strong>Promissory Note (Pagaré):</strong> promesa personal de pago (evidencia de deuda). <strong>Mortgage (Hipoteca):</strong> instrumento de garantía sobre la propiedad."},
 
-    {cat:"Financiamiento",q:"La cláusula Due-on-Sale en una hipoteca permite al prestamista:",
-     opts:["Exigir pago total si la propiedad se vende sin autorización","Aumentar la tasa de interés anualmente","Ejecutar la hipoteca sin orden judicial","Cobrar penalidades por pagos anticipados"],correct:0,
-     tip:"Due-on-Sale: el prestamista puede exigir <strong>pago total</strong> si la propiedad se vende/transfiere sin autorización."},
+    {cat:"Financiamiento",q:"Un propietario tiene una hipoteca convencional vigente. Decide vender la propiedad a un amigo, quien ofrece asumir los pagos de la hipoteca actual sin notificar al banco. El banco se entera y exige el pago total del saldo de inmediato. ¿Qué cláusula del contrato hipotecario le permite al banco hacer esto?",
+     q_en:"A homeowner has an existing conventional mortgage. He decides to sell the property to a friend, who offers to assume the current mortgage payments without notifying the bank. The bank finds out and demands full payment of the balance immediately. What clause in the mortgage contract allows the bank to do this?",
+     opts:["Due-on-Sale clause (Cláusula de Venta) / Alienation clause","Defeasance clause (Cláusula de Anulación)","Acceleration clause (Cláusula de Aceleración)","Prepayment penalty clause (Cláusula de penalidad por pago anticipado)"],correct:0,
+     tip:"Due-on-Sale (Alienation clause): el prestamista puede exigir el <strong>pago total</strong> si el prestatario vende o transfiere la propiedad sin autorización previa. Impide la asunción no autorizada."},
 
-    {cat:"Financiamiento",q:"¿Cuál tipo de préstamo permite un down payment de 3.5% y requiere Mortgage Insurance Premium (MIP)?",
-     opts:["FHA","VA","Convencional","USDA"],correct:0,
-     tip:"<strong>Convencional</strong>: sin gobierno, PMI si LTV>80%. <strong>FHA</strong>: gobierno, 3.5% down, MIP. <strong>VA</strong>: veteranos, 0% down posible."},
+    {cat:"Financiamiento",q:"Una familia desea comprar su primera vivienda residencial evaluada en $200,000. Tienen ahorros limitados, pero pueden cubrir un pago inicial (down payment) del 3.5%. ¿Qué tipo de préstamo gubernamental es MÁS LÓGICO que estén utilizando y qué requiere?",
+     q_en:"A family wishes to purchase their first residential home appraised at $200,000. They have limited savings but can cover a 3.5% down payment. What type of government loan is MOST LIKELY being used and what does it require?",
+     opts:["Préstamo FHA, el cual requiere el pago de un Mortgage Insurance Premium (MIP)","Préstamo VA, el cual requiere el pago de Private Mortgage Insurance (PMI)","Préstamo Convencional estructurado bajo las guías de Fannie Mae","Préstamo rural del USDA diseñado para propiedades urbanas"],correct:0,
+     tip:"<strong>Convencional:</strong> sin respaldo del gobierno, requiere PMI si el LTV > 80%. <strong>FHA:</strong> seguro del gobierno, 3.5% down mínimo, requiere MIP. <strong>VA:</strong> garantía para veteranos, 0% down posible, sin MIP/PMI."},
 
-    {cat:"Financiamiento",q:"Al calcular el LTV (Loan-to-Value), el prestamista usa como 'valor' de la propiedad:",
-     opts:["El MENOR entre el precio de venta y el valor de tasación","El MAYOR entre el precio de venta y el valor de tasación","Siempre el precio de venta","Siempre el valor de tasación"],correct:0,
-     tip:"LTV = Préstamo ÷ Valor × 100. Valor = el <strong>MENOR</strong> entre precio y tasación. Si LTV > 80% → PMI requerido (convencional)."},
+    {cat:"Financiamiento",q:"Un comprador firma un contrato para adquirir una propiedad por $300,000. Durante el proceso, el tasador del banco valora la propiedad en $280,000. Al calcular el índice Loan-to-Value (LTV) máximo permitido, ¿qué cifra usará el prestamista como 'valor' de la propiedad?",
+     q_en:"A buyer signs a contract to purchase a property for $300,000. During the process, the bank's appraiser values the property at $280,000. When calculating the maximum allowable Loan-to-Value (LTV) ratio, what figure will the lender use as the property's 'value'?",
+     opts:["$280,000 (El MENOR entre el precio de venta y el valor de tasación)","$300,000 (El MAYOR entre el precio de venta y el valor de tasación)","$300,000 (Siempre se utiliza el precio de venta acordado mutuamente)","$290,000 (El promedio exacto entre ambos valores)"],correct:0,
+     tip:"LTV = Préstamo ÷ Valor × 100. Para proteger su riesgo, el prestamista siempre usará como valor el <strong>MENOR</strong> entre el precio de compra y el valor de tasación."},
 
-    {cat:"Financiamiento",q:"RESPA requiere que el prestamista entregue el Loan Estimate al prestatario dentro de:",
-     opts:["3 días hábiles después de la solicitud","5 días hábiles después de la solicitud","Al momento del cierre","7 días antes del cierre"],correct:0,
-     tip:"RESPA: <strong>Loan Estimate</strong> dentro de <strong>3 días</strong> de la solicitud. <strong>Closing Disclosure</strong> al menos <strong>3 días antes</strong> del cierre."},
+    {cat:"Financiamiento",q:"Un prestatario solicita un préstamo hipotecario residencial. Bajo las regulaciones de RESPA (Real Estate Settlement Procedures Act) integradas con TILA, ¿en qué plazo de tiempo el prestamista está obligado a entregar el documento 'Loan Estimate' (Estimación del Préstamo)?",
+     q_en:"A borrower applies for a residential mortgage loan. Under RESPA (Real Estate Settlement Procedures Act) regulations integrated with TILA, within what timeframe is the lender required to deliver the 'Loan Estimate' document?",
+     opts:["Dentro de los 3 días hábiles posteriores a la recepción de la solicitud de préstamo","Dentro de los 5 días hábiles posteriores a la recepción de la solicitud","Al momento exacto del cierre junto con el Closing Disclosure","Exactamente 7 días hábiles antes de la fecha de cierre acordada"],correct:0,
+     tip:"RESPA/TRID requiere: <strong>Loan Estimate</strong> expedido dentro de <strong>3 días hábiles</strong> de la solicitud. El <strong>Closing Disclosure (CD)</strong> debe recibirse al menos <strong>3 días hábiles antes</strong> del cierre."},
 
     // ── TASACIÓN ──
-    {cat:"Tasación",q:"¿Cuál enfoque de tasación es MÁS apropiado para valorar propiedades de inversión que generan renta?",
-     opts:["Income Approach (enfoque de ingresos)","Sales Comparison Approach","Cost Approach","Market Data Approach"],correct:0,
-     tip:"3 enfoques: <strong>Sales Comparison</strong> (residencias), <strong>Cost Approach</strong> (propiedades únicas), <strong>Income Approach</strong> (inversiones — usa IRV)."},
+    {cat:"Tasación",q:"Un tasador estatal certificado es contratado para determinar el valor de un complejo de apartamentos comerciales de 20 unidades que está actualmente alquilado. ¿Cuál de los tres grandes enfoques de tasación (Appraisal Approaches) se le dará MÁS peso en este escenario?",
+     q_en:"A state-certified appraiser is hired to determine the value of a 20-unit commercial apartment complex that is currently leased. Which of the three major appraisal approaches will be given the MOST weight in this scenario?",
+     opts:["Income Approach (Enfoque de Capitalización de Ingresos)","Sales Comparison Approach (Enfoque de Comparación de Ventas)","Cost Approach (Enfoque de Costo / Depreciación)","Market Data Approach (Enfoque de Datos Históricos del Mercado)"],correct:0,
+     tip:"Las propiedades comerciales o de inversión que generan flujo de caja se valoran principalmente con el <strong>Income Approach</strong> (basado en la fórmula IRV). Residenciales usan Sales Comparison; propiedades únicas o nuevas usan Cost Approach."},
 
-    {cat:"Tasación",q:"Una propiedad de inversión genera un NOI de $48,000 y el cap rate es 6%. Usando la fórmula IRV, el valor estimado es:",
+    {cat:"Tasación",q:"Una plaza comercial genera un Ingreso Operativo Neto (NOI) anual proyectado de $48,000. Los inversionistas en este mercado particular exigen una tasa de capitalización (Cap Rate) del 6%. Usando la fórmula IRV, ¿cuál es el valor de mercado estimado de esta propiedad?",
+     q_en:"A commercial retail plaza generates a projected annual Net Operating Income (NOI) of $48,000. Investors in this particular market demand a capitalization rate (Cap Rate) of 6%. Using the IRV formula, what is the estimated market value of this property?",
      opts:["$800,000","$288,000","$480,000","$2,880"],correct:0,
-     tip:"IRV: <strong>V = I ÷ R</strong>. $48,000 ÷ 0.06 = <strong>$800,000</strong>."},
+     tip:"Fórmula IRV: <strong>Valor = Ingreso (NOI) ÷ Tasa (Rate)</strong>. $48,000 ÷ 0.06 = <strong>$800,000</strong>. Note la relación inversa: a menor cap rate, mayor es el valor de la propiedad."},
 
-    {cat:"Tasación",q:"En el enfoque de Sales Comparison, si una propiedad comparable tiene piscina y el sujeto NO tiene piscina, el tasador debe:",
-     opts:["RESTAR el valor de la piscina del precio del comparable","SUMAR el valor de la piscina al precio del comparable","Descartar ese comparable","No hacer ajuste alguno"],correct:0,
-     tip:"CBS: Comparable <strong>Superior</strong> → <strong>Restar</strong>. Comparable <strong>Inferior</strong> → <strong>Sumar</strong>. Siempre se ajusta el comparable."},
+    {cat:"Tasación",q:"Un tasador está utilizando el Enfoque de Comparación de Ventas (Sales Comparison). La propiedad sujeta tiene un garaje para un auto, pero el Comparable A tiene un garaje para dos autos (valorado en $5,000 adicionales en el mercado). Para reconciliar los valores, ¿qué ajuste debe hacer el tasador?",
+     q_en:"An appraiser is using the Sales Comparison Approach. The subject property has a one-car garage, but Comparable A has a two-car garage (valued at an additional $5,000 in the market). To reconcile the values, what adjustment must the appraiser make?",
+     opts:["RESTAR $5,000 del precio de venta del Comparable A","SUMAR $5,000 al precio de venta del Comparable A","RESTAR $5,000 al precio de la Propiedad Sujeta","Descartar el Comparable A por no ser exactamente idéntico"],correct:0,
+     tip:"Regla CBS (Comparable Better Substitute): Si el Comparable es Superior (tiene algo extra), se <strong>RESTA</strong> del comparable. Si es Inferior (le falta algo), se <strong>SUMA</strong>. Los ajustes SIEMPRE se hacen al precio de la propiedad comparable, nunca a la sujeta."},
 
-    {cat:"Tasación",q:"Un inversionista compra una propiedad por $480,000. La renta bruta anual es $40,000. ¿Cuál es el GIM?",
+    {cat:"Tasación",q:"Un inversionista compra una propiedad de renta residencial en Jacksonville por $480,000. La propiedad genera una renta bruta anual exacta de $40,000. ¿Cuál es el Multiplicador de Ingreso Bruto (Gross Income Multiplier - GIM) asociado con esta compra?",
+     q_en:"An investor purchases a residential rental property in Jacksonville for $480,000. The property generates an exact annual gross rent of $40,000. What is the Gross Income Multiplier (GIM) associated with this purchase?",
      opts:["12","8","48","0.083"],correct:0,
-     tip:"<strong>GIM = Precio ÷ Renta Bruta Anual</strong>. $480,000 ÷ $40,000 = <strong>12</strong>."},
+     tip:"Fórmula: <strong>GIM = Precio de Venta ÷ Renta Bruta Anual</strong>. $480,000 ÷ $40,000 = <strong>12</strong>. Un multiplicador expresa cuántas veces el ingreso bruto anual cabe dentro del precio de compra."},
 
     // ── CIERRE ──
-    {cat:"Cierre",q:"En Florida (excepto Miami-Dade), ¿cuál es la tasa de Documentary Stamps on the DEED?",
-     opts:["$0.70 por cada $100 del precio (redondeando hacia arriba)","$0.35 por cada $100 del precio","$0.60 por cada $100 del precio","$1.00 por cada $100 del precio"],correct:0,
-     tip:"Deed: <strong>$0.70/$100</strong> del precio (redondear ↑). Miami-Dade: $0.60/$100. Note: $0.35/$100. Intangible: $0.002 × préstamo nuevo."},
+    {cat:"Cierre",q:"Durante el cierre de una transacción residencial en el Condado de Orange (Florida), se deben calcular los Sellos Documentales en la Escritura (Documentary Stamps on the DEED). ¿Cuál es la tasa impositiva estatal CORRECTA para este cálculo?",
+     q_en:"During the closing of a residential transaction in Orange County, Florida, the Documentary Stamps on the DEED must be calculated. What is the CORRECT state tax rate for this calculation?",
+     opts:["$0.70 por cada $100 del precio de venta total (redondeando el precio hacia arriba a unidades de 100)","$0.35 por cada $100 del precio de venta total (sin redondeo)","$0.60 por cada $100 del precio de venta total (tasa de Miami-Dade)","$1.00 por cada $100 del monto del préstamo hipotecario"],correct:0,
+     tip:"Estampillas en la Escritura (Deed): la tasa es de <strong>$0.70 por cada $100</strong> o fracción del precio de compra. (Nota: en Miami-Dade County la tasa es de $0.60 por cada $100. La pregunta especifica Orange County, donde aplica la regla general del estado de FL)."},
 
     {cat:"Cierre",q:"Para calcular prorrateos al cierre, ¿cuál es el método correcto?",
      opts:["Costo anual ÷ 365 = tasa diaria × días del vendedor","Costo anual ÷ 12 = tasa mensual × meses del comprador","Costo anual × porcentaje de ocupación del vendedor","Costo anual ÷ 360 = tasa diaria × días restantes"],correct:0,
@@ -382,51 +433,63 @@ const ALL_CARDS = [
      tip:"CMA = estima <strong>precio de listado</strong> con ventas comparables. <strong>No es tasación</strong>. Solo tasadores con licencia hacen appraisals."},
 
     // ── LIENS COMERCIALES ──
-    {cat:"Corretaje",q:"Bajo el Commercial RE Sales Commission Lien Act, ¿el lien del broker se adhiere al inmueble?",
-     opts:["No, solo se adhiere a los net proceeds (propiedad personal)","Sí, se adhiere directamente al inmueble","Sí, pero solo por 90 días","Depende del monto de la comisión"],correct:0,
-     tip:"El lien es sobre los <strong>net proceeds</strong> (propiedad personal), <strong>NO se adhiere al inmueble</strong>."},
+    // ── LIENS COMERCIALES ──
+    {cat:"Corretaje",q:"Un broker firma un acuerdo exclusivo para vender un almacén comercial. La venta se concreta, pero el vendedor se niega a pagar la comisión acordada. Bajo el Commercial Real Estate Sales Commission Lien Act, ¿a qué tiene derecho legalmente el broker para asegurar su pago?",
+     q_en:"A broker signs an exclusive agreement to sell a commercial warehouse. The sale goes through, but the seller refuses to pay the agreed-upon commission. Under the Commercial Real Estate Sales Commission Lien Act, what is the broker legally entitled to do to secure payment?",
+     opts:["Colocar un gravamen (lien) exclusivamente sobre los 'net proceeds' (ingresos netos de la venta)","Colocar un gravamen (lien) directamente sobre el inmueble comercial vendido","Exigir la cancelación del cierre hasta recibir el pago","Demandarlo directamente bajo las leyes de bienes raíces residenciales"],correct:0,
+     tip:"El lien por ventas comerciales aplica SÓLO sobre los <strong>net proceeds</strong> (considerado propiedad personal). <strong>NO se adhiere al título del inmueble</strong>."},
 
-    {cat:"Corretaje",q:"Bajo el Commercial RE Leasing Commission Lien Act, ¿a qué se adhiere el lien del broker?",
-     opts:["Al interés del landlord en el inmueble comercial","Al leasehold del inquilino","A los ingresos del alquiler","A la propiedad personal del landlord"],correct:0,
-     tip:"Se adhiere al <strong>interés del landlord</strong> en el inmueble. <strong>NO se adhiere al leasehold del inquilino</strong>."},
+    {cat:"Corretaje",q:"Un broker de bienes raíces asiste al propietario (landlord) de una plaza comercial en la búsqueda de un inquilino a largo plazo. Una vez firmado el contrato de arrendamiento (lease), el landlord no paga la comisión. Bajo la ley de Florida, ¿a qué se adhiere el gravamen (lien) del broker por leasing comercial?",
+     q_en:"A real estate broker assists the landlord of a commercial plaza in finding a long-term tenant. Once the lease is signed, the landlord fails to pay the commission. Under Florida law, what does the broker's commercial leasing lien attach to?",
+     opts:["Al interés del landlord en la propiedad comercial arrendada","Al interés de arrendamiento (leasehold estate) del inquilino","Exclusivamente al depósito de seguridad mensual","A la propiedad personal no relacionada del landlord"],correct:0,
+     tip:"En arrendamientos (leasing) comerciales, el lien se adhiere al <strong>interés del landlord en el inmueble</strong>. SÍ afecta el inmueble, a diferencia de las ventas comerciales."},
 
-    {cat:"Corretaje",q:"¿Puede un propietario renunciar de antemano al derecho del broker a reclamar un lien comercial?",
-     opts:["No, el derecho no puede ser renunciado antes de que la comisión sea ganada","Sí, con una cláusula en el contrato","Sí, si ambas partes lo acuerdan","Solo si el broker es un Transaction Broker"],correct:0,
-     tip:"El derecho a reclamar un lien <strong>NO puede ser renunciado</strong> antes de que la comisión sea efectivamente ganada."},
+    {cat:"Corretaje",q:"Al negociar un contrato de corretaje comercial, un propietario astuto le pide a su broker que firme una cláusula renunciando por adelantado a su derecho de colocar un lien por la comisión futura. ¿Es legal y vinculante esta cláusula bajo la ley de Florida?",
+     q_en:"When negotiating a commercial brokerage contract, a shrewd owner asks their broker to sign a clause waving their right in advance to place a lien for the future commission. Is this clause legal and binding under Florida law?",
+     opts:["No, el derecho a reclamar un lien comercial no puede ser renunciado antes de que la comisión sea ganada","Sí, porque los contratos comerciales permiten flexibilidad total si hay consentimiento","Depende completamente del monto total de la comisión en juego","Solo es válido si el broker actúa en capacidad de Single Agent"],correct:0,
+     tip:"Protección al broker: El derecho legal a reclamar un lien bajo estas leyes comerciales <strong>NO puede ser renunciado (waived)</strong> antes de que la comisión se haya ganado."},
 
     // ── FOREIGN INVESTMENT ──
-    {cat:"Divulgaciones",q:"¿Qué deben firmar los compradores al cierre según las regulaciones de Florida sobre Foreign Principals?",
-     opts:["Un affidavit bajo pena de perjurio declarando si son o no un Foreign Principal","Una carta de intención de residencia","Un acuerdo de divulgación de ingresos","Un formulario de verificación de ciudadanía"],correct:0,
-     tip:"Deben firmar un <strong>affidavit bajo pena de perjurio</strong> declarando si son o no un 'Foreign Principal'."},
+    {cat:"Divulgaciones",q:"Un matrimonio de ciudadanos extranjeros, sin visa de residencia, está comprando una casa de vacaciones en Orlando. Bajo las regulaciones recientes de Florida sobre \"Foreign Principals\", ¿qué documento obligatorio deben firmar los compradores al momento del cierre?",
+     q_en:"A foreign citizen couple, without a residency visa, is buying a vacation home in Orlando. Under recent Florida regulations regarding \"Foreign Principals\", what mandatory document must the buyers sign at closing?",
+     opts:["Un affidávit bajo pena de perjurio declarando formalmente si son o no un 'Foreign Principal'","Una declaración jurada prometiendo establecer residencia permanente en 90 días","Un formulario federal de divulgación de ingresos netos extranjeros","Un contrato adicional asumiendo impuestos a la propiedad más altos"],correct:0,
+     tip:"Nueva regulación (2023): Por restricciones para compradores de ciertos países (ej. China, Rusia), TODOS los compradores en FL deben firmar un <strong>affidavit bajo pena de perjurio</strong> declarando si caen o no bajo la definición legal de 'Foreign Principal'."},
 
     // ── CERCLA ──
-    {cat:"Divulgaciones",q:"¿Cuál es el propósito principal de CERCLA (Superfund)?",
-     opts:["Establecer un fondo federal para limpiar sitios con desechos peligrosos","Regular la construcción de viviendas nuevas","Establecer estándares de eficiencia energética","Proteger especies en peligro en terrenos privados"],correct:0,
-     tip:"CERCLA: <strong>fondo federal para limpiar sitios contaminados</strong> e identificar <strong>personas potencialmente responsables (PRPs)</strong>."},
+    {cat:"Divulgaciones",q:"El gobierno federal descubre que los terrenos de una antigua fábrica de químicos en Tampa están gravemente contaminados y representan un peligro público. ¿Qué ley o programa federal establece un fondo fiduciario para pagar por la limpieza inicial de este tipo de sitios peligrosos?",
+     q_en:"The federal government discovers that the grounds of a former chemical plant in Tampa are severely contaminated and pose a public hazard. Which federal law or program establishes a trust fund to pay for the initial cleanup of these types of hazardous sites?",
+     opts:["CERCLA (The Comprehensive Environmental Response, Compensation, and Liability Act) / Superfund","HUD's Lead-Based Paint Hazard Reduction Act","The Federal Fair Housing Amendments Act de 1988","The Florida Department of Environmental Protection (FDEP) guidelines"],correct:0,
+     tip:"CERCLA (conocido como <strong>Superfund</strong>): Establece fondos federales para limpiar sitios severamente contaminados e identifica a las 'Personas Potencialmente Responsables' (PRPs) para cobrarles los costos."},
 
-    {cat:"Divulgaciones",q:"¿Qué defensa legal otorga CERCLA/SARA a ciertos propietarios que no causaron la contaminación?",
-     opts:["La defensa de 'innocent landowner' con due diligence","Inmunidad total automática","Exención por antigüedad de la propiedad","Protección solo para compradores de primera vivienda"],correct:0,
-     tip:"La defensa de <strong>'innocent landowner'</strong> permite evitar responsabilidad si se cumplen criterios de <strong>due diligence</strong>."},
+    {cat:"Divulgaciones",q:"Un desarrollador compra un lote baldío comercial sin hacer estudios previos. Al excavar, descubre tanques de combustible subterráneos oxidados que están goteando, causando un desastre ecológico. El gobierno, bajo CERCLA/SARA, lo responsabiliza económicamente. ¿Qué defensa crucial falló en establecer el desarrollador para protegerse como 'propietario inocente'?",
+     q_en:"A developer buys a vacant commercial lot without prior studies. Upon excavating, he discovers rusted underground fuel tanks that are leaking, causing an ecological disaster. The government, under CERCLA/SARA, holds him financially liable. What crucial defense did the developer fail to establish to protect himself as an 'innocent landowner'?",
+     opts:["No realizó la diligencia debida ambiental (Phase I Environmental Site Assessment) antes de la compra","No compró seguro de título extendido comercial","No registró la propiedad a tiempo en los récords del condado","No contrató a un Transaction Broker certificado"],correct:0,
+     tip:"La defensa legal de 'innocent landowner' bajo SARA exige probar que el comprador realizó una <strong>diligencia debida obligatoria (Phase I ESA)</strong> ANTES de comprar la propiedad."},
 
     // ── ESCROW ──
-    {cat:"Corretaje",q:"'Commingling' en cuentas de escrow se refiere a:",
-     opts:["Mezclar ilegalmente dinero de escrow con fondos personales del broker","Depositar el dinero de escrow en múltiples bancos","No depositar el dinero de escrow a tiempo","Usar fondos de escrow para publicidad"],correct:0,
-     tip:"Commingling = acto <strong>ilegal</strong> de mezclar dinero de escrow con fondos <strong>personales o empresariales</strong> del broker."},
+    {cat:"Corretaje",q:"Un broker principal mantiene una cuenta operativa para su oficina y una cuenta de escrow para los depósitos de los clientes. Cierto mes, para pagar los gastos de publicidad, deposita rentas de clientes directamente en su cuenta operativa. Este acto ilegal es MEJOR clasificado como:",
+     q_en:"A principal broker maintains an operating account for his office and an escrow account for client deposits. One month, to pay for advertising expenses, he deposits client rent money directly into his operating account. This illegal act is BEST classified as:",
+     opts:["Commingling (mezcla de fondos)","Conversion (conversión o uso no autorizado)","Larceny (Hurto mayor)","Fraudulent Misrepresentation (Falsedad fraudulenta)"],correct:0,
+     tip:"<strong>Commingling</strong> = acto ILEGAL de mezclar dinero de clientes (escrow) con fondos personales, operativos o empresariales del broker."},
 
-    {cat:"Corretaje",q:"¿Cuánto dinero propio puede mantener un broker en la cuenta de sales escrow?",
-     opts:["Hasta $1,000","$0 — ningún dinero propio","Hasta $5,000","Hasta $500"],correct:0,
-     tip:"Hasta <strong>$1,000</strong> en sales escrow. Hasta <strong>$5,000</strong> en property management escrow."},
+    {cat:"Corretaje",q:"Para mantener activa una cuenta de escrow mensual de ventas residenciales sin pagar cuotas bancarias por bajo balance, la ley de Florida permite al broker depositar sus propios fondos personales. ¿Cuál es la cantidad MÁXIMA de dinero propio que el broker puede mantener en la cuenta de 'Sales Escrow'?",
+     q_en:"To keep a residential sales escrow account active without paying low-balance bank fees, Florida law allows the broker to deposit their own personal funds. What is the MAXIMUM amount of personal money the broker can keep in the 'Sales Escrow' account?",
+     opts:["Hasta $1,000 exactos","$0 — está estrictamente prohibido bajo pena de revocación","Un máximo de $5,000","El equivalente a un mes de mantenimiento bancario promedio"],correct:0,
+     tip:"Para abrir y mantener la cuenta sin cargos (service charges): Hasta <strong>$1,000</strong> de fondos propios en una cuenta de <strong>Sales Escrow</strong>. (Para Property Management Escrow el límite sube a $5,000)."},
 
-    {cat:"Corretaje",q:"El uso no autorizado o mal uso de fondos de un cliente por parte de un licensee se denomina:",
-     opts:["Conversion","Commingling","Embezzlement","Misrepresentation"],correct:0,
-     tip:"<strong>Conversion</strong> = uso no autorizado, mal uso o retención de propiedad/fondos del cliente."},
+    {cat:"Corretaje",q:"Un comprador cancela legítimamente su contrato bajo el período de inspección de 10 días y solicita su depósito de vuelta (earnest money). El broker, sin embargo, se niega a devolverlo y lo usa para pagar unas deudas de su negocio. Esta violación criminal específica se denomina:",
+     q_en:"A buyer legitimately cancels their contract within the 10-day inspection period and requests their earnest money deposit back. The broker, however, refuses to return it and uses it to pay off some business debts. This specific criminal violation is termed:",
+     opts:["Conversion","Commingling","Culpable Negligence","Concealment"],correct:0,
+     tip:"<strong>Conversion</strong>: Ocurre cuando un licensee realiza un uso no autorizado, abuso, o retención del dinero/propiedad que le pertenece legímitamente a un cliente."},
 
-    {cat:"Corretaje",q:"¿Cuántos días hábiles tiene el broker para notificar a la FREC sobre un conflicto de escrow?",
-     opts:["15 días hábiles","10 días hábiles","30 días calendario","5 días hábiles"],correct:0,
-     tip:"<strong>15 días hábiles</strong> después de la última demanda conflictiva recibida."},
+    {cat:"Corretaje",q:"Un comprador y un vendedor entran en una fuerte disputa sobre quién tiene derecho a quedarse con el depósito de buena fe (earnest money) que está en la cuenta del broker de la firma local. Bajo las reglas de la FREC, ¿cuántos días hábiles MÁXIMO tiene el broker para notificar a la comisión por escrito sobre el conflicto?",
+     q_en:"A buyer and seller enter into a heated dispute over who has the right to keep the earnest money deposit held in the local brokerage firm's account. Under FREC rules, what is the MAXIMUM number of business days the broker has to notify the commission in writing regarding the conflict?",
+     opts:["15 días hábiles a partir del inicio del conflicto","10 días hábiles a partir de que falla la mediación","30 días hábiles en total para resolver o notificar","5 días hábiles después del cierre cancelado"],correct:0,
+     tip:"Conflictos de Escrow: El broker debe notificar por escrito a la FREC dentro de <strong>15 business days</strong> de tener constancia de demandas conflictivas del depósito."},
 
-    {cat:"Corretaje",q:"¿Cuáles son los procedimientos MALE para resolver conflictos de escrow?",
-     opts:["Mediation, Arbitration, Litigation (interpleader), EDO de la FREC","Mediation, Adjudication, Liquidation, Enforcement","Meeting, Agreement, Legal action, Escrow release","Mediation, Appeal, Lawsuit, Escrow surrender"],correct:0,
+    {cat:"Corretaje",q:"Cuando surge un conflicto no resuelto sobre los fondos de escrow depositados con un broker, este debe implementar los 'Settlement Procedures' (Procedimientos de Resolución) dentro de 30 días hábiles. El acrónimo para recordar estos 4 procedimientos es MALE. ¿Cuál de las siguientes es la lista CORRECTA de las opciones MALE?",
+     q_en:"When an unresolved conflict arises over escrow funds deposited with a broker, the broker must institute 'Settlement Procedures' within 30 business days. The acronym to remember these 4 procedures is MALE. Which of the following is the CORRECT list of the MALE options?",
+     opts:["Mediation (Mediación), Arbitration (Arbitraje), Litigation (Litigio o Interpleader), Escrow Disbursement Order (EDO)","Mediation, Adjudication, Liquidation, Enforcement","Meeting, Agreement, Legal action, Escrow release","Mediation, Appeal, Lawsuit, Escrow surrender"],correct:0,
      tip:"MALE: <strong>M</strong>ediation, <strong>A</strong>rbitration, <strong>L</strong>itigation (interpleader), <strong>E</strong>scrow Disbursement Order (EDO) de la FREC."},
 
     {cat:"Corretaje",q:"¿En cuál situación está EXENTO el broker de notificar a la FREC sobre una disputa de escrow?",
@@ -434,167 +497,207 @@ const ALL_CARDS = [
      tip:"Exento cuando: comprador <strong>falla de buena fe</strong> en financiamiento, o comprador de condo cancela bajo el <strong>Condominium Act</strong>."},
 
     // ── BUSINESS VALUATION ──
-    {cat:"Tasación",q:"El 'going concern value' de un negocio comparado con el valor de sus bienes raíces:",
-     opts:["Puede ser menor, igual o mayor","Siempre es mayor","Siempre es igual","Siempre es menor"],correct:0,
-     tip:"El going concern value puede ser <strong>menor, igual o mayor</strong> que el valor de los activos inmobiliarios por separado."},
+    {cat:"Tasación",q:"Un tasador está evaluando el valor de una pizzería local exitosa que incluye el local, el equipo y su excelente reputación. Al comparar el 'going concern value' (valor de negocio en marcha) de esta pizzería con el valor estricto de sus bienes raíces (el local comercial), ¿cuál es la relación correcta?",
+     q_en:"An appraiser is evaluating the value of a successful local pizzeria, which includes the premises, equipment, and its excellent reputation. When comparing the 'going concern value' of this pizzeria with the strict value of its real estate (the commercial premises), what is the correct relationship?",
+     opts:["El going concern value puede ser menor, igual o mayor que el valor de los bienes raíces","El going concern value siempre es mayor que el valor de los bienes raíces","El going concern value siempre es exactamente igual al valor de los bienes raíces","El going concern value siempre es menor porque excluye los bienes raíces"],correct:0,
+     tip:"El going concern value es el valor de un negocio operativo. Puede ser <strong>menor, igual o mayor</strong> que el valor de los activos inmobiliarios (real estate) por separado, dependiendo de la rentabilidad del negocio."},
 
-    {cat:"Tasación",q:"¿Cuál es un ejemplo de activo INTANGIBLE al valorar un negocio?",
-     opts:["Goodwill (reputación y nombre del negocio)","El edificio donde opera","El inventario de productos","Los muebles y equipos"],correct:0,
-     tip:"<strong>Goodwill</strong> = reputación y nombre del negocio. Es un activo intangible en la valuación."},
+    {cat:"Tasación",q:"Al vender una peluquería, el broker incluye en la valoración el nombre comercial, la clientela leal y la reputación establecida en la comunidad a lo largo de 20 años. ¿Cuál es el término financiero correcto para este tipo de activo?",
+     q_en:"When selling a hair salon, the broker includes in the valuation the trade name, loyal clientele, and the reputation established in the community over 20 years. What is the correct financial term for this type of asset?",
+     opts:["Goodwill (Plusvalía o reputación)","Operating Capital (Capital de trabajo)","Tangible Asset (Activo tangible)","Fixture Valuation (Valoración de instalaciones)"],correct:0,
+     tip:"<strong>Goodwill</strong> = el valor de la reputación y el nombre del negocio. Es clasificado como un activo INTANGIBLE crucial en la valoración de un negocio operativo (Business Valuation)."},
 
-    {cat:"Tasación",q:"Al analizar los estados financieros de un negocio, ¿cuál de los siguientes es un ratio financiero clave?",
-     opts:["Debt-to-worth ratio","Price-to-earnings ratio","Dividend yield","Market capitalization"],correct:0,
-     tip:"Ratios clave: <strong>Quick ratio, inventory turnover, debt-to-worth ratio, net profit-to-owner ratio</strong>."},
+    {cat:"Tasación",q:"Un analista financiero está revisando el balance general de una empresa de corretaje para determinar cuánto del negocio pertenece realmente a los dueños en comparación con cuánto deben a los acreedores. ¿Qué ratio financiero clave le dará esta información?",
+     q_en:"A financial analyst is reviewing a brokerage firm's balance sheet to determine how much of the business truly belongs to the owners compared to how much they owe to creditors. Which key financial ratio will provide this information?",
+     opts:["Debt-to-worth ratio (Ratio deuda/patrimonio neto)","Price-to-earnings ratio (Ratio precio/beneficio)","Dividend yield (Rendimiento por dividendo)","Inventory turnover ratio (Ratio de rotación de inventarios)"],correct:0,
+     tip:"Business Valuation: Analizar los estados financieros requiere el uso de ratios como el <strong>Debt-to-worth ratio</strong>, que mide la relación entre la deuda total y el capital contribuido por los dueños."},
 
     // ── NAR 2024 ──
-    {cat:"Corretaje",q:"Tras el acuerdo NAR 2024, ¿dónde está PROHIBIDO publicar ofertas de compensación al buyer's agent?",
-     opts:["En el MLS (Multiple Listing Service)","En el sitio web del broker","En periódicos locales","En redes sociales"],correct:0,
-     tip:"Ya <strong>NO se pueden publicar</strong> ofertas de compensación al agente del comprador en el <strong>MLS</strong>."},
+    {cat:"Corretaje",q:"Bajo las nuevas reglas del acuerdo NAR 2024, un Listing Broker desea ofrecer una compensación económica (comisión) al broker que traiga al comprador. ¿Dónde está estrictamente PROHIBIDO publicar o comunicar esta oferta de compensación?",
+     q_en:"Under the new NAR 2024 settlement rules, a Listing Broker wishes to offer financial compensation (commission) to the broker who brings the buyer. Where is it strictly PROHIBITED to publish or communicate this offer of compensation?",
+     opts:["En el propio sistema MLS (Multiple Listing Service)","En el sitio web público del Listing Broker","En materiales impresos repartidos en un Open House","Directamente al Buyer's Broker por correo electrónico"],correct:0,
+     tip:"Acuerdo NAR 2024: Está <strong>PROHIBIDO publicar ofertas de compensación al agente del comprador en el MLS</strong>. Sí se puede hacer fuera del MLS (ej. sitio web propio, comunicación directa)."},
 
-    {cat:"Corretaje",q:"Post agosto 2024, ¿qué debe firmar el comprador ANTES de que un agente le muestre propiedades?",
-     opts:["Un acuerdo escrito de representación de comprador","Un pre-approval de hipoteca","Una carta de intención de compra","Un formulario de divulgación de agencia"],correct:0,
-     tip:"Se requiere un <strong>acuerdo escrito de representación de comprador</strong> que especifique deberes y términos de comisión."},
+    {cat:"Corretaje",q:"Un comprador potencial se contacta con un agente de bienes raíces y le pide que le muestre una casa que vio en Zillow. Post-agosto 2024, ¿qué acción es obligatoria para el agente ANTES de hacer el recorrido o tour por la propiedad con el comprador?",
+     q_en:"A potential buyer contacts a real estate agent and asks them to show a house they saw on Zillow. Post-August 2024, what action is mandatory for the agent BEFORE touring the property with the buyer?",
+     opts:["Hacer que el comprador firme un acuerdo escrito de representación (Buyer Representation Agreement)","Verificar que el comprador tenga una carta de pre-aprobación del banco","Solicitar un depósito de buena fe (earnest money) en fideicomiso","Entregar el aviso de transición a Transaction Broker"],correct:0,
+     tip:"Regla post-agosto 2024: Un agente trabajando con un comprador <strong>DEBE</strong> tener un <strong>acuerdo escrito de representación de comprador</strong> firmado ANTES de mostrar cualquier propiedad (\"touring\"). El acuerdo debe definir claramente la compensación."},
 
     // ── SANCIONES/LICENCIA NUEVAS ──
-    {cat:"Sanciones",q:"Un 'Notice of Noncompliance' del DBPR se emite para:",
-     opts:["Una primera ofensa de violación menor sin daño económico o físico","Cualquier violación que resulte en pérdida económica","Violaciones repetidas de la misma norma","Fraude o misrepresentation intencional"],correct:0,
-     tip:"Notice of Noncompliance: <strong>primera ofensa menor</strong> que no causa daño económico/físico ni afecta salud, seguridad o bienestar público."},
+    {cat:"Sanciones",q:"Un nuevo agente olvida actualizar su dirección de correo electrónico con el DBPR dentro del plazo requerido. El DBPR determina que esta infracción no causó ningún daño económico, físico, ni amenaza a la seguridad pública. ¿Qué acción disciplinaria emitirá PROBABLEMENTE el DBPR en este caso por ser una primera ofensa menor?",
+     q_en:"A new agent forgets to update their email address with the DBPR within the required timeframe. The DBPR determines this violation caused no economic or physical harm, nor threats to public safety. What disciplinary action will the DBPR LIKELY issue in this case for being a first-time minor offense?",
+     opts:["Un 'Notice of Noncompliance' (Aviso de incumplimiento)","Una multa administrativa de $1,000","Una suspensión de licencia por 30 días","Una citación (Citation) inmediata en el lugar de los hechos"],correct:0,
+     tip:"Notice of Noncompliance: Es una advertencia que se emite para una <strong>primera ofensa menor</strong> que no causa daño económico/físico ni afecta la salud, seguridad o bienestar del público. Tienes 15 días para corregirla."},
 
-    {cat:"Licencia",q:"¿Pueden los 'residential loan alternative agreements' autorizar un lien sobre propiedad residencial?",
-     opts:["No, no pueden autorizar liens sobre propiedad residencial","Sí, con consentimiento del prestatario","Sí, pero solo por 12 meses","Solo si el monto es menor a $50,000"],correct:0,
-     tip:"Estos acuerdos <strong>NO pueden autorizar</strong> a una persona a colocar un lien sobre propiedad residencial."},
+    {cat:"Licencia",q:"Una empresa ofrece a los propietarios un pequeño adelanto en efectivo a cambio del derecho exclusivo de listar su casa en el futuro ('residential loan alternative agreement'). Bajo la nueva ley de Florida (2023) sobre la protección a los propietarios, ¿pueden estos acuerdos obligar al propietario permitiendo un gravamen (lien) sobre su residencia principal?",
+     q_en:"A company offers homeowners a small cash advance in exchange for the exclusive right to list their home in the future ('residential loan alternative agreement'). Under new Florida law (2023) protecting homeowners, can these agreements bind the homeowner by allowing a lien on their primary residence?",
+     opts:["No, dichos acuerdos están prohibidos de autorizar gravámenes (liens) sobre propiedades residenciales","Sí, una vez firmado el documento y notariado, el gravamen es completamente válido","Sí, pero el gravamen (lien) se extingue automáticamente después de 12 meses","Depende del monto prestado, si supera los $5,000, el gravamen es permitido"],correct:0,
+     tip:"Protección al Propietario (HB 709/2023): Estos acuerdos alternativos (\"residential loan alternative agreements\") <strong>NO pueden autorizar</strong> que se ponga un gravamen (lien) sobre una propiedad residencial."},
 
-    {cat:"Licencia",q:"¿Pueden los sales associates operar bajo un nombre ficticio (trade name)?",
-     opts:["No, solo los brokers pueden usar nombres ficticios","Sí, con aprobación del DBPR","Sí, si el broker lo autoriza por escrito","Sí, si el nombre está registrado"],correct:0,
-     tip:"Sales associates deben operar bajo su <strong>nombre legal</strong>. Solo <strong>brokers</strong> pueden usar nombres ficticios."},
+    {cat:"Licencia",q:"María, una Sales Associate recién licenciada, decide usar el nombre 'Florida Homes By Maria' en todas sus tarjetas de presentación en lugar de su nombre legal y el de su broker empleador. Bajo las normas vigentes de licencias de Florida, ¿es esto legal?",
+     q_en:"María, a newly licensed Sales Associate, decides to use the name 'Florida Homes By Maria' on all her business cards instead of her legal name and her employing broker's name. Under current Florida licensing rules, is this legal?",
+     opts:["No, los Sales Associates deben operar exclusivamente bajo su nombre legal y no pueden usar nombres ficticios (trade names)","Sí, siempre y cuando registre el nombre ficticio en el DBPR de Florida","Sí, si su broker empleador firma una autorización explícita para el uso del nombre","Sí, porque cualquier licenciado puede usar un 'trade name' comercial"],correct:0,
+     tip:"Regla de Registro: Los Sales Associates y Broker Associates deben estar registrados bajo su <strong>nombre legal</strong> (que puede incluir el designador de PA, LLC, o PLLC). <strong>Solo los Brokers pueden usar nombres ficticios o comerciales (Trade Names)</strong>."},
 
     // ── TEMAS CLAVE FALTANTES ──
-    {cat:"Impuestos",q:"¿En qué fecha se vuelven MOROSOS (delinquent) los impuestos de propiedad en Florida?",
-     opts:["Abril 1","Enero 1","Noviembre 1","Julio 1"],correct:0,
-     tip:"Fechas clave: <strong>Ene 1</strong>: assessment. <strong>Mar 1</strong>: deadline exenciones. <strong>Nov 1</strong>: pagaderos con descuento (4% Nov, 3% Dic, 2% Ene, 1% Feb). <strong>Abr 1</strong>: delinquent."},
+    {cat:"Impuestos",q:"La familia Smith no ha podido pagar sus impuestos anuales a la propiedad evaluados el año anterior. Según el calendario de impuestos de Florida, ¿en qué fecha exacta del año en curso esos impuestos a la propiedad pasan oficialmente a ser clasificados como 'Morosos' (Delinquent)?",
+     q_en:"The Smith family has been unable to pay their annual property taxes assessed the previous year. According to the Florida tax calendar, on what exact date of the current year do those property taxes officially become classified as 'Delinquent'?",
+     opts:["1 de abril","1 de enero","1 de noviembre","El último día hábil de diciembre"],correct:0,
+     tip:"Calendario Fijo: <strong>Ene 1</strong> (Se evalúan). <strong>Mar 1</strong> (Deadline para exenciones). <strong>Nov 1</strong> (Se envían facturas, descuentos inician). <strong>Abril 1 (año siguiente): Los impuestos pasan a MOROSOS (Delinquent)</strong> y comienza la venta de Tax Certificates."},
 
-    {cat:"Corretaje",q:"¿Cuál tipo de listing agreement le garantiza al broker la comisión SIN IMPORTAR quién venda la propiedad?",
-     opts:["Exclusive Right of Sale","Exclusive Agency","Open Listing","Net Listing"],correct:0,
-     tip:"<strong>Exclusive Right of Sale</strong>: broker gana siempre (más común). <strong>Exclusive Agency</strong>: broker gana solo si él vende. <strong>Open</strong>: varios brokers. <strong>Net</strong>: legal pero desaconsejado."},
+    {cat:"Corretaje",q:"Un propietario decide listar su casa, pero quiere reservarse el derecho de venderla por su propia cuenta (For Sale By Owner) sin pagarle comisión a la agencia de bienes raíces. Sin embargo, si la agencia trae al comprador, el propietario sí pagará la comisión. ¿Qué tipo de listing agreement se debe usar para este acuerdo?",
+     q_en:"A homeowner decides to list their home, but wants to reserve the right to sell it on their own (For Sale By Owner) without paying a commission to the real estate agency. However, if the agency brings the buyer, the homeowner will pay the commission. What kind of listing agreement should be used for this arrangement?",
+     opts:["Exclusive-agency listing (Contrato de agencia exclusiva)","Exclusive-right-of-sale listing (Contrato exclusivo de derecho de venta)","Open listing (Contrato abierto no exclusivo)","Net listing (Listado neto)"],correct:0,
+     tip:"<strong>Exclusive Right of Sale:</strong> Broker gana siempre sin importar quién venda. <strong>Exclusive Agency:</strong> Broker tiene la exclusividad contra otros brokers, pero NO gana comisión si el PROPIETARIO encuentra al comprador. <strong>Open:</strong> Gana el primer broker que traiga al comprador."},
 
-    {cat:"Financiamiento",q:"La hipoteca que cubre varios lotes de terreno y normalmente incluye la cláusula de 'partial release' se conoce como:",
-     opts:["hipoteca agrupada (blanket mortgage)","hipoteca amortizada","hipoteca a término","hipoteca que garantiza el dinero en la compra (purchase money mortgage)"],correct:0,
-     tip:"<strong>Blanket Mortgage (Hipoteca Colectiva o Agrupada):</strong> Financiamiento típico de desarrolladores para un lote entero. La cláusula de <em>liberación parcial</em> libera un lote vendido a la vez."},
+    {cat:"Financiamiento",q:"Un desarrollador compra 20 acres de tierra para subdividir y construir un vecindario de casas unifamiliares. Él usa un financiamiento que cubre la totalidad de los 20 acres, pero que incluye una cláusula especial que le permite vender cada casa construida libre del gravamen general al momento de la venta. A esta hipoteca se le llama:",
+     q_en:"A developer buys 20 acres of land to subdivide and build a neighborhood of single-family homes. He uses financing that covers the entire 20 acres but includes a special clause allowing him to sell each home built free of the overall lien at the time of sale. This mortgage is called:",
+     opts:["Blanket mortgage (Hipoteca de cobertura global / colectiva)","Package mortgage (Hipoteca de paquete o mixta)","Purchase money mortgage (Hipoteca para el dinero de compra)","Wraparound mortgage (Hipoteca envolvente)"],correct:0,
+     tip:"<strong>Blanket Mortgage:</strong> Típica de constructores; cubre múltiples lotes o tractos. Incluye la vital cláusula de <strong>Liberación Parcial (Partial Release Clause)</strong> para liberar el gravamen (lien) de un solo lote vendido."},
 
-    {cat:"Propiedad",q:"¿Qué es una sección de tierra (section) en el método de agrimensura gubernamental?",
-     opts:["una milla cuadrada","seis millas cuadradas","un acre de terreno","un terreno que pertenece a un grupo de dueños"],correct:0,
-     tip:"Una sección es <strong>1 milla cuadrada</strong> y alberga un área total de <strong>640 acres</strong> de terreno. Un 'Township' está compuesto por 36 secciones (6 millas de lado por 6 millas de lado)."},
+    {cat:"Propiedad",q:"Usando el Sistema Principal de Meridianos y Líneas Base (Government Survey System), un agrimensor demarca los cuadrángulos (townships) de 6 millas por 6 millas y luego los divide. ¿Qué área exacta corresponde a una sola 'Sección' (Section) dentro de un township?",
+     q_en:"Using the Principal Meridian and Base Line System (Government Survey System), a surveyor demarcates townships measuring 6 miles by 6 miles and then divides them. What exact area corresponds to one single 'Section' within a township?",
+     opts:["1 milla cuadrada (640 acres)","6 millas cuadradas (36 acres totales)","Aproximadamente 43,560 pies cuadrados","Un cuarto de un township completo"],correct:0,
+     tip:"Survey System: Un 'Township' mide 6 Millas x 6 Millas (36 millas cuadradas). Está dividido en 36 secciones. Por definición, <strong>Una Sección (Section) mide 1 Milla Cuadrada y contiene exactamente 640 Acres</strong>."},
 
-    {cat:"Divulgaciones",q:"FIRPTA requiere retención del ___% del precio de venta cuando el vendedor es extranjero:",
-     opts:["15%","10%","20%","5%"],correct:0,
-     tip:"<strong>FIRPTA</strong>: retención del <strong>15%</strong>. El <strong>comprador</strong> es responsable de retener y remitir al IRS. Excepción: precio ≤$300K y comprador usará como residencia."},
+    {cat:"Divulgaciones",q:"El vendedor de una propiedad comercial en Miami es un ciudadano y residente de Brasil que no posee tarjeta de residencia de EE. UU. (un extranjero no residente). Acorde a la Ley FIRPTA, al momento del cierre, el comprador de este inmueble tiene la estricta obligación de retener un porcentaje de los fondos. ¿Cuánto es este porcentaje?",
+     q_en:"The seller of a commercial property in Miami is a citizen and resident of Brazil who does not possess a US green card (a non-resident alien). According to the FIRPTA Law, at the time of closing, the buyer of this property has the strict obligation to withhold a percentage of the funds. How much is this percentage?",
+     opts:["Retener el 15% del PRECIO DE VENTA total y remitirlo al IRS","Requerir que el vendedor deposite el 15% de SU GANANCIA NETA a la FREC","Avisar al Departamento de Inmigración antes de desembolsar el dinero al vendedor","Pagar una penalidad impositiva adicional del 10%"],correct:0,
+     tip:"<strong>FIRPTA</strong> (Foreign Investment in Real Property Tax Act): Exige que todo <strong>comprador</strong> retenga el <strong>15% de la CANTIDAD BRUTA REALIZADA</strong> (normalmente el precio de venta total) y la envíe al IRS si el vendedor es una persona extranjera no residente."},
 
-    {cat:"Propiedad",q:"Qué tipo de derechos se incluyen en una propiedad que bordea un río o un curso de agua?",
-     opts:["derechos ribereños (riparian rights)","derechos litorales (littoral rights)","derechos aluviales (alluvial rights)","derecho alodial (allodial rights)"],correct:0,
-     tip:"Límites de agua: Riberas = <strong>Riv</strong>er (ríos navegables y no navegables, arroyos). Littoral = <strong>L</strong>agos grandes (Lake) y océanos sujetos a las mareas."},
+    {cat:"Propiedad",q:"Un inversionista compra una parcela de tierra cuyo borde trasero toca las orillas de un río caudaloso. De acuerdo a las leyes de bienes raíces en Florida, ¿cómo se denominan los derechos de este propietario sobre el acceso y uso moderado de esta agua en movimiento (el río)?",
+     q_en:"An investor buys a parcel of land whose back border touches the banks of a rushing river. Under Florida real estate laws, what are this owner's rights regarding access and reasonable use of this moving water (the river) called?",
+     opts:["Riparian rights (Derechos ribereños)","Littoral rights (Derechos litorales)","Allodial rights (Derechos alodiales)","Prior Appropriation rights (Derechos de Apropiación Previa)"],correct:0,
+     tip:"Clave de memoria: <strong>R</strong>iparian = <strong>R</strong>ivers/Streams (agua que corre o fluye). <strong>L</strong>ittoral = <strong>L</strong>akes/Ocean, Mares (grandes cuerpos de agua comerciales y sujetos a las mareas)."},
 
-    {cat:"Financiamiento",q:"Si el producto de una venta por foreclosure NO cubre la deuda hipotecaria, el prestamista puede buscar un:",
-     opts:["Deficiency Judgment","Lis Pendens","Estoppel Certificate","Satisfaction of Mortgage"],correct:0,
-     tip:"<strong>Deficiency Judgment</strong>: el prestamista demanda al prestatario por el saldo restante. En FL, foreclosure es <strong>judicial</strong> (requiere corte)."},
+    {cat:"Financiamiento",q:"Un banco interpone una demanda y logra ejecutar exitosamente una hipoteca en un juzgado. Sin embargo, la posterior venta de la propiedad embargada en la subasta genera menos dinero del que el prestatario debía al banco. Para intentar recuperar esa diferencia faltante, ¿qué acción legal tramitará el prestamista contra el antiguo dueño?",
+     q_en:"A bank files a lawsuit and successfully forecloses on a mortgage in court. However, the subsequent sale of the foreclosed property at auction generates less money than the borrower owed the bank. To try to recover that missing difference, what legal action will the lender pursue against the former owner?",
+     opts:["Solicitará un Deficiency Judgment (Fallo por Deficiencia)","Emitirá un Lis Pendens permanente en los récords del condado","Solicitará a la corte emitir un Estoppel Certificate contra el propietario","Pedirá una Hipoteca de Equidad (Equity Mortgage) forzada"],correct:0,
+     tip:"Si lo recolectado en el remate por foreclosure es insuficiente, el tribunal puede dictar una <strong>Deficiency Judgment</strong>. Es un fallo personal no asegurado en contra del deudor (por el promissory note) para cubrir el resto de la deuda."},
 
-    {cat:"Licencia",q:"Un sales associate debe completar _____ horas de educación post-licencia antes de su primera renovación:",
-     opts:["45 horas","63 horas","14 horas","30 horas"],correct:0,
-     tip:"Sales Associates: <strong>45 horas</strong>. Brokers: <strong>60 horas</strong>. Si no se completa → licencia <strong>null and void</strong>."},
+    {cat:"Licencia",q:"Una asociada de ventas recién licenciada aprueba el examen del estado el 10 de octubre de 2024. Su licencia inicial expirará el 30 de septiembre de 2026. ¿Qué requisito educativo INDISPENSABLE debe completar ella antes de esta fecha de expiración inicial para evitar perder su licencia?",
+     q_en:"A newly licensed sales associate passes the state exam on October 10, 2024. Her initial license will expire on September 30, 2026. What INDISPENSABLE educational requirement must she complete before this initial expiration date to avoid losing her license?",
+     opts:["Completar satisfactoriamente el curso de educación post-licencia para Sales Associates de 45 horas","Aprobar un curso general de educación continua (Continuing Education) de 14 horas","Cursar 60 horas completas de preparación en corretaje comercial","Pagar la tarifa de renovación requerida sin tomar cursos adicionales"],correct:0,
+     tip:"<strong>1ra Renovación (Regla Estricta):</strong> Sales Associates deben pasar el curso Post-Licencia de <strong>45 horas</strong>. Si NO lo hace a tiempo, la licencia se vuelve permanentemente <strong>\"NULL AND VOID\"</strong>."},
 
-    {cat:"Impuestos",q:"Los gravámenes por impuestos especiales (Special Assessments) están (en orden de prioridad):",
-     opts:["primero que los gravámenes privados","después de los gravámenes privados","primero que los gravámenes por impuestos a la propiedad","primero que todos los gravámenes"],correct:0,
-     tip:"Los ad valorem taxes y <strong>special assessments</strong> tienen prioridad superior (Superior Liens) a cualquier otra deuda u obligación contraída privadamente (hipoteca, IRS, vendor's lien, mecanico)."},
+    {cat:"Impuestos",q:"De la ley tributaria de Florida, cuando la municipalidad asfalta ciertas calles residenciales de polvo, la ciudad pasa un cobro por la mejora aplicable exclusivamente a las propiedades frente a esa calle. En la prioridad legal de los gravámenes (liens), ¿dónde quedan situados estos cobros por mejoras localizadas?",
+     q_en:"From Florida tax law, when the municipality paves certain dirt residential streets, the city passes a charge for the improvement applicable exclusively to the properties fronting that street. In the legal priority of liens, where do these charges for localized improvements rank?",
+     opts:["En la máxima categoría, antes que las hipotecas privadas (gravámenes superiores gubernamentales)","Detrás de la hipoteca de compra (purchase money mortgage) original de las casas","Se pagan proporcionalmente igual y al mismo tiempo que todos los Junior Liens","Tienen la más baja prioridad y asumen el último lugar en ejecuciones"],correct:0,
+     tip:"Los cobros por mejoras localizadas se llaman <strong>Special Assessments</strong>. Como regla, TODOS los impuestos de gobierno (Ad Valorem taxes y Special Assessments) son considerados <strong>Superior Liens</strong> (tienen máxima prioridad, por encima de hipotecas de bancos)."},
 
-    {cat:"Cierre",q:"¿Cuál tipo de Title Insurance protege al COMPRADOR contra defectos ocultos en el título?",
-     opts:["Owner's Policy","Lender's Policy","Hazard Insurance","Surety Bond"],correct:0,
-     tip:"<strong>Owner's Policy</strong>: protege al comprador. <strong>Lender's Policy</strong>: protege al prestamista (obligatoria). En Miami-Dade/Broward, generalmente paga el vendedor."},
+    {cat:"Cierre",q:"Al procesar el cierre, un comprador en efectivo desea asegurar de no perder su propiedad si a futuro aparece un heredero desconocido de un dueño anterior reclamando derechos. Para transferir este riesgo de un defecto oculto a una tercera entidad durante todo su periodo de propiedad, ¿qué seguro se adquiere de una sola vez al momento del cierre?",
+     q_en:"When processing a cash closing, a buyer wishes to ensure they will not lose their property if in the future an unknown heir of a previous owner appears claiming rights. To transfer this risk of a hidden defect to a third entity throughout their entire ownership period, what insurance is purchased as a one-time fee at closing?",
+     opts:["Owner's Title Insurance Policy (Póliza de seguro de título del dueño)","Lender's Title Insurance Policy (Póliza del prestamista)","Homeowners Hazard Insurance (Seguro de huracanes)","Un Quitclaim Deed notariado el mismo día del contrato"],correct:0,
+     tip:"<strong>Owner's Policy (Póliza del dueño):</strong> Se emite por el precio de venta; protege al comprador y herederos de defectos pasados no hallados. <strong>No es transferible</strong> y se paga 1 sola vez en el cierre. (El Lender's policy protege solo el préstamo bancario)."},
 
     // ── NUEVAS — CRAM 2026 SIMULACROS 1-4 ──
-    {cat:"Corretaje",q:"¿Qué campo del corretaje ha aumentado la demanda debido al incremento de los dueños ausentes (absentee owners)?",
-     opts:["Manejo de propiedades (Property Management)","Corretaje de oportunidades de negocios","Ventas comerciales","Ventas de propiedades agrícolas"],correct:0,
-     tip:"Los <strong>dueños ausentes</strong> (absentee owners) confían en administradores de propiedades para mantener sus inversiones y generar ingresos."},
+    {cat:"Corretaje",q:"Debido al aumento en Florida de inversionistas que compran propiedades y residen fuera del estado la mayor parte del año, ¿qué especialidad del corretaje ha experimentado un mayor aumento en demanda?",
+     q_en:"Due to the increase in Florida of investors who buy properties and reside out-of-state most of the year, which brokerage specialty has experienced the greatest increase in demand?",
+     opts:["Property Management (Manejo de propiedades)","Business Brokerage (Corretaje de negocios)","Commercial Sales (Ventas comerciales)","Agricultural Sales (Ventas agrícolas)"],correct:0,
+     tip:"Los inversionistas y <strong>dueños ausentes</strong> (absentee owners) confían en administradores de propiedades para mantener sus inversiones y generar ingresos."},
 
-    {cat:"Licencia",q:"Un corredor de bienes raíces que va a trabajar como corredor de dos compañías de corretaje de bienes raíces al mismo tiempo, ¿qué tipo de licencia necesita?",
-     opts:["licencia múltiple","licencia de grupo","El licenciado no necesita ninguna licencia especial.","licencia especial de vendedor para trabajar con un desarrollador"],correct:0,
-     tip:"<strong>Multiple license (Licencia múltiple):</strong> se emite para brokers que califican como corredor para más de una entidad comercial. <strong>Group license:</strong> es para asociados de ventas de un OWNER/DEVELOPER."},
+    {cat:"Licencia",q:"Un broker actúa como corredor principal de The Best Realty Inc. Recientemente formó otra empresa hipotecaria y de bienes raíces separada y quiere actuar como corredor de ambas compañías de corretaje al mismo tiempo. ¿Qué tipo de licencia especial tiene que solicitar ante el DBPR?",
+     q_en:"A broker acts as the qualifying broker for The Best Realty Inc. He recently formed another separate real estate and mortgage company and wants to act as broker for both brokerages at the same time. What special type of license must he request from the DBPR?",
+     opts:["Multiple license (Licencia múltiple)","Group license (Licencia de grupo)","Ninguna, su licencia actual cubre cualquier número de firmas","Licencia corporativa dual"],correct:0,
+     tip:"<strong>Multiple license:</strong> se emite para brokers que califican como corredor para MÁS de una entidad comercial a la vez. <strong>Group license:</strong> es para asociados de ventas bajo un Owner/Developer."},
 
-    {cat:"Licencia",q:"Un licenciado en bienes raíces se enrola en el servicio activo de las Fuerzas Armadas de Estados Unidos. Mientras está en servicio, no se involucra en la práctica de bienes raíces en el sector privado. ¿Cuántos meses tiene de plazo para renovar su licencia después de que ha sido dado de baja en el ejército?",
-     opts:["6 meses","10 días","1 mes","3 meses"],correct:0,
-     tip:"Exención militar: <strong>6 meses</strong> tras la baja honorable. Aplica también al cónyuge si reside en otro estado por el servicio militar del licenciado."},
+    {cat:"Licencia",q:"Un licenciado en bienes raíces de 25 años entra en servicio militar activo y es enviado a una base en el extranjero. Durante ese tiempo, su licencia expira. Al regresar y ser dado de baja honorablemente, ¿cuánto tiempo tiene de gracia, según la exención militar, para renovar sin tener que cumplir los requisitos de educación?",
+     q_en:"A 25-year-old real estate licensee enters active military service and is sent to an overseas base. During that time, his license expires. Upon returning and being honorably discharged, how much grace period does he have, under the military exemption, to renew without having to fulfill education requirements?",
+     opts:["6 meses desde que es dado de baja","10 días después de reincorporarse a su firma","1 mes exacto","3 meses desde la expiración original"],correct:0,
+     tip:"Exención militar: <strong>6 meses de gracia</strong> tras la baja honorable para que un militar (o su cónyuge) reanude su licencia inactiva sin requerir educación adicional."},
 
-    {cat:"Licencia",q:"¿Qué pasa con la licencia de un vendedor asociado o corredor si no hace el curso de educación antes del vencimiento de la primera renovación de sus licencias?",
-     opts:["La licencia queda nula y sin valor.","La licencia queda en periodo de gracia por 6 meses.","La licencia queda en estado inactivo por hasta dos años.","No pasa nada si el licenciado no está trabajando."],correct:0,
-     tip:"El primer plazo es FATAL. Si no se completan las 45h (SA) o 60h (Broker), la licencia pasa a ser <strong>nula y sin efecto (null and void)</strong>. Debe volver a tomar el curso pre-licencia de 63h."},
+    {cat:"Licencia",q:"Una asociada de ventas llega a la fecha de expiración de la primera renovación de su licencia inicial, pero se olvida de pagar y hacer el curso de 45 horas requerido. Al día siguiente a la medianoche de la fecha de expiración, ¿cuál será el estatus técnico e inmediato de su licencia?",
+     q_en:"A sales associate reaches the expiration date of the first renewal of her initial license but forgets to pay and take the required 45-hour course. At midnight the day following the expiration date, what will be the exact technical status of her license?",
+     opts:["Nula y sin efecto permanentemente (Null and void)","Inactiva involuntaria temporalmente (Involuntary inactive)","Inactiva voluntaria sujeta a multas","En un periodo de gracia oficial de 6 meses"],correct:0,
+     tip:"El primer plazo es FATAL. Si no se completan las 45h (Associate) o 60h (Broker) antes de la primera expiración, la licencia pasa automáticamente a ser <strong>nula y sin efecto (null and void)</strong>."},
 
-    {cat:"Licencia",q:"¿Cuál es el estatuto de la Florida que se encarga de la regulación de todas las profesiones que se encuentran bajo el DBPR, incluyendo la de bienes raíces?",
-     opts:["F.S. 455","F.S. 475","F.S. 120","F.S. 720"],correct:0,
-     tip:"<strong>F.S. 455</strong> regula al DBPR y TODAS las profesiones en general. <strong>F.S. 475</strong> es específico y exclusivo para Bienes Raíces. <strong>F.S. 120</strong> es sobre procedimientos disciplinarios."},
+    {cat:"Licencia",q:"Mientras estudia la estructura legal de licencias, un candidato aprende que diferentes estatutos rigen cosas separadas en el estado. ¿Qué estatuto de la Florida es el que se encarga UNICA y permanentemente de regular, en específico, la profesión y práctica de Bienes Raíces?",
+     q_en:"While studying the legal licensing structure, a candidate learns that different statutes govern separate things in the state. Which Florida statute is SOLELY and permanently responsible for regulating, specifically, the Real Estate profession and practice?",
+     opts:["F.S. 475 (Leyes de Bienes Raíces)","F.S. 455 (Leyes del DBPR y profesiones generales)","F.S. 120 (Procedimientos Disciplinarios)","F.S. 720 (Estatutos de Asociaciones HOA)"],correct:0,
+     tip:"<strong>F.S. 475:</strong> Regula Bienes Raíces en Florida. <strong>F.S. 455:</strong> Regula todas las profesiones (DBPR). <strong>F.S. 120:</strong> Proceso Administrativo y audiencias disciplinarias."},
 
-    {cat:"Corretaje",q:"La vendedora asociada Sandra desea hacer publicidad a su casa en venta. Si la publicita únicamente en su nombre:",
-     opts:["Se consideraría como un anuncio ciego y estaría sujeta a una acción disciplinaria por parte de la Comisión.","Puede ser acusada de actuar como corredora.","Puede hacerlo, pero debe revelar su estatus de licencia antes de iniciar negociaciones serias.","Puede hacerlo, pero debe despojarse de su identidad como licenciada en el anuncio."],correct:0,
-     tip:"Un anuncio ciego <strong>(Blind Ad)</strong> omite el nombre registrado de la compañía de corretaje. Es ilegal en Florida y sujeto a multas disciplinarias por la FREC."},
+    {cat:"Corretaje",q:"La asociada de ventas, Sandra, es dueña de una propiedad de inversión y decide venderla (For Sale By Owner). Ella coloca un anuncio de clasificados solo mencionando su propio nombre legal y número celular, esperando atraer compradores directos. ¿Qué declaración describe mejor su responsabilidad bajo la ley?",
+     q_en:"Sales associate Sandra owns an investment property and decides to sell it (For Sale By Owner). She places a classified ad mentioning only her legal name and cell phone number, hoping to attract direct buyers. What statement best describes her responsibility under the law?",
+     opts:["Técnicamente puede anunciarlo sin su banco/firma, PERO debe divulgar a cualquier prospecto su estatus real de 'licenciada activa' antes de entrar en negociaciones","Se consideraría como un Anuncio Ciego (Blind Ad) gravísimo, arriesgándose a severas amonestaciones FREC","Es ilegal en Florida: ella está operando en la práctica como corredora fuera de su brokerage asignado","Completamente legal y no debe preocuparse por sus acciones privadas no afiliadas"],correct:0,
+     tip:"Los licenciados pueden vender sus propias casas 'For Sale By Owner' sin usar a su broker. Sin embargo, DEBEN revelar honestamente su conocimiento divulgando que tienen licencia antes de negociar seriamente con un comprador ordinario."},
 
-    {cat:"Corretaje",q:"Smith and Brown, ambas entidades diferentes, son los únicos corredores de la zona de Key West. Ellos llegan a un acuerdo y deciden que solamente aceptarán aquellos listings que dejen el 7.5 % o más de comisión. ¿Es este acuerdo legal?",
-     opts:["No, porque está siendo violada la ley antimonopolio (antitrust) de los Estados Unidos.","Sí, porque es un ejemplo de libre empresa.","Sí, siempre y cuando este haya sido por escrito.","Sí, pero este debe ser previamente aprobado por el secretario del estado"],correct:0,
-     tip:"<strong>Sherman Antitrust Act:</strong> prohíbe terminantemente la fijación de precios (price-fixing), y es un delito establecer acuerdos tácitos o formales para manipular tarifas de comisión en el mercado."},
+    {cat:"Corretaje",q:"Los corredores y dueños de 'Smith Realty' y 'Brown Associates' (las únicas dos oficinas grandes de Key West) se topan en un almuerzo y de palabra concluyen no tomar más listings ni ayudar a vendedores locales que ofrezcan a la parte compradora menos del 5%. ¿Qué tipo de legalidad enmarca este acuerdo?",
+     q_en:"The brokers and owners of 'Smith Realty' and 'Brown Associates' (the only two large offices in Key West) bump into each other at lunch and verbally conclude to take no more listings or help local sellers that offer the buying side less than 5%. What kind of legality frames this agreement?",
+     opts:["Es criminal e ilegal, ya que es una maniobra colusoria tipificada como fijación de precios (Price-Fixing), violando las The Sherman Antitrust Laws.","Absolutamente legal y respaldada, una mera manifestación del libre mercado de la Florida.","Legal y contractual, solamente si ha sido puesto claramente por escrito ante abogado.","Solo es ilegal si el acuerdo contemplase las propiedades comerciales grandes en vez de la vivienda."],correct:0,
+     tip:"<strong>Sherman Antitrust Act:</strong> Castiga la colusión y la creación de un monopolio fijando los precios/tarifas (price-fixing) entre competidores en la zona. NUNCA existe un \"tarifa estándar\", todo es negociable libremente."},
 
-    {cat:"Sanciones",q:"La Comisión de Bienes Raíces de la Florida no puede:",
-     opts:["imponer el encarcelamiento como penalidad","aprobar reglas para implementar la Ley de Licencia","determinar qué constituye una infracción","establecer derechos de licencia"],correct:0,
-     tip:"La FREC impone multas administrativas, suspende o revoca licencias, pero <strong>NUNCA puede imponer penas de cárcel ni forzar la restitución de dinero a la víctima (eso lo hace la ley judicial)</strong>."},
+    {cat:"Sanciones",q:"La Comisión de Bienes Raíces de la Florida (FREC) tiene poderes quasi-judiciales formales para oír sobre delitos y crímenes relacionados en el rubro, sin embargo, sus miembros se enfrentan a duras restricciones. La FREC NUNCA PUEDE:",
+     q_en:"The Florida Real Estate Commission (FREC) has formal quasi-judicial powers to hear about related crimes and offenses in the field, however, its members face strict restrictions. The FREC CAN NEVER:",
+     opts:["Hacer un arresto directo, imponer penas criminales de cárcel, o exigir judicialmente la restitución monetaria directa a una víctima","Aprobar e improvisar nuevas normas procedimentales que ayuden a aplicar la Ley de Licencia y castigar","Elegir qué acciones documentadas sí constituirán infracciones administrativas de la ley interna","Congelar o cancelar las matrículas de licencias provisionalmente o en todo un periodo de probatoria"],correct:0,
+     tip:"Tanto el DBPR como la FREC solo imponen castigos del rubro licencias/multas. <strong>Las penas de cárcel (imprisonment) y los juicios para reembolsar robos a víctimas (restitution) son exclusivo de Los Jueces Regulares y Cortes Penales.</strong>"},
 
-    {cat:"Divulgaciones",q:"En determinadas circunstancias, la Ley de Bienes Raíces permite que un corredor nombre a un vendedor asociado para representar al vendedor y otro para representar al comprador. Siempre y cuando se cumplan todos los requisitos, el vendedor asociado se llamaría:",
-     opts:["vendedor asociado designado","agente doble","corredor de transacción","agente especial"],correct:0,
-     tip:"<strong>Designated Sales Associate:</strong> permitido en transacciones <strong>NO residenciales</strong> donde ambas partes tienen activos >$1 millón y solicitan representación de agente exclusivo a través de diferentes vendedores de la misma firma."},
+    {cat:"Divulgaciones",q:"En una compra de alto nivel para vender una torre valiosa, el comprador y vendedor no se confían entre sí y declaran ambos un balance de más de $1 M en dinero. Ellos le confían esta negociación solo a una misma firma grande. Buscan representación máxima fiduciaria individual al mismo tiempo. Al cumplirse todos los avisos de la ley, a los vendedores asociados trabajando exclusivamente de ambos lados los llaman:",
+     q_en:"In a high-level purchase to sell a valuable tower, the buyer and seller don't trust each other and both declare a balance of over $1M in money. They trust this negotiation only to the same large firm. They seek maximum individual fiduciary representation at the same time. Upon fulfilling all legal notices, the sales associates working exclusively on both sides are called:",
+     opts:["Designated Sales Associates (Agentes Asociados Designados, uno para el vendedor y otro para el comprador)","Agentes Simples Duales (Single Dual Agents) autorizados","Fiduciarios Temporales de Transacción Limitada","Special Appointed Arbitrators"],correct:0,
+     tip:"<strong>Designated Sales Associate:</strong> Permisos especiales del estado concedidos SOLO frente a una disputa/negociación sobre inmueble <strong>NO RESIDENCIAL</strong> (comercial, galpón, lote industrial) si los clientes declaran al broker que cada cual posee >$1 Millón en activos comprobables."},
 
-    {cat:"Financiamiento",q:"¿Cuál de las siguientes transacciones está exenta de los requerimientos de RESPA?",
-     opts:["un préstamo para financiar la construcción de una casa unifamiliar cuando el prestatario es dueño del lote donde se construirá la casa","un préstamo para construcción que se convertirá en un préstamo permanente después de que la construcción esté terminada","un préstamo para comprar una casa nueva en una subdivisión","un préstamo para comprar una casa unifamiliar"],correct:0,
-     tip:"RESPA aplica a propiedades <strong>residenciales de 1-4 unidades</strong> con préstamos con respaldo federal. <strong>NO aplica a la construcción si ya eres dueño del lote y no vas a convertir el préstamo en hipoteca permanente, o a ventas comerciales</strong>."},
+    {cat:"Financiamiento",q:"Al leer sobre el Real Estate Settlement Procedures Act (RESPA), una ley estricta enfocada en uniformizar y limpiar el préstamo hipotecario residencial frente a cierres corruptos y cargos sorpresa ocultos, alguien se pregunta a qué cosa aplica verdaderamente el Título. ¿Cuál transacción citada abajo está categóricamente EXENTA de REPSA?",
+     q_en:"Reading about the Real Estate Settlement Procedures Act (RESPA), a strict law focused on standardizing and cleaning up residential mortgage lending against corrupt closings and hidden surprise fees, someone wonders what the Title genuinely applies to. Which transaction cited below is categorically EXEMPT from RESPA?",
+     opts:["Un préstamo puente rápido solo orientado en materializar la construcción en un lote donde el deudor es plenamente dueño original y no re-financiará la hipoteca de inmediato.","Una hipoteca corriente prestada a la subdivisión a punto de comprar.","Un tradicional e institucional Préstamo Convencional de familia amparado en Fannie Mae.","Cualquier trámite residencial que reciba asistencia explícita crediticia del programa federal VA."],correct:0,
+     tip:"RESPA aplica y vigila celosamente cada préstamo hipotecario 'residencial de 1-4 entes/unidades' guiado con fin federal. Se exceptúan por regla las de comercio al 100%, campos, o hipotecas donde únicamente <strong>cubren la construcción misma provisoriamente sobre tu terreno personal poseído con anterioridad</strong>."},
 
-    {cat:"Divulgaciones",q:"El objetivo principal del “Reglamento Z” consiste en:",
+    {cat:"Divulgaciones",q:"El objetivo principal del 'Reglamento Z' consiste en:",
+     q_en:"The main objective of 'Regulation Z' consists of:",
      opts:["Exigir a los prestamistas que divulguen el verdadero costo del crédito a los clientes.","Exigir a los prestamistas que divulguen los costos de cierre a los prestatarios.","Exigir a los corredores que divulguen los costos de cierre a los compradores.","Exigir a los vendedores asociados que divulguen las comisiones a los clientes."],correct:0,
      tip:"<strong>Regulación Z (TILA):</strong> exige que los prestamistas divulguen el VERDADERO costo del crédito (expresado como APR, que incluye de antemano el interés anual más los cargos financieros de cierre)."},
 
     {cat:"Divulgaciones",q:"Un corredor le comenta a un grupo de propietarios del acercamiento de personas de otras razas a su vecindario. Como consecuencia de esto, los propietarios venden más baratas sus propiedades usando los servicios de este corredor. ¿Cuál es el nombre de esta práctica ilegal?",
+     q_en:"A broker comments to a group of homeowners about the approach of people of other races to their neighborhood. As a consequence, the owners sell their properties cheaper using this broker's services. What is the name of this illegal practice?",
      opts:["rompecuadras (blockbusting)","línea roja (redlining)","conducción (steering)","colusión (collusion)"],correct:0,
      tip:"<strong>Blockbusting:</strong> inducir pánico para que los dueños vendan por miedo ('¡Ya vienen!'). <strong>Steering:</strong> guiar compradores hacia ciertas áreas. <strong>Redlining:</strong> negar préstamos según la geografía."},
 
     {cat:"Divulgaciones",q:"¿A quién se le debe entregar la notificación de pintura a base de plomo (Lead-Based Paint Disclosure)?",
+     q_en:"To whom must the Lead-Based Paint Disclosure notification be given?",
      opts:["A inquilinos y compradores de propiedades residenciales construidas ANTES de 1978","Solo a compradores de casas unifamiliares","A todos los compradores en Florida","Solo si hay niños pequeños viviendo en la casa"],correct:0,
      tip:"Aplica a TODAS las propiedades residenciales construidas <strong>antes de 1978</strong>. Exige divulgar presencia conocida y dar folleto informativo. No obliga al dueño a quitar la pintura o hacer pruebas."},
 
     {cat:"Corretaje",q:"Un arrendador decide imponer un reclamo de daños en el depósito de garantía de su inquilino. ¿Cuántos días tiene para notificárselo a su inquilino?",
+     q_en:"A landlord decides to impose a claim for damages on their tenant's security deposit. How many days do they have to notify their tenant?",
      opts:["30 días","21 días","45 días","60 días"],correct:0,
      tip:"<strong>Landlord and Tenant Act:</strong> Tiene 15 días para devolverlo completo si no hay reclamos, o <strong>30 días</strong> para notificar por correo certificado sus intenciones de imponer un reclamo."},
 
     {cat:"Propiedad",q:"Entre los cuatro criterios que usa una corte para determinar si un artículo es considerado legalmente como un accesorio fijo (mueble adherido) o fixture, NO se incluye:",
+     q_en:"Among the four criteria used by a court to determine if an item is legally considered a fixture (appended furniture), which is NOT included:",
      opts:["términos de disposición (disposition of the article)","adaptación o instalación del artículo (adaptation of the article)","relación entre las partes (relationship of the parties)","intención de las partes (intent of the parties)"],correct:0,
      tip:"Prueba Legal de Accesorio Fijo (<strong>IRMA</strong>): <strong>I</strong>ntent of parties, <strong>R</strong>elationship of parties, <strong>M</strong>ethod of annexation, <strong>A</strong>daptation. El VALOR y el MODO DE DISPOSICIÓN no importan."},
 
     {cat:"Propiedad",q:"¿Cuál de los siguientes es el tipo de propiedad más amplio (most comprehensive estate)?",
+     q_en:"Which of the following is the most comprehensive type of property (most comprehensive estate)?",
      opts:["patrimonio de dominio absoluto (fee simple estate)","patrimonio de por vida (life estate)","tenencia por años (estate for years)","tenencia a voluntad (tenancy at will)"],correct:0,
      tip:"<strong>Fee Simple Estate / Pleno Dominio Absoluto:</strong> el tipo más completo, extenso y amplio de propiedad que puede tenerse sobre bienes raíces, el cual lo heredarán los sucesores del dueño."},
 
     {cat:"Propiedad",q:"Jim, Matt y Jack fueron copropietarios de una parcela de tierra. Matt murió y su parte del terreno se distribuyó de acuerdo con su testamento como parte de la herencia que dejó a sus herederos. ¿Qué tipo de patrimonio o tenencia tenía Matt en el terreno?",
+     q_en:"Jim, Matt, and Jack were co-owners of a parcel of land. Matt died and his part of the land was distributed according to his will as part of the inheritance he left to his heirs. What type of estate or tenancy did Matt hold in the land?",
      opts:["tenencia en común (tenancy in common)","tenencia mancomunada entre esposos (tenancy by the entireties)","tenencia mancomunada o conjunta (joint tenancy)","tenencia a voluntad (tenancy at will)"],correct:0,
      tip:"<strong>Tenancy in common (Tenencia en común):</strong> Cada propietario puede dejar su participación a sus herederos directos según su testamento. (Sin derecho de supervivencia hacia Jim y Jack)."},
 
     {cat:"Propiedad",q:"¿Con respecto a la protección de la vivienda principal contra deudas del propietario, cuál de las siguientes alternativas es INCORRECTA?",
+     q_en:"Regarding the protection of a primary residence against the owner's debts, which of the following alternatives is INCORRECT?",
      opts:["Solo es afectada por gravámenes hipotecarios.","Para ser considerada vivienda principal, la propiedad no debe ser mayor de 160 acres cuando está fuera de un municipio ni mayor de ½ acre cuando está dentro de un municipio.","El dueño de la propiedad debe ser cabeza de familia.","La casa debe estar habitada por el propietario."],correct:0,
      tip:"<strong>Respuesta: Solo es afectada por gravámenes hipotecarios.</strong> FALSO. También la pueden ejecutar (foreclose) por no pagar taxes de propiedad (Property Taxes), expensas de asociación (HOA) o tarifas de mejoras (Special Assessments) que recaen primero."},
 
     {cat:"Cierre",q:"En una escritura, la cláusula que contiene el nombre del otorgante y la descripción legal es la:",
+     q_en:"In a deed, the clause containing the grantor's name and the legal description is the:",
      opts:["cláusula de transferencia o de premisas","cláusula de habendum","cláusula resolutoria","cláusula de tenendum"],correct:0,
      tip:"<strong>Cláusula de Premisas (Premises / Granting Clause):</strong> La ÚNICA requerida legalmente para la validez de la escritura. Establece los nombres de las partes operativas, la descripción de la propiedad y las palabras de transferencia (granting words)."},
 
     {cat:"Cierre",q:"El tipo de escritura que NO proporciona garantías sobre la calidad del título y es frecuentemente usada para limpiar 'nubes en el título' es:",
+     q_en:"The type of deed that provides NO warranties regarding title quality and is frequently used to clear 'clouds on the title' is:",
      opts:["Escritura de Finiquito (Quitclaim Deed)","Escritura de Garantía General (General Warranty)","Escritura de Representante Personal","Bargain and Sale Deed"],correct:0,
      tip:"<strong>Quitclaim (Finiquito):</strong> El otorgante renuncia a cualquier interés que tenga (si es que tiene) sin ofrecer garantías. Útil para corregir defectos menores en título (clouds on title, como cambio de nombre por divorcio)."},
 
     {cat:"Cierre",q:"Tomar posesión física de la propiedad da qué tipo de conocimiento al mundo de su derecho legal en la propiedad?",
+     q_en:"Taking physical possession of the property provides what type of notice to the world of your legal right to the property?",
      opts:["Notificación real / Aviso de Autenticidad (Actual Notice)","Aviso implícito (Constructive notice)","Aviso judicial","Dominio eminente"],correct:0,
      tip:"<strong>Actual notice (Aviso real):</strong> tomar posesión física, ver o escuchar algo real. <strong>Constructive notice (Aviso implícito o legal):</strong> registrar el documento oficial en los registros públicos."},
 
     {cat:"Cierre",q:"El registro histórico completo de todas las transferencias de la propiedad (dueños, gravámenes, juicios) se denomina:",
+     q_en:"The complete historical record of all property transfers (owners, liens, judgments) is termed:",
      opts:["Cadena de título y Abstracto","Title Insurance","Survey","Póliza del dueño"],correct:0,
      tip:"<strong>Chain of title:</strong> secuencia de dueños. <strong>Abstract of title:</strong> resumen histórico completo preparado por el abogado/compañía de títulos con opinión de nubes/gravámenes."},
 
@@ -727,6 +830,8 @@ function render() {
     const card = deck[idx];
     const letters = ['A', 'B', 'C', 'D'];
     const isAnswered = answered.has(idx);
+    const qText = examLang === 'es' ? card.q : (card.q_en || card.q);
+    const toggleLabel = examLang === 'es' ? '🌐 English' : '🌐 Español';
 
     let optsHTML = card.opts.map((opt, i) => {
         let cls = 'opt-btn';
@@ -734,7 +839,6 @@ function render() {
             cls += ' answered';
             if (i === card.correct) cls += ' correct';
             if (wrongSet.has(idx) && i !== card.correct) {
-                // find which was selected - stored in data
                 const sel = deck[idx]._selected;
                 if (sel === i) cls += ' wrong answered-selected';
             }
@@ -751,7 +855,6 @@ function render() {
         dkCls += ' answered';
         if (deck[idx]._selected === -1) {
             dkCls += ' wrong answered-selected';
-            // Also highlight the actual correct one since they skipped
             optsHTML = optsHTML.replace(/class="opt-btn answered"/, 'class="opt-btn answered correct"');
         }
     }
@@ -764,11 +867,12 @@ function render() {
             <div class="q-header">
                 <div style="display:flex;align-items:center;gap:8px;">
                     <span class="q-badge">${card.cat}</span>
-                    <button onclick="readAloud()" style="background:var(--card-bg); border:1px solid var(--border-color); color:var(--text-color); padding:4px 8px; border-radius:6px; cursor:pointer; font-size:0.85rem; display:flex; align-items:center; gap:4px;" title="Escuchar pregunta">🔊 Leer</button>
+                    <button onclick="readAloud()" style="background:var(--surface-2); border:1px solid var(--border); color:var(--text-2); padding:4px 8px; border-radius:6px; cursor:pointer; font-size:0.85rem;">🔊 Leer</button>
+                    <button onclick="examLang=examLang==='es'?'en':'es';render()" style="background:var(--surface-2); border:1px solid var(--border); color:var(--text-2); padding:4px 8px; border-radius:6px; cursor:pointer; font-size:0.85rem;">${toggleLabel}</button>
                 </div>
                 <span class="q-num">${idx + 1} / ${deck.length}</span>
             </div>
-            <p class="q-text">${card.q}</p>
+            <p class="q-text">${qText}</p>
             <div class="opts">${optsHTML}</div>
             <div class="explanation ${isAnswered ? 'show' : ''}" id="explanation">
                 <span class="exp-label">📖 Explicación</span>
@@ -1090,6 +1194,24 @@ function readAloud() {
     utterance.rate = 0.9;
     window.speechSynthesis.speak(utterance);
 }
+/* ─── THEME TOGGLE ───────────────────────── */
+function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    document.getElementById('themeToggle').textContent = isDark ? '🌙' : '☀️';
+    localStorage.setItem('fl_theme', isDark ? 'light' : 'dark');
+}
+(function loadTheme() {
+    const saved = localStorage.getItem('fl_theme');
+    if (saved === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.getElementById('themeToggle').textContent = '☀️';
+    }
+})();
+
+/* ─── LANGUAGE TOGGLE ────────────────────── */
+let examLang = 'es';
 </script>
 </body>
 </html>

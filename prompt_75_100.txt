@@ -1,0 +1,171 @@
+
+I need you to act as an expert real estate tutor who specializes in explaining complex concepts to 12-year-olds.
+I am providing you with a list of Florida Real Estate Exam multiple-choice questions (flashcards) numbered 75 to 100.
+Currently, the explanations (the "tip" field) are very schematic, rigid, and sometimes too technical. 
+
+Your task is to REWRITE JUST the "tip" for each of these questions.
+Rules for the new tips:
+1. Make the explanation feel human, warm, and highly intuitive. 
+2. Explain the fundamental logic so a 12-year-old could understand the core concept.
+3. Keep the factual accuracy 100% strictly aligned with Florida Real Estate Law.
+4. If there's an acronym or trick, you can keep it, but explain it gently.
+5. Keep it reasonably concise (2-4 sentences max), do not write essays. Use basic HTML like <strong> for emphasis if needed.
+
+Here are the cards:
+
+--- ID 75 ---
+Question: ¿Cuál tipo de listing agreement le garantiza al broker la comisión SIN IMPORTAR quién venda la propiedad?
+Correct Option: Exclusive Right of Sale
+Old Tip (Rewrite this): <strong>Exclusive Right of Sale</strong>: broker gana siempre (más común). <strong>Exclusive Agency</strong>: broker gana solo si él vende. <strong>Open</strong>: varios brokers. <strong>Net</strong>: legal pero desaconsejado.
+--------------------
+
+--- ID 76 ---
+Question: La hipoteca que cubre varios lotes de terreno y normalmente incluye la cláusula de 'partial release' se conoce como:
+Correct Option: hipoteca agrupada (blanket mortgage)
+Old Tip (Rewrite this): <strong>Blanket Mortgage (Hipoteca Colectiva o Agrupada):</strong> Financiamiento típico de desarrolladores para un lote entero. La cláusula de <em>liberación parcial</em> libera un lote vendido a la vez.
+--------------------
+
+--- ID 77 ---
+Question: ¿Qué es una sección de tierra (section) en el método de agrimensura gubernamental?
+Correct Option: una milla cuadrada
+Old Tip (Rewrite this): Una sección es <strong>1 milla cuadrada</strong> y alberga un área total de <strong>640 acres</strong> de terreno. Un 'Township' está compuesto por 36 secciones (6 millas de lado por 6 millas de lado).
+--------------------
+
+--- ID 78 ---
+Question: FIRPTA requiere retención del ___% del precio de venta cuando el vendedor es extranjero:
+Correct Option: 15%
+Old Tip (Rewrite this): <strong>FIRPTA</strong>: retención del <strong>15%</strong>. El <strong>comprador</strong> es responsable de retener y remitir al IRS. Excepción: precio ≤$300K y comprador usará como residencia.
+--------------------
+
+--- ID 79 ---
+Question: Qué tipo de derechos se incluyen en una propiedad que bordea un río o un curso de agua?
+Correct Option: derechos ribereños (riparian rights)
+Old Tip (Rewrite this): Límites de agua: Riberas = <strong>Riv</strong>er (ríos navegables y no navegables, arroyos). Littoral = <strong>L</strong>agos grandes (Lake) y océanos sujetos a las mareas.
+--------------------
+
+--- ID 80 ---
+Question: Si el producto de una venta por foreclosure NO cubre la deuda hipotecaria, el prestamista puede buscar un:
+Correct Option: Deficiency Judgment
+Old Tip (Rewrite this): <strong>Deficiency Judgment</strong>: el prestamista demanda al prestatario por el saldo restante. En FL, foreclosure es <strong>judicial</strong> (requiere corte).
+--------------------
+
+--- ID 81 ---
+Question: Un sales associate debe completar _____ horas de educación post-licencia antes de su primera renovación:
+Correct Option: 45 horas
+Old Tip (Rewrite this): Sales Associates: <strong>45 horas</strong>. Brokers: <strong>60 horas</strong>. Si no se completa → licencia <strong>null and void</strong>.
+--------------------
+
+--- ID 82 ---
+Question: Los gravámenes por impuestos especiales (Special Assessments) están (en orden de prioridad):
+Correct Option: primero que los gravámenes privados
+Old Tip (Rewrite this): Los ad valorem taxes y <strong>special assessments</strong> tienen prioridad superior (Superior Liens) a cualquier otra deuda u obligación contraída privadamente (hipoteca, IRS, vendor's lien, mecanico).
+--------------------
+
+--- ID 83 ---
+Question: ¿Cuál tipo de Title Insurance protege al COMPRADOR contra defectos ocultos en el título?
+Correct Option: Owner's Policy
+Old Tip (Rewrite this): <strong>Owner's Policy</strong>: protege al comprador. <strong>Lender's Policy</strong>: protege al prestamista (obligatoria). En Miami-Dade/Broward, generalmente paga el vendedor.
+--------------------
+
+--- ID 84 ---
+Question: ¿Qué campo del corretaje ha aumentado la demanda debido al incremento de los dueños ausentes (absentee owners)?
+Correct Option: Manejo de propiedades (Property Management)
+Old Tip (Rewrite this): Los <strong>dueños ausentes</strong> (absentee owners) confían en administradores de propiedades para mantener sus inversiones y generar ingresos.
+--------------------
+
+--- ID 85 ---
+Question: Un corredor de bienes raíces que va a trabajar como corredor de dos compañías de corretaje de bienes raíces al mismo tiempo, ¿qué tipo de licencia necesita?
+Correct Option: licencia múltiple
+Old Tip (Rewrite this): <strong>Multiple license (Licencia múltiple):</strong> se emite para brokers que califican como corredor para más de una entidad comercial. <strong>Group license:</strong> es para asociados de ventas de un OWNER/DEVELOPER.
+--------------------
+
+--- ID 86 ---
+Question: Un licenciado en bienes raíces se enrola en el servicio activo de las Fuerzas Armadas de Estados Unidos. Mientras está en servicio, no se involucra en la práctica de bienes raíces en el sector privado. ¿Cuántos meses tiene de plazo para renovar su licencia después de que ha sido dado de baja en el ejército?
+Correct Option: 6 meses
+Old Tip (Rewrite this): Exención militar: <strong>6 meses</strong> tras la baja honorable. Aplica también al cónyuge si reside en otro estado por el servicio militar del licenciado.
+--------------------
+
+--- ID 87 ---
+Question: ¿Qué pasa con la licencia de un vendedor asociado o corredor si no hace el curso de educación antes del vencimiento de la primera renovación de sus licencias?
+Correct Option: La licencia queda nula y sin valor.
+Old Tip (Rewrite this): El primer plazo es FATAL. Si no se completan las 45h (SA) o 60h (Broker), la licencia pasa a ser <strong>nula y sin efecto (null and void)</strong>. Debe volver a tomar el curso pre-licencia de 63h.
+--------------------
+
+--- ID 88 ---
+Question: ¿Cuál es el estatuto de la Florida que se encarga de la regulación de todas las profesiones que se encuentran bajo el DBPR, incluyendo la de bienes raíces?
+Correct Option: F.S. 455
+Old Tip (Rewrite this): <strong>F.S. 455</strong> regula al DBPR y TODAS las profesiones en general. <strong>F.S. 475</strong> es específico y exclusivo para Bienes Raíces. <strong>F.S. 120</strong> es sobre procedimientos disciplinarios.
+--------------------
+
+--- ID 89 ---
+Question: La vendedora asociada Sandra desea hacer publicidad a su casa en venta. Si la publicita únicamente en su nombre:
+Correct Option: Se consideraría como un anuncio ciego y estaría sujeta a una acción disciplinaria por parte de la Comisión.
+Old Tip (Rewrite this): Un anuncio ciego <strong>(Blind Ad)</strong> omite el nombre registrado de la compañía de corretaje. Es ilegal en Florida y sujeto a multas disciplinarias por la FREC.
+--------------------
+
+--- ID 90 ---
+Question: Smith and Brown, ambas entidades diferentes, son los únicos corredores de la zona de Key West. Ellos llegan a un acuerdo y deciden que solamente aceptarán aquellos listings que dejen el 7.5 % o más de comisión. ¿Es este acuerdo legal?
+Correct Option: No, porque está siendo violada la ley antimonopolio (antitrust) de los Estados Unidos.
+Old Tip (Rewrite this): <strong>Sherman Antitrust Act:</strong> prohíbe terminantemente la fijación de precios (price-fixing), y es un delito establecer acuerdos tácitos o formales para manipular tarifas de comisión en el mercado.
+--------------------
+
+--- ID 91 ---
+Question: La Comisión de Bienes Raíces de la Florida no puede:
+Correct Option: imponer el encarcelamiento como penalidad
+Old Tip (Rewrite this): La FREC impone multas administrativas, suspende o revoca licencias, pero <strong>NUNCA puede imponer penas de cárcel ni forzar la restitución de dinero a la víctima (eso lo hace la ley judicial)</strong>.
+--------------------
+
+--- ID 92 ---
+Question: En determinadas circunstancias, la Ley de Bienes Raíces permite que un corredor nombre a un vendedor asociado para representar al vendedor y otro para representar al comprador. Siempre y cuando se cumplan todos los requisitos, el vendedor asociado se llamaría:
+Correct Option: vendedor asociado designado
+Old Tip (Rewrite this): <strong>Designated Sales Associate:</strong> permitido en transacciones <strong>NO residenciales</strong> donde ambas partes tienen activos >$1 millón y solicitan representación de agente exclusivo a través de diferentes vendedores de la misma firma.
+--------------------
+
+--- ID 93 ---
+Question: ¿Cuál de las siguientes transacciones está exenta de los requerimientos de RESPA?
+Correct Option: un préstamo para financiar la construcción de una casa unifamiliar cuando el prestatario es dueño del lote donde se construirá la casa
+Old Tip (Rewrite this): RESPA aplica a propiedades <strong>residenciales de 1-4 unidades</strong> con préstamos con respaldo federal. <strong>NO aplica a la construcción si ya eres dueño del lote y no vas a convertir el préstamo en hipoteca permanente, o a ventas comerciales</strong>.
+--------------------
+
+--- ID 94 ---
+Question: El objetivo principal del “Reglamento Z” consiste en:
+Correct Option: Exigir a los prestamistas que divulguen el verdadero costo del crédito a los clientes.
+Old Tip (Rewrite this): <strong>Regulación Z (TILA):</strong> exige que los prestamistas divulguen el VERDADERO costo del crédito (expresado como APR, que incluye de antemano el interés anual más los cargos financieros de cierre).
+--------------------
+
+--- ID 95 ---
+Question: Un corredor le comenta a un grupo de propietarios del acercamiento de personas de otras razas a su vecindario. Como consecuencia de esto, los propietarios venden más baratas sus propiedades usando los servicios de este corredor. ¿Cuál es el nombre de esta práctica ilegal?
+Correct Option: rompecuadras (blockbusting)
+Old Tip (Rewrite this): <strong>Blockbusting:</strong> inducir pánico para que los dueños vendan por miedo ('¡Ya vienen!'). <strong>Steering:</strong> guiar compradores hacia ciertas áreas. <strong>Redlining:</strong> negar préstamos según la geografía.
+--------------------
+
+--- ID 96 ---
+Question: ¿A quién se le debe entregar la notificación de pintura a base de plomo (Lead-Based Paint Disclosure)?
+Correct Option: A inquilinos y compradores de propiedades residenciales construidas ANTES de 1978
+Old Tip (Rewrite this): Aplica a TODAS las propiedades residenciales construidas <strong>antes de 1978</strong>. Exige divulgar presencia conocida y dar folleto informativo. No obliga al dueño a quitar la pintura o hacer pruebas.
+--------------------
+
+--- ID 97 ---
+Question: Un arrendador decide imponer un reclamo de daños en el depósito de garantía de su inquilino. ¿Cuántos días tiene para notificárselo a su inquilino?
+Correct Option: 30 días
+Old Tip (Rewrite this): <strong>Landlord and Tenant Act:</strong> Tiene 15 días para devolverlo completo si no hay reclamos, o <strong>30 días</strong> para notificar por correo certificado sus intenciones de imponer un reclamo.
+--------------------
+
+--- ID 98 ---
+Question: Entre los cuatro criterios que usa una corte para determinar si un artículo es considerado legalmente como un accesorio fijo (mueble adherido) o fixture, NO se incluye:
+Correct Option: términos de disposición (disposition of the article)
+Old Tip (Rewrite this): Prueba Legal de Accesorio Fijo (<strong>IRMA</strong>): <strong>I</strong>ntent of parties, <strong>R</strong>elationship of parties, <strong>M</strong>ethod of annexation, <strong>A</strong>daptation. El VALOR y el MODO DE DISPOSICIÓN no importan.
+--------------------
+
+--- ID 99 ---
+Question: ¿Cuál de los siguientes es el tipo de propiedad más amplio (most comprehensive estate)?
+Correct Option: patrimonio de dominio absoluto (fee simple estate)
+Old Tip (Rewrite this): <strong>Fee Simple Estate / Pleno Dominio Absoluto:</strong> el tipo más completo, extenso y amplio de propiedad que puede tenerse sobre bienes raíces, el cual lo heredarán los sucesores del dueño.
+--------------------
+
+Please return YOUR RESPONSE EXACTLY in this JSON format so I can parse it back:
+{
+  "rewrites": [
+    {"id": number, "newTip": "Your new 12-year-old friendly explanation in Spanish with <strong> tags."}
+  ]
+}

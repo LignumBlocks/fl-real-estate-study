@@ -1,0 +1,171 @@
+
+I need you to act as an expert real estate tutor who specializes in explaining complex concepts to 12-year-olds.
+I am providing you with a list of Florida Real Estate Exam multiple-choice questions (flashcards) numbered 50 to 75.
+Currently, the explanations (the "tip" field) are very schematic, rigid, and sometimes too technical. 
+
+Your task is to REWRITE JUST the "tip" for each of these questions.
+Rules for the new tips:
+1. Make the explanation feel human, warm, and highly intuitive. 
+2. Explain the fundamental logic so a 12-year-old could understand the core concept.
+3. Keep the factual accuracy 100% strictly aligned with Florida Real Estate Law.
+4. If there's an acronym or trick, you can keep it, but explain it gently.
+5. Keep it reasonably concise (2-4 sentences max), do not write essays. Use basic HTML like <strong> for emphasis if needed.
+
+Here are the cards:
+
+--- ID 50 ---
+Question: El Green Belt Law en Florida permite que las tierras agrícolas sean tasadas según:
+Correct Option: Su uso agrícola (no su valor de mercado)
+Old Tip (Rewrite this): Green Belt Law: tierras agrícolas se tasan según <strong>uso agrícola</strong>, no valor de mercado. Reduce impuestos para granjeros.
+--------------------
+
+--- ID 51 ---
+Question: ¿Cuál es la diferencia PRINCIPAL entre un Broker y un REALTOR®?
+Correct Option: REALTOR® es miembro de NAR (asociación), no es un tipo de licencia
+Old Tip (Rewrite this): <strong>Agente</strong>: trabaja bajo broker. <strong>Broker</strong>: opera su oficina. <strong>REALTOR®</strong>: miembro de NAR, no es licencia.
+--------------------
+
+--- ID 52 ---
+Question: Bajo TILA/Regulation Z, ¿cuántos días tiene un prestatario para rescindir un refinanciamiento de su vivienda principal?
+Correct Option: 3 días
+Old Tip (Rewrite this): TILA/Reg Z: divulgar APR, costos, términos. Trigger terms activan divulgación completa. <strong>3 días de rescisión</strong> en refinanciamientos.
+--------------------
+
+--- ID 53 ---
+Question: Un CMA (Comparative Market Analysis) elaborado por un sales associate:
+Correct Option: Estima el precio de listado, pero NO es una tasación (appraisal)
+Old Tip (Rewrite this): CMA = estima <strong>precio de listado</strong> con ventas comparables. <strong>No es tasación</strong>. Solo tasadores con licencia hacen appraisals.
+--------------------
+
+--- ID 54 ---
+Question: Bajo el Commercial RE Sales Commission Lien Act, ¿el lien del broker se adhiere al inmueble?
+Correct Option: No, solo se adhiere a los net proceeds (propiedad personal)
+Old Tip (Rewrite this): El lien es sobre los <strong>net proceeds</strong> (propiedad personal), <strong>NO se adhiere al inmueble</strong>.
+--------------------
+
+--- ID 55 ---
+Question: Bajo el Commercial RE Leasing Commission Lien Act, ¿a qué se adhiere el lien del broker?
+Correct Option: Al interés del landlord en el inmueble comercial
+Old Tip (Rewrite this): Se adhiere al <strong>interés del landlord</strong> en el inmueble. <strong>NO se adhiere al leasehold del inquilino</strong>.
+--------------------
+
+--- ID 56 ---
+Question: ¿Puede un propietario renunciar de antemano al derecho del broker a reclamar un lien comercial?
+Correct Option: No, el derecho no puede ser renunciado antes de que la comisión sea ganada
+Old Tip (Rewrite this): El derecho a reclamar un lien <strong>NO puede ser renunciado</strong> antes de que la comisión sea efectivamente ganada.
+--------------------
+
+--- ID 57 ---
+Question: ¿Qué deben firmar los compradores al cierre según las regulaciones de Florida sobre Foreign Principals?
+Correct Option: Un affidavit bajo pena de perjurio declarando si son o no un Foreign Principal
+Old Tip (Rewrite this): Deben firmar un <strong>affidavit bajo pena de perjurio</strong> declarando si son o no un 'Foreign Principal'.
+--------------------
+
+--- ID 58 ---
+Question: ¿Cuál es el propósito principal de CERCLA (Superfund)?
+Correct Option: Establecer un fondo federal para limpiar sitios con desechos peligrosos
+Old Tip (Rewrite this): CERCLA: <strong>fondo federal para limpiar sitios contaminados</strong> e identificar <strong>personas potencialmente responsables (PRPs)</strong>.
+--------------------
+
+--- ID 59 ---
+Question: ¿Qué defensa legal otorga CERCLA/SARA a ciertos propietarios que no causaron la contaminación?
+Correct Option: La defensa de 'innocent landowner' con due diligence
+Old Tip (Rewrite this): La defensa de <strong>'innocent landowner'</strong> permite evitar responsabilidad si se cumplen criterios de <strong>due diligence</strong>.
+--------------------
+
+--- ID 60 ---
+Question: 'Commingling' en cuentas de escrow se refiere a:
+Correct Option: Mezclar ilegalmente dinero de escrow con fondos personales del broker
+Old Tip (Rewrite this): Commingling = acto <strong>ilegal</strong> de mezclar dinero de escrow con fondos <strong>personales o empresariales</strong> del broker.
+--------------------
+
+--- ID 61 ---
+Question: ¿Cuánto dinero propio puede mantener un broker en la cuenta de sales escrow?
+Correct Option: Hasta $1,000
+Old Tip (Rewrite this): Hasta <strong>$1,000</strong> en sales escrow. Hasta <strong>$5,000</strong> en property management escrow.
+--------------------
+
+--- ID 62 ---
+Question: El uso no autorizado o mal uso de fondos de un cliente por parte de un licensee se denomina:
+Correct Option: Conversion
+Old Tip (Rewrite this): <strong>Conversion</strong> = uso no autorizado, mal uso o retención de propiedad/fondos del cliente.
+--------------------
+
+--- ID 63 ---
+Question: ¿Cuántos días hábiles tiene el broker para notificar a la FREC sobre un conflicto de escrow?
+Correct Option: 15 días hábiles
+Old Tip (Rewrite this): <strong>15 días hábiles</strong> después de la última demanda conflictiva recibida.
+--------------------
+
+--- ID 64 ---
+Question: ¿Cuáles son los procedimientos MALE para resolver conflictos de escrow?
+Correct Option: Mediation, Arbitration, Litigation (interpleader), EDO de la FREC
+Old Tip (Rewrite this): MALE: <strong>M</strong>ediation, <strong>A</strong>rbitration, <strong>L</strong>itigation (interpleader), <strong>E</strong>scrow Disbursement Order (EDO) de la FREC.
+--------------------
+
+--- ID 65 ---
+Question: ¿En cuál situación está EXENTO el broker de notificar a la FREC sobre una disputa de escrow?
+Correct Option: Cuando el comprador falla en cumplir la cláusula de financiamiento de buena fe
+Old Tip (Rewrite this): Exento cuando: comprador <strong>falla de buena fe</strong> en financiamiento, o comprador de condo cancela bajo el <strong>Condominium Act</strong>.
+--------------------
+
+--- ID 66 ---
+Question: El 'going concern value' de un negocio comparado con el valor de sus bienes raíces:
+Correct Option: Puede ser menor, igual o mayor
+Old Tip (Rewrite this): El going concern value puede ser <strong>menor, igual o mayor</strong> que el valor de los activos inmobiliarios por separado.
+--------------------
+
+--- ID 67 ---
+Question: ¿Cuál es un ejemplo de activo INTANGIBLE al valorar un negocio?
+Correct Option: Goodwill (reputación y nombre del negocio)
+Old Tip (Rewrite this): <strong>Goodwill</strong> = reputación y nombre del negocio. Es un activo intangible en la valuación.
+--------------------
+
+--- ID 68 ---
+Question: Al analizar los estados financieros de un negocio, ¿cuál de los siguientes es un ratio financiero clave?
+Correct Option: Debt-to-worth ratio
+Old Tip (Rewrite this): Ratios clave: <strong>Quick ratio, inventory turnover, debt-to-worth ratio, net profit-to-owner ratio</strong>.
+--------------------
+
+--- ID 69 ---
+Question: Tras el acuerdo NAR 2024, ¿dónde está PROHIBIDO publicar ofertas de compensación al buyer's agent?
+Correct Option: En el MLS (Multiple Listing Service)
+Old Tip (Rewrite this): Ya <strong>NO se pueden publicar</strong> ofertas de compensación al agente del comprador en el <strong>MLS</strong>.
+--------------------
+
+--- ID 70 ---
+Question: Post agosto 2024, ¿qué debe firmar el comprador ANTES de que un agente le muestre propiedades?
+Correct Option: Un acuerdo escrito de representación de comprador
+Old Tip (Rewrite this): Se requiere un <strong>acuerdo escrito de representación de comprador</strong> que especifique deberes y términos de comisión.
+--------------------
+
+--- ID 71 ---
+Question: Un 'Notice of Noncompliance' del DBPR se emite para:
+Correct Option: Una primera ofensa de violación menor sin daño económico o físico
+Old Tip (Rewrite this): Notice of Noncompliance: <strong>primera ofensa menor</strong> que no causa daño económico/físico ni afecta salud, seguridad o bienestar público.
+--------------------
+
+--- ID 72 ---
+Question: ¿Pueden los 'residential loan alternative agreements' autorizar un lien sobre propiedad residencial?
+Correct Option: No, no pueden autorizar liens sobre propiedad residencial
+Old Tip (Rewrite this): Estos acuerdos <strong>NO pueden autorizar</strong> a una persona a colocar un lien sobre propiedad residencial.
+--------------------
+
+--- ID 73 ---
+Question: ¿Pueden los sales associates operar bajo un nombre ficticio (trade name)?
+Correct Option: No, solo los brokers pueden usar nombres ficticios
+Old Tip (Rewrite this): Sales associates deben operar bajo su <strong>nombre legal</strong>. Solo <strong>brokers</strong> pueden usar nombres ficticios.
+--------------------
+
+--- ID 74 ---
+Question: ¿En qué fecha se vuelven MOROSOS (delinquent) los impuestos de propiedad en Florida?
+Correct Option: Abril 1
+Old Tip (Rewrite this): Fechas clave: <strong>Ene 1</strong>: assessment. <strong>Mar 1</strong>: deadline exenciones. <strong>Nov 1</strong>: pagaderos con descuento (4% Nov, 3% Dic, 2% Ene, 1% Feb). <strong>Abr 1</strong>: delinquent.
+--------------------
+
+Please return YOUR RESPONSE EXACTLY in this JSON format so I can parse it back:
+{
+  "rewrites": [
+    {"id": number, "newTip": "Your new 12-year-old friendly explanation in Spanish with <strong> tags."}
+  ]
+}

@@ -1,0 +1,171 @@
+
+I need you to act as an expert real estate tutor who specializes in explaining complex concepts to 12-year-olds.
+I am providing you with a list of Florida Real Estate Exam multiple-choice questions (flashcards) numbered 25 to 50.
+Currently, the explanations (the "tip" field) are very schematic, rigid, and sometimes too technical. 
+
+Your task is to REWRITE JUST the "tip" for each of these questions.
+Rules for the new tips:
+1. Make the explanation feel human, warm, and highly intuitive. 
+2. Explain the fundamental logic so a 12-year-old could understand the core concept.
+3. Keep the factual accuracy 100% strictly aligned with Florida Real Estate Law.
+4. If there's an acronym or trick, you can keep it, but explain it gently.
+5. Keep it reasonably concise (2-4 sentences max), do not write essays. Use basic HTML like <strong> for emphasis if needed.
+
+Here are the cards:
+
+--- ID 25 ---
+Question: La co-propiedad exclusiva para parejas casadas que incluye derecho de supervivencia se llama:
+Correct Option: Tenancy by the Entireties
+Old Tip (Rewrite this): <strong>Tenancy by the Entireties</strong>: solo parejas casadas. Derecho de supervivencia. Ninguno puede vender sin el otro.
+--------------------
+
+--- ID 26 ---
+Question: Según el caso Johnson vs. Davis, ¿qué obligación tiene el vendedor de una propiedad residencial?
+Correct Option: Revelar defectos materiales conocidos no fácilmente observables
+Old Tip (Rewrite this): Johnson vs. Davis: el vendedor debe <strong>revelar defectos materiales conocidos no fácilmente observables</strong>. Aplica a propiedades residenciales.
+--------------------
+
+--- ID 27 ---
+Question: La divulgación de Lead-Based Paint es obligatoria para viviendas construidas antes de:
+Correct Option: 1978
+Old Tip (Rewrite this): Viviendas construidas antes de <strong>1978</strong>. Se debe: entregar panfleto, divulgar conocimiento, dar <strong>10 días</strong> para inspección.
+--------------------
+
+--- ID 28 ---
+Question: ¿En qué tipo de transacciones es obligatoria la divulgación de Radon Gas en Florida?
+Correct Option: En TODOS los contratos de venta de bienes raíces
+Old Tip (Rewrite this): La divulgación de Radon es <strong>obligatoria en TODOS los contratos de venta</strong> en Florida. Informa sobre el gas y pruebas disponibles.
+--------------------
+
+--- ID 29 ---
+Question: El Fair Housing Act protege 7 clases. ¿Cuál de las siguientes NO es una clase protegida federal?
+Correct Option: Estado civil (Marital Status)
+Old Tip (Rewrite this): 7 clases federales: <strong>Raza, Color, Religión, Sexo, Origen Nacional, Discapacidad, Estado Familiar</strong>. Estado civil NO es clase federal (puede serlo a nivel estatal).
+--------------------
+
+--- ID 30 ---
+Question: La exemption 'Mrs. Murphy' del Fair Housing Act aplica cuando:
+Correct Option: El propietario vive en la propiedad de 4 unidades o menos, sin usar broker ni publicidad discriminatoria
+Old Tip (Rewrite this): Mrs. Murphy: propietario en propiedad ≤4 unidades. <strong>NO aplica si usa broker o publicidad discriminatoria</strong>.
+--------------------
+
+--- ID 31 ---
+Question: Un broker no mantiene el letrero requerido en su oficina. ¿Cuál es la multa según la regla 61J2?
+Correct Option: $500
+Old Tip (Rewrite this): Multa por no tener letrero de oficina: <strong>$500</strong>.
+--------------------
+
+--- ID 32 ---
+Question: Un licensee publica un anuncio que no incluye el nombre del broker. ¿Cuál es la sanción?
+Correct Option: $250 a $1,000
+Old Tip (Rewrite this): Publicidad falsa o sin nombre del broker: <strong>$250 a $1,000</strong>. Toda publicidad debe incluir nombre del broker.
+--------------------
+
+--- ID 33 ---
+Question: ¿Cuál es el plazo máximo para depositar fondos de escrow después de la aceptación del contrato?
+Correct Option: Antes del final del 3er día hábil
+Old Tip (Rewrite this): Depósito de escrow: antes del <strong>final del 3er día hábil</strong> después de aceptación. Sanción: $250-$1,000 + posible suspensión.
+--------------------
+
+--- ID 34 ---
+Question: Si un licensee obtiene su licencia por medios fraudulentos, ¿cuál es la sanción?
+Correct Option: $250 a $1,000 + 30 días de suspensión
+Old Tip (Rewrite this): Licencia por fraude: <strong>$250 a $1,000</strong> + <strong>30 días suspensión</strong>. Puede resultar en revocación.
+--------------------
+
+--- ID 35 ---
+Question: La FHA:
+Correct Option: Asegura los préstamos, pero no los garantiza.
+Old Tip (Rewrite this): <strong>Federal Housing Administration (FHA):</strong> Agencia de gobierno que ASEGURA los préstamos en caso de default (impago), cobrando un MIP al deudor. <strong>VA</strong> garantiza y <strong>Convencional</strong> no tiene respaldo federal.
+--------------------
+
+--- ID 36 ---
+Question: ¿Cuál es la diferencia principal entre un Promissory Note y una Mortgage?
+Correct Option: El Note es la promesa de pago; la Mortgage es la garantía sobre la propiedad
+Old Tip (Rewrite this): <strong>Promissory Note</strong> = promesa personal de pago (evidencia de deuda). <strong>Mortgage</strong> = garantía sobre la propiedad.
+--------------------
+
+--- ID 37 ---
+Question: La cláusula Due-on-Sale en una hipoteca permite al prestamista:
+Correct Option: Exigir pago total si la propiedad se vende sin autorización
+Old Tip (Rewrite this): Due-on-Sale: el prestamista puede exigir <strong>pago total</strong> si la propiedad se vende/transfiere sin autorización.
+--------------------
+
+--- ID 38 ---
+Question: ¿Cuál tipo de préstamo permite un down payment de 3.5% y requiere Mortgage Insurance Premium (MIP)?
+Correct Option: FHA
+Old Tip (Rewrite this): <strong>Convencional</strong>: sin gobierno, PMI si LTV>80%. <strong>FHA</strong>: gobierno, 3.5% down, MIP. <strong>VA</strong>: veteranos, 0% down posible.
+--------------------
+
+--- ID 39 ---
+Question: Al calcular el LTV (Loan-to-Value), el prestamista usa como 'valor' de la propiedad:
+Correct Option: El MENOR entre el precio de venta y el valor de tasación
+Old Tip (Rewrite this): LTV = Préstamo ÷ Valor × 100. Valor = el <strong>MENOR</strong> entre precio y tasación. Si LTV > 80% → PMI requerido (convencional).
+--------------------
+
+--- ID 40 ---
+Question: RESPA requiere que el prestamista entregue el Loan Estimate al prestatario dentro de:
+Correct Option: 3 días hábiles después de la solicitud
+Old Tip (Rewrite this): RESPA: <strong>Loan Estimate</strong> dentro de <strong>3 días</strong> de la solicitud. <strong>Closing Disclosure</strong> al menos <strong>3 días antes</strong> del cierre.
+--------------------
+
+--- ID 41 ---
+Question: ¿Cuál enfoque de tasación es MÁS apropiado para valorar propiedades de inversión que generan renta?
+Correct Option: Income Approach (enfoque de ingresos)
+Old Tip (Rewrite this): 3 enfoques: <strong>Sales Comparison</strong> (residencias), <strong>Cost Approach</strong> (propiedades únicas), <strong>Income Approach</strong> (inversiones — usa IRV).
+--------------------
+
+--- ID 42 ---
+Question: Una propiedad de inversión genera un NOI de $48,000 y el cap rate es 6%. Usando la fórmula IRV, el valor estimado es:
+Correct Option: $800,000
+Old Tip (Rewrite this): IRV: <strong>V = I ÷ R</strong>. $48,000 ÷ 0.06 = <strong>$800,000</strong>.
+--------------------
+
+--- ID 43 ---
+Question: En el enfoque de Sales Comparison, si una propiedad comparable tiene piscina y el sujeto NO tiene piscina, el tasador debe:
+Correct Option: RESTAR el valor de la piscina del precio del comparable
+Old Tip (Rewrite this): CBS: Comparable <strong>Superior</strong> → <strong>Restar</strong>. Comparable <strong>Inferior</strong> → <strong>Sumar</strong>. Siempre se ajusta el comparable.
+--------------------
+
+--- ID 44 ---
+Question: Un inversionista compra una propiedad por $480,000. La renta bruta anual es $40,000. ¿Cuál es el GIM?
+Correct Option: 12
+Old Tip (Rewrite this): <strong>GIM = Precio ÷ Renta Bruta Anual</strong>. $480,000 ÷ $40,000 = <strong>12</strong>.
+--------------------
+
+--- ID 45 ---
+Question: En Florida (excepto Miami-Dade), ¿cuál es la tasa de Documentary Stamps on the DEED?
+Correct Option: $0.70 por cada $100 del precio (redondeando hacia arriba)
+Old Tip (Rewrite this): Deed: <strong>$0.70/$100</strong> del precio (redondear ↑). Miami-Dade: $0.60/$100. Note: $0.35/$100. Intangible: $0.002 × préstamo nuevo.
+--------------------
+
+--- ID 46 ---
+Question: Para calcular prorrateos al cierre, ¿cuál es el método correcto?
+Correct Option: Costo anual ÷ 365 = tasa diaria × días del vendedor
+Old Tip (Rewrite this): Prorrateo: 1) Costo anual. 2) ÷ 365 = tasa diaria. 3) × días del vendedor. El vendedor paga los <strong>días que usó</strong>.
+--------------------
+
+--- ID 47 ---
+Question: En una transacción típica en Florida, ¿quién paga los Documentary Stamps on the DEED?
+Correct Option: El vendedor
+Old Tip (Rewrite this): <strong>Vendedor</strong>: Doc Stamps on Deed. <strong>Comprador</strong>: Doc Stamps on Note + Intangible Tax. Es <strong>negociable</strong>.
+--------------------
+
+--- ID 48 ---
+Question: El poder del gobierno local para regular el uso de la tierra (residencial, comercial, industrial) se ejerce mediante:
+Correct Option: Zoning (bajo Police Power)
+Old Tip (Rewrite this): <strong>Zoning</strong> = Police Power local para regular uso de tierra. Se puede solicitar <strong>Variance</strong> o <strong>Rezoning</strong>.
+--------------------
+
+--- ID 49 ---
+Question: Una propiedad se usaba como tienda antes de que la zona se reclasificara como residencial. ¿Qué pasa con la tienda?
+Correct Option: Puede continuar como uso 'nonconforming' (grandfathered) pero no expandirse
+Old Tip (Rewrite this): Uso <strong>nonconforming</strong> (grandfathered): se permite continuar, pero <strong>no expandir ni reconstruir</strong> si se destruye.
+--------------------
+
+Please return YOUR RESPONSE EXACTLY in this JSON format so I can parse it back:
+{
+  "rewrites": [
+    {"id": number, "newTip": "Your new 12-year-old friendly explanation in Spanish with <strong> tags."}
+  ]
+}

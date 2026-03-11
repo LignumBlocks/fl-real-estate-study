@@ -8,8 +8,11 @@
     <style>
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
         :root{--bg:#f4f6fa;--surface:#fff;--surface-2:#f0f2f8;--surface-3:#e8ebf3;--accent:#4f46e5;--accent-bg:#eef2ff;--green:#059669;--green-bg:#ecfdf5;--gold:#d97706;--gold-bg:#fffbeb;--red:#dc2626;--red-bg:#fef2f2;--text:#1e293b;--text-2:#475569;--text-dim:#94a3b8;--border:#e2e8f0;--radius:16px;--shadow:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.04);--mono:'JetBrains Mono',monospace}
+        [data-theme="dark"]{--bg:#0f172a;--surface:#1e293b;--surface-2:#334155;--surface-3:#475569;--accent:#818cf8;--accent-bg:rgba(129,140,248,.12);--green:#34d399;--green-bg:rgba(52,211,153,.1);--gold:#fbbf24;--gold-bg:rgba(251,191,36,.1);--red:#f87171;--red-bg:rgba(248,113,113,.1);--text:#e2e8f0;--text-2:#94a3b8;--text-dim:#64748b;--border:#334155;--shadow:0 1px 3px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.2)}
         html{scroll-behavior:smooth}
-        body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+        body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s}
+        .theme-btn{background:none;border:1.5px solid var(--border);border-radius:10px;padding:6px 12px;cursor:pointer;font-size:.85rem;color:var(--text-2);transition:all .2s}
+        .theme-btn:hover{border-color:var(--accent);color:var(--accent)}
 
         .topbar{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 4px rgba(0,0,0,.04)}
         .topbar h1{font-size:1.1rem;font-weight:800;color:var(--accent)}
@@ -128,16 +131,21 @@
         .login-box button:hover{background:#4338ca}
 
         @media(max-width:480px){.prob-statement{font-size:.92rem}.step-input{font-size:.92rem;padding:10px 14px}.calc-window{width:280px;right:10px}}
+        .topbar-back{text-decoration:none;font-size:1.1rem;margin-right:10px;color:var(--text-2)}
+        .topbar-actions{display:flex;align-items:center;gap:10px}
+        .btn-summary{cursor:pointer;background:var(--accent);color:#fff;border:none;border-radius:12px;font-weight:700;padding:8px 12px;margin-left:auto}
+        .hidden{display:none !important}
     </style>
 </head>
 <body>
 
 <div class="topbar">
-    <a href="index.html" style="text-decoration:none;font-size:1.1rem;margin-right:10px;color:var(--text-2)" title="Volver al inicio">←</a>
+    <a href="index.html" class="topbar-back" title="Volver al inicio">←</a>
     <h1>📐 FL Real Estate — Matemáticas</h1>
-    <div style="display:flex;align-items:center;gap:10px">
+    <div class="topbar-actions">
+        <button class="theme-btn" id="themeToggle" onclick="toggleTheme()" title="Cambiar tema">🌙</button>
         <span class="score-pill" id="globalScore">⭐ 0 / 0</span>
-        <div class="user-badge" id="userBadge" style="display:none">
+        <div class="user-badge hidden" id="userBadge">
             <div class="avatar" id="userAvatar"></div>
             <div><span class="uname" id="userName"></span><br><span class="logout-btn" onclick="logoutUser()">salir</span></div>
         </div>
@@ -150,7 +158,7 @@
     <div class="ss-item g">✅ Correctos: <span id="totalCorrect">0</span></div>
     <div class="ss-item r">❌ Errores: <span id="totalWrong">0</span></div>
     <div class="ss-item n">📊 Precisión: <span id="accuracy">—</span></div>
-    <button class="ss-item b" onclick="showMathSummary()" style="cursor:pointer; background:var(--accent); color:#fff; border:none; border-radius:12px; font-weight:700; padding:8px 12px; margin-left:auto;">📊 Ver Resumen de Errores</button>
+    <button class="ss-item b btn-summary" onclick="showMathSummary()">📊 Ver Resumen de Errores</button>
 </div>
 
 <div class="container" id="problemArea"></div>
@@ -1124,6 +1132,21 @@ function readAloud(btn) {
 
     window.speechSynthesis.speak(utterance);
 }
+/* ─── THEME TOGGLE ───────────────────────── */
+function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    document.getElementById('themeToggle').textContent = isDark ? '🌙' : '☀️';
+    localStorage.setItem('fl_theme', isDark ? 'light' : 'dark');
+}
+(function loadTheme() {
+    const saved = localStorage.getItem('fl_theme');
+    if (saved === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.getElementById('themeToggle').textContent = '☀️';
+    }
+})();
 </script>
 </body>
 </html>
