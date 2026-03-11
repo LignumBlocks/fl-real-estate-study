@@ -404,39 +404,47 @@ const ALL_CARDS = [
      opts:["$0.70 por cada $100 del precio de venta total (redondeando el precio hacia arriba a unidades de 100)","$0.35 por cada $100 del precio de venta total (sin redondeo)","$0.60 por cada $100 del precio de venta total (tasa de Miami-Dade)","$1.00 por cada $100 del monto del préstamo hipotecario"],correct:0,
      tip:"Estampillas en la Escritura (Deed): la tasa es de <strong>$0.70 por cada $100</strong> o fracción del precio de compra. (Nota: en Miami-Dade County la tasa es de $0.60 por cada $100. La pregunta especifica Orange County, donde aplica la regla general del estado de FL)."},
 
-    {cat:"Cierre",q:"Para calcular prorrateos al cierre, ¿cuál es el método correcto?",
-     opts:["Costo anual ÷ 365 = tasa diaria × días del vendedor","Costo anual ÷ 12 = tasa mensual × meses del comprador","Costo anual × porcentaje de ocupación del vendedor","Costo anual ÷ 360 = tasa diaria × días restantes"],correct:0,
-     tip:"Prorrateo: 1) Costo anual. 2) ÷ 365 = tasa diaria. 3) × días del vendedor. El vendedor paga los <strong>días que usó</strong>."},
+    {cat:"Cierre",q:"Un cierre está programado para el 15 de junio. Los impuestos anuales de la propiedad son de $3,650 y aún no han sido pagados. Usando el método de 365 días, con el día de cierre perteneciendo al comprador (vendedor paga hasta el 14 de junio inclusive), ¿cuál es el método de cálculo correcto para el prorrateo?",
+     q_en:"A closing is scheduled for June 15. The annual property taxes are $3,650 and have not yet been paid. Using the 365-day method, with the closing day belonging to the buyer (seller pays through June 14 inclusive), which is the correct calculation method for the proration?",
+     opts:["Costo anual ÷ 365 = tasa diaria × días del vendedor (165 días)","Costo anual ÷ 12 = tasa mensual × meses del comprador","Costo anual × porcentaje de ocupación del vendedor","Costo anual ÷ 360 = tasa diaria × días restantes"],correct:0,
+     tip:"Prorrateo: 1) Costo anual. 2) ÷ 365 = tasa diaria ($10/día). 3) × días del vendedor (165 días). El vendedor paga los <strong>días que usó</strong> ($1,650)."},
 
-    {cat:"Cierre",q:"En una transacción típica en Florida, ¿quién paga los Documentary Stamps on the DEED?",
-     opts:["El vendedor","El comprador","Se divide 50/50","El prestamista"],correct:0,
-     tip:"<strong>Vendedor</strong>: Doc Stamps on Deed. <strong>Comprador</strong>: Doc Stamps on Note + Intangible Tax. Es <strong>negociable</strong>."},
+    {cat:"Cierre",q:"En una transacción residencial típica en Florida, donde las partes no han negociado nada en contra en el contrato, ¿cuál de los siguientes gastos de cierre es tradicionalmente responsabilidad del vendedor?",
+     q_en:"In a typical Florida residential transaction, where the parties have not negotiated otherwise in the contract, which of the following closing costs is traditionally the seller's responsibility?",
+     opts:["Documentary Stamps on the DEED","Documentary Stamps on the NOTE","Intangible Tax on the Mortgage","Appraisal fee paid to the bank"],correct:0,
+     tip:"<strong>Vendedor</strong>: Paga tradicionalmente los Doc Stamps on Deed ($0.70/$100). <strong>Comprador</strong>: Paga Doc Stamps on Note ($0.35/$100) e Intangible Tax ($0.002)."},
 
     // ── USO DE SUELO ──
-    {cat:"Uso de Suelo",q:"El poder del gobierno local para regular el uso de la tierra (residencial, comercial, industrial) se ejerce mediante:",
+    {cat:"Uso de Suelo",q:"Un inversionista desea construir un centro de distribución comercial en un lote que actualmente tiene una zonificación estrictamente residencial. ¿A través de qué poder del gobierno local se regula este uso de la tierra?",
+     q_en:"An investor wishes to build a commercial distribution center on a lot that currently has strictly residential zoning. Through which local government power is this land use regulated?",
      opts:["Zoning (bajo Police Power)","Eminent Domain","Deed Restrictions","Escheat"],correct:0,
-     tip:"<strong>Zoning</strong> = Police Power local para regular uso de tierra. Se puede solicitar <strong>Variance</strong> o <strong>Rezoning</strong>."},
+     tip:"<strong>Zoning</strong> = Police Power local para regular uso de tierra. Se puede solicitar <strong>Variance</strong> (si hay dificultad) o <strong>Rezoning</strong> (cambio de uso)."},
 
-    {cat:"Uso de Suelo",q:"Una propiedad se usaba como tienda antes de que la zona se reclasificara como residencial. ¿Qué pasa con la tienda?",
-     opts:["Puede continuar como uso 'nonconforming' (grandfathered) pero no expandirse","Debe cerrar inmediatamente","Puede expandirse con permiso especial","Recibe compensación del gobierno por el cambio"],correct:0,
-     tip:"Uso <strong>nonconforming</strong> (grandfathered): se permite continuar, pero <strong>no expandir ni reconstruir</strong> si se destruye."},
+    {cat:"Uso de Suelo",q:"Una propiedad se ha utilizado como una pequeña ferretería desde 1960. En 1990, la ciudad cambió la zonificación de la zona a puramente residencial. ¿Cuál es el estatus legal actual de la ferretería?",
+     q_en:"A property has been used as a small hardware store since 1960. In 1990, the city changed the area's zoning to purely residential. What is the current legal status of the hardware store?",
+     opts:["Puede continuar como uso 'nonconforming' (legado o grandfathered) pero no puede expandirse","Debe cerrar inmediatamente debido a la nueva ordenanza","Debe solicitar un permiso de uso especial comercial cada año","Se le otorga una excepción permanente para expandirse si paga más impuestos"],correct:0,
+     tip:"Uso <strong>nonconforming</strong> (grandfathered): se permite continuar porque ya existía antes de la ley, pero <strong>no expandir ni reconstruir</strong> si se destruye."},
 
-    {cat:"Uso de Suelo",q:"El Green Belt Law en Florida permite que las tierras agrícolas sean tasadas según:",
-     opts:["Su uso agrícola (no su valor de mercado)","Su valor de mercado más alto posible","El promedio entre uso agrícola y comercial","Su valor potencial de desarrollo"],correct:0,
-     tip:"Green Belt Law: tierras agrícolas se tasan según <strong>uso agrícola</strong>, no valor de mercado. Reduce impuestos para granjeros."},
+    {cat:"Uso de Suelo",q:"Un granjero en Florida posee una vasta extensión de tierra dedicada exclusivamente a la agricultura. Gracias a la 'Green Belt Law', ¿cómo se evalúa su propiedad para fines de impuestos?",
+     q_en:"A farmer in Florida owns a vast expanse of land dedicated exclusively to agriculture. Thanks to the 'Green Belt Law', how is his property assessed for tax purposes?",
+     opts:["Según su uso agrícola actual (un valor más bajo que el de mercado)","Según su valor de mercado más alto y mejor uso posible","Tomando el promedio entre el valor agrícola y el valor residencial de la zona","Queda totalmente exenta de pagar impuestos a la propiedad"],correct:0,
+     tip:"Green Belt Law: tierras agrícolas se tasan según <strong>uso agrícola</strong>, no valor de mercado por desarrollo. Esto reduce drásticamente los impuestos para proteger granjas."},
 
     // ── EXTRAS ──
-    {cat:"Extras",q:"¿Cuál es la diferencia PRINCIPAL entre un Broker y un REALTOR®?",
-     opts:["REALTOR® es miembro de NAR (asociación), no es un tipo de licencia","REALTOR® es una licencia superior al Broker","Broker trabaja bajo un REALTOR®","No hay diferencia, son sinónimos"],correct:0,
-     tip:"<strong>Agente</strong>: trabaja bajo broker. <strong>Broker</strong>: opera su oficina. <strong>REALTOR®</strong>: miembro de NAR, no es licencia."},
+    {cat:"Extras",q:"¿Cuál es la distinción profesional CORRECTA entre un profesional licenciado como 'Real Estate Broker' y un 'REALTOR®' en el estado de Florida?",
+     q_en:"What is the CORRECT professional distinction between a licensed 'Real Estate Broker' and a 'REALTOR®' in the state of Florida?",
+     opts:["REALTOR® es un miembro de la NAR (Asociación Nacional de Realtors), no es un tipo de licencia de Florida","REALTOR® es un título de licencia superior otorgado exclusivamente por el DBPR","Broker es el término para comerciales y REALTOR® para los que hacen residencial","El término es idéntico y legalmente intercambiable en cualquier documento oficial"],correct:0,
+     tip:"<strong>Agente/Broker</strong>: Es el nivel de licencia legal. <strong>REALTOR®</strong>: Miembro de la asociación NAR (National Association of Realtors), sujeta a un código de ética."},
 
-    {cat:"Extras",q:"Bajo TILA/Regulation Z, ¿cuántos días tiene un prestatario para rescindir un refinanciamiento de su vivienda principal?",
-     opts:["3 días","5 días","7 días","10 días"],correct:0,
-     tip:"TILA/Reg Z: divulgar APR, costos, términos. Trigger terms activan divulgación completa. <strong>3 días de rescisión</strong> en refinanciamientos."},
+    {cat:"Extras",q:"Un propietario decide refinanciar la hipoteca de su residencia principal para obtener una tasa más baja. Bajo TILA/Regulación Z, ¿cuántos días hábiles tiene para ejercer su 'Derecho de Rescisión' (derecho a cancelar)?",
+     q_en:"A homeowner decides to refinance the mortgage on their primary residence to get a lower rate. Under TILA/Regulation Z, how many business days do they have to exercise their 'Right of Rescission' (right to cancel)?",
+     opts:["3 días hábiles","5 días naturales","24 horas (un día de gracia)","No existe derecho de rescisión en refinanciamientos de residencia principal"],correct:0,
+     tip:"TILA/Reg Z otorga un <strong>derecho de rescisión de 3 días hábiles</strong> específicamente en préstamos sobre la residencia principal (refinanciamientos, HELOCs)."},
 
-    {cat:"Extras",q:"Un CMA (Comparative Market Analysis) elaborado por un sales associate:",
-     opts:["Estima el precio de listado, pero NO es una tasación (appraisal)","Es legalmente equivalente a una tasación","Puede usarse para obtener financiamiento hipotecario","Requiere certificación de tasador"],correct:0,
-     tip:"CMA = estima <strong>precio de listado</strong> con ventas comparables. <strong>No es tasación</strong>. Solo tasadores con licencia hacen appraisals."},
+    {cat:"Extras",q:"Un agente de ventas prepara un reporte comparativo (CMA) para ayudar a un cliente a establecer el precio de venta de su casa. ¿Cuál de las siguientes afirmaciones describe mejor el estatus legal de este reporte?",
+     q_en:"A sales agent prepares a comparative market analysis (CMA) to help a client set the listing price for their home. Which of the following statements best describes the legal status of this report?",
+     opts:["Se usa para estimar un precio de mercado sugerido, pero NO es legalmente una tasación oficial (Appraisal)","Es legalmente equivalente a una tasación firmada por un tasador certificado","Puede ser utilizado por un banco para autorizar oficialmente una hipoteca convencional","Es un documento técnico que solo los brokers fiduciarios pueden realizar legalmente"],correct:0,
+     tip:"Un <strong>CMA</strong> es una herramienta de marketing y precio. <strong>No es una tasación</strong>. Solo tasadores con licencia (Licensed Appraisers) pueden emitir reportes de valor oficiales para préstamos."},
 
     // ── LIENS COMERCIALES ──
     {cat:"Corretaje",q:"Un broker firma un acuerdo exclusivo para vender un almacén comercial. La venta se concreta, pero el vendedor se niega a pagar la comisión acordada. Bajo el Commercial Real Estate Sales Commission Lien Act, ¿a qué tiene derecho legalmente el broker para asegurar su pago?",
@@ -497,9 +505,10 @@ const ALL_CARDS = [
      opts:["Mediation (Mediación), Arbitration (Arbitraje), Litigation (Litigio o Interpleader), Escrow Disbursement Order (EDO)","Mediation, Adjudication, Liquidation, Enforcement","Meeting, Agreement, Legal action, Escrow release","Mediation, Appeal, Lawsuit, Escrow surrender"],correct:0,
      tip:"MALE: <strong>M</strong>ediation, <strong>A</strong>rbitration, <strong>L</strong>itigation (interpleader), <strong>E</strong>scrow Disbursement Order (EDO) de la FREC."},
 
-    {cat:"Corretaje",q:"¿En cuál situación está EXENTO el broker de notificar a la FREC sobre una disputa de escrow?",
-     opts:["Cuando el comprador falla en cumplir la cláusula de financiamiento de buena fe","Cuando el monto en disputa es menor a $1,000","Cuando ambas partes son licensees","Cuando el contrato no tiene fecha de cierre"],correct:0,
-     tip:"Exento cuando: comprador <strong>falla de buena fe</strong> en financiamiento, o comprador de condo cancela bajo el <strong>Condominium Act</strong>."},
+    {cat:"Corretaje",q:"Un broker mantiene un contrato donde el comprador, tras actuar de buena fe, no logra obtener el financiamiento bancario requerido y solicita la devolución de su escrow. El vendedor disputa esto. Bajo las reglas de la FREC, ¿en qué caso está EXENTO el broker de notificar la disputa?",
+     q_en:"A broker holds a contract where the buyer, after acting in good faith, fails to obtain the required bank financing and requests the return of their escrow. The seller disputes this. Under FREC rules, in which case is the broker EXEMPT from notifying the dispute?",
+     opts:["Cuando el comprador falla de buena fe en cumplir la cláusula de financiamiento del contrato","Cuando el monto en disputa es menor a $1,000","Cuando ambas partes en la disputa son licenciados activos","Cuando el contrato es un 'Open Listing' no exclusivo"],correct:0,
+     tip:"Exento de notificar a la FREC cuando: 1) El comprador <strong>falla de buena fe</strong> en el financiamiento. 2) Compras de <strong>Condominios</strong> usando el derecho de rescisión del Condominium Act."},
 
     // ── BUSINESS VALUATION ──
     {cat:"Tasación",q:"Un tasador está evaluando el valor de una pizzería local exitosa que incluye el local, el equipo y su excelente reputación. Al comparar el 'going concern value' (valor de negocio en marcha) de esta pizzería con el valor estricto de sus bienes raíces (el local comercial), ¿cuál es la relación correcta?",
@@ -706,74 +715,91 @@ const ALL_CARDS = [
      opts:["Cadena de título y Abstracto","Title Insurance","Survey","Póliza del dueño"],correct:0,
      tip:"<strong>Chain of title:</strong> secuencia de dueños. <strong>Abstract of title:</strong> resumen histórico completo preparado por el abogado/compañía de títulos con opinión de nubes/gravámenes."},
 
-    {cat:"Propiedad",q:"Los cuatro poderes gubernamentales sobre la propiedad se pueden recordar por el acrónimo PETE, que significa:",
-     opts:["Police power, Eminent domain, Taxation, Escheat (Confiscación)","Possession, Enjoyment, Transfer, Exclusion","Public, Executive, Testing, Economic","Property, Exemptions, Timeshare, Escheat"],correct:0,
-     tip:"<strong>PETE:</strong> <strong>P</strong>olice Power (Zonificación), <strong>E</strong>minent Domain (Expropiación justa), <strong>T</strong>axation (Impuestos), <strong>E</strong>scheat (Reversión al estado si dueño muere sin herederos)."},
+    {cat:"Propiedad",q:"Un estudiante está memorizando los límites impuestos por el gobierno sobre la propiedad privada en Florida. Utiliza el acrónimo PETE para recordar los cuatro poderes principales. ¿Qué representan las siglas de PETE?",
+     q_en:"A student is memorizing the limits imposed by the government on private property in Florida. They use the acronym PETE to remember the four main powers. What do the PETE initials represent?",
+     opts:["Police power, Eminent domain, Taxation, Escheat","Possession, Enjoyment, Transfer, Exclusion","Public, Executive, Testing, Economic","Property, Exemptions, Timeshare, Escheat"],correct:0,
+     tip:"<strong>PETE:</strong> <strong>P</strong>olice Power (Zonificación), <strong>E</strong>minent Domain (Expropiación), <strong>T</strong>axation (Impuestos), <strong>E</strong>scheat (Reversión al estado si no hay herederos)."},
 
-    {cat:"Propiedad",q:"Los impuestos a la propiedad de bienes raíces y Special Assessments son gravámenes (liens):",
-     opts:["Superiores específicos (priority over all others)","Superiores generales","Específicos subordinados","Generales subordinados"],correct:0,
-     tip:"Taxes a la propiedad y Special Assessments (impuestos por mejoras de calle/alcantarillas) son <strong>Gravámenes Superiores</strong>. Están primero en la línea de pago ante un foreclosure, seguidos de IRS, y luego por FECHA de registro/grabación."},
+    {cat:"Propiedad",q:"Un dueño de vivienda deja de pagar sus obligaciones y la propiedad entra en proceso de ejecución (foreclosure). En la jerarquía de cobro, ¿qué tipo de gravámenes (liens) tienen la prioridad más alta sobre todos los demás?",
+     q_en:"A homeowner stops paying their obligations, and the property enters the foreclosure process. In the collection hierarchy, what type of liens have the highest priority over all others?",
+     opts:["Real Estate Property Taxes and Special Assessments (Superior Liens)","Mortgage Liens (Junior Liens)","Vendor's Liens","Income Tax Liens (IRS)"],correct:0,
+     tip:"Los <strong>Property Taxes</strong> y los <strong>Special Assessments</strong> son gravámenes **Superiores**. Siempre se pagan primero, sin importar la fecha en que se registraron."},
 
-    {cat:"Financiamiento",q:"En los estados en los cuales opera la teoría del título (title theory), el prestatario o deudor (borrower):",
-     opts:["Transfiere el título de la propiedad al prestamista o a una tercera parte hasta que el préstamo sea pagado por completo.","Transfiere la posesión de la propiedad al prestamista o a una tercera parte hasta que la deuda sea pagada.","Da en prenda/empeña/pignora (pledges) la propiedad como garantía por el préstamo.","Crea una tenencia en común con el prestamista (lender)."],correct:0,
-     tip:"<strong>Title Theory:</strong> El título legal se le confiere temporalmente (transfiere) al acreedor o intermediario hasta que se liquide la deuda por completo."},
+    {cat:"Financiamiento",q:"En el estado de Florida, un prestatario firma una hipoteca pero conserva el título legal de la propiedad, mientras que el prestamista solo tiene un gravamen sobre ella. ¿Cómo se conoce legalmente a esta teoría del derecho hipotecario?",
+     q_en:"In the state of Florida, a borrower signs a mortgage but retains the legal title to the property, while the lender only holds a lien on it. What is this theory of mortgage law legally known as?",
+     opts:["Lien Theory (Teoría del Gravamen)","Title Theory (Teoría del Título)","Intermediate Theory","Deed of Trust Theory"],correct:0,
+     tip:"Florida es un estado de **Lien Theory**. El comprador tiene el **Legal Title** y el banco solo tiene un **Lien** (gravamen) hasta que se pague la deuda."},
 
-    {cat:"Financiamiento",q:"El documento que sirve como evidencia de la deuda prometiendo pagar el préstamo, monto, tasa de interés, y plazos se conoce como:",
-     opts:["Pagaré (Promissory Note)","Hipoteca (Mortgage)","Satisfacción de Hipoteca","Escritura (Deed)"],correct:0,
-     tip:"<strong>Pagaré (Note):</strong> El préstamo en sí (la evidencia de la obligación y la DEUDA). <strong>Hipoteca (Mortgage):</strong> El documento que GARANTIZA la deuda prendando la propiedad."},
+    {cat:"Financiamiento",q:"Un prestatario firma dos documentos principales al obtener un préstamo hipotecario. Uno de ellos es la promesa personal de pago que detalla el monto, la tasa de interés y el plazo. ¿Cómo se llama este documento?",
+     q_en:"A borrower signs two main documents when obtaining a mortgage loan. One of them is the personal promise to pay that details the amount, interest rate, and term. What is this document called?",
+     opts:["Promissory Note (Pagaré)","Mortgage (Hipoteca)","Deed (Escritura)","Title Insurance Policy"],correct:0,
+     tip:"El **Promissory Note** es la evidencia de la deuda y la promesa personal de pagar. La **Mortgage** es el instrumento que pone la propiedad como garantía."},
 
-    {cat:"Financiamiento",q:"Un purchase money mortgage se define como:",
-     opts:["Es el préstamo que el vendedor le hace al comprador para completar la cuota inicial o para financiar parte del precio de la propiedad.","Consiste en comprar una propiedad a través de un préstamo bancario.","El que compra solicita una segunda hipoteca al banco.","Consiste en comprar una propiedad hipotecada."],correct:0,
-     tip:"<strong>Purchase Money Mortgage (PMM / Hipoteca de pago parcial):</strong> cuando el vendedor financia parcial o totalmente al comprador (Seller Financing) usando la propiedad misma como garantía."},
+    {cat:"Financiamiento",q:"Un vendedor decide ayudar a un comprador financiando una parte del precio de compra de la propiedad directamente. El vendedor recibe una hipoteca del comprador como parte del pago. ¿Cómo se denomina este acuerdo?",
+     q_en:"A seller decides to help a buyer by financing a portion of the property's purchase price directly. The seller receives a mortgage from the buyer as part of the payment. What is this arrangement called?",
+     opts:["Purchase Money Mortgage (PMM / Hipoteca del Vendedor)","Blanket Mortgage","Package Mortgage","Home Equity Line of Credit (HELOC)"],correct:0,
+     tip:"Un <strong>Purchase Money Mortgage (PMM)</strong> es financiamiento otorgado por el vendedor al comprador al momento de la compra."},
 
-    {cat:"Financiamiento",q:"El documento legal que sirve para colocar la propiedad como garantía por una deuda se llama:",
-     opts:["hipoteca (mortgage)","pagaré (promissory note)","título (title)","fianza"],correct:0,
-     tip:"<strong>Hipoteca (Mortgage):</strong> Es el instrumento de garantía pública. 'Hipoteca' el bien raíz como colateral o garantía de repago para respaldar la deuda."},
+    {cat:"Financiamiento",q:"Al obtener un préstamo bancario, el prestatario firma un documento legal que 'prenda' la propiedad como colateral para asegurar el repago de la deuda. ¿Cómo se llama específicamente este instrumento de garantía?",
+     q_en:"When obtaining a bank loan, the borrower signs a legal document that 'pledges' the property as collateral to secure the repayment of the debt. What is this security instrument specifically called?",
+     opts:["Mortgage (Hipoteca)","Promissory Note (Pagaré)","Assignment of Lease","Warranty Deed"],correct:0,
+     tip:"La <strong>Hipoteca (Mortgage)</strong> es el documento que vincula la propiedad como garantía de la deuda."},
 
-    {cat:"Financiamiento",q:"¿Qué hipoteca contiene un pago global final gigante (balloon payment) e incluye solo intereses cada mes?",
+    {cat:"Financiamiento",q:"Un prestatario está revisando los términos de su hipoteca y nota que durante la vida del préstamo solo pagará intereses mensualmente, y al final del plazo, deberá pagar el capital completo en un solo pago gigante. ¿Cómo se denomina técnicamente este tipo de hipoteca?",
+     q_en:"A borrower is reviewing their mortgage terms and notices that during the life of the loan they will only pay interest monthly, and at the end of the term, they must pay the full principal in one giant single payment. What is this type of mortgage technically called?",
      opts:["Term / Straight Mortgage (Hipoteca a término)","Partially Amortized Mortgage","Adjustable Rate (ARM)","Growing Equity Mortgage"],correct:0,
-     tip:"En la hipoteca a término (<strong>Term mortgage</strong>) o <strong>Straight mortgage</strong>, se paga SOLO interés, y el total del principal se debe al final del plazo. Si los pagos regulares mensuales tampoco alcanzan a cancelar todo el capital, el pago final gigante se llama balloon payment (<strong>Partially Amortized</strong>)."},
+     tip:"En la hipoteca a término (<strong>Term mortgage</strong>) o <strong>Straight mortgage</strong>, se paga SOLO interés, y el total del principal se debe al final del plazo. Ese pago final se llama <strong>Balloon Payment</strong>."},
 
-    {cat:"Financiamiento",q:"¿Quién asegura el préstamo FHA?",
-     opts:["El FHA asegura el préstamo contra pérdidas del prestamista","El VA","El FNMA","El banco asegura el monto"],correct:0,
-     tip:"La <strong>FHA (Federal Housing Administration) ASEGURA</strong> el préstamo de los prestamistas locales para incentivar que den préstamos (cálculo sobre Down Payment pequeño 3.5%). <strong>Cobra prima de seguro hipotecario (MIP/UFMIP).</strong>"},
+    {cat:"Financiamiento",q:"Un comprador con una puntuación de crédito moderada y un pago inicial bajo (3.5%) solicita un préstamo que está asegurado por una agencia gubernamental federal contra pérdidas del prestamista. ¿Qué entidad provee este seguro hipotecario?",
+     q_en:"A buyer with a moderate credit score and a low down payment (3.5%) applies for a loan that is insured by a federal government agency against lender losses. Which entity provides this mortgage insurance?",
+     opts:["FHA (Federal Housing Administration)","VA (Veterans Affairs)","FNMA (Fannie Mae)","The Federal Reserve"],correct:0,
+     tip:"La <strong>FHA ASEGURA</strong> el préstamo de los prestamistas locales para incentivar que den crédito con un Down Payment pequeño (3.5%). <strong>Cobra prima de seguro (MIP).</strong>"},
 
-    {cat:"Financiamiento",q:"El VA (Veterans Affairs):",
-     opts:["GARANTIZA un porcentaje del préstamo si hay pérdida ('Guarantee')","Asegura el 100% de los préstamos","Financia directamente los préstamos de su propio dinero (salvo en áreas remotas)","Es solo para veteranos con enganche obligatorio de 20%"],correct:0,
-     tip:"El <strong>VA GARANTIZA</strong> una porción del préstamo. En la mayoría de casos NO proveen el dinero, lo dan los prestamistas convencionales. Generalmente permite comprar casa con <strong>cero down payment</strong> (100% financiados)."},
+    {cat:"Financiamiento",q:"Un veterano retirado de las fuerzas armadas desea comprar una casa sin realizar ningún pago inicial (0% down payment). ¿Qué programa federal garantiza una porción del préstamo para facilitar esta transacción?",
+     q_en:"A retired military veteran wishes to buy a home without making any down payment (0% down payment). What federal program guarantees a portion of the loan to facilitate this transaction?",
+     opts:["VA (Veterans Affairs)","FHA (Federal Housing Administration)","Section 8 Housing Program","Freddie Mac"],correct:0,
+     tip:"El <strong>VA GARANTIZA</strong> una porción del préstamo. Generalmente permite comprar casa con <strong>cero down payment</strong> (100% financiados) y no requiere seguro hipotecario mensual (PMI)."},
 
-    {cat:"Contratos",q:"Un contrato Opción u Opcional (Option Contract) para comprar a precio fijo por tiempo limitado es:",
-     opts:["Unilateral","Bilateral","Inválido","Ejecutado (Executed)"],correct:0,
-     tip:"<strong>Option Contract (Unilateral):</strong> El dueño (opcional) PROMETE mantener precio disponible. El comprador TIENE OPCIÓN (pero no la obligación) de comprar (él debe dar un consideration valioso por esta opción)."},
+    {cat:"Contratos",q:"Un posible comprador paga una suma de dinero a un vendedor a cambio del derecho exclusivo de comprar la propiedad a un precio fijo durante los próximos seis meses, aunque no está obligado a hacerlo. ¿Qué tipo de contrato es este?",
+     q_en:"A potential buyer pays a sum of money to a seller in exchange for the exclusive right to purchase the property at a fixed price for the next six months, although they are not obligated to do so. What type of contract is this?",
+     opts:["Option Contract (Unilateral)","Exclusive Right of Sale (Bilateral)","Installment Sale Contract","Listing Agreement"],correct:0,
+     tip:"<strong>Option Contract (Unilateral):</strong> Solo el vendedor está obligado a vender si el comprador decide ejercer su derecho. El comprador paga un 'Consideration' por esta opción."},
 
-    {cat:"Contratos",q:"¿Qué ocurre automáticamente si se realiza una contraoferta (Counteroffer) sobre la oferta inicial?",
-     opts:["La oferta inicial es cancelada y rechazada","El comprador inicial ya no puede cancelar","Hay que re-firmar el primer documento antes de negociar","El contrato queda inmediatamente ejecutoriado (Executed)"],correct:0,
-     tip:"Una contraoferta <strong>mata permanentemente la oferta original</strong> y constituye ahora una NUEVA oferta."},
+    {cat:"Contratos",q:"Un vendedor recibe una oferta por escrito. Decide que el precio es justo pero quiere cambiar la fecha de cierre. Devuelve el documento con la nueva fecha firmada por él. ¿Cuál es el estatus legal de la oferta original?",
+     q_en:"A seller receives a written offer. They decide the price is fair but want to change the closing date. They return the document with the new date signed by them. What is the legal status of the original offer?",
+     opts:["Ha sido rechazada y terminada permanentemente por la contraoferta","Sigue siendo válida hasta que el comprador acepte la nueva fecha","Queda en suspenso (pending) hasta el cierre","Se convierte automáticamente en un contrato ejecutable"],correct:0,
+     tip:"Una <strong>Contraoferta (Counteroffer)</strong> mata la oferta original. Cualquier cambio al documento original constituye una nueva oferta."},
 
-    {cat:"Cierre",q:"En el estado de liquidación (Closing Disclosure), el Earnest Money Deposit o depósito de buena fe, ¿aparece como crédito para quién?",
-     opts:["Crédito para el comprador (Credit to buyer)","Débito para el comprador","Crédito al vendedor","Débito al vendedor"],correct:0,
-     tip:"El depósito de garantía ya fue PAGADO por el comprador, por tanto, se acredita como parte del pago total en contra de lo que debe pagar al final (<strong>Credit to Buyer</strong>, no entra en el balance del vendedor de esa misma forma directa al cierre)."},
+    {cat:"Cierre",q:"Al revisar el Closing Disclosure (CD), el comprador nota que el depósito de buena fe (Earnest Money) que entregó al inicio de la transacción aparece en su columna. ¿Cómo se clasifica contablemente esta entrada para el comprador?",
+     q_en:"When reviewing the Closing Disclosure (CD), the buyer notices that the earnest money deposit they provided at the beginning of the transaction appears in their column. How is this entry accounting-wise classified for the buyer?",
+     opts:["Crédito para el comprador (Credit to buyer)","Débito para el comprador (Debit to buyer)","Crédito al vendedor","Gasto de cierre prepagado no reembolsable"],correct:0,
+     tip:"El depósito ya fue pagado por el comprador, por lo que se le **acredita** (se resta de lo que debe traer a la mesa al final). Es un <strong>Credit to Buyer</strong>."},
 
     // ── TRICKY EXAM QUESTIONS ──
-    {cat:"Financiamiento",q:"TRICKY: Los Discount Points se calculan sobre:",
-     opts:["El monto del PRÉSTAMO (loan amount), nunca sobre el precio de venta","El precio de venta de la propiedad","El down payment del comprador","El valor de tasación"],correct:0,
-     tip:"Siempre sobre el <strong>monto del préstamo</strong>. 1 punto = <strong>1% del préstamo</strong>. NUNCA sobre el precio de venta."},
+    {cat:"Financiamiento",q:"TRICKY: Un inversionista está comprando un condominio y decide pagar por 'Discount Points' para bajar su tasa de interés. ¿Sobre qué valor exacto se calcula el costo de estos puntos?",
+     q_en:"TRICKY: An investor is buying a condo and decides to pay for 'Discount Points' to lower their interest rate. On what exact value is the cost of these points calculated?",
+     opts:["Sobre el monto del PRÉSTAMO (loan amount)","Sobre el precio de venta total de la propiedad","Sobre el valor de tasación del inmueble","Sobre el monto del pago inicial (down payment)"],correct:0,
+     tip:"Los puntos se calculan siempre sobre el <strong>monto del préstamo (Loan Amount)</strong>. 1 punto = 1% del préstamo."},
 
-    {cat:"Contratos",q:"TRICKY: ¿Cuál es la diferencia entre Statute of Frauds y Statute of Limitations?",
-     opts:["Frauds exige contratos escritos; Limitations establece plazos para demandar","Ambos requieren contratos escritos","Frauds es federal; Limitations es estatal","Frauds aplica a fraude; Limitations a contratos"],correct:0,
-     tip:"<strong>Statute of Frauds</strong>: contratos por escrito para ser ejecutables. <strong>Statute of Limitations</strong>: <strong>5 años</strong> contratos escritos, <strong>4 años</strong> orales."},
+    {cat:"Contratos",q:"TRICKY: Un cliente está confundido sobre los plazos legales para demandar por un contrato incumplido. ¿Cuál es la diferencia fundamental entre el 'Statute of Frauds' y el 'Statute of Limitations'?",
+     q_en:"TRICKY: A client is confused about the legal timeframes to sue for a breached contract. What is the fundamental difference between the 'Statute of Frauds' and the 'Statute of Limitations'?",
+     opts:["Frauds exige que los contratos sean por escrito; Limitations establece el tiempo para demandar","Frauds limita el precio de venta; Limitations limita los intereses","Ambos son sinónimos legales en el estado de Florida","Frauds trata de crímenes federales; Limitations de faltas administrativas"],correct:0,
+     tip:"<strong>Statute of Frauds</strong>: Ciertos contratos deben ser por escrito para ser ejecutables. <strong>Statute of Limitations</strong>: Tiempo máximo para demandar (5 años para contratos escritos)."},
 
-    {cat:"Corretaje",q:"TRICKY: ¿Es un Transaction Broker lo mismo que un Dual Agent?",
-     opts:["No. TB es legal y es el default en FL. Dual Agency está prohibida","Sí, son términos equivalentes","TB es una forma limitada de Dual Agency","Dual Agency es el default, TB requiere acuerdo"],correct:0,
-     tip:"<strong>NO son lo mismo</strong>. Transaction Broker es <strong>legal y default</strong> en FL. Dual Agency está <strong>prohibida</strong>. TB facilita sin representar como fiduciario."},
+    {cat:"Corretaje",q:"TRICKY: En una conversación, un agente menciona que su oficina opera como 'Transaction Broker'. ¿Es este estatus legal equivalente a ser un 'Dual Agent'?",
+     q_en:"TRICKY: In a conversation, an agent mentions that their office operates as a 'Transaction Broker'. Is this legal status equivalent to being a 'Dual Agent'?",
+     opts:["No. El Transaction Broker es legal y es la representación por defecto en Florida; el Dual Agent está prohibido","Sí, ambos términos significan que representas a ambas partes como fiduciario","No, el Transaction Broker solo representa al vendedor","No, el Dual Agent es obligatorio si hay dos agentes de la misma firma"],correct:0,
+     tip:"El <strong>Dual Agency</strong> está estrictamente prohibido en Florida. El <strong>Transaction Broker</strong> provee representación limitada a ambas partes pero NO es un Dual Agent."},
 
-    {cat:"Propiedad",q:"TRICKY: Si un landlord (no un broker) guarda el depósito de seguridad, ¿cuáles son sus opciones?",
-     opts:["Cuenta sin intereses, cuenta con intereses (75% al inquilino o 5% simple), o surety bond","Solo cuenta sin intereses en un banco aprobado","Solo surety bond","Puede mantenerlo en efectivo en su oficina"],correct:0,
-     tip:"3 opciones: 1) Cuenta <strong>separada sin intereses</strong>. 2) Cuenta <strong>con intereses</strong> (75% al inquilino o 5% simple). 3) <strong>Surety bond</strong>."},
+    {cat:"Propiedad",q:"TRICKY: Un dueño de casa (un landlord particular que no usa broker) recibe un depósito de seguridad de un nuevo inquilino. Según la ley de Florida, ¿cuáles son sus opciones legales para manejar ese dinero?",
+     q_en:"TRICKY: A homeowner (a private landlord not using a broker) receives a security deposit from a new tenant. Under Florida law, what are their legal options for handling that money?",
+     opts:["Cuenta sin intereses, cuenta con intereses (pagando 75% al inquilino), o fianza (surety bond)","Solo puede guardarlo en su cuenta de ahorros personal","Debe entregarlo obligatoriamente a la FREC en 3 días","Debe comprar una póliza de seguro de vida a nombre del inquilino"],correct:0,
+     tip:"El landlord tiene 3 opciones: 1) Cuenta **separada sin intereses**. 2) Cuenta **con intereses**. 3) **Surety Bond** (fianza) con el secretario de la corte."},
 
-    {cat:"Corretaje",q:"TRICKY: En la regla 1-3 de depósito de escrow, ¿cuántos días tiene el sales associate para entregar el depósito al broker?",
-     opts:["1 día hábil","3 días hábiles","24 horas naturales","Inmediatamente"],correct:0,
-     tip:"Asociado: <strong>1 día hábil</strong> para entregar al broker. Broker: hasta el <strong>3er día hábil</strong> desde que el asociado lo recibió para depositarlo."},
+    {cat:"Corretaje",q:"TRICKY: Un asociado de ventas recibe un cheque de depósito de un comprador un martes por la tarde. Siguiendo la regla de tiempo de Florida, ¿cuándo debe entregarlo a su broker y cuándo debe el broker depositarlo?",
+     q_en:"TRICKY: A sales associate receives a deposit check from a buyer on a Tuesday afternoon. Following Florida's timing rule, when must they deliver it to their broker and when must the broker deposit it?",
+     opts:["El asociado tiene 1 día hábil; el broker tiene hasta el 3er día hábil (viernes)","Ambos tienen 24 horas naturales","El asociado tiene 3 días; el broker tiene 10 días","Deben depositarlo inmediatamente antes del cierre del banco ese mismo día"],correct:0,
+     tip:"El **asociado** tiene <strong>1 día hábil</strong> para entregarlo al broker. El **broker** tiene hasta el <strong>3er día hábil</strong> (contando desde que el asociado lo recibió) para depositarlo."},
 
     // ── AMPLIACIÓN EXAMEN FINAL 2026 ──
     {cat:"Corretaje",q:"Un corredor lista un edificio de oficinas comerciales para la venta. Se firma el acuerdo de comisión. La propiedad se vende, pero el vendedor no paga nada. El corredor registra un gravamen (lien). ¿Dónde se registra el gravamen y a qué se dirige?",
@@ -948,7 +974,7 @@ function render() {
             <div class="q-header">
                 <div style="display:flex;align-items:center;gap:8px;">
                     <span class="q-badge">${card.cat}</span>
-                    <button onclick="readAloud()" style="background:var(--surface-2); border:1px solid var(--border); color:var(--text-2); padding:4px 8px; border-radius:6px; cursor:pointer; font-size:0.85rem;">🔊 Leer</button>
+                    <button onclick="readAloud(this)" style="background:var(--surface-2); border:1px solid var(--border); color:var(--text-2); padding:4px 8px; border-radius:6px; cursor:pointer; font-size:0.85rem; min-width:80px;">🔊 Leer</button>
                     <button onclick="examLang=examLang==='es'?'en':'es';render()" style="background:var(--surface-2); border:1px solid var(--border); color:var(--text-2); padding:4px 8px; border-radius:6px; cursor:pointer; font-size:0.85rem;">${toggleLabel}</button>
                 </div>
                 <span class="q-num">${idx + 1} / ${deck.length}</span>
@@ -1272,22 +1298,35 @@ window.addEventListener('beforeunload', saveProgress);
 render();
 
 /* ─── TTS LOGIC ───────────────────────────── */
-function readAloud() {
+function readAloud(btn) {
     if (!('speechSynthesis' in window)) {
         alert("Tu navegador no soporta lectura de texto a voz.");
         return;
     }
-    window.speechSynthesis.cancel();
+    
+    // If already speaking, STOP and reset button
+    if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+        if (btn) btn.innerHTML = '🔊 Leer';
+        return;
+    }
+
     const qEl = document.querySelector('.q-text');
     let text = qEl ? qEl.innerText : '';
     const optsEls = document.querySelectorAll('.opt-text');
     if (optsEls.length > 0) {
-        text += ". Opciones: ";
+        text += (examLang === 'es' ? ". Opciones: " : ". Options: ");
         optsEls.forEach(el => text += el.innerText + ". ");
     }
+    
     let utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'es-US';
+    utterance.lang = examLang === 'es' ? 'es-US' : 'en-US';
     utterance.rate = 0.9;
+    
+    utterance.onstart = () => { if (btn) btn.innerHTML = '⏹ Parar'; };
+    utterance.onend = () => { if (btn) btn.innerHTML = '🔊 Leer'; };
+    utterance.onerror = () => { if (btn) btn.innerHTML = '🔊 Leer'; };
+
     window.speechSynthesis.speak(utterance);
 }
 /* ─── THEME TOGGLE ───────────────────────── */
